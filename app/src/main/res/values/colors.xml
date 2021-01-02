@@ -16,4 +16,9 @@
     <color name="nav_white">#cbd3dc</color>
     <color name="list_lightblack">#595959</color>
     <color name="list_black">#474747</color>
+    <color name="title_black">#3c3c3c</color>
+    <color name="divider_grey">#e3e3e3</color>
+    <color name="list_diary">#747474</color>
+    <color name="list_box">#f6f7fc</color>
+    <color name="list_underline">#e0e0e0</color>
 </resources>
