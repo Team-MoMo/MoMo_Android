@@ -6,6 +6,7 @@ data class ListData (
         val emotionImg : Drawable?,
         val emotionText : String,
         val date : String,
+        val day : String,
         val depth : String,
         val sentence : String,
         val writer : String,

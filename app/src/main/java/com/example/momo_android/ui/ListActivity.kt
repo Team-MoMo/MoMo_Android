@@ -66,18 +66,8 @@ class ListActivity : AppCompatActivity() {
             ListData(
                 baseContext?.getDrawable(R.drawable.ic_happy_blue),
                 "행복",
-                "12.01 화",
-                "1,005m",
-                "나는 사랑받고 있다고 느꼈다. 사랑에는 언제나 한 방울의 연민이 포함되기 때문이다.",
-                "박연준",
-                "<인생은 이상하게 흐른다>",
-                "(달)",
-                "오늘 새벽엔 눈이 내렸다. 창문을 열어 창문을 열어 흰눈이내린다. 크리스마스가 끝이 났다. 모모열어 흰 눈이내린다. 크리스마스가 끝이 났다."
-            ),
-            ListData(
-                baseContext?.getDrawable(R.drawable.ic_happy_blue),
-                "행복",
-                "12.01 화",
+                "12.01",
+                "화",
                 "1,005m",
                 "나는 사랑받고 있다고 느꼈다. 사랑에는 언제나 한 방울의 연민이 포함되기 때문이다.",
                 "박연준",
@@ -88,7 +78,20 @@ class ListActivity : AppCompatActivity() {
             ListData(
                 baseContext?.getDrawable(R.drawable.ic_happy_blue),
                 "행복",
-                "12.01 화",
+                "12.01",
+                "화",
+                "1,005m",
+                "나는 사랑받고 있다고 느꼈다. 사랑에는 언제나 한 방울의 연민이 포함되기 때문이다.",
+                "박연준",
+                "<인생은 이상하게 흐른다>",
+                "(달)",
+                "오늘 새벽엔 눈이 내렸다. 창문을 열어 창문을 열어 흰눈이내린다. 크리스마스가 끝이 났다. 모모"
+            ),
+            ListData(
+                baseContext?.getDrawable(R.drawable.ic_happy_blue),
+                "행복",
+                "12.01",
+                "화",
                 "1,005m",
                 "나는 사랑받고 있다고 느꼈다. 사랑에는 언제나 한 방울의 연민이 포함되기 때문이다.",
                 "박연준",
@@ -98,7 +101,8 @@ class ListActivity : AppCompatActivity() {
             ),ListData(
                 baseContext?.getDrawable(R.drawable.ic_happy_blue),
                 "행복",
-                "12.01 화",
+                "12.01",
+                "화",
                 "1,005m",
                 "나는 사랑받고 있다고 느꼈다. 사랑에는 언제나 한 방울의 연민이 포함되기 때문이다.",
                 "박연준",
@@ -109,7 +113,8 @@ class ListActivity : AppCompatActivity() {
             ListData(
                 baseContext?.getDrawable(R.drawable.ic_happy_blue),
                 "행복",
-                "12.01 화",
+                "12.01",
+                "화",
                 "1,005m",
                 "나는 사랑받고 있다고 느꼈다. 사랑에는 언제나 한 방울의 연민이 포함되기 때문이다.",
                 "박연준",

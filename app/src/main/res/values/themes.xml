@@ -33,13 +33,13 @@
 
     <!-- CollapsingToolbar -->
     <style name="TextAppearance.App.CollapsingToolbar.Expanded" parent="Theme.MaterialComponents">
-        <item name="android:textColor">@color/title_black</item>
+        <item name="android:textColor">@color/black_1</item>
         <item name="android:textSize">22sp</item>
         <item name="android:fontFamily">@font/notosanskrbold</item>
     </style>
 
     <style name="TextAppearance.App.CollapsingToolbar.Collapsed" parent="Theme.MaterialComponents">
-        <item name="android:textColor">@color/title_black</item>
+        <item name="android:textColor">@color/black_2_nav</item>
         <item name="android:textSize">16sp</item>
         <item name="android:fontFamily">@font/notosanskrmedium</item>
     </style>

@@ -14,6 +14,7 @@ class ListViewHolder (itemView : View) : RecyclerView.ViewHolder(itemView) {
     private val emotionImg : ImageView = itemView.findViewById(R.id.img_list_emotion)
     private val emotionText : TextView = itemView.findViewById(R.id.tv_list_emotion)
     private val date : TextView = itemView.findViewById(R.id.tv_list_date)
+    private val day : TextView = itemView.findViewById(R.id.tv_list_day)
     private val depth : TextView = itemView.findViewById(R.id.tv_list_depth)
     private val sentence : TextView = itemView.findViewById(R.id.tv_list_book_sentence)
     private val writer : TextView = itemView.findViewById(R.id.tv_list_writer_name)
@@ -25,6 +26,7 @@ class ListViewHolder (itemView : View) : RecyclerView.ViewHolder(itemView) {
         Glide.with(itemView).load(data.emotionImg).into(emotionImg)
         emotionText.text = data.emotionText
         date.text = data.date
+        day.text = data.day
         depth.text = data.depth
         sentence.text = data.sentence
         writer.text = data.writer
