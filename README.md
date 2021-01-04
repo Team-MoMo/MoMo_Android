@@ -68,7 +68,20 @@ package 분류 이미지
 - 상태 변화가 나타나야하는 뷰에 StateListDrawable을 사용하지 않았을 경우
 
 ## 👩‍👩‍👧‍👧 MoMoroid Developer
-|조현진|강희원|최윤소|나희정|
-|------|-----|-----|-----|
-| | |  |  |
-| | |  |  |
+<table style="text-align: center;">
+  <tr>
+    <th>조현진</th>
+    <th>최윤소</th>
+    <th>나희정</th>
+    <th>강희원</th>
+  </tr>
+  <tr>
+    <th><a href="https://github.com/jinyand">jinyand</a></th>
+    <th><a href="https://github.com/yxnsx">yxnsx</a></th>
+    <th><a href="https://github.com/NaHui999">NaHui999</a></th>
+    <th><a href="https://github.com/ymcho24">ymcho24</a></th>
+  </tr>
+  <tr>
+    <td colspan="4"><img src="https://user-images.githubusercontent.com/38918396/103541742-33e12a00-4edf-11eb-8dab-42c246256d5f.png" /></td>
+  </tr>
+</table>
