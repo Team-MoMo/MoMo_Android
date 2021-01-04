@@ -1,6 +1,5 @@
 package com.example.momo_android.list
 
-import android.provider.Settings.Global.getString
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
