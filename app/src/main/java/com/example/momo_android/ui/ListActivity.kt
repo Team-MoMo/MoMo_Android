@@ -1,13 +1,10 @@
 package com.example.momo_android.ui
 
-import android.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityListBinding
 import com.example.momo_android.list.ListAdapter
@@ -73,7 +70,7 @@ class ListActivity : AppCompatActivity() {
                 "박연준",
                 "<인생은 이상하게 흐른다>",
                 "(달)",
-                "오늘 새벽엔 눈이 내렸다. 창문을 열어 창문을 열어 흰눈이내린다. 크리스마스가 끝이 났다. 모모"
+                "모모모모 크리스마스가 끝이 났다. 크리스마스가 끝이 났다. 모모 크리스마스가 끝이 났다. 모모 크리스마스가 끝이 났다. 모모모모 크리스마스가 끝이 났다. 모모 크리스마스가 끝이 났다. 모모모모 크리스마스가 끝이 났다. 모모 크리스마스가 끝이 났다. 모모모모모모 크리스마스가 끝이 났다.모모모모 크리스마스가 끝이 났다."
             ),
             ListData(
                 baseContext?.getDrawable(R.drawable.ic_happy_blue),
@@ -85,7 +82,7 @@ class ListActivity : AppCompatActivity() {
                 "박연준",
                 "<인생은 이상하게 흐른다>",
                 "(달)",
-                "오늘 새벽엔 눈이 내렸다. 창문을 열어 창문을 열어 흰눈이내린다. 크리스마스가 끝이 났다. 모모"
+                "오늘 새벽엔 눈이 내렸다. 창문을 열어 창문을 열어 흰"
             ),
             ListData(
                 baseContext?.getDrawable(R.drawable.ic_happy_blue),
@@ -97,7 +94,7 @@ class ListActivity : AppCompatActivity() {
                 "박연준",
                 "<인생은 이상하게 흐른다>",
                 "(달)",
-                "오늘 새벽엔 눈이 내렸다. 창문을 열어 창문을 열어 흰눈이내린다. 크리스마스가 끝이 났다. 모모"
+                "오늘 새벽엔 눈이 내렸다. 창문을 열어 창문을 열어 흰 눈"
             ),ListData(
                 baseContext?.getDrawable(R.drawable.ic_happy_blue),
                 "행복",
@@ -108,7 +105,7 @@ class ListActivity : AppCompatActivity() {
                 "박연준",
                 "<인생은 이상하게 흐른다>",
                 "(달)",
-                "오늘 새벽엔 눈이 내렸다. 창문을 열어 창문을 열어 흰눈이내린다. 크리스마스가 끝이 났다. 모모"
+                "모모모모 크리스마스가 끝이 났다."
             ),
             ListData(
                 baseContext?.getDrawable(R.drawable.ic_happy_blue),
@@ -120,9 +117,11 @@ class ListActivity : AppCompatActivity() {
                 "박연준",
                 "<인생은 이상하게 흐른다>",
                 "(달)",
-                "오늘 새벽엔 눈이 내렸다. 창문을 열어 창문을 열어 흰눈이내린다. 크리스마스가 끝이 났다. 모모"
+                "오늘 새벽엔 눈이 내렸다. 창문을 열어 창문을 열어"
             )
         )
         listAdapter.notifyDataSetChanged()
     }
+
+
 }

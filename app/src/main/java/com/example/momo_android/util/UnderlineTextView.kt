@@ -1,5 +1,6 @@
 package com.example.momo_android.util
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
@@ -79,6 +80,7 @@ class UnderlineTextView @JvmOverloads constructor(
         setMeasuredDimension(measuredWidth, measuredHeight + (extraSpace + 0.5f).toInt())
     }
 
+    @SuppressLint("DrawAllocation")
     override fun onDraw(canvas: Canvas?) {
         canvas?.takeIf { !text.isNullOrEmpty() }?.let {
             val count = lineCount
@@ -108,6 +110,22 @@ class UnderlineTextView @JvmOverloads constructor(
                     canvas.drawRect(xStart, yStart, xStop, yStart + lineHeight, linePaint)
                 } else {
                     canvas.drawRect(xStart, yStart, xStop + 35, yStart + lineHeight, linePaint)
+                }
+            }
+
+            // (텍스트가 여러 줄인 경우) 텍스트가 버튼을 가리지 않게 적절히 잘리도록 함
+            if (this.width * 2 <= this.paint.measureText(this.text.toString()).toInt()) {
+                var splitedText = this.text.substring(0, layout.getLineEnd(1) - 3)
+                splitedText = "$splitedText..."
+                this.text = splitedText
+            }
+            // (텍스트가 한 줄인 경우) 텍스트가 버튼을 가리지 않고 바로 다음 줄로 넘어가도록 함
+            else if ((this.width * 0.97 < this.paint.measureText(this.text.toString()).toInt()) &&
+                    (this.width >= this.paint.measureText(this.text.toString()).toInt())) {
+                val originText = StringBuffer(this.text)
+                originText.insert(layout.getLineEnd(0) - 1, "\n")
+                if (lineCount == 1) {
+                    this.text = originText
                 }
             }
         }
