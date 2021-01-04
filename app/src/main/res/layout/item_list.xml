@@ -26,7 +26,7 @@
         android:includeFontPadding="false"
         android:text="행복"
         android:textColor="@color/blue_2"
-        android:textFontWeight="700"
+        android:textFontWeight="500"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/img_list_emotion"
         app:layout_constraintStart_toStartOf="@+id/img_list_emotion"
@@ -76,6 +76,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="6dp"
+        android:src="@drawable/ic_depth"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_list_depth"
+        app:layout_constraintDimensionRatio="w, 1:0.83"
+        app:layout_constraintEnd_toStartOf="@+id/tv_list_depth"
+        app:layout_constraintTop_toTopOf="@+id/tv_list_depth"
+        app:layout_constraintWidth_percent="0.03" />
+
     <TextView
         android:id="@+id/tv_list_book_sentence"
         android:layout_width="0dp"
@@ -85,7 +96,7 @@
         android:includeFontPadding="false"
         android:text="할머니가 자애로운 손길로 내 얼굴과 머리카락, 이마를 쓸어주는게 좋았다. 마치 내 존재 전부를 쓸어주는 것 같았다."
         android:textColor="@color/black_3_list"
-        android:textFontWeight="500"
+        android:textFontWeight="400"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/tv_list_depth"
         app:layout_constraintStart_toStartOf="@+id/tv_list_date"
