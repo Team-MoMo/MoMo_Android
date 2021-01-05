@@ -1,15 +1,15 @@
 # 💙 MoMo Android 💙
-* SOPT 27th APPJAM
-* 2020.12.28 ~ 2021.01.16
+* SOPT 27th APPJAM - TEAM MOMO
+* PROJECT : 2020.12.28 ~ 2021.01.16
 
 <br>
 
 ## 🌼 목차
-* 프로젝트 설명
-* Rule Setting
-* 회의록
-* 역할 분담
-* MoMoroid Developer
+* [프로젝트 설명](#-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%84%A4%EB%AA%85)
+* [Rule Setting](#-rule-setting)
+* [회의록](#-%ED%9A%8C%EC%9D%98%EB%A1%9D)
+* [역할 분담](#-%EC%97%AD%ED%95%A0-%EB%B6%84%EB%8B%B4)
+* [MoMoroid Developer](#-momoroid-developer)
 
 <br>
 
@@ -101,6 +101,10 @@ ex) SignInActivity, ChangeFragment
     <td colspan="4"><img src="https://user-images.githubusercontent.com/38918396/103541742-33e12a00-4edf-11eb-8dab-42c246256d5f.png" /></td>
   </tr>
 </table>
+
+<br>
+
+[UP⏫](#-momo-android-)
 
 -----------------------------------------------------------------------------------
 
