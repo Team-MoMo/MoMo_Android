@@ -7,6 +7,7 @@ import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityListBinding
+import com.example.momo_android.list.FilterBottomSheetFragment
 import com.example.momo_android.list.ListAdapter
 import com.example.momo_android.list.ListData
 
@@ -50,6 +51,8 @@ class ListActivity : AppCompatActivity() {
         when(item.itemId) {
             R.id.filter -> {
                 //filter 버튼 클릭 시 발생하는 이벤트 설정
+                val frag = FilterBottomSheetFragment()
+                frag.show(supportFragmentManager, frag.tag)
             }
             R.id.graph -> {
                 //graph 버튼 클릭 시 발생하는 이벤트 설정
@@ -122,6 +125,5 @@ class ListActivity : AppCompatActivity() {
         )
         listAdapter.notifyDataSetChanged()
     }
-
 
 }
