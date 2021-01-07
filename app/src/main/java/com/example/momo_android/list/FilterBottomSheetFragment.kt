@@ -27,11 +27,6 @@ class FilterBottomSheetFragment(val itemClick: (String, Int, Int) -> Unit) : Bot
 
     private var toggleIdx = 0
 
-    // 모든 flag 값이 다 0이어야만 적용 버튼 비활성화
-    private var dateFlag = false
-    private var emotionFlag = false
-    private var depthFlag = false
-
     // ListActivity로 보낼 필터 정보
     private lateinit var selectDate : String
     private var selectEmotion = 0
@@ -151,22 +146,7 @@ class FilterBottomSheetFragment(val itemClick: (String, Int, Int) -> Unit) : Bot
         // ListActivity로 전달할 date 정보
         this.selectDate = selectDate.toString()
 
-        checkDateChanged()
-    }
-
-    private fun checkDateChanged() {
-        dateFlag = !(year.value == currentDate.get(Calendar.YEAR) && month.value == currentDate.get(
-                Calendar.MONTH) + 1)
         activeApplyButton()
-
-        if (year.value == currentDate.get(Calendar.YEAR) && month.value == currentDate.get(
-                        Calendar.MONTH) + 1) {
-            dateFlag = false
-            disableApplyButton()
-        } else {
-            dateFlag = true
-            activeApplyButton()
-        }
     }
 
     private fun addDateToggle() {
@@ -210,17 +190,13 @@ class FilterBottomSheetFragment(val itemClick: (String, Int, Int) -> Unit) : Bot
             if (this.isChecked) {
                 disableEmotionCheckBox()
                 this.isChecked = true
-                emotionFlag = true
 
                 addEmotionId(this.id)
                 activeApplyButton()
             }
             else if (!this.isChecked) {
                 this.isChecked = false
-                emotionFlag = false
                 selectEmotion = 0
-
-                disableApplyButton()
             }
         }
     }
@@ -268,17 +244,13 @@ class FilterBottomSheetFragment(val itemClick: (String, Int, Int) -> Unit) : Bot
             if (this.isChecked) {
                 disableDepthCheckBox()
                 this.isChecked = true
-                depthFlag = true
 
                 addDepthId(this.id)
                 activeApplyButton()
             }
             else if (!this.isChecked) {
                 this.isChecked = false
-                depthFlag = false
                 selectDepth = 0
-
-                disableApplyButton()
             }
         }
     }
@@ -308,27 +280,20 @@ class FilterBottomSheetFragment(val itemClick: (String, Int, Int) -> Unit) : Bot
     }
 
     private fun activeApplyButton() {
-        // 세 flag 값 중 하나라도 true이면
-        if (dateFlag || emotionFlag || depthFlag) {
-            binding.btnFilterApply.isEnabled = true
-            binding.btnFilterApply.setOnClickListener {
-                // 선택된 항목들 Activity로 전달
-                Log.d("applybutton-date", selectDate)
-                Log.d("applybutton-emotion", selectEmotion.toString())
-                Log.d("applybutton-depth", selectDepth.toString())
+        binding.btnFilterApply.isEnabled = true
+        binding.btnFilterApply.setOnClickListener {
+            // 선택된 항목들 Activity로 전달
+            Log.d("applybutton-date", selectDate)
+            Log.d("applybutton-emotion", selectEmotion.toString())
+            Log.d("applybutton-depth", selectDepth.toString())
 
-                itemClick(selectDate, selectEmotion, selectDepth)
-                // 툴바의 필터 버튼 색상 변경 (필터 적용 시) -> activity에서 해야함
+            itemClick(selectDate, selectEmotion, selectDepth)
+            // 툴바의 필터 버튼 색상 변경 (필터 적용 시) -> activity에서 해야함
 
-                // bottomSheet dismiss
-                this.dismiss()
-            }
+            // bottomSheet dismiss
+            this.dismiss()
         }
-    }
 
-    private fun disableApplyButton() {
-        if (!dateFlag && !emotionFlag && !depthFlag)
-            binding.btnFilterApply.isEnabled = false
     }
 
     override fun onDestroyView() {
