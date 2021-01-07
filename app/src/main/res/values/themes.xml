@@ -43,4 +43,24 @@
         <item name="android:textSize">16sp</item>
         <item name="android:fontFamily">@font/notosanskrregular</item>
     </style>
+
+    <!-- BottomSheet theme -->
+    <style name="RoundBottomSheet" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bottomsheet_top_round</item>
+    </style>
+
+    <style name="RoundBottomSheetDialog" parent="Animation.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/RoundBottomSheet</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <!-- NumberPicker theme -->
+    <style name="NumberPickerTheme">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black_3_list</item>
+        <item name="android:fontFamily">@font/notosanskrmedium</item>
+        <item name="colorControlNormal">@android:color/transparent</item>
+    </style>
 </resources>
