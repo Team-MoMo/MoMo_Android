@@ -49,7 +49,7 @@
         <item name="android:background">@drawable/bottomsheet_top_round</item>
     </style>
 
-    <style name="RoundBottomSheetDialog" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+    <style name="RoundBottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/RoundBottomSheet</item>
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:windowIsFloating">false</item>
