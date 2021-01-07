@@ -16,6 +16,9 @@ class ListActivity : AppCompatActivity() {
     private lateinit var binding : ActivityListBinding
     private lateinit var listAdapter : ListAdapter
 
+    private var selectEmotion = 0
+    private var selectDepth = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityListBinding.inflate(layoutInflater)
@@ -51,7 +54,13 @@ class ListActivity : AppCompatActivity() {
         when(item.itemId) {
             R.id.filter -> {
                 //filter 버튼 클릭 시 발생하는 이벤트 설정
-                val frag = FilterBottomSheetFragment()
+                val frag = FilterBottomSheetFragment { date: String, emotion: Int, depth: Int ->
+                    binding.collapsingtoolbarlayoutList.title = date
+                    item.setIcon(R.drawable.list_btn_filter_blue)
+
+                    selectEmotion = emotion
+                    selectDepth = depth
+                }
                 frag.show(supportFragmentManager, frag.tag)
             }
             R.id.graph -> {

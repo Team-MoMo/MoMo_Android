@@ -2,6 +2,7 @@ package com.example.momo_android.list
 
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +14,11 @@ import com.example.momo_android.databinding.BottomsheetListFilterBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.android.synthetic.main.include_number_picker.*
+import kotlinx.android.synthetic.main.include_ym_picker.*
 import java.lang.StringBuilder
 import java.util.*
 
-class FilterBottomSheetFragment : BottomSheetDialogFragment() {
+class FilterBottomSheetFragment(val itemClick: (String, Int, Int) -> Unit) : BottomSheetDialogFragment() {
 
     private var _binding: BottomsheetListFilterBinding? = null
     private val binding get() = _binding!!
@@ -30,6 +31,11 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
     private var dateFlag = false
     private var emotionFlag = false
     private var depthFlag = false
+
+    // ListActivity로 보낼 필터 정보
+    private lateinit var selectDate : String
+    private var selectEmotion = 0
+    private var selectDepth = 0
 
     override fun getTheme(): Int = R.style.RoundBottomSheetDialog
 
@@ -96,6 +102,7 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
         // value = 가운데 표시될 날짜
         year.value = currentDate.get(Calendar.YEAR)
         month.value = currentDate.get(Calendar.MONTH) + 1
+        printDate()
 
         // 순환 안되게 막기
         year.wrapSelectorWheel = false
@@ -130,13 +137,6 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
             }
             printDate()
         }
-
-        // Activity로 값 전달
-        /*binding.btnFilterApply.setOnClickListener {
-            val pick = intArrayOf(year.value, month.value, date.value)
-            //itemClick(pick)
-            dialog?.dismiss()
-        }*/
     }
 
     // selected date print 함수
@@ -147,6 +147,9 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
                 .append("월")
 
         binding.tvFilterSelectedDate.text = selectDate
+
+        // ListActivity로 전달할 date 정보
+        this.selectDate = selectDate.toString()
 
         checkDateChanged()
     }
@@ -209,14 +212,30 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
                 this.isChecked = true
                 emotionFlag = true
 
+                addEmotionId(this.id)
                 activeApplyButton()
             }
             else if (!this.isChecked) {
                 this.isChecked = false
                 emotionFlag = false
+                selectEmotion = 0
 
                 disableApplyButton()
             }
+        }
+    }
+
+    private fun addEmotionId(id : Int) {
+        when(id) {
+            binding.imgbtnFilterLove.id -> selectEmotion = 1
+            binding.imgbtnFilterHappy.id -> selectEmotion = 2
+            binding.imgbtnFilterConsole.id -> selectEmotion = 3
+            binding.imgbtnFilterAngry.id -> selectEmotion = 4
+            binding.imgbtnFilterSad.id -> selectEmotion = 5
+            binding.imgbtnFilterBored.id -> selectEmotion = 6
+            binding.imgbtnFilterMemory.id -> selectEmotion = 7
+            binding.imgbtnFilterDaily.id -> selectEmotion = 8
+            else -> Log.d("id", "error")
         }
     }
 
@@ -251,14 +270,29 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
                 this.isChecked = true
                 depthFlag = true
 
+                addDepthId(this.id)
                 activeApplyButton()
             }
             else if (!this.isChecked) {
                 this.isChecked = false
                 depthFlag = false
+                selectDepth = 0
 
                 disableApplyButton()
             }
+        }
+    }
+
+    private fun addDepthId(id : Int) {
+        when(id) {
+            binding.imgbtnFilterDepth2.id -> selectDepth = 1
+            binding.imgbtnFilterDepth30.id -> selectDepth = 2
+            binding.imgbtnFilterDepth100.id -> selectDepth = 3
+            binding.imgbtnFilterDepth300.id -> selectDepth = 4
+            binding.imgbtnFilterDepth700.id -> selectDepth = 5
+            binding.imgbtnFilterDepth1005.id -> selectDepth = 6
+            binding.imgbtnFilterDepthUnder.id -> selectDepth = 7
+            else -> Log.d("id", "error")
         }
     }
 
@@ -279,7 +313,11 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
             binding.btnFilterApply.isEnabled = true
             binding.btnFilterApply.setOnClickListener {
                 // 선택된 항목들 Activity로 전달
+                Log.d("applybutton-date", selectDate)
+                Log.d("applybutton-emotion", selectEmotion.toString())
+                Log.d("applybutton-depth", selectDepth.toString())
 
+                itemClick(selectDate, selectEmotion, selectDepth)
                 // 툴바의 필터 버튼 색상 변경 (필터 적용 시) -> activity에서 해야함
 
                 // bottomSheet dismiss
