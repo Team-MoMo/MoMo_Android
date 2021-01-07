@@ -49,11 +49,13 @@
         <item name="android:background">@drawable/bottomsheet_top_round</item>
     </style>
 
-    <style name="RoundBottomSheetDialog" parent="Animation.Design.BottomSheetDialog">
+    <style name="RoundBottomSheetDialog" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/RoundBottomSheet</item>
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <!-- NumberPicker theme -->
