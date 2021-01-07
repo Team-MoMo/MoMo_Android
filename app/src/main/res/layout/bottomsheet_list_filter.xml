@@ -85,6 +85,7 @@
             android:layout_marginVertical="15dp"
             android:background="@drawable/btn_arrow_right_14"
             android:rotation="270"
+            android:clickable="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
@@ -96,6 +97,14 @@
 
     <!-- date picker include -->
 
+    <include
+        android:id="@+id/include_filter_number_picker"
+        layout="@layout/include_number_picker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/constraintlayout_filter_date_touchbox" />
+
     <View
         android:id="@+id/view_list_date"
         android:layout_width="match_parent"
@@ -103,7 +112,8 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="4dp"
         android:background="@color/line_filter_gray"
-        app:layout_constraintTop_toBottomOf="@+id/constraintlayout_filter_date_touchbox" />
+        app:layout_constraintTop_toBottomOf="@+id/include_filter_number_picker"
+        tools:layout_editor_absoluteX="20dp" />
 
     <TextView
         android:id="@+id/tv_filter_emotion"
@@ -121,13 +131,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_list_date" />
 
-    <ImageButton
+    <CheckBox
         android:id="@+id/imgbtn_filter_love"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="12dp"
-        android:background="@drawable/filter_love_unselected"
+        android:background="@drawable/checkbox_filter_love"
+        android:button="@null"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@+id/imgbtn_filter_happy"
         app:layout_constraintHorizontal_bias="0.5"
@@ -136,12 +147,13 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_filter_emotion"
         app:layout_constraintWidth_percent="0.194" />
 
-    <ImageButton
+    <CheckBox
         android:id="@+id/imgbtn_filter_happy"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="12dp"
-        android:background="@drawable/filter_happy_unselected"
+        android:background="@drawable/checkbox_filter_happy"
+        android:button="@null"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@+id/imgbtn_filter_console"
         app:layout_constraintHorizontal_bias="0.5"
@@ -149,12 +161,13 @@
         app:layout_constraintTop_toTopOf="@+id/imgbtn_filter_love"
         app:layout_constraintWidth_percent="0.194" />
 
-    <ImageButton
+    <CheckBox
         android:id="@+id/imgbtn_filter_console"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="12dp"
-        android:background="@drawable/filter_console_unselected"
+        android:background="@drawable/checkbox_filter_console"
+        android:button="@null"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@+id/imgbtn_filter_angry"
         app:layout_constraintHorizontal_bias="0.5"
@@ -162,24 +175,26 @@
         app:layout_constraintTop_toTopOf="@+id/imgbtn_filter_happy"
         app:layout_constraintWidth_percent="0.194" />
 
-    <ImageButton
+    <CheckBox
         android:id="@+id/imgbtn_filter_angry"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/filter_angry_unselected"
+        android:background="@drawable/checkbox_filter_angry"
+        android:button="@null"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imgbtn_filter_console"
         app:layout_constraintTop_toTopOf="@+id/imgbtn_filter_console"
         app:layout_constraintWidth_percent="0.194" />
 
-    <ImageButton
+    <CheckBox
         android:id="@+id/imgbtn_filter_sad"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="12dp"
-        android:background="@drawable/filter_sad_unselected"
+        android:background="@drawable/checkbox_filter_sad"
+        android:button="@null"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@+id/imgbtn_filter_bored"
         app:layout_constraintHorizontal_chainStyle="packed"
@@ -187,13 +202,14 @@
         app:layout_constraintTop_toBottomOf="@+id/imgbtn_filter_love"
         app:layout_constraintWidth_percent="0.194" />
 
-    <ImageButton
+    <CheckBox
         android:id="@+id/imgbtn_filter_bored"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="12dp"
-        android:background="@drawable/filter_bored_unselected"
+        android:background="@drawable/checkbox_filter_bored"
+        android:button="@null"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@+id/imgbtn_filter_memory"
         app:layout_constraintHorizontal_bias="0.5"
@@ -201,13 +217,14 @@
         app:layout_constraintTop_toBottomOf="@+id/imgbtn_filter_happy"
         app:layout_constraintWidth_percent="0.194" />
 
-    <ImageButton
+    <CheckBox
         android:id="@+id/imgbtn_filter_memory"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="12dp"
-        android:background="@drawable/filter_memory_unselected"
+        android:background="@drawable/checkbox_filter_memory"
+        android:button="@null"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@+id/imgbtn_filter_daily"
         app:layout_constraintHorizontal_bias="0.5"
@@ -215,12 +232,13 @@
         app:layout_constraintTop_toBottomOf="@+id/imgbtn_filter_console"
         app:layout_constraintWidth_percent="0.194" />
 
-    <ImageButton
+    <CheckBox
         android:id="@+id/imgbtn_filter_daily"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/filter_daily_unselected"
+        android:background="@drawable/checkbox_filter_daily"
+        android:button="@null"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="@+id/imgbtn_filter_angry"
         app:layout_constraintStart_toEndOf="@+id/imgbtn_filter_memory"
@@ -252,13 +270,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view_list_emotion" />
 
-    <ImageButton
+    <CheckBox
         android:id="@+id/imgbtn_filter_depth_2"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/filter_depth_2_unselected"
+        android:background="@drawable/checkbox_filter_depth"
+        android:button="@null"
+        android:text="2m"
+        android:textSize="16sp"
+        android:textColor="@drawable/checkbox_filter_depth_text"
+        android:letterSpacing="-0.04"
+        android:fontFamily="@font/notosans"
+        android:textFontWeight="500"
+        android:gravity="center"
+        android:includeFontPadding="false"
         app:layout_constraintDimensionRatio="h, 1:0.6"
         app:layout_constraintEnd_toStartOf="@+id/imgbtn_filter_depth_30"
         app:layout_constraintHorizontal_bias="0.5"
@@ -267,12 +294,21 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_filter_depth"
         app:layout_constraintWidth_percent="0.16" />
 
-    <ImageButton
+    <CheckBox
         android:id="@+id/imgbtn_filter_depth_30"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/filter_depth_30_unselected"
+        android:background="@drawable/checkbox_filter_depth"
+        android:button="@null"
+        android:text="30m"
+        android:textSize="16sp"
+        android:textColor="@drawable/checkbox_filter_depth_text"
+        android:letterSpacing="-0.04"
+        android:fontFamily="@font/notosans"
+        android:textFontWeight="500"
+        android:gravity="center"
+        android:includeFontPadding="false"
         app:layout_constraintDimensionRatio="h, 1:0.52"
         app:layout_constraintEnd_toStartOf="@+id/imgbtn_filter_depth_100"
         app:layout_constraintHorizontal_bias="0.5"
@@ -280,12 +316,21 @@
         app:layout_constraintTop_toTopOf="@+id/imgbtn_filter_depth_2"
         app:layout_constraintWidth_percent="0.19" />
 
-    <ImageButton
+    <CheckBox
         android:id="@+id/imgbtn_filter_depth_100"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/filter_depth_100_unselected"
+        android:background="@drawable/checkbox_filter_depth"
+        android:button="@null"
+        android:text="100m"
+        android:textSize="16sp"
+        android:textColor="@drawable/checkbox_filter_depth_text"
+        android:letterSpacing="-0.04"
+        android:fontFamily="@font/notosans"
+        android:textFontWeight="500"
+        android:gravity="center"
+        android:includeFontPadding="false"
         app:layout_constraintDimensionRatio="h, 1:0.467"
         app:layout_constraintEnd_toStartOf="@+id/imgbtn_filter_depth_300"
         app:layout_constraintHorizontal_bias="0.5"
@@ -293,11 +338,20 @@
         app:layout_constraintTop_toTopOf="@+id/imgbtn_filter_depth_30"
         app:layout_constraintWidth_percent="0.2138" />
 
-    <ImageButton
+    <CheckBox
         android:id="@+id/imgbtn_filter_depth_300"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/filter_depth_300_unselected"
+        android:background="@drawable/checkbox_filter_depth"
+        android:button="@null"
+        android:text="300m"
+        android:textSize="16sp"
+        android:textColor="@drawable/checkbox_filter_depth_text"
+        android:letterSpacing="-0.04"
+        android:fontFamily="@font/notosans"
+        android:textFontWeight="500"
+        android:gravity="center"
+        android:includeFontPadding="false"
         app:layout_constraintDimensionRatio="h, 1:0.467"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -305,13 +359,22 @@
         app:layout_constraintTop_toTopOf="@+id/imgbtn_filter_depth_100"
         app:layout_constraintWidth_percent="0.2138" />
 
-    <ImageButton
+    <CheckBox
         android:id="@+id/imgbtn_filter_depth_700"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/filter_depth_700_unselected"
+        android:background="@drawable/checkbox_filter_depth"
+        android:button="@null"
+        android:text="700m"
+        android:textSize="16sp"
+        android:textColor="@drawable/checkbox_filter_depth_text"
+        android:letterSpacing="-0.04"
+        android:fontFamily="@font/notosans"
+        android:textFontWeight="500"
+        android:gravity="center"
+        android:includeFontPadding="false"
         app:layout_constraintDimensionRatio="h, 1:0.467"
         app:layout_constraintEnd_toStartOf="@+id/imgbtn_filter_depth_1005"
         app:layout_constraintHorizontal_bias="0.5"
@@ -320,25 +383,43 @@
         app:layout_constraintTop_toBottomOf="@+id/imgbtn_filter_depth_2"
         app:layout_constraintWidth_percent="0.2138" />
 
-    <ImageButton
+    <CheckBox
         android:id="@+id/imgbtn_filter_depth_1005"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/filter_depth_1005_unselected"
+        android:background="@drawable/checkbox_filter_depth"
+        android:button="@null"
+        android:text="1,005m"
+        android:textSize="16sp"
+        android:textColor="@drawable/checkbox_filter_depth_text"
+        android:letterSpacing="-0.04"
+        android:fontFamily="@font/notosans"
+        android:textFontWeight="500"
+        android:gravity="center"
+        android:includeFontPadding="false"
         app:layout_constraintDimensionRatio="h, 1:0.4"
         app:layout_constraintEnd_toStartOf="@+id/imgbtn_filter_depth_under"
         app:layout_constraintStart_toEndOf="@+id/imgbtn_filter_depth_700"
         app:layout_constraintTop_toBottomOf="@+id/imgbtn_filter_depth_30"
         app:layout_constraintWidth_percent="0.25" />
 
-    <ImageButton
+    <CheckBox
         android:id="@+id/imgbtn_filter_depth_under"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/filter_depth_under_unselected"
+        android:background="@drawable/checkbox_filter_depth"
+        android:button="@null"
+        android:text="심해"
+        android:textSize="16sp"
+        android:textColor="@drawable/checkbox_filter_depth_text"
+        android:letterSpacing="-0.04"
+        android:fontFamily="@font/notosans"
+        android:textFontWeight="500"
+        android:includeFontPadding="false"
+        android:gravity="center"
         app:layout_constraintDimensionRatio="h, 1:0.55"
         app:layout_constraintStart_toEndOf="@+id/imgbtn_filter_depth_1005"
         app:layout_constraintTop_toBottomOf="@+id/imgbtn_filter_depth_100"
@@ -359,6 +440,7 @@
         android:textFontWeight="500"
         android:textSize="17sp"
         android:letterSpacing="-0.06"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:0.23"
         app:layout_constraintEnd_toEndOf="parent"
