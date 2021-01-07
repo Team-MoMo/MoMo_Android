@@ -27,4 +27,8 @@
     <color name="black_5_publish">#909090</color>
     <color name="black_3_list">#474747</color>
     <color name="blue_4_depth">#33b2cbea</color>
+
+    <!-- add color -->
+    <color name="gray_line">#d1d1d1</color>
+
 </resources>
