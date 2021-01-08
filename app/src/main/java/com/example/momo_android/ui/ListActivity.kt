@@ -2,6 +2,7 @@ package com.example.momo_android.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,8 +11,17 @@ import com.example.momo_android.databinding.ActivityListBinding
 import com.example.momo_android.list.FilterBottomSheetFragment
 import com.example.momo_android.list.ListAdapter
 import com.example.momo_android.list.ListData
+import java.lang.StringBuilder
+import java.util.*
 
 class ListActivity : AppCompatActivity() {
+
+    companion object {
+        var filter_year = 0
+        var filter_month = 0
+        var filter_emotion = 0
+        var filter_depth = 0
+    }
 
     private lateinit var binding : ActivityListBinding
     private lateinit var listAdapter : ListAdapter
@@ -19,11 +29,15 @@ class ListActivity : AppCompatActivity() {
     private var selectEmotion = 0
     private var selectDepth = 0
 
+    private lateinit var currentDate : Calendar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityListBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        setCurrentDate()
 
         initToolbar()
 
@@ -38,7 +52,13 @@ class ListActivity : AppCompatActivity() {
     private fun initToolbar() {
         //툴바 사용 설정
         setSupportActionBar(binding.toolbarList)
-        binding.collapsingtoolbarlayoutList.title = "2020년 12월"
+
+        //툴바 title에 현재 날짜 지정
+        val currentDate = StringBuilder(filter_year.toString())
+        currentDate.append("년 ")
+            .append(filter_month.toString())
+            .append("월")
+        binding.collapsingtoolbarlayoutList.title = currentDate.toString()
 
         //toolbar 왼쪽 버튼 사용
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -54,12 +74,24 @@ class ListActivity : AppCompatActivity() {
         when(item.itemId) {
             R.id.filter -> {
                 //filter 버튼 클릭 시 발생하는 이벤트 설정
-                val frag = FilterBottomSheetFragment { date: String, emotion: Int, depth: Int ->
-                    binding.collapsingtoolbarlayoutList.title = date
-                    item.setIcon(R.drawable.list_btn_filter_blue)
+                val frag = FilterBottomSheetFragment { date: String, pickDate : IntArray, isCurrentDate: Boolean, emotion: Int, depth: Int ->
 
-                    selectEmotion = emotion
-                    selectDepth = depth
+                    filter_year = pickDate[0]
+                    filter_month = pickDate[1]
+                    filter_emotion = emotion
+                    filter_depth = depth
+
+                    // 필터 모달에서 선택한 날짜로 toolbar의 title도 변경
+                    binding.collapsingtoolbarlayoutList.title = date
+
+                    if (isCurrentDate && emotion == 0 && depth == 0) {
+                        // 필터 모달에서 선택한 날짜가 현재 날짜와 같고(변경 x), 감정/깊이 항목에서 어떤 것도 선택하지 않았을 때
+                        item.setIcon(R.drawable.list_btn_filter)
+                    }
+                    else {
+                        // 필터의 세 가지 항목 중 어떤 것이라도 선택 혹은 변경했을 때
+                        item.setIcon(R.drawable.list_btn_filter_blue)
+                    }
                 }
                 frag.show(supportFragmentManager, frag.tag)
             }
@@ -68,6 +100,12 @@ class ListActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun setCurrentDate() {
+        currentDate = Calendar.getInstance()
+        filter_year = currentDate.get(Calendar.YEAR)
+        filter_month = currentDate.get(Calendar.MONTH) + 1
     }
 
     private fun loadData() {
