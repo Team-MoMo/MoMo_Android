@@ -11,6 +11,8 @@ import android.widget.FrameLayout
 import android.widget.NumberPicker
 import com.example.momo_android.R
 import com.example.momo_android.databinding.BottomsheetListFilterBinding
+import com.example.momo_android.ui.ListActivity.Companion.filter_depth
+import com.example.momo_android.ui.ListActivity.Companion.filter_emotion
 import com.example.momo_android.ui.ListActivity.Companion.filter_month
 import com.example.momo_android.ui.ListActivity.Companion.filter_year
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -105,6 +107,10 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int, 
         month.value = filter_month
         printDate()
 
+        selectEmotion = filter_emotion
+        selectDepth = filter_depth
+        setSelectedFilter(selectEmotion, selectDepth)
+
         // month에 따라 month maxValue 변경
         if(year.value == currentDate.get(Calendar.YEAR) && month.value == currentDate.get(
                 Calendar.MONTH) + 1) {
@@ -191,6 +197,31 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int, 
     private fun initCloseButton() {
         binding.imgbtnFilterClose.setOnClickListener {
             this.dismiss()
+        }
+    }
+
+    private fun setSelectedFilter(emotionIdx : Int, depthIdx : Int) {
+        when (emotionIdx) {
+            1 -> binding.imgbtnFilterLove.isChecked = true
+            2 -> binding.imgbtnFilterHappy.isChecked = true
+            3 -> binding.imgbtnFilterConsole.isChecked = true
+            4 -> binding.imgbtnFilterAngry.isChecked = true
+            5 -> binding.imgbtnFilterSad.isChecked = true
+            6 -> binding.imgbtnFilterBored.isChecked = true
+            7 -> binding.imgbtnFilterMemory.isChecked = true
+            8 -> binding.imgbtnFilterDaily.isChecked = true
+            else -> Log.d("setSelectedFilter", "emotion: nothing selected")
+        }
+
+        when (depthIdx) {
+            1 -> binding.imgbtnFilterDepth2.isChecked = true
+            2 -> binding.imgbtnFilterDepth30.isChecked = true
+            3 -> binding.imgbtnFilterDepth100.isChecked = true
+            4 -> binding.imgbtnFilterDepth300.isChecked = true
+            5 -> binding.imgbtnFilterDepth700.isChecked = true
+            6 ->binding.imgbtnFilterDepth1005.isChecked = true
+            7 ->binding.imgbtnFilterDepthUnder.isChecked = true
+            else -> Log.d("setSelectedFilter", "depth: nothing selected")
         }
     }
 
