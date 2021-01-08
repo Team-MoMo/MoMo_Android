@@ -30,5 +30,7 @@
 
     <!-- add color -->
     <color name="gray_line">#d1d1d1</color>
+    <color name="diary_bg">#11ffffff</color>
+    <color name="blue_7_0.8">#ccf5f9ff</color>
 
 </resources>
