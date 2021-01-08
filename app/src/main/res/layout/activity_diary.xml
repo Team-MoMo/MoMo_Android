@@ -4,4 +4,501 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.DiaryActivity"/>
+    android:background="@drawable/bg_deep5"
+    tools:context=".ui.DiaryActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/btn_back_white" />
+
+        <CheckBox
+            android:id="@+id/btn_menu"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@android:color/transparent"
+            android:button="@android:color/transparent"
+            android:checked="false"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_back"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/imageView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btn_back"
+            app:srcCompat="@drawable/ic_subtab" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout7"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout6">
+
+        <TextView
+            android:id="@+id/tv_diary_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:fontFamily="@font/notosanskrmedium"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.06"
+            android:text="2021. 00. 00. 토요일"
+            android:textColor="@color/blue_7"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_diary_emotion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="65dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_diary_emotion"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_diary_date"
+            app:srcCompat="@drawable/ic_angry_14_white" />
+
+        <TextView
+            android:id="@+id/tv_diary_emotion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.07"
+            android:text="화남"
+            android:textColor="@color/blue_7"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_diary_emotion"
+            app:layout_constraintEnd_toStartOf="@+id/img_diary_deep"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/img_diary_emotion"
+            app:layout_constraintTop_toTopOf="@+id/img_diary_emotion" />
+
+        <ImageView
+            android:id="@+id/img_diary_deep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_diary_emotion"
+            app:layout_constraintEnd_toStartOf="@+id/tv_diary_deep"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_diary_emotion"
+            app:layout_constraintTop_toTopOf="@+id/img_diary_emotion"
+            app:srcCompat="@drawable/ios_ic_depth_white" />
+
+        <TextView
+            android:id="@+id/tv_diary_deep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.07"
+            android:text="700m"
+            android:textColor="@color/blue_7"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_diary_deep"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/img_diary_deep"
+            app:layout_constraintTop_toTopOf="@+id/img_diary_deep" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.github.mmin18.widget.RealtimeBlurView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollView3"
+        app:layout_constraintEnd_toEndOf="@+id/scrollView3"
+        app:layout_constraintStart_toStartOf="@+id/scrollView3"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout7"
+        app:realtimeBlurRadius="10dp"
+        app:realtimeOverlayColor="@android:color/transparent" />
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/diary_background"
+        android:overScrollMode="never"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_feather_white" />
+
+            <TextView
+                android:id="@+id/tv_contents"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="45dp"
+                android:fontFamily="@font/notosanskrregular"
+                android:gravity="center_horizontal"
+                android:includeFontPadding="false"
+                android:letterSpacing="-0.08"
+                android:lineSpacingExtra="10sp"
+                android:text="나는 지금 이 곳에서 일어나는 일은 내 일이 아니니까 어딘가 먼 곳, 아주 먼 곳으로 떠나는 것이 좋다고 생각했다. 그저 먼 곳, 갈 수 있는 한 가장 먼 곳으로 급히 떠나려니 잘못 가고 말았다."
+                android:textColor="@color/blue_7"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+
+            <TextView
+                android:id="@+id/tv_bookname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/notosanskrregular"
+                android:includeFontPadding="false"
+                android:letterSpacing="-0.09"
+                android:text="여자의 얼굴을 한 방문자 : 《편의점》  수록작"
+                android:textColor="@color/blue_7"
+                android:textSize="11sp"
+                app:layout_constraintEnd_toEndOf="@+id/tv_contents"
+                app:layout_constraintStart_toStartOf="@+id/tv_contents"
+                app:layout_constraintTop_toBottomOf="@+id/tv_contents" />
+
+            <TextView
+                android:id="@+id/tv_writer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/notosanskrmedium"
+                android:includeFontPadding="false"
+                android:letterSpacing="-0.05"
+                android:text="이아람"
+                android:textColor="@color/blue_7"
+                android:textSize="11sp"
+                app:layout_constraintEnd_toStartOf="@+id/tv_publisher"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_bookname" />
+
+            <TextView
+                android:id="@+id/tv_publisher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:fontFamily="@font/notosanskrregular"
+                android:includeFontPadding="false"
+                android:letterSpacing="-0.05"
+                android:text="(안전가옥)"
+                android:textColor="@color/blue_7_0.8"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_writer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tv_writer"
+                app:layout_constraintTop_toTopOf="@+id/tv_writer" />
+
+            <View
+                android:id="@+id/view7"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="24dp"
+                android:background="@color/blue_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_writer" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:fontFamily="@font/notosanskrregular"
+                android:includeFontPadding="false"
+                android:letterSpacing="-0.07"
+                android:lineSpacingExtra="8sp"
+                android:text="오늘 새벽엔 눈이 내렸다. 창문을 열어 창문을 열어 흰 눈이 내린다. 그럼에도 어김없이 오피스로 출근을 했다.
+벌써 연말이 다가왔다는 것을 느낀다.\n\n집에 들어와서 물을 한 잔 마시고 다시 침대에 누워서 왓챠를 틀고 보던 미드를 이어서 보기 시작했다. 오늘은 계속 크리스마스란 참 좋다 오늘 새벽엔 눈이 내렸다. 창문을 열어 창문을 열어 흰 눈이 내린다. 그럼에도 어김없이 오피스로 출근을 했다.
+벌써 연말이 다가왔다는 것을 느낀다."
+                android:textColor="@color/blue_6"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view7" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <com.github.mmin18.widget.RealtimeBlurView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/menu_edit"
+        app:layout_constraintEnd_toEndOf="@+id/menu_edit"
+        app:layout_constraintStart_toStartOf="@+id/menu_edit"
+        app:layout_constraintTop_toTopOf="@+id/menu_edit"
+        app:realtimeBlurRadius="20dp"
+        app:realtimeOverlayColor="@android:color/transparent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/menu_edit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/diary_menu_background"
+        android:visibility="gone"
+        app:layout_constraintDimensionRatio="1:0.9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout6"
+        app:layout_constraintWidth_percent="0.45">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btn_edit_date"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/view8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.22"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed">
+
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/btn_ic_calender_18" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="7dp"
+                android:fontFamily="@font/notosanskrregular"
+                android:includeFontPadding="false"
+                android:letterSpacing="-0.07"
+                android:text="날짜 수정"
+                android:textColor="@color/black_1"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/view8"
+            android:layout_width="0dp"
+            android:layout_height="0.3dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginEnd="12dp"
+            android:background="@color/black_4"
+            app:layout_constraintBottom_toTopOf="@+id/btn_edit_depth"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_edit_date" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btn_edit_depth"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginEnd="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/view9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.22"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view8">
+
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/btn_ic_depth_18" />
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="7dp"
+                android:fontFamily="@font/notosanskrregular"
+                android:includeFontPadding="false"
+                android:letterSpacing="-0.07"
+                android:text="깊이 수정"
+                android:textColor="@color/black_1"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/view9"
+            android:layout_width="0dp"
+            android:layout_height="0.3dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginEnd="12dp"
+            android:background="@color/black_4"
+            app:layout_constraintBottom_toTopOf="@+id/btn_edit_diary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_edit_depth" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btn_edit_diary"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginEnd="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/view10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.22"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view9">
+
+            <ImageView
+                android:id="@+id/imageView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/btn_ic_edit_18" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="7dp"
+                android:fontFamily="@font/notosanskrregular"
+                android:includeFontPadding="false"
+                android:letterSpacing="-0.07"
+                android:text="일기 수정"
+                android:textColor="@color/black_1"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/view10"
+            android:layout_width="0dp"
+            android:layout_height="0.3dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginEnd="12dp"
+            android:background="@color/black_4"
+            app:layout_constraintBottom_toTopOf="@+id/btn_edit_delete"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_edit_diary" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btn_edit_delete"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="6dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.22"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view10">
+
+            <ImageView
+                android:id="@+id/imageView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/btn_ic_delete_18" />
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="7dp"
+                android:fontFamily="@font/notosanskrregular"
+                android:includeFontPadding="false"
+                android:letterSpacing="-0.07"
+                android:text="삭제"
+                android:textColor="@color/red_1"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
