@@ -139,15 +139,15 @@
     <com.github.mmin18.widget.RealtimeBlurView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/scrollView3"
-        app:layout_constraintEnd_toEndOf="@+id/scrollView3"
-        app:layout_constraintStart_toStartOf="@+id/scrollView3"
+        app:layout_constraintBottom_toBottomOf="@+id/sv_diary"
+        app:layout_constraintEnd_toEndOf="@+id/sv_diary"
+        app:layout_constraintStart_toStartOf="@+id/sv_diary"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout7"
         app:realtimeBlurRadius="10dp"
         app:realtimeOverlayColor="@android:color/transparent" />
 
     <ScrollView
-        android:id="@+id/scrollView3"
+        android:id="@+id/sv_diary"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
@@ -164,6 +164,7 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_diary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -258,7 +259,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_writer" />
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/tv_diary_content"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"

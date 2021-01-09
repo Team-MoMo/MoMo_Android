@@ -6,3 +6,8 @@ import android.view.View
 interface ItemClickListener {
     fun onClickItem(view: View, position: Int)
 }
+
+/* 모달 팝업창 버튼 클릭 인터페이스 */
+interface ModalClickListener {
+    fun onOKClicked(content : String)
+}
