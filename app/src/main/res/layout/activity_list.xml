@@ -59,6 +59,14 @@
             android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_filter_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="24dp"
+                android:orientation="horizontal"
+                tools:listitem="@layout/item_filter_label"/>
+
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcv_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
