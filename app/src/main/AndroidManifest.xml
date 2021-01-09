@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoMo_Android">
         <activity android:name=".ui.DiaryActivity"/>
+        <activity android:name=".ui.DiaryEditDeepActivity">
 
+        </activity>
         <activity android:name=".ui.UploadWriteActivity"
             android:windowSoftInputMode="stateHidden|adjustPan">
         </activity>
