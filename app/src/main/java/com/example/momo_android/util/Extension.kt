@@ -69,3 +69,22 @@ fun View.hideKeyboard() {
     imm.hideSoftInputFromWindow(windowToken, 0)
 }
 
+
+
+/* 월을 2자리수로 변환해주는 함수 (6 -> 06)*/
+fun getMonth(month : Int): String {
+    return if(month in 1..9) {
+        "0$month"
+    } else {
+        "$month"
+    }
+}
+
+/* 일을 2자리수로 변환해주는 함수 (6 -> 06)*/
+fun getDate(date : Int): String {
+    return if(date in 1..9) {
+        "0$date"
+    } else {
+        "$date"
+    }
+}

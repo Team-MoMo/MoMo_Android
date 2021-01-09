@@ -11,13 +11,17 @@ import android.widget.FrameLayout
 import android.widget.NumberPicker
 import com.example.momo_android.R
 import com.example.momo_android.databinding.BottomsheetListFilterBinding
+import com.example.momo_android.ui.ListActivity.Companion.filter_depth
+import com.example.momo_android.ui.ListActivity.Companion.filter_emotion
+import com.example.momo_android.ui.ListActivity.Companion.filter_month
+import com.example.momo_android.ui.ListActivity.Companion.filter_year
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.lang.StringBuilder
 import java.util.*
 
-class FilterBottomSheetFragment(val itemClick: (String, Int, Int) -> Unit) : BottomSheetDialogFragment() {
+class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int, Int) -> Unit) : BottomSheetDialogFragment() {
 
     private var _binding: BottomsheetListFilterBinding? = null
     private val binding get() = _binding!!
@@ -28,8 +32,17 @@ class FilterBottomSheetFragment(val itemClick: (String, Int, Int) -> Unit) : Bot
 
     // ListActivity로 보낼 필터 정보
     private lateinit var selectDate : String
+    private var selectYear = 0
+    private var selectMonth = 0
+
+    // 현재 날짜와 선택한 날짜가 같으면 true, 아니면 false
+    private var isCurrentDate = false
+
     private var selectEmotion = 0
     private var selectDepth = 0
+
+    private lateinit var year : NumberPicker
+    private lateinit var month : NumberPicker
 
     override fun getTheme(): Int = R.style.RoundBottomSheetDialog
 
@@ -69,18 +82,18 @@ class FilterBottomSheetFragment(val itemClick: (String, Int, Int) -> Unit) : Bot
 
         initDepthCheckBox()
 
-        val year = binding.includeFilterNumberPicker.year
-        val month = binding.includeFilterNumberPicker.month
+        year = binding.includeFilterNumberPicker.year
+        month = binding.includeFilterNumberPicker.month
 
         // 현재 날짜 가져오기
         currentDate = Calendar.getInstance()
 
         // minValue = 최소 날짜 표시
-        year.minValue = 2020
+        year.minValue = currentDate.get(Calendar.YEAR) - 1
         month.minValue = 1
 
         // maxValue = 최대 날짜 표시
-        year.maxValue = 2021
+        year.maxValue = currentDate.get(Calendar.YEAR)
 
         // year에 따라 month maxValue 변경
         if(year.value == currentDate.get(Calendar.YEAR)) {
@@ -89,14 +102,22 @@ class FilterBottomSheetFragment(val itemClick: (String, Int, Int) -> Unit) : Bot
             month.maxValue = 12
         }
 
-        // month에 따라 month, date maxValue 변경
-        if(month.value == currentDate.get(Calendar.MONTH) + 1)
-            month.maxValue = currentDate.get(Calendar.MONTH) + 1
-
-        // value = 가운데 표시될 날짜
-        year.value = currentDate.get(Calendar.YEAR)
-        month.value = currentDate.get(Calendar.MONTH) + 1
+        // year.value와 month.value에 activity에서 가져온 값을 대입하는 부분을 year와 month의 maxValue값 설정하는 곳 사이로 옮김
+        year.value = filter_year
+        month.value = filter_month
         printDate()
+
+        selectEmotion = filter_emotion
+        selectDepth = filter_depth
+        setSelectedFilter(selectEmotion, selectDepth)
+
+        // month에 따라 month maxValue 변경
+        if(year.value == currentDate.get(Calendar.YEAR) && month.value == currentDate.get(
+                Calendar.MONTH) + 1) {
+            month.maxValue = currentDate.get(Calendar.MONTH) + 1
+        } else {
+            month.maxValue = 12
+        }
 
         // 순환 안되게 막기
         year.wrapSelectorWheel = false
@@ -112,7 +133,6 @@ class FilterBottomSheetFragment(val itemClick: (String, Int, Int) -> Unit) : Bot
             if(year.value == currentDate.get(Calendar.YEAR)) {
                 month.maxValue = currentDate.get(Calendar.MONTH) + 1
             } else {
-                month.value = currentDate.get(Calendar.MONTH) + 1
                 month.maxValue = 12
             }
             printDate()
@@ -124,8 +144,6 @@ class FilterBottomSheetFragment(val itemClick: (String, Int, Int) -> Unit) : Bot
             if(year.value == currentDate.get(Calendar.YEAR) && month.value == currentDate.get(
                     Calendar.MONTH) + 1) {
                 month.maxValue = currentDate.get(Calendar.MONTH) + 1
-                // 적용 버튼 비활성화
-                binding.btnFilterApply.isEnabled = false
             } else {
                 month.maxValue = 12
             }
@@ -142,10 +160,21 @@ class FilterBottomSheetFragment(val itemClick: (String, Int, Int) -> Unit) : Bot
 
         binding.tvFilterSelectedDate.text = selectDate
 
+        selectYear = year.value
+        selectMonth = month.value
+
         // ListActivity로 전달할 date 정보
         this.selectDate = selectDate.toString()
 
+        isCurrentDate()
+
         activeApplyButton()
+    }
+
+    private fun isCurrentDate() {
+        // 현재 날짜와 선택한 날짜가 동일할 경우 isCurrentDate 변수에 true 대입
+        isCurrentDate = (year.value == currentDate.get(Calendar.YEAR) && month.value == currentDate.get(
+        Calendar.MONTH) + 1)
     }
 
     private fun addDateToggle() {
@@ -168,6 +197,31 @@ class FilterBottomSheetFragment(val itemClick: (String, Int, Int) -> Unit) : Bot
     private fun initCloseButton() {
         binding.imgbtnFilterClose.setOnClickListener {
             this.dismiss()
+        }
+    }
+
+    private fun setSelectedFilter(emotionIdx : Int, depthIdx : Int) {
+        when (emotionIdx) {
+            1 -> binding.imgbtnFilterLove.isChecked = true
+            2 -> binding.imgbtnFilterHappy.isChecked = true
+            3 -> binding.imgbtnFilterConsole.isChecked = true
+            4 -> binding.imgbtnFilterAngry.isChecked = true
+            5 -> binding.imgbtnFilterSad.isChecked = true
+            6 -> binding.imgbtnFilterBored.isChecked = true
+            7 -> binding.imgbtnFilterMemory.isChecked = true
+            8 -> binding.imgbtnFilterDaily.isChecked = true
+            else -> Log.d("setSelectedFilter", "emotion: nothing selected")
+        }
+
+        when (depthIdx) {
+            1 -> binding.imgbtnFilterDepth2.isChecked = true
+            2 -> binding.imgbtnFilterDepth30.isChecked = true
+            3 -> binding.imgbtnFilterDepth100.isChecked = true
+            4 -> binding.imgbtnFilterDepth300.isChecked = true
+            5 -> binding.imgbtnFilterDepth700.isChecked = true
+            6 ->binding.imgbtnFilterDepth1005.isChecked = true
+            7 ->binding.imgbtnFilterDepthUnder.isChecked = true
+            else -> Log.d("setSelectedFilter", "depth: nothing selected")
         }
     }
 
@@ -281,13 +335,18 @@ class FilterBottomSheetFragment(val itemClick: (String, Int, Int) -> Unit) : Bot
     private fun activeApplyButton() {
         binding.btnFilterApply.isEnabled = true
         binding.btnFilterApply.setOnClickListener {
+
             // 선택된 항목들 Activity로 전달
             Log.d("applybutton-date", selectDate)
+            Log.d("applybutton-year", selectYear.toString())
+            Log.d("applybutton-month", selectMonth.toString())
+            Log.d("applybutton-date-flag", isCurrentDate.toString())
             Log.d("applybutton-emotion", selectEmotion.toString())
             Log.d("applybutton-depth", selectDepth.toString())
 
-            itemClick(selectDate, selectEmotion, selectDepth)
-            // 툴바의 필터 버튼 색상 변경 (필터 적용 시) -> activity에서 해야함
+            val pickDate = intArrayOf(selectYear, selectMonth)
+
+            itemClick(selectDate, pickDate, isCurrentDate, selectEmotion, selectDepth)
 
             // bottomSheet dismiss
             this.dismiss()

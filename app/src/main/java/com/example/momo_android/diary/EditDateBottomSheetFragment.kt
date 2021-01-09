@@ -5,6 +5,7 @@ import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -99,28 +100,31 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
         year.maxValue = 2021
 
         // year에 따라 month maxValue 변경
-        if(year.value == currentDate.get(Calendar.YEAR)) {
+        if(diary_year == currentDate.get(Calendar.YEAR)) {
             month.maxValue = currentDate.get(Calendar.MONTH) + 1
         } else {
             month.maxValue = 12
         }
 
         // month에 따라 month, date maxValue 변경
-        if(month.value == currentDate.get(Calendar.MONTH) + 1) {
+        if(diary_month == currentDate.get(Calendar.MONTH) + 1) {
             month.maxValue = currentDate.get(Calendar.MONTH) + 1
             date.maxValue = currentDate.get(Calendar.DAY_OF_MONTH)
         } else {
             setMonthMax()
         }
 
-        // year.value = diary_year
         // 일단은
-        year.value = currentDate.get(Calendar.YEAR)
+        Log.d("companion", diary_year.toString())
+        Log.d("companion", diary_month.toString())
+        Log.d("companion", diary_date.toString())
+        year.value = diary_year
         month.value = diary_month
         date.value = diary_date
 
         // 순환 안되게 막기
-        year.wrapSelectorWheel = false
+
+       year.wrapSelectorWheel = false
         month.wrapSelectorWheel = false
         date.wrapSelectorWheel = false
 
