@@ -16,7 +16,7 @@
             android:id="@+id/collapsingtoolbarlayout_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:title="2020년 12월"
+            app:title="2021년 2월"
             app:expandedTitleMarginStart="24dp"
             app:expandedTitleMarginBottom="16dp"
             app:collapsedTitleGravity="center"
