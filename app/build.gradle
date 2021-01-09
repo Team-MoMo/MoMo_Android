@@ -60,4 +60,8 @@ dependencies {
 
     // vertical seekbar
     implementation 'com.h6ah4i.android.widget.verticalseekbar:verticalseekbar:1.0.0'
+    //Lottie
+    implementation "com.airbnb.android:lottie:3.6.0"
+    //shadow
+    implementation 'com.github.fornewid:neumorphism:0.3.0'
 }

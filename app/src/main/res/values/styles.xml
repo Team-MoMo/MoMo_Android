@@ -66,4 +66,15 @@
         <item name="colorControlNormal">@android:color/transparent</item>
     </style>
 
+    <!--shadow-->
+    <style name="CustomShapeAppearance">
+        <item name="neumorph_cornerFamily">rounded</item>
+        <item name="neumorph_cornerSize">12dp</item>
+
+        <!-- Or if wants different radii depending on the corner. -->
+        <item name="neumorph_cornerSizeTopLeft">12dp</item>
+        <item name="neumorph_cornerSizeTopRight">12dp</item>
+        <item name="neumorph_cornerSizeBottomLeft">12dp</item>
+        <item name="neumorph_cornerSizeBottomRight">12dp</item>
+    </style>
 </resources>
