@@ -54,4 +54,14 @@ dependencies {
     // Gson
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    // image part blur
+    implementation 'com.github.mmin18:realtimeblurview:1.2.1'
+
+    // vertical seekbar
+    implementation 'com.h6ah4i.android.widget.verticalseekbar:verticalseekbar:1.0.0'
+    //Lottie
+    implementation "com.airbnb.android:lottie:3.6.0"
+    //shadow
+    implementation 'com.github.fornewid:neumorphism:0.3.0'
 }

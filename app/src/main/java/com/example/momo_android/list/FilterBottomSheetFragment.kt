@@ -14,7 +14,6 @@ import com.example.momo_android.databinding.BottomsheetListFilterBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.android.synthetic.main.include_ym_picker.*
 import java.lang.StringBuilder
 import java.util.*
 
@@ -136,9 +135,9 @@ class FilterBottomSheetFragment(val itemClick: (String, Int, Int) -> Unit) : Bot
 
     // selected date print 함수
     private fun printDate() {
-        val selectDate = StringBuilder(year.value.toString())
+        val selectDate = StringBuilder(binding.includeFilterNumberPicker.year.value.toString())
         selectDate.append("년 ")
-                .append(month.value.toString())
+                .append(binding.includeFilterNumberPicker.month.value.toString())
                 .append("월")
 
         binding.tvFilterSelectedDate.text = selectDate
