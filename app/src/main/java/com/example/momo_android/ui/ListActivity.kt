@@ -1,5 +1,6 @@
 package com.example.momo_android.ui
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -16,10 +17,16 @@ import java.util.*
 class ListActivity : AppCompatActivity() {
 
     companion object {
+
         var filter_year = 0
         var filter_month = 0
         var filter_emotion = 0
         var filter_depth = 0
+
+        // picker에서 선택한 날짜가 현재 날짜인 경우 true
+        var selectCurrentDate = false
+
+        lateinit var mContext : Context
     }
 
     private lateinit var binding : ActivityListBinding
@@ -36,6 +43,8 @@ class ListActivity : AppCompatActivity() {
         binding = ActivityListBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        mContext = this
 
         setCurrentDate()
 
@@ -84,6 +93,7 @@ class ListActivity : AppCompatActivity() {
                     filter_month = pickDate[1]
                     filter_emotion = emotion
                     filter_depth = depth
+                    selectCurrentDate = isCurrentDate
 
                     Log.d("filter0", filter_emotion.toString())
                     Log.d("filter0", filter_depth.toString())
@@ -91,14 +101,7 @@ class ListActivity : AppCompatActivity() {
                     // 필터 모달에서 선택한 날짜로 toolbar의 title도 변경
                     binding.collapsingtoolbarlayoutList.title = date
 
-                    if (isCurrentDate && emotion == 0 && depth == 0) {
-                        // 필터 모달에서 선택한 날짜가 현재 날짜와 같고(변경 x), 감정/깊이 항목에서 어떤 것도 선택하지 않았을 때
-                        item.setIcon(R.drawable.list_btn_filter)
-                    }
-                    else {
-                        // 필터의 세 가지 항목 중 어떤 것이라도 선택 혹은 변경했을 때
-                        item.setIcon(R.drawable.list_btn_filter_blue)
-                    }
+                    activeFilterButton()
 
                     setLabelData()
 
@@ -118,6 +121,19 @@ class ListActivity : AppCompatActivity() {
         currentDate = Calendar.getInstance()
         filter_year = currentDate.get(Calendar.YEAR)
         filter_month = currentDate.get(Calendar.MONTH) + 1
+    }
+
+    fun activeFilterButton() {
+        if (selectCurrentDate && filter_emotion == 0 && filter_depth == 0) {
+            // 필터 모달에서 선택한 날짜가 현재 날짜와 같고(변경 x), 감정/깊이 항목에서 어떤 것도 선택하지 않았을 때
+            val filterIcon = binding.toolbarList.menu.findItem(R.id.filter)
+            filterIcon.setIcon(R.drawable.list_btn_filter)
+        }
+        else {
+            // 필터의 세 가지 항목 중 어떤 것이라도 선택 혹은 변경했을 때
+            val filterIcon = binding.toolbarList.menu.findItem(R.id.filter)
+            filterIcon.setIcon(R.drawable.list_btn_filter_blue)
+        }
     }
 
     private fun setLabelData() {
@@ -177,7 +193,6 @@ class ListActivity : AppCompatActivity() {
                     mutableListOf(FilterLabelData(selectEmotion), FilterLabelData(selectDepth))
                 Log.d("filter4", "1, 1")
             }
-
             filterLabelAdapter.notifyDataSetChanged()
         }
     }
