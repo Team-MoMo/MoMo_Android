@@ -5,12 +5,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityListBinding
-import com.example.momo_android.list.FilterBottomSheetFragment
-import com.example.momo_android.list.ListAdapter
-import com.example.momo_android.list.ListData
+import com.example.momo_android.list.*
 import java.lang.StringBuilder
 import java.util.*
 
@@ -25,11 +24,12 @@ class ListActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityListBinding
     private lateinit var listAdapter : ListAdapter
-
-    private var selectEmotion = 0
-    private var selectDepth = 0
+    private lateinit var filterLabelAdapter : FilterLabelAdapter
 
     private lateinit var currentDate : Calendar
+
+    private lateinit var selectEmotion : String
+    private lateinit var selectDepth : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,11 +41,15 @@ class ListActivity : AppCompatActivity() {
 
         initToolbar()
 
+        filterLabelAdapter = FilterLabelAdapter(this)
+        binding.rcvFilterLabel.adapter = filterLabelAdapter
+        binding.rcvFilterLabel.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
         listAdapter = ListAdapter(this)
         binding.rcvList.adapter = listAdapter
         binding.rcvList.layoutManager = LinearLayoutManager(this)
 
-        loadData()
+        loadListData()
 
     }
 
@@ -81,6 +85,9 @@ class ListActivity : AppCompatActivity() {
                     filter_emotion = emotion
                     filter_depth = depth
 
+                    Log.d("filter0", filter_emotion.toString())
+                    Log.d("filter0", filter_depth.toString())
+
                     // 필터 모달에서 선택한 날짜로 toolbar의 title도 변경
                     binding.collapsingtoolbarlayoutList.title = date
 
@@ -92,6 +99,11 @@ class ListActivity : AppCompatActivity() {
                         // 필터의 세 가지 항목 중 어떤 것이라도 선택 혹은 변경했을 때
                         item.setIcon(R.drawable.list_btn_filter_blue)
                     }
+
+                    setLabelData()
+
+                    loadFilterLabelData()
+
                 }
                 frag.show(supportFragmentManager, frag.tag)
             }
@@ -108,7 +120,69 @@ class ListActivity : AppCompatActivity() {
         filter_month = currentDate.get(Calendar.MONTH) + 1
     }
 
-    private fun loadData() {
+    private fun setLabelData() {
+        when (filter_emotion) {
+            1 -> selectEmotion = "사랑"
+            2 -> selectEmotion = "행복"
+            3 -> selectEmotion = "위로"
+            4 -> selectEmotion = "화남"
+            5 -> selectEmotion = "슬픔"
+            6 -> selectEmotion = "우울"
+            7 -> selectEmotion = "추억"
+            8 -> selectEmotion = "일상"
+            else -> selectEmotion = "선택안함" //Log.d("setLabelData", "emotion: nothing selected") // filter_emotion == 0
+        }
+        Log.d("filter1", filter_emotion.toString())
+        Log.d("filter1", selectEmotion)
+
+        when (filter_depth) {
+            1 -> selectDepth = "2m"
+            2 -> selectDepth = "30m"
+            3 -> selectDepth = "100m"
+            4 -> selectDepth = "300m"
+            5 -> selectDepth = "700m"
+            6 -> selectDepth = "1,005m"
+            7 -> selectDepth = "심해"
+            else -> selectDepth = "선택안함" //Log.d("setLabelData", "depth: nothing selected") // filter_depth == 0
+        }
+        Log.d("filter2", filter_depth.toString())
+        Log.d("filter3", selectDepth)
+    }
+
+    private fun loadFilterLabelData() {
+
+        Log.d("filter3", filter_emotion.toString())
+        Log.d("filter3", filter_depth.toString())
+
+        if (filter_emotion == 0 && filter_depth == 0) {
+            binding.rcvFilterLabel.visibility = View.GONE
+            Log.d("filter4", "0, 0")
+        }
+
+        else {
+            binding.rcvFilterLabel.visibility = View.VISIBLE
+
+            if (filter_emotion == 0 && filter_depth != 0) {
+                filterLabelAdapter.data = mutableListOf(FilterLabelData(selectDepth))
+                Log.d("filter4", "0, 1")
+            }
+
+            if (filter_emotion != 0 && filter_depth == 0) {
+                filterLabelAdapter.data = mutableListOf(FilterLabelData(selectEmotion))
+                Log.d("filter4", "1, 0")
+            }
+
+            if (filter_emotion != 0 && filter_depth != 0) {
+                filterLabelAdapter.data =
+                    mutableListOf(FilterLabelData(selectEmotion), FilterLabelData(selectDepth))
+                Log.d("filter4", "1, 1")
+            }
+
+            filterLabelAdapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun loadListData() {
         listAdapter.data = mutableListOf(
             ListData(
                 baseContext?.getDrawable(R.drawable.ic_happy_blue),
