@@ -11,11 +11,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.NumberPicker
+import android.widget.Toast
 import com.example.momo_android.R
 import com.example.momo_android.databinding.BottomsheetDiaryEditDateBinding
 import com.example.momo_android.ui.DiaryActivity.Companion.diary_date
 import com.example.momo_android.ui.DiaryActivity.Companion.diary_month
 import com.example.momo_android.ui.DiaryActivity.Companion.diary_year
+import com.example.momo_android.util.showToast
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -169,6 +171,8 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
             dialog?.dismiss()
         }
 
+
+
     }
 
     // 달 별로 일수 다른거 미리 세팅해둔 함수
@@ -188,5 +192,8 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
             }
         }
     }
+
+
+
 
 }

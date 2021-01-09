@@ -1,5 +1,6 @@
 package com.example.momo_android.util
 
+import android.app.Activity
 import android.content.Context
 import android.text.Layout
 import android.util.Log
@@ -7,6 +8,8 @@ import android.util.Xml
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.Toast
 import com.example.momo_android.R
 import org.xmlpull.v1.XmlPullParser
@@ -41,6 +44,32 @@ fun customToast(layoutInflater : LayoutInflater, toastLayout : XmlPullParser, co
     toast.view = customToast
     toast.show()
 }
+
+/*키보드 숨기기*/
+fun EditText.showKeyboard() {
+    if (requestFocus()) {
+        // edittext에 초점이 맞춰지면 키보드 올라옴
+        (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+                .showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+        setSelection(text.length)
+    }
+}
+
+fun EditText.unshowKeyboard() {
+    if (requestFocus()) {
+        // edittext에 초점이 맞춰지면 키보드 내려감
+        (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+                .hideSoftInputFromWindow(this.windowToken, 0)
+        setSelection(text.length)
+    }
+}
+
+fun View.hideKeyboard() {
+    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(windowToken, 0)
+}
+
+
 
 /* 월을 2자리수로 변환해주는 함수 (6 -> 06)*/
 fun getMonth(month : Int): String {
