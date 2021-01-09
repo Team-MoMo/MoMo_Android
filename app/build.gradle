@@ -57,4 +57,7 @@ dependencies {
     
     // image part blur
     implementation 'com.github.mmin18:realtimeblurview:1.2.1'
+
+    // vertical seekbar
+    implementation 'com.h6ah4i.android.widget.verticalseekbar:verticalseekbar:1.0.0'
 }
