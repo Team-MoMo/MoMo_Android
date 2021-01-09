@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="0dp"
+    android:layout_marginBottom="0dp"
+    tools:context=".ui.UploadWriteActivity">
+
+    <ImageView
+        android:id="@+id/img_back"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="13dp"
+        android:background="@drawable/btn_back_black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/notosans"
+        android:includeFontPadding="false"
+        android:letterSpacing="-0.07"
+        android:lineSpacingExtra="0sp"
+        android:text="다음"
+        android:textColor="@color/blue_next"
+        android:textFontWeight="400"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_feeling"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:fontFamily="@font/notosans"
+        android:includeFontPadding="false"
+        android:letterSpacing="-0.07"
+        android:lineSpacingExtra="0sp"
+        android:text="감정"
+        android:textColor="@color/black_3_list"
+        android:textFontWeight="400"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_feeling"
+        app:layout_constraintStart_toEndOf="@+id/img_feeling"
+        app:layout_constraintTop_toTopOf="@+id/img_feeling" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="21dp"
+        android:fontFamily="@font/notosans"
+        android:includeFontPadding="false"
+        android:letterSpacing="-0.07"
+        android:lineSpacingExtra="0sp"
+        android:text="2020.12.26.토요일"
+        android:textColor="@color/black_4"
+        android:textFontWeight="400"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_back" />
+
+    <ImageView
+        android:id="@+id/img_feeling"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_marginStart="12dp"
+        android:background="@drawable/ic_angry_14_black"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_date"
+        app:layout_constraintStart_toEndOf="@+id/tv_date"
+        app:layout_constraintTop_toTopOf="@+id/tv_date" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="46dp"
+        android:layout_marginEnd="24dp"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_date">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/img_feather"
+                    android:layout_width="15dp"
+                    android:layout_height="17dp"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_feather_black" />
+
+                <TextView
+                    android:id="@+id/tv_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:fontFamily="@font/notosans"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="-0.09"
+                    android:lineSpacingExtra="0sp"
+                    android:text="작가"
+                    android:textColor="@color/black_2_nav"
+                    android:textFontWeight="500"
+                    android:textSize="11sp"
+                    app:layout_constraintStart_toStartOf="@+id/img_feather"
+                    app:layout_constraintTop_toBottomOf="@+id/img_feather" />
+
+                <TextView
+                    android:id="@+id/tv_book"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/notosans"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="-0.09"
+                    android:lineSpacingExtra="0sp"
+                    android:text="책"
+                    android:textColor="@color/black_2_nav"
+                    android:textFontWeight="500"
+                    android:textSize="11sp"
+                    app:layout_constraintStart_toEndOf="@+id/tv_author"
+                    app:layout_constraintTop_toTopOf="@+id/tv_author" />
+
+                <TextView
+                    android:id="@+id/tv_publisher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:fontFamily="@font/notosans"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="-0.09"
+                    android:lineSpacingExtra="0sp"
+                    android:text="(출판사)"
+                    android:textColor="@color/black_5_publish"
+                    android:textFontWeight="400"
+                    android:textSize="11sp"
+                    app:layout_constraintStart_toEndOf="@+id/tv_book"
+                    app:layout_constraintTop_toTopOf="@+id/tv_book" />
+
+                <TextView
+                    android:id="@+id/tv_sentence"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/notosans"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="-0.08"
+                    android:lineSpacingExtra="7sp"
+                    android:text="문장"
+                    android:textColor="@color/black_3_list"
+                    android:textFontWeight="400"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_author" />
+
+                <ImageButton
+                    android:id="@+id/togglebtn"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/btn_arrow_up_black"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_publisher"
+                    app:layout_constraintStart_toEndOf="@+id/tv_publisher"
+                    app:layout_constraintTop_toTopOf="@+id/tv_publisher" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:background="@color/line_light_gray"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+            <EditText
+                android:id="@+id/et_diary"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="0dp"
+                android:background="@color/white"
+                android:ems="10"
+                android:fontFamily="@font/notosans"
+                android:gravity="start|top"
+                android:hint="파동을  충분히 느낀 후, 감정을 기록해보세요."
+                android:includeFontPadding="false"
+                android:inputType="textMultiLine"
+                android:letterSpacing="-0.08"
+                android:lineSpacingExtra="0sp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:textColor="@color/black_3_list"
+                android:textColorHint="@color/blue_3"
+                android:textFontWeight="400"
+                android:textSize="11sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:id="@+id/click_area"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="242dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_date" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

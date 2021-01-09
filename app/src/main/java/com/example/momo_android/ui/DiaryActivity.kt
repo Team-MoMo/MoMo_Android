@@ -5,10 +5,8 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.momo_android.databinding.ActivityDiaryBinding
 import com.example.momo_android.diary.EditDateBottomSheetFragment
-import com.example.momo_android.util.getDate
-import com.example.momo_android.util.getMonth
-import com.example.momo_android.util.setGone
-import com.example.momo_android.util.setVisible
+import com.example.momo_android.diary.ModalDiaryDelete
+import com.example.momo_android.util.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -69,6 +67,7 @@ class DiaryActivity : AppCompatActivity() {
         diary_month = SimpleDateFormat("MM", Locale.KOREA).format(dateformat).toInt()
         diary_date = SimpleDateFormat("dd", Locale.KOREA).format(dateformat).toInt()
 
+        // 날짜 수정
         btn_edit_date.setOnClickListener {
             menu_edit.setGone()
             val fragEditDate = EditDateBottomSheetFragment{
@@ -91,8 +90,25 @@ class DiaryActivity : AppCompatActivity() {
         }
 
 
+        // 일기 삭제
+        btn_edit_delete.setOnClickListener {
+            menu_edit.setGone()
+            val deleteModal = ModalDiaryDelete(this)
+            deleteModal.start()
+            deleteModal.setOnClickListener {
+                if(it == "삭제") {
+                    // 삭제됐을때 통신
+                }
+            }
+        }
 
+        view.setOnClickListener {
+            menu_edit.setGone()
+        }
 
+        binding.clDiary.setOnClickListener {
+            menu_edit.setGone()
+        }
 
     }
 

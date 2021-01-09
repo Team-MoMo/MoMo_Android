@@ -153,9 +153,9 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int, 
 
     // selected date print 함수
     private fun printDate() {
-        val selectDate = StringBuilder(year.value.toString())
+        val selectDate = StringBuilder(binding.includeFilterNumberPicker.year.value.toString())
         selectDate.append("년 ")
-                .append(month.value.toString())
+                .append(binding.includeFilterNumberPicker.month.value.toString())
                 .append("월")
 
         binding.tvFilterSelectedDate.text = selectDate
