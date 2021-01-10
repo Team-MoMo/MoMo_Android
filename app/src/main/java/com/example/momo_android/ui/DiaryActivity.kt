@@ -5,9 +5,14 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.momo_android.databinding.ActivityDiaryBinding
-import com.example.momo_android.diary.EditDateBottomSheetFragment
-import com.example.momo_android.diary.ModalDiaryDelete
+import com.example.momo_android.diary.data.ResponseDiaryData
+import com.example.momo_android.diary.ui.EditDateBottomSheetFragment
+import com.example.momo_android.diary.ui.ModalDiaryDelete
+import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.util.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -19,7 +24,7 @@ class DiaryActivity : AppCompatActivity() {
         var diary_date = 0
     }
 
-    private lateinit var binding : ActivityDiaryBinding
+    private lateinit var binding: ActivityDiaryBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +38,18 @@ class DiaryActivity : AppCompatActivity() {
         val btn_edit_depth = binding.btnEditDepth
         val btn_edit_diary = binding.btnEditDiary
         val btn_edit_delete = binding.btnEditDelete
-        val tv_diary_date = binding.tvDiaryDate
         val menu_edit = binding.menuEdit
+
+        // data
+        val tv_diary_date = binding.tvDiaryDate
+        val img_diary_emotion = binding.imgDiaryEmotion
+        val tv_diary_emotion = binding.tvDiaryEmotion
+        val tv_diary_deep = binding.tvDiaryDeep
+        val tv_contents = binding.tvContents
+        val tv_bookname = binding.tvBookname
+        val tv_writer = binding.tvWriter
+        val tv_publisher = binding.tvPublisher
+        val tv_diary_content = binding.tvDiaryContent
 
         // back 버튼
         btn_back.setOnClickListener {
@@ -43,12 +58,43 @@ class DiaryActivity : AppCompatActivity() {
 
         // menu 버튼
         btn_menu.setOnClickListener {
-            if(btn_menu.isChecked) {
+            if (btn_menu.isChecked) {
                 menu_edit.setVisible()
             } else {
                 menu_edit.setGone()
             }
         }
+
+
+        RequestToServer.service.getDiary(
+            Authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
+            params = 1
+        ).enqueue(object : Callback<ResponseDiaryData> {
+            override fun onResponse(call: Call<ResponseDiaryData>, response: Response<ResponseDiaryData>) {
+                Log.d("뭐가 되긴 한겅미???", response.toString())
+
+                if(response.code() == 400) {
+                    Log.d("아아아ㅏㅇㄱ 400", response.message())
+                }
+                when {
+                    response.code() == 200 -> {
+                        tv_contents.text = response.body()!!.data.Sentence.content
+                        Log.d("getDiary 통신성공", "??")
+                    }
+                    response.code() == 400 -> {
+                        Log.d("getDiary 400", response.message())
+                    }
+                    else -> {
+                        Log.d("getDiary 500", response.message())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseDiaryData>, t: Throwable) {
+                Log.d("getDiary ERROR", "$t")
+            }
+
+        })
 
 
         // string to date
@@ -71,7 +117,7 @@ class DiaryActivity : AppCompatActivity() {
         // 날짜 수정
         btn_edit_date.setOnClickListener {
             menu_edit.setGone()
-            val fragEditDate = EditDateBottomSheetFragment{
+            val fragEditDate = EditDateBottomSheetFragment {
 
                 // picker 에서 가져온 날짜를 다이어리에 띄워준다
                 val pickerDate = "${it[0]}${getMonth(it[1])}${getDate(it[2])}"
@@ -100,7 +146,7 @@ class DiaryActivity : AppCompatActivity() {
             val deleteModal = ModalDiaryDelete(this)
             deleteModal.start()
             deleteModal.setOnClickListener {
-                if(it == "삭제") {
+                if (it == "삭제") {
                     // 일기삭제 통신
                     // finish()
                 }

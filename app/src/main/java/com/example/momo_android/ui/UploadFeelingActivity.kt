@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.momo_android.databinding.ActivityUploadFeelingBinding
-import com.example.momo_android.diary.EditDateBottomSheetFragment
+import com.example.momo_android.diary.ui.EditDateBottomSheetFragment
 
 class UploadFeelingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUploadFeelingBinding//뷰바인딩
