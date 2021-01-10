@@ -175,6 +175,10 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
             dialog?.dismiss()
         }
 
+        Binding.btnCloseDiaryEditDate.setOnClickListener {
+            dialog?.dismiss()
+        }
+
 
 
     }
