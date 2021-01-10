@@ -115,8 +115,8 @@ class UnderlineTextView @JvmOverloads constructor(
 
             // (텍스트가 여러 줄인 경우) 텍스트가 버튼을 가리지 않게 적절히 잘리도록 함
             if (this.width * 2 <= this.paint.measureText(this.text.toString()).toInt()) {
-                var splitedText = this.text.substring(0, layout.getLineEnd(1) - 3)
-                splitedText = "$splitedText..."
+                var splitedText = this.text.substring(0, layout.getLineEnd(1) - 4)
+                splitedText = "$splitedText…"
                 this.text = splitedText
             }
             // (텍스트가 한 줄인 경우) 텍스트가 버튼을 가리지 않고 바로 다음 줄로 넘어가도록 함

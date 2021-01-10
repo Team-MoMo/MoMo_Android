@@ -103,47 +103,19 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_list_date" />
 
     <TextView
-        android:id="@+id/tv_list_writer_name"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_list_book_info"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/notosans"
+        android:fontFamily="@font/notosanskrregular"
         android:includeFontPadding="false"
         android:text="박연준"
         android:textColor="@color/blue_3"
-        android:textFontWeight="500"
         android:textSize="12dp"
+        android:lines="1"
+        android:ellipsize="end"
+        app:layout_constraintEnd_toEndOf="@+id/tv_list_book_sentence"
         app:layout_constraintStart_toStartOf="@+id/tv_list_book_sentence"
-        app:layout_constraintTop_toBottomOf="@+id/tv_list_book_sentence" />
-
-    <TextView
-        android:id="@+id/tv_list_book_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/notosans"
-        android:includeFontPadding="false"
-        android:text="&lt;인생은 이상하게 흐른다&gt;"
-        android:textColor="@color/blue_3"
-        android:textFontWeight="500"
-        android:textSize="12dp"
-        app:layout_constraintStart_toEndOf="@+id/tv_list_writer_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_list_book_sentence" />
-
-    <TextView
-        android:id="@+id/tv_list_book_publisher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/notosans"
-        android:includeFontPadding="false"
-        android:text="(달)"
-        android:textColor="@color/black_5_publish"
-        android:textFontWeight="400"
-        android:textSize="12dp"
-        app:layout_constraintStart_toEndOf="@+id/tv_list_book_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_list_book_sentence" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -156,7 +128,7 @@
         android:padding="23dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_list_writer_name">
+        app:layout_constraintTop_toBottomOf="@+id/tv_list_book_info">
 
         <com.example.momo_android.util.UnderlineTextView
             android:id="@+id/tv_list_diary"
