@@ -9,7 +9,7 @@
         android:id="@+id/tv_seekbar_depth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/notosanskrlight"
+        android:fontFamily="@font/notosanskrthin"
         android:letterSpacing="-0.03"
         android:text="2m"
         android:textColor="@color/blue_7"
