@@ -1,4 +1,4 @@
-package com.example.momo_android.ui
+package com.example.momo_android.list.ui
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity

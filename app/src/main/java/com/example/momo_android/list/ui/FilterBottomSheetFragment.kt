@@ -1,4 +1,4 @@
-package com.example.momo_android.list
+package com.example.momo_android.list.ui
 
 import android.app.Dialog
 import android.os.Bundle
@@ -11,10 +11,10 @@ import android.widget.FrameLayout
 import android.widget.NumberPicker
 import com.example.momo_android.R
 import com.example.momo_android.databinding.BottomsheetListFilterBinding
-import com.example.momo_android.ui.ListActivity.Companion.filter_depth
-import com.example.momo_android.ui.ListActivity.Companion.filter_emotion
-import com.example.momo_android.ui.ListActivity.Companion.filter_month
-import com.example.momo_android.ui.ListActivity.Companion.filter_year
+import com.example.momo_android.list.ui.ListActivity.Companion.filter_depth
+import com.example.momo_android.list.ui.ListActivity.Companion.filter_emotion
+import com.example.momo_android.list.ui.ListActivity.Companion.filter_month
+import com.example.momo_android.list.ui.ListActivity.Companion.filter_year
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
