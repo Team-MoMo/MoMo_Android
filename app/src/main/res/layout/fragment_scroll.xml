@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.ScrollFragment">
+
+    <com.example.momo_android.util.ui.NestedScrollableHost
+        android:id="@+id/nestedScrollableHost"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_gradient"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingVertical="80dp"
+            tools:listitem="@layout/item_scroll_gradient" />
+
+    </com.example.momo_android.util.ui.NestedScrollableHost>
+
+    <ImageView
+        android:id="@+id/imageView_swipeUp"
+        android:layout_width="36dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/home_ic_swipe_up"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageButton_my"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        android:backgroundTint="@android:color/transparent"
+        android:src="@drawable/btn_ic_my"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageButton_calendar"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@android:color/transparent"
+        android:src="@drawable/btn_ic_calender"
+        app:layout_constraintEnd_toEndOf="@+id/imageButton_my"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton_my" />
+
+    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+        android:id="@+id/verticalSeekBarWrapper"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="end|center_vertical"
+        android:layout_marginVertical="80dp"
+        app:layout_constraintBottom_toBottomOf="@+id/nestedScrollableHost"
+        app:layout_constraintEnd_toEndOf="@+id/nestedScrollableHost"
+        app:layout_constraintTop_toTopOf="@+id/nestedScrollableHost">
+
+        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+            android:id="@+id/verticalSeekBar_depth"
+            android:layout_width="9dp"
+            android:layout_height="match_parent"
+            android:max="480"
+            android:progressBackgroundTint="@android:color/transparent"
+            android:progressTint="@android:color/transparent"
+            android:splitTrack="false"
+            android:thumb="@drawable/ic_vertical_seek_bar_thumb"
+            app:seekBarRotation="CW90" />
+    </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
+    <View
+        android:id="@+id/view_buttonContainer"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageButton_home"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/home_btn_top"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButton_upload"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView_swipeDown"
+        android:layout_width="36dp"
+        android:layout_height="26dp"
+        android:background="@drawable/home_ic_swipe_down"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButton_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageButton_upload"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/home_btn_upload"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButton_list"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton_list" />
+
+    <ImageButton
+        android:id="@+id/imageButton_list"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/home_btn_list"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,6 +11,7 @@
     <!-- list color palette -->
     <color name="nav_white">#cbd3dc</color>
     <color name="blue_2">#477bb8</color>
+    <color name="blue_2_50">#80477bb8</color>
     <color name="blue_1">#3167a8</color>
     <color name="blue_4">#b2cbea</color>
     <color name="blue_3">#72a0d8</color>
@@ -27,6 +28,7 @@
     <color name="black_5_publish">#909090</color>
     <color name="black_3_list">#474747</color>
     <color name="blue_4_depth">#33b2cbea</color>
+    <color name="dark_blue_grey">#192c4b</color>
 
     <!-- add color -->
     <color name="gray_line">#d1d1d1</color>
@@ -36,4 +38,15 @@
     <color name="blue_7_0.8">#ccf5f9ff</color>
     <color name="red_1">#b00000</color>
 
+    <color name="gradient_2m_start">#6bb7fa</color>
+    <color name="gradient_30m_start">#91d5fc</color>
+    <color name="gradient_100m_start">#5ed5ef</color>
+    <color name="gradient_300m_start">#85bbfa</color>
+    <color name="gradient_700m_start">#8f8ff8</color>
+    <color name="gradient_1005m_start">#1997f2</color>
+    <color name="gradient_deep_sea_start">#0e5cb2</color>
+    <color name="gradient_deep_sea_end">#043078</color>
+
+    <color name="grdient_bubble_start">#c2f5faff</color>
+    <color name="grdient_bubble_end">#ebdceaff</color>
 </resources>
