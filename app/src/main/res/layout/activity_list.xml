@@ -89,7 +89,7 @@
                     android:letterSpacing="-0.07"
                     android:text="검색된 결과가 없습니다."
                     android:textColor="@color/blue_3"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -113,7 +113,7 @@
                     android:letterSpacing="-0.07"
                     android:text="아직 작성된 일기가 없습니다.\n새로운 문장을 만나러 가볼까요?"
                     android:textColor="@color/blue_3"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
