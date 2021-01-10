@@ -74,6 +74,64 @@
                 android:paddingBottom="44dp"
                 tools:listitem="@layout/item_list" />
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintlayout_list_filterd_none"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="68dp"
+                    android:fontFamily="@font/notosanskrregular"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="-0.07"
+                    android:text="검색된 결과가 없습니다."
+                    android:textColor="@color/blue_3"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintlayout_list_none"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="90dp"
+                    android:fontFamily="@font/notosanskrregular"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="-0.07"
+                    android:text="아직 작성된 일기가 없습니다.\n새로운 문장을 만나러 가볼까요?"
+                    android:textColor="@color/blue_3"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/imagebutton_list_create_diary"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/btn_create_diary"
+                    app:layout_constraintDimensionRatio="1:0.27"
+                    app:layout_constraintEnd_toEndOf="@+id/textView8"
+                    app:layout_constraintStart_toStartOf="@+id/textView8"
+                    app:layout_constraintTop_toBottomOf="@+id/textView8"
+                    app:layout_constraintWidth_percent="0.305" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
