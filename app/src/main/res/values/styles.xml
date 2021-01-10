@@ -60,7 +60,7 @@
 
     <!-- NumberPicker theme -->
     <style name="NumberPickerTheme">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">18dp</item>
         <item name="android:textColor">@color/black_3_list</item>
         <item name="android:fontFamily">@font/notosanskrmedium</item>
         <item name="colorControlNormal">@android:color/transparent</item>
