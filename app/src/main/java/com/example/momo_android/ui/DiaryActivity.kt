@@ -78,7 +78,7 @@ class DiaryActivity : AppCompatActivity() {
                 }
                 when {
                     response.code() == 200 -> {
-                        tv_contents.text = response.body()!!.data.Sentence.content
+                        tv_contents.text = response.body()!!.data.Sentence.contents
                         Log.d("getDiary 통신성공", "??")
                     }
                     response.code() == 400 -> {
