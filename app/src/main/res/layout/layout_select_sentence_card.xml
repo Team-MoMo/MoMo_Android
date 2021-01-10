@@ -23,7 +23,7 @@
         app:neumorph_insetStart="8dp"
         app:neumorph_insetTop="0dp"
         app:neumorph_lightSource="leftTop"
-        app:neumorph_shadowColorDark="#2321619C"
+        app:neumorph_shadowColorDark="@color/gray_shadow"
         app:neumorph_shadowColorLight="#FFFFFF"
         app:neumorph_shadowElevation="4dp"
         app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
@@ -71,7 +71,7 @@
                 android:text="(출판사)"
                 android:textColor="@color/black_5_publish"
                 android:textFontWeight="400"
-                android:textSize="11sp"
+                android:textSize="12dp"
                 app:layout_constraintStart_toEndOf="@+id/tv_book"
                 app:layout_constraintTop_toTopOf="@+id/tv_book" />
 
@@ -87,7 +87,7 @@
                 android:text="책"
                 android:textColor="@color/black_2_nav"
                 android:textFontWeight="500"
-                android:textSize="11sp"
+                android:textSize="12dp"
                 app:layout_constraintStart_toEndOf="@+id/tv_author"
                 app:layout_constraintTop_toTopOf="@+id/tv_author" />
 
@@ -103,7 +103,7 @@
                 android:text="작가"
                 android:textColor="@color/black_2_nav"
                 android:textFontWeight="500"
-                android:textSize="11sp"
+                android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="@+id/img_feather"
                 app:layout_constraintStart_toEndOf="@+id/img_feather"
                 app:layout_constraintTop_toTopOf="@+id/img_feather" />

@@ -12,28 +12,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MoMo_Android">
-        <activity android:name=".ui.DiaryActivity"/>
-        <activity android:name=".ui.DiaryEditDeepActivity">
-
-        </activity>
-        <activity android:name=".ui.UploadWriteActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan">
-        </activity>
-
+        <activity android:name=".ui.OnboardingActivity"></activity>
+        <activity android:name=".ui.DiaryActivity" />
+        <activity android:name=".ui.DiaryEditDeepActivity"></activity>
+        <activity
+            android:name=".ui.UploadWriteActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
         <activity android:name=".ui.UploadSentenceActivity" />
         <activity android:name=".ui.UploadFeelingActivity">
-        </activity>
-
-
-        <activity
-            android:name=".ui.ListActivity"
-            android:theme="@style/Theme.listTheme" />
-        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.ListActivity"
+            android:theme="@style/Theme.listTheme" />
+        <activity android:name=".ui.MainActivity">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
         </activity>
     </application>
 
