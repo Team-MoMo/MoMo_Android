@@ -56,8 +56,8 @@ class DiaryEditDeepActivity : AppCompatActivity() {
         lineSeekbar.setOnTouchListener { _, _ -> true }
 
         textSeekbar.progress = mainSeekbar.progress
+        (textThumb.findViewById(R.id.tv_seekbar_depth) as TextView).text = getDepth(textSeekbar.progress)
         textSeekbar.thumb = textThumb.getThumb()
-        (textThumb.findViewById(R.id.tv_seekbar_depth) as TextView).text = getDepth(mainSeekbar.progress)
         textSeekbar.setOnTouchListener { _, _ -> true }
 
 
@@ -81,8 +81,8 @@ class DiaryEditDeepActivity : AppCompatActivity() {
                 lineSeekbar.thumb = lineThumb.getThumb()
 
                 textSeekbar.progress = progress
-                textSeekbar.thumb = textThumb.getThumb()
                 (textThumb.findViewById(R.id.tv_seekbar_depth) as TextView).text = getDepth(textSeekbar.progress)
+                textSeekbar.thumb = textThumb.getThumb()
                 Log.d("이상하다", getDepth(progress))
 
                 svDeep.smoothScrollToView(depthImg())
