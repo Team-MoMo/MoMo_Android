@@ -1,4 +1,4 @@
-package com.example.momo_android.ui
+package com.example.momo_android.diary.ui
 
 import android.animation.ObjectAnimator
 import android.graphics.Bitmap
