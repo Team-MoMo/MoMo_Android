@@ -168,6 +168,10 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
         Binding.btnDiaryDateEdit.setOnClickListener {
             val pick = intArrayOf(year.value, month.value, date.value)
             itemClick(pick)
+
+            // 날짜수정 통신
+
+            context!!.showToast("날짜가 수정되었습니다.")
             dialog?.dismiss()
         }
 

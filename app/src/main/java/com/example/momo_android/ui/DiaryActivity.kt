@@ -1,5 +1,6 @@
 package com.example.momo_android.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -51,7 +52,7 @@ class DiaryActivity : AppCompatActivity() {
 
 
         // string to date
-        val strDate = "2020-08-16T00:00:00.000Z"
+        val strDate = "2020-08-16T00:00:00.000Z" // 서버에서 받아온 wroteAt 데이터
         val dateformat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss.sss'Z'", Locale.KOREAN).parse(strDate)
 
         Log.d("테스트", dateformat.toString())
@@ -83,6 +84,9 @@ class DiaryActivity : AppCompatActivity() {
                 diary_month = it[1]
                 diary_date = it[2]
 
+                // 서버 : 수정한 날짜 다시 받아와서 tv_diary_date 에 넣어주기 -> 그래야 깊이수정으로 바뀐 날짜 넘어감
+
+
             }
 
 
@@ -97,9 +101,18 @@ class DiaryActivity : AppCompatActivity() {
             deleteModal.start()
             deleteModal.setOnClickListener {
                 if(it == "삭제") {
-                    // 삭제됐을때 통신
+                    // 일기삭제 통신
+                    // finish()
                 }
             }
+        }
+
+        // 깊이 수정
+        btn_edit_depth.setOnClickListener {
+            menu_edit.setGone()
+            val intent = Intent(this, DiaryEditDeepActivity::class.java)
+            intent.putExtra("diary_day", diary_day)
+            startActivity(intent)
         }
 
         view.setOnClickListener {
