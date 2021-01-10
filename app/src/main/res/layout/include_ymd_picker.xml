@@ -33,7 +33,7 @@
             android:includeFontPadding="false"
             android:text="년"
             android:textColor="@color/black_4"
-            android:textSize="15sp"
+            android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="@+id/year"
             app:layout_constraintStart_toEndOf="@+id/year"
             app:layout_constraintTop_toTopOf="@+id/year" />
@@ -87,7 +87,7 @@
             android:includeFontPadding="false"
             android:text="월"
             android:textColor="@color/black_4"
-            android:textSize="15sp"
+            android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="@+id/month"
             app:layout_constraintStart_toEndOf="@+id/month"
             app:layout_constraintTop_toTopOf="@+id/month" />
@@ -140,7 +140,7 @@
             android:includeFontPadding="false"
             android:text="일"
             android:textColor="@color/black_4"
-            android:textSize="15sp"
+            android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="@+id/date"
             app:layout_constraintStart_toEndOf="@+id/date"
             app:layout_constraintTop_toTopOf="@+id/date" />

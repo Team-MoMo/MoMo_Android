@@ -39,8 +39,7 @@
         android:lineSpacingExtra="6sp"
         android:text="잠시만요!"
         android:textColor="@color/blue_1"
-        android:textSize="18sp"
-
+        android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
@@ -56,7 +55,8 @@
         android:text="소중한 일기가 삭제됩니다.\n
 정말 삭제하시겠어요?"
         android:textColor="@color/black"
-        android:textSize="14sp"
+        android:textSize="14dp"
+        android:letterSpacing="-0.07"
         app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -93,7 +93,7 @@
         android:paddingBottom="15dp"
         android:text="취소"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/view3"
         app:layout_constraintStart_toStartOf="parent"
@@ -108,7 +108,7 @@
         android:includeFontPadding="false"
         android:text="삭제"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/btn_delete_cancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/view3"
