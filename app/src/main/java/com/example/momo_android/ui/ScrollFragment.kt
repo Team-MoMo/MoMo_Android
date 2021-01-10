@@ -96,8 +96,8 @@ class ScrollFragment : Fragment() {
                 imageButtonMy.id -> Log.d("TAG", "clicked: ")
                 imageButtonCalendar.id -> Log.d("TAG", "clicked: ")
                 imageButtonHome.id -> scrollToTop()
-                imageButtonUpload.id -> Log.d("TAG", "clicked: ")
-                imageButtonList.id -> Log.d("TAG", "clicked: ")
+                imageButtonUpload.id -> setIntentToUploadActivity()
+                imageButtonList.id -> setIntentToListActivity()
             }
         }
     }
@@ -113,6 +113,16 @@ class ScrollFragment : Fragment() {
             requireActivity().onBackPressed()
             isHomeButtonClicked = false
         }
+    }
+
+    private fun setIntentToUploadActivity() {
+        val intent = Intent(requireContext(), UploadFeelingActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun setIntentToListActivity() {
+        val intent = Intent(requireContext(), ListActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onDestroyView() {
