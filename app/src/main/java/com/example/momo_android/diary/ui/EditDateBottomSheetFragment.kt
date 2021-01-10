@@ -1,4 +1,4 @@
-package com.example.momo_android.diary
+package com.example.momo_android.diary.ui
 
 import android.app.Dialog
 import android.content.res.Resources
@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.NumberPicker
-import android.widget.Toast
 import com.example.momo_android.R
 import com.example.momo_android.databinding.BottomsheetDiaryEditDateBinding
 import com.example.momo_android.ui.DiaryActivity.Companion.diary_date
