@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.UploadDeepActivity">
+
+    <ScrollView
+        android:id="@+id/sv_upload_deep"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="@+id/realtimeBlurView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:layout_conversion_absoluteHeight="0dp"
+            tools:layout_conversion_absoluteWidth="411dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp">
+
+            <ImageView
+                android:id="@+id/bg_deep1"
+                android:layout_width="0dp"
+                android:layout_height="800dp"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/bg_deep1" />
+
+            <ImageView
+                android:id="@+id/bg_deep2"
+                android:layout_width="0dp"
+                android:layout_height="800dp"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bg_deep1"
+                app:srcCompat="@drawable/bg_deep2" />
+
+            <ImageView
+                android:id="@+id/bg_deep3"
+                android:layout_width="0dp"
+                android:layout_height="800dp"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bg_deep2"
+                app:srcCompat="@drawable/bg_deep3" />
+
+            <ImageView
+                android:id="@+id/bg_deep4"
+                android:layout_width="0dp"
+                android:layout_height="800dp"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bg_deep3"
+                app:srcCompat="@drawable/bg_deep4" />
+
+            <ImageView
+                android:id="@+id/bg_deep5"
+                android:layout_width="0dp"
+                android:layout_height="800dp"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bg_deep4"
+                app:srcCompat="@drawable/bg_deep5" />
+
+            <ImageView
+                android:id="@+id/bg_deep6"
+                android:layout_width="0dp"
+                android:layout_height="800dp"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bg_deep5"
+                app:srcCompat="@drawable/bg_deep6" />
+
+            <ImageView
+                android:id="@+id/bg_deep7"
+                android:layout_width="0dp"
+                android:layout_height="800dp"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bg_deep6"
+                app:srcCompat="@drawable/bg_deep7" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/btn_back_white" />
+
+        <ImageView
+            android:id="@+id/btn_close"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:paddingStart="13dp"
+            android:paddingEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/btn_close_white" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout8"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/realtimeBlurView"
+        app:layout_constraintDimensionRatio="1:0.4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout6"
+        app:layout_constraintVertical_chainStyle="spread">
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:fontFamily="@font/notosanskrlight"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.05"
+            android:lineHeight="32sp"
+            android:text="감정이 얼마나 깊은가요?\n나만의 바다에 기록해보세요"
+            android:textColor="@color/blue_7"
+            android:textSize="22dp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_deep_date"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/tv_deep_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.07"
+            android:text="2021. 00. 00. 토요일"
+            android:textColor="@color/blue_7"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView7"
+            app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+        <ImageView
+            android:id="@+id/img_deep_emotion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_deep_date"
+            app:layout_constraintEnd_toStartOf="@+id/tv_diary_emotion"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/tv_deep_date"
+            app:layout_constraintTop_toTopOf="@+id/tv_deep_date"
+            app:srcCompat="@drawable/ic_angry_14_white" />
+
+        <TextView
+            android:id="@+id/tv_deep_emotion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.07"
+            android:text="화남"
+            android:textColor="@color/blue_7"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_deep_emotion"
+            app:layout_constraintEnd_toStartOf="@+id/img_diary_deep"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/img_deep_emotion"
+            app:layout_constraintTop_toTopOf="@+id/img_deep_emotion" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.github.mmin18.widget.RealtimeBlurView
+        android:id="@+id/realtimeBlurView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout9"
+        app:realtimeBlurRadius="8dp"
+        app:realtimeOverlayColor="@color/diary_bg" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout9"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/diary_bg"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.62"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+            android:id="@+id/verticalSeekBarWrapper"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="42dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                android:id="@+id/mainSeekBar"
+                style="@android:style/Widget.Material.Light.SeekBar"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@null"
+                android:max="6"
+                android:progress="0"
+                android:progressDrawable="@android:color/transparent"
+                android:splitTrack="false"
+                android:thumb="@drawable/ic_step"
+                android:tickMark="@drawable/ellipse_98"
+                app:seekBarRotation="CW90" /> <!-- Rotation: CW90 or CW270 -->
+        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
+        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+            android:id="@+id/verticalSeekBarWrapper2"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/verticalSeekBarWrapper"
+            app:layout_constraintStart_toEndOf="@+id/verticalSeekBarWrapper"
+            app:layout_constraintTop_toTopOf="@+id/verticalSeekBarWrapper">
+
+            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                android:id="@+id/lineSeekBar"
+                style="@android:style/Widget.Material.Light.SeekBar"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@null"
+                android:max="6"
+                android:progress="0"
+                android:progressDrawable="@android:color/transparent"
+                android:splitTrack="false"
+                app:seekBarRotation="CW90" /> <!-- Rotation: CW90 or CW270 -->
+        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
+        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+            android:id="@+id/verticalSeekBarWrapper3"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintBottom_toBottomOf="@+id/verticalSeekBarWrapper2"
+            app:layout_constraintStart_toEndOf="@+id/verticalSeekBarWrapper2"
+            app:layout_constraintTop_toTopOf="@+id/verticalSeekBarWrapper2">
+
+            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                android:id="@+id/textSeekBar"
+                style="@android:style/Widget.Material.Light.SeekBar"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@null"
+                android:max="6"
+                android:progress="0"
+                android:progressDrawable="@android:color/transparent"
+                android:splitTrack="false"
+                app:seekBarRotation="CW90" /> <!-- Rotation: CW90 or CW270 -->
+        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout10"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/diary_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/btn_upload_deep"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/btn_white_r46"
+            android:fontFamily="@font/notosanskrmedium"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.06"
+            android:text="기록하기"
+            android:textColor="@color/blue_2"
+            android:textSize="17dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:0.20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.61" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

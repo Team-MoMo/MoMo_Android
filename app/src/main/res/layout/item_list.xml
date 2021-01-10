@@ -27,7 +27,7 @@
         android:text="행복"
         android:textColor="@color/blue_2"
         android:textFontWeight="500"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="@+id/img_list_emotion"
         app:layout_constraintStart_toStartOf="@+id/img_list_emotion"
         app:layout_constraintTop_toBottomOf="@+id/img_list_emotion" />
@@ -43,7 +43,7 @@
         android:text="12.01"
         android:textColor="@color/blue_1"
         android:textFontWeight="500"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintStart_toEndOf="@+id/img_list_emotion"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -57,7 +57,7 @@
         android:text="화"
         android:textColor="@color/blue_1"
         android:textFontWeight="400"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintStart_toEndOf="@+id/tv_list_date"
         app:layout_constraintTop_toTopOf="@+id/tv_list_date" />
 
@@ -72,7 +72,7 @@
         android:text="1,005m"
         android:textColor="@color/blue_1"
         android:textFontWeight="500"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -97,53 +97,25 @@
         android:text="할머니가 자애로운 손길로 내 얼굴과 머리카락, 이마를 쓸어주는게 좋았다. 마치 내 존재 전부를 쓸어주는 것 같았다."
         android:textColor="@color/black_3_list"
         android:textFontWeight="400"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="@+id/tv_list_depth"
         app:layout_constraintStart_toStartOf="@+id/tv_list_date"
         app:layout_constraintTop_toBottomOf="@+id/tv_list_date" />
 
     <TextView
-        android:id="@+id/tv_list_writer_name"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_list_book_info"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/notosans"
+        android:fontFamily="@font/notosanskrregular"
         android:includeFontPadding="false"
         android:text="박연준"
         android:textColor="@color/blue_3"
-        android:textFontWeight="500"
-        android:textSize="11sp"
+        android:textSize="12dp"
+        android:lines="1"
+        android:ellipsize="end"
+        app:layout_constraintEnd_toEndOf="@+id/tv_list_book_sentence"
         app:layout_constraintStart_toStartOf="@+id/tv_list_book_sentence"
-        app:layout_constraintTop_toBottomOf="@+id/tv_list_book_sentence" />
-
-    <TextView
-        android:id="@+id/tv_list_book_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/notosans"
-        android:includeFontPadding="false"
-        android:text="&lt;인생은 이상하게 흐른다&gt;"
-        android:textColor="@color/blue_3"
-        android:textFontWeight="500"
-        android:textSize="11sp"
-        app:layout_constraintStart_toEndOf="@+id/tv_list_writer_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_list_book_sentence" />
-
-    <TextView
-        android:id="@+id/tv_list_book_publisher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/notosans"
-        android:includeFontPadding="false"
-        android:text="(달)"
-        android:textColor="@color/black_5_publish"
-        android:textFontWeight="400"
-        android:textSize="11sp"
-        app:layout_constraintStart_toEndOf="@+id/tv_list_book_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_list_book_sentence" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -156,7 +128,7 @@
         android:padding="23dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_list_writer_name">
+        app:layout_constraintTop_toBottomOf="@+id/tv_list_book_info">
 
         <com.example.momo_android.util.UnderlineTextView
             android:id="@+id/tv_list_diary"
@@ -169,7 +141,7 @@
             android:lineSpacingExtra="10dp"
             android:textFontWeight="400"
             android:maxLines="2"
-            android:textSize="13sp"
+            android:textSize="13dp"
             app:underlineColor="@color/line_light_gray"
             app:underlineHeight="1dp"
             app:underLinePosition="below"/>

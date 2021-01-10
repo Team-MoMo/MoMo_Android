@@ -19,6 +19,7 @@ import android.widget.TextView
 import androidx.core.animation.doOnEnd
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityDiaryEditDeepBinding
+import com.example.momo_android.util.showToast
 import kotlin.math.abs
 
 class DiaryEditDeepActivity : AppCompatActivity() {
@@ -36,6 +37,19 @@ class DiaryEditDeepActivity : AppCompatActivity() {
         val lineSeekbar = binding.lineSeekBar
         val textSeekbar = binding.textSeekBar
         val svDeep = binding.svDiaryEditDeep
+        val btn_back = binding.btnBack
+        val tv_deep_date = binding.tvDeepDate
+        val btn_edit_deep = binding.btnEditDeep
+
+
+        // 스크롤뷰 스크롤 막기
+        svDeep.setOnTouchListener { _, _ -> true }
+
+        btn_back.setOnClickListener {
+            finish()
+        }
+
+        tv_deep_date.text = intent.getStringExtra("diary_day")
 
         val lineThumb = LayoutInflater.from(this).inflate(
             R.layout.seekbar_line_thumb, null, false
@@ -97,6 +111,14 @@ class DiaryEditDeepActivity : AppCompatActivity() {
             }
 
         })
+
+
+        // 수정하기 버튼
+        btn_edit_deep.setOnClickListener {
+            // 깊이수정 통신
+            finish()
+            this.showToast("깊이가 수정되었습니다.")
+        }
 
 
 

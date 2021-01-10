@@ -1,5 +1,10 @@
 package com.example.momo_android.list
 
+import android.annotation.SuppressLint
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.TextUtils
+import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -16,11 +21,10 @@ class ListViewHolder (itemView : View) : RecyclerView.ViewHolder(itemView) {
     private val day : TextView = itemView.findViewById(R.id.tv_list_day)
     private val depth : TextView = itemView.findViewById(R.id.tv_list_depth)
     private val sentence : TextView = itemView.findViewById(R.id.tv_list_book_sentence)
-    private val writer : TextView = itemView.findViewById(R.id.tv_list_writer_name)
-    private val bookTitle : TextView = itemView.findViewById(R.id.tv_list_book_title)
-    private val publisher : TextView = itemView.findViewById(R.id.tv_list_book_publisher)
+    private val bookInfo : TextView = itemView.findViewById(R.id.tv_list_book_info)
     private val diaryContent : UnderlineTextView = itemView.findViewById(R.id.tv_list_diary)
 
+    @SuppressLint("SetTextI18n")
     fun onBind(data : ListData) {
         Glide.with(itemView).load(data.emotionImg).into(emotionImg)
         emotionText.text = data.emotionText
@@ -28,10 +32,17 @@ class ListViewHolder (itemView : View) : RecyclerView.ViewHolder(itemView) {
         day.text = data.day
         depth.text = data.depth
         sentence.text = data.sentence
-        writer.text = data.writer
-        bookTitle.text = data.bookTitle
-        publisher.text = data.publisher
+        bookInfo.text = TextUtils.concat(data.writer, "  ", data.bookTitle, "  ", setTextColor(data.publisher))
         diaryContent.text = data.diaryContent
+    }
+
+    @SuppressLint("ResourceAsColor")
+    private fun setTextColor(string: String) : SpannableStringBuilder {
+        val strChange = string
+        val ssb = SpannableStringBuilder(strChange)
+        ssb.setSpan(ForegroundColorSpan(R.color.black_5_publish), 0, strChange.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        return ssb
     }
 
 }
