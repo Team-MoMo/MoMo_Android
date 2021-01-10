@@ -1,0 +1,33 @@
+package com.example.momo_android.adapter
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.example.momo_android.databinding.ItemScrollGradientBinding
+
+
+class ScrollGradientAdapter() : RecyclerView.Adapter<ScrollGradientViewHolder>() {
+
+    private var _viewBinding: ItemScrollGradientBinding? = null
+    private val viewBinding get() = _viewBinding!!
+
+
+    override fun getItemCount(): Int = 7
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScrollGradientViewHolder {
+        _viewBinding = ItemScrollGradientBinding.inflate(LayoutInflater.from(parent.context))
+        setMatchParentToItem()
+        return ScrollGradientViewHolder(viewBinding)
+    }
+
+    override fun onBindViewHolder(holder: ScrollGradientViewHolder, position: Int) {
+        holder.onBind(position)
+    }
+
+    private fun setMatchParentToItem() {
+        val layoutParams = RecyclerView.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        viewBinding.root.layoutParams = layoutParams
+    }
+}

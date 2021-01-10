@@ -13,27 +13,24 @@
         android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.MoMo_Android">
-        <activity android:name=".ui.DiaryActivity" >
-
-        </activity>
-        <activity android:name=".ui.DiaryEditDeepActivity"></activity>
-        <activity
-            android:name=".ui.UploadWriteActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
-        <activity android:name=".ui.UploadSentenceActivity" />
-        <activity android:name=".ui.UploadFeelingActivity"></activity>
-        <activity android:name=".ui.UploadDeepActivity">
-        </activity>
-        <activity
-            android:name=".ui.ListActivity"
-            android:theme="@style/Theme.listTheme" />
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.DiaryActivity" />
+        <activity android:name=".ui.DiaryEditDeepActivity" />
+        <activity
+            android:name=".ui.UploadWriteActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity android:name=".ui.UploadSentenceActivity" />
+        <activity android:name=".ui.UploadFeelingActivity" />
+        <activity android:name=".ui.UploadDeepActivity" />
+        <activity
+            android:name=".ui.ListActivity"
+            android:theme="@style/Theme.listTheme" />
     </application>
 
 </manifest>
