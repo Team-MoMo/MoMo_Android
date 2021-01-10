@@ -1,26 +1,31 @@
 package com.example.momo_android.ui
 
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.momo_android.R
 import com.example.momo_android.adapter.ScrollGradientAdapter
 import com.example.momo_android.databinding.FragmentScrollBinding
+import com.example.momo_android.ui.HomeActivity.Companion.IS_FROM_SCROLL
 
 
 class ScrollFragment : Fragment() {
 
     private var _viewBinding: FragmentScrollBinding? = null
     private val viewBinding get() = _viewBinding!!
+    private var visibleItemPosition: Int = 0
+    private var isHomeButtonClicked: Boolean = false
 
 
     override fun onCreateView(
@@ -61,9 +66,9 @@ class ScrollFragment : Fragment() {
         @RequiresApi(Build.VERSION_CODES.N)
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
-            val visibleItemPosition = getVisibleItemPosition()
-            setBackgroundColor(visibleItemPosition)
+            visibleItemPosition = getVisibleItemPosition()
             updateVerticalSeekBar(visibleItemPosition)
+            checkHomeButtonStatus()
         }
     }
 
@@ -84,39 +89,29 @@ class ScrollFragment : Fragment() {
             .start()
     }
 
-    private fun setBackgroundColor(visibleItemPosition: Int) {
-        viewBinding.coordinatorLayout.apply {
-            when (visibleItemPosition) {
-                0 -> setBackgroundColor(
-                    ContextCompat.getColor(requireContext(), R.color.gradient_2m_start)
-                )
-                6 -> setBackgroundColor(
-                    ContextCompat.getColor(requireContext(), R.color.gradient_deep_sea_end)
-                )
+    private val fragmentOnTouchListener = View.OnTouchListener { _, _ -> true }
+    private val fragmentOnClickListener = View.OnClickListener {
+        viewBinding.apply {
+            when (it.id) {
+                imageButtonMy.id -> Log.d("TAG", "clicked: ")
+                imageButtonCalendar.id -> Log.d("TAG", "clicked: ")
+                imageButtonHome.id -> scrollToTop()
+                imageButtonUpload.id -> Log.d("TAG", "clicked: ")
+                imageButtonList.id -> Log.d("TAG", "clicked: ")
             }
         }
     }
 
-    private val fragmentOnTouchListener = View.OnTouchListener { v, event -> true }
-    private val fragmentOnClickListener = View.OnClickListener {
-        viewBinding.apply {
-            when (it.id) {
-                imageButtonMy.id -> {
-                    Log.d("TAG", "clicked: ")
-                }
-                imageButtonCalendar.id -> {
-                    Log.d("TAG", "clicked: ")
-                }
-                imageButtonHome.id -> {
-                    Log.d("TAG", "clicked: ")
-                }
-                imageButtonUpload.id -> {
-                    Log.d("TAG", "clicked: ")
-                }
-                imageButtonList.id -> {
-                    Log.d("TAG", "clicked: ")
-                }
-            }
+    private fun scrollToTop() {
+        viewBinding.recyclerViewGradient.smoothScrollToPosition(0)
+        isHomeButtonClicked = true
+    }
+
+    private fun checkHomeButtonStatus() {
+        if (visibleItemPosition == 0 && isHomeButtonClicked) {
+            IS_FROM_SCROLL = true
+            requireActivity().onBackPressed()
+            isHomeButtonClicked = false
         }
     }
 

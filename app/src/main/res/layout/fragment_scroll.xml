@@ -5,8 +5,17 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gradient_2m_start"
     android:orientation="vertical"
     tools:context=".ui.ScrollFragment">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@color/gradient_deep_sea_end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.example.momo_android.util.ui.NestedScrollableHost
         android:id="@+id/nestedScrollableHost"
@@ -125,4 +134,5 @@
         android:background="@drawable/home_btn_list"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
