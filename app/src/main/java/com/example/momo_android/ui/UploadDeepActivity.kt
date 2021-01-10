@@ -19,16 +19,18 @@ import android.widget.TextView
 import androidx.core.animation.doOnEnd
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityDiaryEditDeepBinding
-import com.example.momo_android.util.showToast
+import com.example.momo_android.databinding.ActivityUploadDeepBinding
+import com.example.momo_android.upload.ModalUploadDeepExit
+import kotlinx.android.synthetic.main.activity_upload_deep.*
 import kotlin.math.abs
 
-class DiaryEditDeepActivity : AppCompatActivity() {
+class UploadDeepActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityDiaryEditDeepBinding
+    private lateinit var binding : ActivityUploadDeepBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDiaryEditDeepBinding.inflate(layoutInflater)
+        binding = ActivityUploadDeepBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
@@ -36,20 +38,33 @@ class DiaryEditDeepActivity : AppCompatActivity() {
         val mainSeekbar = binding.mainSeekBar
         val lineSeekbar = binding.lineSeekBar
         val textSeekbar = binding.textSeekBar
-        val svDeep = binding.svDiaryEditDeep
+        val svDeep = binding.svUploadDeep
         val btn_back = binding.btnBack
         val tv_deep_date = binding.tvDeepDate
-        val btn_edit_deep = binding.btnEditDeep
+        val btn_edit_deep = binding.btnUploadDeep
 
 
         // 스크롤뷰 스크롤 막기
         svDeep.setOnTouchListener { _, _ -> true }
 
+        // 뒤로가기
         btn_back.setOnClickListener {
             finish()
         }
 
-        tv_deep_date.text = intent.getStringExtra("diary_day")
+        // 닫기
+        btn_close.setOnClickListener {
+            val exitModal = ModalUploadDeepExit(this)
+            exitModal.start()
+            exitModal.setOnClickListener {
+                if(it == "닫기") {
+                    finish()
+                }
+            }
+        }
+
+        // 앞에서 받아온 일기쓰는 날짜
+        // tv_deep_date.text = intent.getStringExtra("diary_day")
 
         val lineThumb = LayoutInflater.from(this).inflate(
             R.layout.seekbar_line_thumb, null, false
@@ -59,10 +74,8 @@ class DiaryEditDeepActivity : AppCompatActivity() {
             R.layout.seekbar_text_thumb, null, false
         )
 
-        // 수정 전 단계를 progress에 넣어줘야함 !!
-        mainSeekbar.progress = 4
-        scrollToDepth() // 수정 전 단계에 따라 배경색 변화
-
+        // default = 2m
+        mainSeekbar.progress = 0
 
         // 처음 실행될 때 - line과 text 시크바를 main과 동일한 단계로 설정
         lineSeekbar.progress = mainSeekbar.progress
@@ -73,7 +86,6 @@ class DiaryEditDeepActivity : AppCompatActivity() {
         (textThumb.findViewById(R.id.tv_seekbar_depth) as TextView).text = getDepth(textSeekbar.progress)
         textSeekbar.thumb = textThumb.getThumb()
         textSeekbar.setOnTouchListener { _, _ -> true }
-
 
         // 한 단계의 height = 디바이스 height
         val displayHeight = applicationContext.resources.displayMetrics.heightPixels
@@ -112,18 +124,13 @@ class DiaryEditDeepActivity : AppCompatActivity() {
 
         })
 
-
-        // 수정하기 버튼
+        // 기록하기 버튼
         btn_edit_deep.setOnClickListener {
-            // 깊이수정 통신
-            finish()
-            this.showToast("깊이가 수정되었습니다.")
+            // 기록하기 통신
         }
 
 
-
     }
-
 
     // 깊이에 따른 배경색 매치
     private fun depthImg() : ImageView {
@@ -136,15 +143,6 @@ class DiaryEditDeepActivity : AppCompatActivity() {
             5 -> binding.bgDeep6
             else -> binding.bgDeep7
         }
-    }
-
-    // 맨 처음에 수정 전 깊이로 세팅
-    private fun scrollToDepth() {
-        val h = Handler()
-        h.postDelayed(
-            { binding.svDiaryEditDeep.scrollTo(0, depthImg().top) }
-            , 100
-        )
     }
 
     private fun getDepth(progress: Int): String {
@@ -212,5 +210,6 @@ class DiaryEditDeepActivity : AppCompatActivity() {
             start()
         }
     }
+
 
 }
