@@ -22,7 +22,7 @@ data class Diary(
 
 data class Sentence(
     val id : Int,
-    val content : String,
+    val contents : String,
     val bookName : String,
     val writer : String,
     val publisher : String,
