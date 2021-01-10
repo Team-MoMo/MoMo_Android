@@ -8,6 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <!-- splash color -->
+    <color name="blue_splash">#4993da</color>
+
     <!-- list color palette -->
     <color name="nav_white">#cbd3dc</color>
     <color name="blue_2">#477bb8</color>

@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.momo_android.R
-import com.example.momo_android.ui.ListActivity
-import com.example.momo_android.ui.ListActivity.Companion.filter_depth
-import com.example.momo_android.ui.ListActivity.Companion.filter_emotion
-import com.example.momo_android.ui.ListActivity.Companion.mContext
+import com.example.momo_android.list.ui.ListActivity
+import com.example.momo_android.list.ui.ListActivity.Companion.filter_depth
+import com.example.momo_android.list.ui.ListActivity.Companion.filter_emotion
+import com.example.momo_android.list.ui.ListActivity.Companion.mContext
 import kotlinx.android.synthetic.main.item_filter_label.view.*
 
 class FilterLabelAdapter(private val context : Context) : RecyclerView.Adapter<FilterLabelViewHolder>() {
