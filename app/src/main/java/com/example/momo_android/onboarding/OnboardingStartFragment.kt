@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.viewpager.widget.ViewPager
 import com.example.momo_android.R
 import com.example.momo_android.databinding.FragmentOnboardingStartBinding
 import com.example.momo_android.ui.OnboardingActivity
@@ -44,7 +45,8 @@ class OnboardingStartFragment : Fragment() {
        Binding.btnStart.setOnClickListener {
            //다음 프래그먼트로 넘어가기
            //(activity as OnboardingActivity).goNext(OnboardingFeelingFragment())
-           act.onboarding.currentItem = 1
+           val onboarding = act.findViewById<ViewPager>(R.id.onboarding)
+           onboarding.currentItem = 1
        }
         Binding.tvAccountOk.setOnClickListener {
             /********************** Login으로 가게 바꾸기************/

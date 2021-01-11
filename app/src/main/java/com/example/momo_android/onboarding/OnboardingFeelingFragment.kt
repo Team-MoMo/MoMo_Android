@@ -10,6 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.viewpager.widget.ViewPager
+import com.example.momo_android.R
 import com.example.momo_android.databinding.FragmentOnboardingFeelingBinding
 import com.example.momo_android.databinding.FragmentOnboardingStartBinding
 import com.example.momo_android.ui.OnboardingActivity
@@ -44,11 +46,13 @@ class OnboardingFeelingFragment : Fragment() {
         Binding.btnLove.setOnClickListener {
             companion_feeling="love"
             Log.d("feeling_click", companion_feeling)
-            act.onboarding.currentItem=2
+            val onboarding = act.findViewById<ViewPager>(R.id.onboarding)
+            onboarding.currentItem = 2
         }
         Binding.btnHappy.setOnClickListener {
             companion_feeling="happy"
-            act.onboarding.currentItem=2
+            val onboarding = act.findViewById<ViewPager>(R.id.onboarding)
+            onboarding.currentItem = 2
         }
         Binding.btnConsole.click()
         Binding.btnAngry.click()
