@@ -13,12 +13,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoMo_Android"
         android:usesCleartextTraffic="true">
+        <activity android:name=".login.ui.MainLoginActivity">
+        </activity>
+        <activity android:name=".signup.ui.SignUpActivity"></activity>
         <activity android:name=".splash.SplashActivity">
 
         </activity>
-        <activity android:name=".ui.HomeActivity"/>
-        <activity android:name=".ui.DiaryActivity" />
-        <activity android:name=".ui.DiaryEditDeepActivity" />
+        <activity
+            android:name=".login.ui.LoginActivity"
+            android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name=".home.ui.HomeActivity"></activity>
+        <activity android:name=".diary.ui.DiaryActivity"></activity>
+        <activity android:name=".diary.ui.DiaryEditDeepActivity" />
         <activity
             android:name=".ui.UploadWriteActivity"
             android:windowSoftInputMode="stateHidden|adjustPan" />
