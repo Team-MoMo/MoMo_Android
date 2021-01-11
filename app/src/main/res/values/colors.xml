@@ -40,6 +40,7 @@
     <color name="diary_menu_bg">#80ffffff</color>
     <color name="blue_7_0.8">#ccf5f9ff</color>
     <color name="red_1">#b00000</color>
+    <color name="red_2_error">#fc5151</color>
 
     <color name="gradient_2m_start">#6bb7fa</color>
     <color name="gradient_30m_start">#91d5fc</color>
@@ -52,4 +53,7 @@
 
     <color name="grdient_bubble_start">#c2f5faff</color>
     <color name="grdient_bubble_end">#ebdceaff</color>
+    
+    <color name="kakao_bg">#ffd231</color>
+    <color name="kakao_font">#4b351c</color>
 </resources>
