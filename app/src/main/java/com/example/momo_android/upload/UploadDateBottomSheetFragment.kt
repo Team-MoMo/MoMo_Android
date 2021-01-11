@@ -12,7 +12,7 @@ import android.widget.FrameLayout
 import android.widget.NumberPicker
 import com.example.momo_android.R
 import com.example.momo_android.databinding.BottomsheetDiaryEditDateBinding
-import com.example.momo_android.ui.DiaryActivity
+import com.example.momo_android.diary.ui.DiaryActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

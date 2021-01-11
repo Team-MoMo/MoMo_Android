@@ -13,9 +13,9 @@ import android.widget.FrameLayout
 import android.widget.NumberPicker
 import com.example.momo_android.R
 import com.example.momo_android.databinding.BottomsheetDiaryEditDateBinding
-import com.example.momo_android.ui.DiaryActivity.Companion.diary_date
-import com.example.momo_android.ui.DiaryActivity.Companion.diary_month
-import com.example.momo_android.ui.DiaryActivity.Companion.diary_year
+import com.example.momo_android.diary.ui.DiaryActivity.Companion.diary_date
+import com.example.momo_android.diary.ui.DiaryActivity.Companion.diary_month
+import com.example.momo_android.diary.ui.DiaryActivity.Companion.diary_year
 import com.example.momo_android.util.showToast
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog

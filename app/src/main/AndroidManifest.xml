@@ -20,9 +20,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.HomeActivity"/>
-        <activity android:name=".ui.DiaryActivity" />
-        <activity android:name=".ui.DiaryEditDeepActivity" />
+        <activity android:name=".login.ui.LoginActivity"
+            android:windowSoftInputMode="adjustResize">
+
+        </activity>
+        <activity android:name=".ui.HomeActivity">
+
+        </activity>
+        <activity android:name=".diary.ui.DiaryActivity" >
+
+        </activity>
+        <activity android:name=".diary.ui.DiaryEditDeepActivity" />
         <activity
             android:name=".ui.UploadWriteActivity"
             android:windowSoftInputMode="stateHidden|adjustPan" />

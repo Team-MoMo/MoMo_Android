@@ -1,4 +1,4 @@
-package com.example.momo_android.ui
+package com.example.momo_android.diary.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,8 +6,6 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.momo_android.databinding.ActivityDiaryBinding
 import com.example.momo_android.diary.data.ResponseDiaryData
-import com.example.momo_android.diary.ui.EditDateBottomSheetFragment
-import com.example.momo_android.diary.ui.ModalDiaryDelete
 import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.util.*
 import retrofit2.Call
