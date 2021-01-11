@@ -18,11 +18,7 @@
         <activity android:name=".login.ui.MainLoginActivity"></activity>
         <activity android:name=".signup.ui.SignUpActivity" />
         <activity android:name=".splash.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".login.ui.LoginActivity"
@@ -36,6 +32,17 @@
         <activity android:name=".ui.UploadSentenceActivity" />
         <activity android:name=".ui.UploadFeelingActivity" />
         <activity android:name=".ui.UploadDeepActivity" />
+
+        <activity android:name=".ui.OnboardingActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+
         <activity
             android:name=".list.ui.ListActivity"
             android:theme="@style/Theme.listTheme" />
