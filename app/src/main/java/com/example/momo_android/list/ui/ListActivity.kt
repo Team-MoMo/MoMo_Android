@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityListBinding
 import com.example.momo_android.list.*
+import com.example.momo_android.util.showToast
 import java.lang.StringBuilder
 import java.util.*
 
@@ -112,6 +113,7 @@ class ListActivity : AppCompatActivity() {
             }
             R.id.graph -> {
                 //graph 버튼 클릭 시 발생하는 이벤트 설정
+                this.showToast("아직 준비 중인 기능입니다.")
             }
             android.R.id.home -> {
                 // back 버튼 클릭 시 발생하는 이벤트 설정 -> home 화면으로 다시 이동
