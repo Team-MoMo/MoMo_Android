@@ -15,7 +15,7 @@ interface RequestInterface {
         @Path("id") params: Int
     ): Call<ResponseDiaryData>
 
-    // HomeFragment.kt 다이어리 조회 (일)
+    // HomeFragment.kt 다이어리 조회 (일별)
     @Headers("Content-Type: application/json")
     @GET("/diaries")
     fun getHomeDiaryList(
@@ -25,5 +25,17 @@ interface RequestInterface {
         @Query("month") month: Int,
         @Query("day") day: Int,
         @Query("userId") userId: Int
+    ): Call<ResponseDiaryList>
+
+    // ScrollFragment.kt 다이어리 조회별 (월별)
+    @Headers("Content-Type: application/json")
+    @GET("/diaries")
+    fun getScrollDiaryList(
+        @Header("Authorization") authorization: String?,
+        @Query("userId") userId: Int,
+        @Query("year") year: Int,
+        @Query("month") month: Int,
+        @Query("order") order: String,
+        @Query("depth") depth: Int
     ): Call<ResponseDiaryList>
 }
