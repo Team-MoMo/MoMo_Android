@@ -1,5 +1,6 @@
 package com.example.momo_android.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.momo_android.databinding.FragmentHomeBinding
+import com.example.momo_android.list.ui.ListActivity
 
 
 class HomeFragment : Fragment() {
@@ -123,24 +125,39 @@ class HomeFragment : Fragment() {
                 }
                 includeHomeDayDiary.buttonShowFull.id,
                 includeHomeNightDiary.buttonShowFull.id -> {
-                    Log.d("TAG", "clicked: ")
+                    setIntentToDiaryActivity()
                 }
                 includeHomeDayEmpty.buttonUpload.id,
                 includeHomeNightEmpty.buttonUpload.id -> {
-                    Log.d("TAG", "clicked: ")
+                    setIntentToUploadActivity()
                 }
                 includeHomeDayDiary.imageButtonUpload.id,
                 includeHomeNightDiary.imageButtonUpload.id -> {
-                    Log.d("TAG", "clicked: ")
+                    setIntentToUploadActivity()
                 }
                 includeHomeDayDiary.imageButtonList.id,
                 includeHomeDayEmpty.imageButtonList.id,
                 includeHomeNightDiary.imageButtonList.id,
                 includeHomeNightEmpty.imageButtonList.id -> {
-                    Log.d("TAG", "clicked: ")
+                    setIntentToListActivity()
                 }
             }
         }
+    }
+
+    private fun setIntentToDiaryActivity() {
+        val intent = Intent(requireContext(), DiaryActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun setIntentToUploadActivity() {
+        val intent = Intent(requireContext(), UploadFeelingActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun setIntentToListActivity() {
+        val intent = Intent(requireContext(), ListActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onDestroyView() {

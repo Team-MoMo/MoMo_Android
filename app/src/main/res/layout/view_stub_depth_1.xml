@@ -1,10 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_rectangle_depth1">
+
+    <ImageView
+        android:id="@+id/imageView_fish"
+        android:layout_width="80dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="136dp"
+        android:layout_marginEnd="90dp"
+        android:layout_marginBottom="157dp"
+        android:src="@drawable/object_depth1_fish"
+        app:layout_constraintBottom_toTopOf="@+id/imageView_fish_2"
+        app:layout_constraintEnd_toStartOf="@+id/imageView_rock"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView_rock"
+        android:layout_width="124dp"
+        android:layout_height="370dp"
+        android:src="@drawable/object_depth1_rock"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView_rock_2"
+        android:layout_width="130dp"
+        android:layout_height="376dp"
+        android:src="@drawable/object_depth1_rock_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView_fish_2"
+        android:layout_width="150dp"
+        android:layout_height="102dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="32dp"
+        android:src="@drawable/object_depth1_fish_2"
+        app:layout_constraintBottom_toTopOf="@+id/imageView_seaweed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView_rock_2"
+        app:layout_constraintTop_toBottomOf="@id/imageView_fish" />
+
+    <ImageView
+        android:id="@+id/imageView_seaweed"
+        android:layout_width="154dp"
+        android:layout_height="100dp"
+        android:src="@drawable/object_depth1_seaweed"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
