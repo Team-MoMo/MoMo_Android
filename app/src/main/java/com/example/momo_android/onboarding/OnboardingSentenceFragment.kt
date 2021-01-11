@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager.widget.ViewPager
 import com.example.momo_android.R
 import com.example.momo_android.databinding.FragmentOnboardingSentenceBinding
 import com.example.momo_android.databinding.FragmentOnboardingStartBinding
@@ -41,8 +42,7 @@ class OnboardingSentenceFragment : Fragment() {
     ): View? {
         _Binding = FragmentOnboardingSentenceBinding.inflate(layoutInflater)
         return Binding.root
-        Binding.tvDate.text= companion_date
-        Binding.tvFeeling.text= companion_feeling
+
         //return inflater.inflate(R.layout.bottomsheet_custom, container, false)
     }
 
@@ -81,7 +81,8 @@ class OnboardingSentenceFragment : Fragment() {
                 companion_publisher=uploadSentenceAdapter.data[position].publisher
                 companion_sentence=uploadSentenceAdapter.data[position].sentence
 
-                act.onboarding.currentItem = 3
+                val onboarding = act.findViewById<ViewPager>(R.id.onboarding)
+                onboarding.currentItem = 3
             }
         })
 
@@ -98,7 +99,11 @@ class OnboardingSentenceFragment : Fragment() {
         _Binding = null
     }
 
-
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        Binding.tvDate.text= companion_date
+        Binding.tvFeeling.text= companion_feeling
+    }
 
     fun changeFeeling(feeling:Int){
         when(feeling){
