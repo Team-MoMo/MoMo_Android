@@ -1,7 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_rectangle_depth2">
+
+    <ImageView
+        android:id="@+id/imageView_rock"
+        android:layout_width="214dp"
+        android:layout_height="370dp"
+        android:src="@drawable/object_depth2_rock"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView_seaweed"
+        android:layout_width="102dp"
+        android:layout_height="120dp"
+        android:src="@drawable/object_depth2_seaweed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView_dolphin"
+        android:layout_width="260dp"
+        android:layout_height="146dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginBottom="60dp"
+        android:src="@drawable/object_depth2_dolphin"
+        app:layout_constraintBottom_toTopOf="@+id/imageView_coral"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView_dolphin_2"
+        android:layout_width="158dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="44dp"
+        android:src="@drawable/object_depth2_dolphin_2"
+        app:layout_constraintBottom_toTopOf="@+id/imageView_fishes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_dolphin" />
+
+    <ImageView
+        android:id="@+id/imageView_coral"
+        android:layout_width="146dp"
+        android:layout_height="180dp"
+        android:src="@drawable/object_depth2_coral"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView_fishes"
+        android:layout_width="132dp"
+        android:layout_height="70dp"
+        android:src="@drawable/object_depth2_fishes"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

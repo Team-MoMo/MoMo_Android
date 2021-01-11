@@ -7,17 +7,22 @@
     android:layout_height="match_parent"
     android:layout_marginTop="0dp"
     android:layout_marginBottom="0dp"
+    android:background="@color/white"
     tools:context=".ui.UploadWriteActivity">
 
     <ImageView
         android:id="@+id/img_back"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="13dp"
-        android:background="@drawable/btn_back_black"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:paddingLeft="16dp"
+        android:paddingTop="13dp"
+        android:src="@drawable/btn_back_black"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout13"
+        app:layout_constraintDimensionRatio="1:0.93"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintWidth_percent="0.1" />
 
     <TextView
         android:id="@+id/tv_next"
@@ -29,89 +34,112 @@
         android:includeFontPadding="false"
         android:letterSpacing="-0.07"
         android:lineSpacingExtra="0sp"
+        android:paddingTop="1dp"
         android:text="다음"
         android:textColor="@color/blue_next"
         android:textFontWeight="400"
-        android:textSize="15sp"
+        android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_feeling"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout13"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:fontFamily="@font/notosans"
-        android:includeFontPadding="false"
-        android:letterSpacing="-0.07"
-        android:lineSpacingExtra="0sp"
-        android:text="감정"
-        android:textColor="@color/black_3_list"
-        android:textFontWeight="400"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/img_feeling"
-        app:layout_constraintStart_toEndOf="@+id/img_feeling"
-        app:layout_constraintTop_toTopOf="@+id/img_feeling" />
-
-    <TextView
-        android:id="@+id/tv_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="21dp"
-        android:fontFamily="@font/notosans"
-        android:includeFontPadding="false"
-        android:letterSpacing="-0.07"
-        android:lineSpacingExtra="0sp"
-        android:text="2020.12.26.토요일"
-        android:textColor="@color/black_4"
-        android:textFontWeight="400"
-        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_back" />
+        app:layout_constraintTop_toBottomOf="@+id/img_back">
 
-    <ImageView
-        android:id="@+id/img_feeling"
-        android:layout_width="14dp"
-        android:layout_height="14dp"
-        android:layout_marginStart="12dp"
-        android:background="@drawable/ic_angry_14_black"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_date"
-        app:layout_constraintStart_toEndOf="@+id/tv_date"
-        app:layout_constraintTop_toTopOf="@+id/tv_date" />
+        <ImageView
+            android:id="@+id/img_feeling"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="12dp"
+            android:src="@drawable/ic_angry_14_black"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_date"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toEndOf="@+id/tv_date"
+            app:layout_constraintTop_toTopOf="@+id/tv_date"
+            app:layout_constraintWidth_percent="0.039" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:fontFamily="@font/notosans"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.07"
+            android:lineSpacingExtra="0sp"
+            android:text="2020.12.26.토요일"
+            android:textColor="@color/black_4"
+            android:textFontWeight="400"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_feeling"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:fontFamily="@font/notosans"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.07"
+            android:lineSpacingExtra="0sp"
+            android:text="감정"
+            android:textColor="@color/black_3_list"
+            android:textFontWeight="400"
+            android:textSize="14dp"
+            app:layout_constraintStart_toEndOf="@+id/img_feeling"
+            app:layout_constraintTop_toTopOf="@+id/tv_date" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="46dp"
-        android:layout_marginEnd="24dp"
         android:overScrollMode="never"
         android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_date">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout13"
+        app:layout_constraintWidth_percent="0.87">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cardview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_conversion_absoluteHeight="98dp"
+                tools:layout_conversion_absoluteWidth="313dp">
 
                 <ImageView
                     android:id="@+id/img_feather"
-                    android:layout_width="15dp"
-                    android:layout_height="17dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    app:layout_constraintDimensionRatio="1:1.13"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_feather_black" />
+                    app:layout_constraintWidth_percent="0.042"
+                    app:srcCompat="@drawable/ic_feather_black"
+                    tools:layout_conversion_absoluteHeight="15dp"
+                    tools:layout_conversion_absoluteWidth="13dp" />
 
                 <TextView
                     android:id="@+id/tv_author"
@@ -125,15 +153,17 @@
                     android:text="작가"
                     android:textColor="@color/black_2_nav"
                     android:textFontWeight="500"
-                    android:textSize="11sp"
+                    android:textSize="12dp"
                     app:layout_constraintStart_toStartOf="@+id/img_feather"
-                    app:layout_constraintTop_toBottomOf="@+id/img_feather" />
+                    app:layout_constraintTop_toBottomOf="@+id/img_feather"
+                    tools:layout_conversion_absoluteHeight="16dp"
+                    tools:layout_conversion_absoluteWidth="18dp" />
 
                 <TextView
                     android:id="@+id/tv_book"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="4dp"
                     android:fontFamily="@font/notosans"
                     android:includeFontPadding="false"
                     android:letterSpacing="-0.09"
@@ -141,15 +171,17 @@
                     android:text="책"
                     android:textColor="@color/black_2_nav"
                     android:textFontWeight="500"
-                    android:textSize="11sp"
+                    android:textSize="12dp"
                     app:layout_constraintStart_toEndOf="@+id/tv_author"
-                    app:layout_constraintTop_toTopOf="@+id/tv_author" />
+                    app:layout_constraintTop_toTopOf="@+id/tv_author"
+                    tools:layout_conversion_absoluteHeight="16dp"
+                    tools:layout_conversion_absoluteWidth="9dp" />
 
                 <TextView
                     android:id="@+id/tv_publisher"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
+                    android:layout_marginStart="4dp"
                     android:fontFamily="@font/notosans"
                     android:includeFontPadding="false"
                     android:letterSpacing="-0.09"
@@ -157,17 +189,17 @@
                     android:text="(출판사)"
                     android:textColor="@color/black_5_publish"
                     android:textFontWeight="400"
-                    android:textSize="11sp"
+                    android:textSize="12dp"
                     app:layout_constraintStart_toEndOf="@+id/tv_book"
-                    app:layout_constraintTop_toTopOf="@+id/tv_book" />
+                    app:layout_constraintTop_toTopOf="@+id/tv_book"
+                    tools:layout_conversion_absoluteHeight="16dp"
+                    tools:layout_conversion_absoluteWidth="32dp" />
 
                 <TextView
                     android:id="@+id/tv_sentence"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
                     android:fontFamily="@font/notosans"
                     android:includeFontPadding="false"
                     android:letterSpacing="-0.08"
@@ -176,37 +208,43 @@
                     android:textColor="@color/black_3_list"
                     android:textFontWeight="400"
                     android:textSize="13sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_author" />
+                    app:layout_constraintStart_toStartOf="@+id/tv_author"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_author"
+                    tools:layout_conversion_absoluteHeight="19dp"
+                    tools:layout_conversion_absoluteWidth="297dp" />
 
                 <ImageButton
                     android:id="@+id/togglebtn"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:background="@drawable/btn_arrow_up_black"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_publisher"
+                    app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintStart_toEndOf="@+id/tv_publisher"
-                    app:layout_constraintTop_toTopOf="@+id/tv_publisher" />
+                    app:layout_constraintTop_toTopOf="@+id/tv_publisher"
+                    app:layout_constraintWidth_percent="0.07"
+                    tools:layout_conversion_absoluteHeight="22dp"
+                    tools:layout_conversion_absoluteWidth="22dp" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
                 android:id="@+id/line"
                 android:layout_width="wrap_content"
-                android:layout_height="1dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
                 android:background="@color/line_light_gray"
-                app:layout_constraintStart_toStartOf="@+id/constraintLayout"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardview"
+                tools:layout_conversion_absoluteHeight="1dp"
+                tools:layout_conversion_absoluteWidth="313dp" />
 
             <EditText
                 android:id="@+id/et_diary"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="0dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:background="@color/white"
                 android:ems="10"
                 android:fontFamily="@font/notosans"
@@ -221,21 +259,23 @@
                 android:textColor="@color/black_3_list"
                 android:textColorHint="@color/blue_3"
                 android:textFontWeight="400"
-                android:textSize="11sp" />
+                android:textSize="11sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line"
+                tools:layout_conversion_absoluteHeight="16dp"
+                tools:layout_conversion_absoluteWidth="313dp" />
 
-        </LinearLayout>
+            <View
+                android:id="@+id/click_area"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_diary" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-    <View
-        android:id="@+id/click_area"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="242dp"
-        android:layout_marginEnd="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_date" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

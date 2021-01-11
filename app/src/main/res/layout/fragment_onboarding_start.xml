@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".onboarding.OnboardingStartFragment">
+
+    <TextView
+        android:id="@+id/tv_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="58dp"
+        android:fontFamily="@font/notosanskrlight"
+        android:includeFontPadding="false"
+        android:letterSpacing="-0.05"
+        android:lineSpacingExtra="10sp"
+        android:text="감정 기록이\n어려웠던 적이 있나요?"
+        android:textColor="@color/blue_2"
+        android:textSize="22dp"
+        app:layout_constraintBottom_toTopOf="@+id/lottie"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="34dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toTopOf="@+id/under_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.156"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_start"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="OnboardingWave.json"
+        app:lottie_loop="true" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/under_background"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/blue_wave"
+        android:includeFontPadding="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lottie"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="38dp"
+            android:layout_marginTop="26dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.07"
+            android:lineSpacingExtra="13sp"
+            android:text="오늘부터는 책 속의 문장이\n당신의 감정 기록을 도와줄 거예요."
+            android:textColor="@color/blue_7"
+            android:textSize="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.07"
+            android:lineSpacingExtra="13sp"
+            android:text="다양한 감정의 폭을 바다의 깊이로 표현해보세요."
+            android:textColor="@color/blue_7"
+            android:textSize="15dp"
+            app:layout_constraintStart_toStartOf="@+id/textView9"
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+        <TextView
+            android:id="@+id/tv_account_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="61dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.07"
+            android:lineSpacingExtra="0sp"
+            android:text="이미 계정이 있어요"
+            android:textColor="@color/blue_6"
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/btn_start"
+            app:layout_constraintStart_toStartOf="@+id/btn_start" />
+
+        <Button
+            android:id="@+id/btn_start"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/onboarding_start_btn"
+            android:fontFamily="@font/notosanskrmedium"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.06"
+            android:lineSpacingExtra="0sp"
+            android:text="시작하기"
+            android:textColor="@color/blue_2"
+            android:textSize="17dp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_account_ok"
+            app:layout_constraintDimensionRatio="1:0.21"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.63" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

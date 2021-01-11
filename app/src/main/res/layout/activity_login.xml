@@ -232,7 +232,7 @@
             app:layout_constraintWidth_percent="0.77" />
 
         <TextView
-            android:id="@+id/btn_signup"
+            android:id="@+id/btn_go_signup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="17dp"
@@ -256,11 +256,11 @@
             android:layout_height="0dp"
             android:layout_marginStart="18dp"
             android:background="@color/black_5_publish"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_signup"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_go_signup"
             app:layout_constraintEnd_toStartOf="@+id/btn_find_pw"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/btn_signup"
-            app:layout_constraintTop_toTopOf="@+id/btn_signup" />
+            app:layout_constraintStart_toEndOf="@+id/btn_go_signup"
+            app:layout_constraintTop_toTopOf="@+id/btn_go_signup" />
 
         <TextView
             android:id="@+id/btn_find_pw"

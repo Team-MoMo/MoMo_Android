@@ -6,6 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <ImageView
+        android:id="@+id/imageView_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/object_depth7_bottom_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ViewStub
         android:id="@+id/viewStub_gradient"
         android:layout_width="0dp"
@@ -24,14 +35,14 @@
         android:layout_marginStart="36dp"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/notosanskrlight"
+        android:includeFontPadding="false"
         android:letterSpacing="-0.05"
+        android:text="100m"
         android:textColor="@color/blue_6"
         android:textSize="22sp"
-        android:includeFontPadding="false"
         android:textStyle="normal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="100m" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_oval"
