@@ -2,7 +2,7 @@ package com.example.momo_android.home.data
 
 import com.google.gson.annotations.SerializedName
 
-data class ResponseHomeDiary(
+data class ResponseDiaryList(
     val message: String,
     val data: List<Data>
 ) {

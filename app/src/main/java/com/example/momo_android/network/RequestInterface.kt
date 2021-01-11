@@ -1,7 +1,7 @@
 package com.example.momo_android.network
 
 import com.example.momo_android.diary.data.ResponseDiaryData
-import com.example.momo_android.home.data.ResponseHomeDiary
+import com.example.momo_android.home.data.ResponseDiaryList
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -15,15 +15,15 @@ interface RequestInterface {
         @Path("id") params: Int
     ): Call<ResponseDiaryData>
 
-    // HomeFragment.kt 다이어리 조회
+    // HomeFragment.kt 다이어리 조회 (일)
     @Headers("Content-Type: application/json")
     @GET("/diaries")
-    fun getHomeDiary(
+    fun getHomeDiaryList(
         @Header("Authorization") authorization: String?,
         @Query("order") order: String,
         @Query("year") year: Int,
         @Query("month") month: Int,
         @Query("day") day: Int,
         @Query("userId") userId: Int
-    ): Call<ResponseHomeDiary>
+    ): Call<ResponseDiaryList>
 }
