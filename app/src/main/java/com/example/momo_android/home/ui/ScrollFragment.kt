@@ -1,4 +1,4 @@
-package com.example.momo_android.ui
+package com.example.momo_android.home.ui
 
 import android.animation.ObjectAnimator
 import android.content.Intent
@@ -12,10 +12,11 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.momo_android.adapter.ScrollGradientAdapter
+import com.example.momo_android.home.adapter.ScrollGradientAdapter
 import com.example.momo_android.databinding.FragmentScrollBinding
 import com.example.momo_android.list.ui.ListActivity
-import com.example.momo_android.ui.HomeActivity.Companion.IS_FROM_SCROLL
+import com.example.momo_android.home.ui.HomeActivity.Companion.IS_FROM_SCROLL
+import com.example.momo_android.ui.UploadFeelingActivity
 
 
 class ScrollFragment : Fragment() {

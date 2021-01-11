@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.ScrollFragment">
+    tools:context=".home.ui.ScrollFragment">
 
     <com.example.momo_android.util.ui.NestedScrollableHost
         android:id="@+id/nestedScrollableHost"

@@ -1,8 +1,7 @@
-package com.example.momo_android.adapter
+package com.example.momo_android.home.adapter
 
 import android.content.res.Resources
 import android.util.DisplayMetrics
-import android.util.Log
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout

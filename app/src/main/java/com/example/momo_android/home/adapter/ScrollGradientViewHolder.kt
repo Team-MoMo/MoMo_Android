@@ -1,4 +1,4 @@
-package com.example.momo_android.adapter
+package com.example.momo_android.home.adapter
 
 import android.util.Log
 import android.view.View

@@ -1,4 +1,4 @@
-package com.example.momo_android.ui
+package com.example.momo_android.home.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,7 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.momo_android.databinding.FragmentHomeBinding
+import com.example.momo_android.diary.ui.DiaryActivity
 import com.example.momo_android.list.ui.ListActivity
+import com.example.momo_android.ui.UploadFeelingActivity
 
 
 class HomeFragment : Fragment() {

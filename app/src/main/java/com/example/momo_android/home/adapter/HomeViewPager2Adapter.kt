@@ -1,10 +1,10 @@
-package com.example.momo_android.adapter
+package com.example.momo_android.home.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.momo_android.ui.HomeFragment
-import com.example.momo_android.ui.ScrollFragment
+import com.example.momo_android.home.ui.HomeFragment
+import com.example.momo_android.home.ui.ScrollFragment
 
 
 class HomeViewPager2Adapter(fragmentActivity: FragmentActivity) :

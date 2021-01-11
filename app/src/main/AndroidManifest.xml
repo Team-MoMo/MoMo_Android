@@ -24,7 +24,7 @@
             android:windowSoftInputMode="adjustResize">
 
         </activity>
-        <activity android:name=".ui.HomeActivity">
+        <activity android:name=".home.ui.HomeActivity">
 
         </activity>
         <activity android:name=".diary.ui.DiaryActivity" >
