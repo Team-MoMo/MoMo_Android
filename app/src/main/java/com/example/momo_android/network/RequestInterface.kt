@@ -23,6 +23,9 @@ interface RequestInterface {
         @Query("userId") userId: Int,
         @Query("year") year: Int,
         @Query("month") month: Int,
+        @Query("order") order: String,
+        @Query("emotionId") emotionId: Int?,
+        @Query("depth") depth: Int?
     ) : Call<ResponseFilterData>
 
 }
