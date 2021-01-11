@@ -4,10 +4,8 @@ import android.animation.Animator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivitySplashBinding
-import com.example.momo_android.list.ui.ListActivity
-import com.example.momo_android.ui.HomeActivity
+import com.example.momo_android.home.ui.HomeActivity
 
 class SplashActivity : AppCompatActivity() {
 

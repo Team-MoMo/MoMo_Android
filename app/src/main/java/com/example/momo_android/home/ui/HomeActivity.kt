@@ -1,11 +1,10 @@
-package com.example.momo_android.ui
+package com.example.momo_android.home.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.momo_android.adapter.HomeViewPager2Adapter
 import com.example.momo_android.databinding.ActivityHomeBinding
+import com.example.momo_android.home.adapter.HomeViewPager2Adapter
 
 
 class HomeActivity : AppCompatActivity() {
