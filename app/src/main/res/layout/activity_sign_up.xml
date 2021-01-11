@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".signup.ui.SignUpActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="회원가입"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:textSize="16dp"
+            android:textColor="@color/black_2_nav"
+            android:letterSpacing="-0.06"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btn_signup_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingTop="13dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="13dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/btn_close_black" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout15">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/notosanskrlight"
+                android:includeFontPadding="false"
+                android:letterSpacing="-0.05"
+                android:text="깊이 있는 감정 기록,\nMOMO와 함께 시작해요"
+                android:textColor="@color/blue_2"
+                android:textSize="22dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout20"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="58dp"
+                android:layout_marginEnd="36dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView12">
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosanskrmedium"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="-0.07"
+                    android:text="이메일"
+                    android:textColor="@color/blue_2"
+                    android:textSize="14dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/et_signup_email"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/signup_et_area"
+                    android:ems="10"
+                    android:fontFamily="@font/notosanskrregular"
+                    android:hint="이메일을 입력해 주세요"
+                    android:includeFontPadding="false"
+                    android:inputType="textEmailAddress"
+                    android:letterSpacing="-0.07"
+                    android:paddingVertical="18dp"
+                    android:paddingStart="20dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black_2_nav"
+                    android:textColorHint="@color/black_6"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+                <ImageView
+                    android:id="@+id/btn_email_erase"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:paddingEnd="16dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/et_signup_email"
+                    app:layout_constraintEnd_toEndOf="@+id/et_signup_email"
+                    app:layout_constraintTop_toTopOf="@+id/et_signup_email"
+                    app:srcCompat="@drawable/textfield_delete" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout21"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                app:layout_constraintEnd_toEndOf="@+id/constraintLayout20"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout20"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout20">
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosanskrmedium"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="-0.07"
+                    android:text="비밀번호"
+                    android:textColor="@color/blue_2"
+                    android:textSize="14dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/et_signup_passwd"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/signup_et_area"
+                    android:ems="10"
+                    android:fontFamily="@font/notosanskrregular"
+                    android:hint="영문 + 숫자 6자리 이상 입력해 주세요"
+                    android:includeFontPadding="false"
+                    android:inputType="textEmailAddress"
+                    android:letterSpacing="-0.07"
+                    android:paddingVertical="18dp"
+                    android:paddingStart="20dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black_2_nav"
+                    android:textColorHint="@color/black_6"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+                <ImageView
+                    android:id="@+id/btn_pw_erase"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:paddingEnd="16dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/et_signup_passwd"
+                    app:layout_constraintEnd_toEndOf="@+id/et_signup_passwd"
+                    app:layout_constraintTop_toTopOf="@+id/et_signup_passwd"
+                    app:srcCompat="@drawable/textfield_delete" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout22"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                app:layout_constraintEnd_toEndOf="@+id/constraintLayout20"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout20"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout21">
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosanskrmedium"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="-0.07"
+                    android:text="비밀번호 확인"
+                    android:textColor="@color/blue_2"
+                    android:textSize="14dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/et_signup_pw_check"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/signup_et_area"
+                    android:ems="10"
+                    android:fontFamily="@font/notosanskrregular"
+                    android:hint="비밀번호를 다시 한 번 입력해 주세요"
+                    android:includeFontPadding="false"
+                    android:inputType="textEmailAddress"
+                    android:letterSpacing="-0.07"
+                    android:paddingVertical="18dp"
+                    android:paddingStart="20dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black_2_nav"
+                    android:textColorHint="@color/black_6"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+                <ImageView
+                    android:id="@+id/btn_pw_check_erase"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:paddingEnd="16dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/et_signup_pw_check"
+                    app:layout_constraintEnd_toEndOf="@+id/et_signup_pw_check"
+                    app:layout_constraintTop_toTopOf="@+id/et_signup_pw_check"
+                    app:srcCompat="@drawable/textfield_delete" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/imageView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout22"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout22"
+                app:srcCompat="@drawable/login_checkbox_intermediate" />
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/notosanskrmedium"
+                android:includeFontPadding="false"
+                android:letterSpacing="-0.07"
+                android:text="[필수]"
+                android:textColor="@color/black_2_nav"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView15"
+                app:layout_constraintStart_toEndOf="@+id/imageView15"
+                app:layout_constraintTop_toTopOf="@+id/imageView15" />
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosanskrregular"
+                android:includeFontPadding="false"
+                android:letterSpacing="-0.07"
+                android:text=" 개인정보 수집이용 동의"
+                android:textColor="@color/black_2_nav"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView15"
+                app:layout_constraintStart_toEndOf="@+id/textView19"
+                app:layout_constraintTop_toTopOf="@+id/imageView15" />
+
+            <ImageView
+                android:id="@+id/imageView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                app:layout_constraintBottom_toTopOf="@+id/btn_signup"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout22"
+                app:layout_constraintTop_toBottomOf="@+id/imageView15"
+                app:layout_constraintVertical_chainStyle="spread_inside"
+                app:srcCompat="@drawable/login_checkbox_intermediate" />
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/notosanskrmedium"
+                android:includeFontPadding="false"
+                android:letterSpacing="-0.07"
+                android:text="[필수]"
+                android:textColor="@color/black_2_nav"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView16"
+                app:layout_constraintStart_toEndOf="@+id/imageView16"
+                app:layout_constraintTop_toTopOf="@+id/imageView16" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosanskrregular"
+                android:includeFontPadding="false"
+                android:letterSpacing="-0.07"
+                android:text=" 서비스 이용약관 동의"
+                android:textColor="@color/black_2_nav"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView21"
+                app:layout_constraintStart_toEndOf="@+id/textView21"
+                app:layout_constraintTop_toTopOf="@+id/textView21" />
+
+            <TextView
+                android:id="@+id/btn_signup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/btn_active"
+                android:fontFamily="@font/notosanskrmedium"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:letterSpacing="-0.06"
+                android:paddingVertical="15dp"
+                android:text="가입하기"
+                android:textColor="@color/blue_7"
+                android:textSize="17dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView16"
+                app:layout_constraintWidth_percent="0.77" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoMo_Android"
         android:usesCleartextTraffic="true">
+        <activity android:name=".signup.ui.SignUpActivity">
+
+        </activity>
         <activity android:name=".splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,16 +23,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".login.ui.LoginActivity"
-            android:windowSoftInputMode="adjustResize">
-
-        </activity>
-        <activity android:name=".ui.HomeActivity">
-
-        </activity>
-        <activity android:name=".diary.ui.DiaryActivity" >
-
-        </activity>
+        <activity
+            android:name=".login.ui.LoginActivity"
+            android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name=".ui.HomeActivity"></activity>
+        <activity android:name=".diary.ui.DiaryActivity"></activity>
         <activity android:name=".diary.ui.DiaryEditDeepActivity" />
         <activity
             android:name=".ui.UploadWriteActivity"
