@@ -17,12 +17,14 @@ import com.example.momo_android.databinding.FragmentScrollBinding
 import com.example.momo_android.list.ui.ListActivity
 import com.example.momo_android.home.ui.HomeActivity.Companion.IS_FROM_SCROLL
 import com.example.momo_android.ui.UploadFeelingActivity
+import java.util.*
 
 
 class ScrollFragment : Fragment() {
 
     private var _viewBinding: FragmentScrollBinding? = null
     private val viewBinding get() = _viewBinding!!
+
     private var visibleItemPosition: Int = 0
     private var isHomeButtonClicked: Boolean = false
 
@@ -93,12 +95,16 @@ class ScrollFragment : Fragment() {
         viewBinding.apply {
             when (it.id) {
                 imageButtonMy.id -> Log.d("TAG", "clicked: ")
-                imageButtonCalendar.id -> Log.d("TAG", "clicked: ")
+                imageButtonCalendar.id -> setIntentToDatePicker()
                 imageButtonHome.id -> scrollToTop()
                 imageButtonUpload.id -> setIntentToUploadActivity()
                 imageButtonList.id -> setIntentToListActivity()
             }
         }
+    }
+
+    private fun setIntentToDatePicker() {
+        DatePickerBottomSheetFragment().show(requireFragmentManager(), tag)
     }
 
     private fun scrollToTop() {
@@ -127,5 +133,10 @@ class ScrollFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _viewBinding = null
+    }
+
+    companion object {
+        var QUERY_YEAR = Calendar.getInstance().get(Calendar.YEAR)
+        var QUERY_MONTH = Calendar.getInstance().get(Calendar.MONTH) + 1
     }
 }
