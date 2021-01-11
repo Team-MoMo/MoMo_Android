@@ -83,7 +83,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView12">
 
                 <TextView
-                    android:id="@+id/textView13"
+                    android:id="@+id/tv_email"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/notosanskrmedium"
@@ -104,6 +104,7 @@
                     android:ems="10"
                     android:fontFamily="@font/notosanskrregular"
                     android:hint="이메일을 입력해 주세요"
+                    android:nextFocusDown="@id/et_signup_passwd"
                     android:includeFontPadding="false"
                     android:inputType="textEmailAddress"
                     android:letterSpacing="-0.07"
@@ -115,7 +116,7 @@
                     android:textSize="14dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView13" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_email" />
 
                 <ImageView
                     android:id="@+id/btn_email_erase"
@@ -127,6 +128,22 @@
                     app:layout_constraintEnd_toEndOf="@+id/et_signup_email"
                     app:layout_constraintTop_toTopOf="@+id/et_signup_email"
                     app:srcCompat="@drawable/textfield_delete" />
+
+                <TextView
+                    android:id="@+id/tv_email_error"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/notosanskrregular"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="-0.08"
+                    android:text="이메일 에러메시지"
+                    android:textColor="@color/red_2_error"
+                    android:textSize="12dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_email"
+                    app:layout_constraintStart_toEndOf="@+id/tv_email"
+                    app:layout_constraintTop_toTopOf="@+id/tv_email" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -139,7 +156,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout20">
 
                 <TextView
-                    android:id="@+id/textView14"
+                    android:id="@+id/tv_passwd"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/notosanskrmedium"
@@ -160,8 +177,9 @@
                     android:ems="10"
                     android:fontFamily="@font/notosanskrregular"
                     android:hint="영문 + 숫자 6자리 이상 입력해 주세요"
+                    android:nextFocusDown="@id/et_signup_pw_check"
                     android:includeFontPadding="false"
-                    android:inputType="textEmailAddress"
+                    android:inputType="textPassword"
                     android:letterSpacing="-0.07"
                     android:paddingVertical="18dp"
                     android:paddingStart="20dp"
@@ -171,7 +189,7 @@
                     android:textSize="14dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView14" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_passwd" />
 
                 <ImageView
                     android:id="@+id/btn_pw_erase"
@@ -183,6 +201,22 @@
                     app:layout_constraintEnd_toEndOf="@+id/et_signup_passwd"
                     app:layout_constraintTop_toTopOf="@+id/et_signup_passwd"
                     app:srcCompat="@drawable/textfield_delete" />
+
+                <TextView
+                    android:id="@+id/tv_pw_error"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/notosanskrregular"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="-0.08"
+                    android:text="비밀번호 에러메시지"
+                    android:textColor="@color/red_2_error"
+                    android:textSize="12dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_passwd"
+                    app:layout_constraintStart_toEndOf="@+id/tv_passwd"
+                    app:layout_constraintTop_toTopOf="@+id/tv_passwd" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -195,7 +229,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout21">
 
                 <TextView
-                    android:id="@+id/textView15"
+                    android:id="@+id/tv_passwd_check"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/notosanskrmedium"
@@ -217,7 +251,7 @@
                     android:fontFamily="@font/notosanskrregular"
                     android:hint="비밀번호를 다시 한 번 입력해 주세요"
                     android:includeFontPadding="false"
-                    android:inputType="textEmailAddress"
+                    android:inputType="textPassword"
                     android:letterSpacing="-0.07"
                     android:paddingVertical="18dp"
                     android:paddingStart="20dp"
@@ -227,7 +261,7 @@
                     android:textSize="14dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView15" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_passwd_check" />
 
                 <ImageView
                     android:id="@+id/btn_pw_check_erase"
@@ -239,19 +273,36 @@
                     app:layout_constraintEnd_toEndOf="@+id/et_signup_pw_check"
                     app:layout_constraintTop_toTopOf="@+id/et_signup_pw_check"
                     app:srcCompat="@drawable/textfield_delete" />
+
+                <TextView
+                    android:id="@+id/tv_pwck_error"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/notosanskrregular"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="-0.08"
+                    android:text="비밀번호확인 에러메시지"
+                    android:textColor="@color/red_2_error"
+                    android:textSize="12dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_passwd_check"
+                    app:layout_constraintStart_toEndOf="@+id/tv_passwd_check"
+                    app:layout_constraintTop_toTopOf="@+id/tv_passwd_check" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ImageView
-                android:id="@+id/imageView15"
+            <CheckBox
+                android:id="@+id/checkbox_privacy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:button="@null"
+                android:background="@drawable/checkbox_signup_selector"
                 android:layout_marginTop="36dp"
                 app:layout_constraintStart_toStartOf="@+id/constraintLayout22"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout22"
-                app:srcCompat="@drawable/login_checkbox_intermediate" />
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout22" />
 
             <TextView
-                android:id="@+id/textView19"
+                android:id="@+id/tv_cb_privacy_error1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -261,12 +312,12 @@
                 android:text="[필수]"
                 android:textColor="@color/black_2_nav"
                 android:textSize="14dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView15"
-                app:layout_constraintStart_toEndOf="@+id/imageView15"
-                app:layout_constraintTop_toTopOf="@+id/imageView15" />
+                app:layout_constraintBottom_toBottomOf="@+id/checkbox_privacy"
+                app:layout_constraintStart_toEndOf="@+id/checkbox_privacy"
+                app:layout_constraintTop_toTopOf="@+id/checkbox_privacy" />
 
             <TextView
-                android:id="@+id/textView20"
+                android:id="@+id/tv_cb_privacy_error2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/notosanskrregular"
@@ -275,23 +326,24 @@
                 android:text=" 개인정보 수집이용 동의"
                 android:textColor="@color/black_2_nav"
                 android:textSize="14dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView15"
-                app:layout_constraintStart_toEndOf="@+id/textView19"
-                app:layout_constraintTop_toTopOf="@+id/imageView15" />
+                app:layout_constraintBottom_toBottomOf="@+id/checkbox_privacy"
+                app:layout_constraintStart_toEndOf="@+id/tv_cb_privacy_error1"
+                app:layout_constraintTop_toTopOf="@+id/checkbox_privacy" />
 
-            <ImageView
-                android:id="@+id/imageView16"
+            <CheckBox
+                android:id="@+id/checkbox_service"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
+                android:button="@null"
+                android:background="@drawable/checkbox_signup_selector"
                 app:layout_constraintBottom_toTopOf="@+id/btn_signup"
                 app:layout_constraintStart_toStartOf="@+id/constraintLayout22"
-                app:layout_constraintTop_toBottomOf="@+id/imageView15"
-                app:layout_constraintVertical_chainStyle="spread_inside"
-                app:srcCompat="@drawable/login_checkbox_intermediate" />
+                app:layout_constraintTop_toBottomOf="@+id/checkbox_privacy"
+                app:layout_constraintVertical_chainStyle="spread_inside" />
 
             <TextView
-                android:id="@+id/textView21"
+                android:id="@+id/tv_cb_service_error1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -301,12 +353,12 @@
                 android:text="[필수]"
                 android:textColor="@color/black_2_nav"
                 android:textSize="14dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView16"
-                app:layout_constraintStart_toEndOf="@+id/imageView16"
-                app:layout_constraintTop_toTopOf="@+id/imageView16" />
+                app:layout_constraintBottom_toBottomOf="@+id/checkbox_service"
+                app:layout_constraintStart_toEndOf="@+id/checkbox_service"
+                app:layout_constraintTop_toTopOf="@+id/checkbox_service" />
 
             <TextView
-                android:id="@+id/textView22"
+                android:id="@+id/tv_cb_service_error2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/notosanskrregular"
@@ -315,9 +367,9 @@
                 android:text=" 서비스 이용약관 동의"
                 android:textColor="@color/black_2_nav"
                 android:textSize="14dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView21"
-                app:layout_constraintStart_toEndOf="@+id/textView21"
-                app:layout_constraintTop_toTopOf="@+id/textView21" />
+                app:layout_constraintBottom_toBottomOf="@+id/tv_cb_service_error1"
+                app:layout_constraintStart_toEndOf="@+id/tv_cb_service_error1"
+                app:layout_constraintTop_toTopOf="@+id/tv_cb_service_error1" />
 
             <TextView
                 android:id="@+id/btn_signup"
@@ -338,7 +390,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView16"
+                app:layout_constraintTop_toBottomOf="@+id/checkbox_service"
                 app:layout_constraintWidth_percent="0.77" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
