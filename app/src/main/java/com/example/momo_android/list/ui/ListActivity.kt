@@ -1,6 +1,7 @@
 package com.example.momo_android.list.ui
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,7 +12,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityListBinding
 import com.example.momo_android.list.*
+import com.example.momo_android.list.data.ListData
+import com.example.momo_android.list.data.ResponseFilterData
+import com.example.momo_android.network.RequestToServer
+import com.example.momo_android.ui.UploadFeelingActivity
+import com.example.momo_android.util.showToast
+import okhttp3.ResponseBody
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.lang.StringBuilder
+import java.text.SimpleDateFormat
 import java.util.*
 
 class ListActivity : AppCompatActivity() {
@@ -20,8 +32,8 @@ class ListActivity : AppCompatActivity() {
 
         var filter_year = 0
         var filter_month = 0
-        var filter_emotion = 0
-        var filter_depth = 0
+        var filter_emotion : Int? = null
+        var filter_depth : Int? = null
 
         // picker에서 선택한 날짜가 현재 날짜인 경우 true
         var selectCurrentDate = false
@@ -37,6 +49,7 @@ class ListActivity : AppCompatActivity() {
 
     private lateinit var selectEmotion : String
     private lateinit var selectDepth : String
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +71,9 @@ class ListActivity : AppCompatActivity() {
         binding.rcvList.adapter = listAdapter
         binding.rcvList.layoutManager = LinearLayoutManager(this)
 
-        loadListData()
+        loadFilteredData()
+
+        //loadListData()
 
     }
 
@@ -87,7 +102,7 @@ class ListActivity : AppCompatActivity() {
         when(item.itemId) {
             R.id.filter -> {
                 //filter 버튼 클릭 시 발생하는 이벤트 설정
-                val frag = FilterBottomSheetFragment { date: String, pickDate : IntArray, isCurrentDate: Boolean, emotion: Int, depth: Int ->
+                val frag = FilterBottomSheetFragment { date: String, pickDate : IntArray, isCurrentDate: Boolean, emotion: Int?, depth: Int? ->
 
                     filter_year = pickDate[0]
                     filter_month = pickDate[1]
@@ -107,11 +122,19 @@ class ListActivity : AppCompatActivity() {
 
                     loadFilterLabelData()
 
+                    loadFilteredData()
+
                 }
                 frag.show(supportFragmentManager, frag.tag)
             }
             R.id.graph -> {
                 //graph 버튼 클릭 시 발생하는 이벤트 설정
+                this.showToast("아직 준비 중인 기능입니다.")
+            }
+            android.R.id.home -> {
+                // back 버튼 클릭 시 발생하는 이벤트 설정 -> home 화면으로 다시 이동
+                finish()
+                return true
             }
         }
         return super.onOptionsItemSelected(item)
@@ -124,7 +147,7 @@ class ListActivity : AppCompatActivity() {
     }
 
     fun activeFilterButton() {
-        if (selectCurrentDate && filter_emotion == 0 && filter_depth == 0) {
+        if (selectCurrentDate && filter_emotion == null && filter_depth == null) {
             // 필터 모달에서 선택한 날짜가 현재 날짜와 같고(변경 x), 감정/깊이 항목에서 어떤 것도 선택하지 않았을 때
             val filterIcon = binding.toolbarList.menu.findItem(R.id.filter)
             filterIcon.setIcon(R.drawable.list_btn_filter)
@@ -151,10 +174,6 @@ class ListActivity : AppCompatActivity() {
     * 1. 오늘 날짜가 아님 && 필터 적용 시 검색된 결과가 없는 경우 -> 검색된 결과가 없습니다 뷰가 뜸
     * 2. 오늘 날짜가 아님 && 필터 적용 시 검색된 결과가 있는 경우 -> 해당되는 일기들이 리스트됨 */
 
-    private fun getCurrentMonthDiary() {
-
-    }
-
     private fun setLabelData() {
         when (filter_emotion) {
             1 -> selectEmotion = "사랑"
@@ -171,13 +190,13 @@ class ListActivity : AppCompatActivity() {
         Log.d("filter1", selectEmotion)
 
         when (filter_depth) {
-            1 -> selectDepth = "2m"
-            2 -> selectDepth = "30m"
-            3 -> selectDepth = "100m"
-            4 -> selectDepth = "300m"
-            5 -> selectDepth = "700m"
-            6 -> selectDepth = "1,005m"
-            7 -> selectDepth = "심해"
+            0 -> selectDepth = "2m"
+            1 -> selectDepth = "30m"
+            2 -> selectDepth = "100m"
+            3 -> selectDepth = "300m"
+            4 -> selectDepth = "700m"
+            5 -> selectDepth = "1,005m"
+            6 -> selectDepth = "심해"
             else -> selectDepth = "선택안함" //Log.d("setLabelData", "depth: nothing selected") // filter_depth == 0
         }
         Log.d("filter2", filter_depth.toString())
@@ -189,7 +208,7 @@ class ListActivity : AppCompatActivity() {
         Log.d("filter3", filter_emotion.toString())
         Log.d("filter3", filter_depth.toString())
 
-        if (filter_emotion == 0 && filter_depth == 0) {
+        if (filter_emotion == null && filter_depth == null) {
             binding.rcvFilterLabel.visibility = View.GONE
             Log.d("filter4", "0, 0")
         }
@@ -197,17 +216,17 @@ class ListActivity : AppCompatActivity() {
         else {
             binding.rcvFilterLabel.visibility = View.VISIBLE
 
-            if (filter_emotion == 0 && filter_depth != 0) {
+            if (filter_emotion == null && filter_depth != null) {
                 filterLabelAdapter.data = mutableListOf(FilterLabelData(selectDepth))
                 Log.d("filter4", "0, 1")
             }
 
-            if (filter_emotion != 0 && filter_depth == 0) {
+            if (filter_emotion != null && filter_depth == null) {
                 filterLabelAdapter.data = mutableListOf(FilterLabelData(selectEmotion))
                 Log.d("filter4", "1, 0")
             }
 
-            if (filter_emotion != 0 && filter_depth != 0) {
+            if (filter_emotion != null && filter_depth != null) {
                 filterLabelAdapter.data =
                     mutableListOf(FilterLabelData(selectEmotion), FilterLabelData(selectDepth))
                 Log.d("filter4", "1, 1")
@@ -216,69 +235,129 @@ class ListActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadListData() {
-        listAdapter.data = mutableListOf(
-            ListData(
-                baseContext?.getDrawable(R.drawable.ic_happy_blue),
-                "행복",
-                "12.01",
-                "화",
-                "1,005m",
-                "나는 사랑받고 있다고 느꼈다. 사랑에는 언제나 한 방울의 연민이 포함되기 때문이다.",
-                "박연준",
-                "<인생은 이상하게 흐른다인생은 이상하게>",
-                "(달달달)",
-                "모모모모 크리스마스가 끝이 났다. 크리스마스가 끝이 났다. 모모 크리스마스가 끝이 났다. 모모 크리스마스가 끝이 났다. 모모모모 크리스마스가 끝이 났다. 모모 크리스마스가 끝이 났다. 모모모모 크리스마스가 끝이 났다. 모모 크리스마스가 끝이 났다. 모모모모모모 크리스마스가 끝이 났다.모모모모 크리스마스가 끝이 났다."
-            ),
-            ListData(
-                baseContext?.getDrawable(R.drawable.ic_happy_blue),
-                "행복",
-                "12.01",
-                "화",
-                "1,005m",
-                "나는 사랑받고 있다고 느꼈다. 사랑에는 언제나 한 방울의 연민이 포함되기 때문이다.",
-                "박연준",
-                "<인생은 이상하게 흐른다>",
-                "(달)",
-                "오늘 새벽엔 눈이 내렸다. 창문을 열어 창문을 열어 흰"
-            ),
-            ListData(
-                baseContext?.getDrawable(R.drawable.ic_happy_blue),
-                "행복",
-                "12.01",
-                "화",
-                "1,005m",
-                "나는 사랑받고 있다고 느꼈다. 사랑에는 언제나 한 방울의 연민이 포함되기 때문이다.",
-                "박연준",
-                "<인생은 이상하게 흐른다>",
-                "(달)",
-                "오늘 새벽엔 눈이 내렸다. 창문을 열어 창문을 열어 흰 눈"
-            ),ListData(
-                baseContext?.getDrawable(R.drawable.ic_happy_blue),
-                "행복",
-                "12.01",
-                "화",
-                "1,005m",
-                "나는 사랑받고 있다고 느꼈다. 사랑에는 언제나 한 방울의 연민이 포함되기 때문이다.",
-                "박연준",
-                "<인생은 이상하게 흐른다>",
-                "(달)",
-                "모모모모 크리스마스가 끝이 났다."
-            ),
-            ListData(
-                baseContext?.getDrawable(R.drawable.ic_happy_blue),
-                "행복",
-                "12.01",
-                "화",
-                "1,005m",
-                "나는 사랑받고 있다고 느꼈다. 사랑에는 언제나 한 방울의 연민이 포함되기 때문이다.",
-                "박연준",
-                "<인생은 이상하게 흐른다>",
-                "(달)",
-                "오늘 새벽엔 눈이 내렸다. 창문을 열어 창문을 열어"
-            )
-        )
+    private fun getDepthString(depth : Int) : String {
+        return when (depth) {
+            0 -> "2m"
+            1 -> "30m"
+            2 -> "100m"
+            3 -> "300m"
+            4 -> "700m"
+            5 -> "1,005m"
+            6 -> "심해"
+            else -> "error"
+        }
+    }
+
+    private fun getFormedDate(wroteAt: String) : String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss.sss'Z'", Locale.KOREA).parse(wroteAt)
+        return SimpleDateFormat("MM.dd", Locale.KOREA).format(dateFormat!!)
+    }
+
+    private fun getFormedDay(wroteAt: String): String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss.sss'Z'", Locale.KOREA).parse(wroteAt)
+        return SimpleDateFormat("E", Locale.KOREA).format(dateFormat!!)
+    }
+
+    private fun getEmotionImg(emotionIdx: Int) : Int {
+        return when (emotionIdx) {
+            1 -> R.drawable.ic_love_blue
+            2 -> R.drawable.ic_happy_blue
+            3 -> R.drawable.ic_console_blue
+            4 -> R.drawable.ic_angry_blue
+            5 -> R.drawable.ic_sad_blue
+            6 -> R.drawable.ic_bored_blue
+            7 -> R.drawable.ic_memory_blue
+            8 -> R.drawable.ic_daily_blue
+            else -> R.drawable.ic_happy_blue
+        }
+    }
+
+    private fun loadListData(data: List<ListData>) {
+
+        // 검색 결과가 없을 때 (데이터가 0개)
+        if (data.isEmpty()) {
+            binding.rcvList.visibility = View.GONE
+            binding.constraintlayoutListNone.visibility = View.GONE
+            binding.constraintlayoutListFilterdNone.visibility = View.VISIBLE
+        }
+
+        // 현재 월에 아무 일기도 쓰지 않았을 때
+        if (data.isEmpty() && selectCurrentDate && filter_emotion == null && filter_depth == null) {
+            binding.rcvList.visibility = View.GONE
+            binding.constraintlayoutListFilterdNone.visibility = View.GONE
+            binding.constraintlayoutListNone.visibility = View.VISIBLE
+
+            // + 버튼 클릭 시 upload 뷰로 이동
+            binding.imagebuttonListCreateDiary.setOnClickListener {
+                val intent = Intent(this, UploadFeelingActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
+        // 서버로부터 받아온 데이터가 empty가 아닐 때
+        if (data.isNotEmpty()) {
+            binding.rcvList.visibility = View.VISIBLE
+            binding.constraintlayoutListFilterdNone.visibility = View.GONE
+            binding.constraintlayoutListNone.visibility = View.GONE
+
+            listAdapter.data = mutableListOf()
+
+            for (i in 0..data.size-1) {
+                listAdapter.data.add(
+                    ListData(
+                        baseContext?.getDrawable(getEmotionImg(data[i].emotionId)),
+                        data[i].Emotion.name,
+                        getFormedDate(data[i].wroteAt),
+                        getFormedDay(data[i].wroteAt),
+                        getDepthString(data[i].depth),
+                        data[i].Sentence.contents,
+                        data[i].Sentence.writer,
+                        "<" + data[i].Sentence.bookName + ">",
+                        "(" + data[i].Sentence.publisher + ")",
+                        data[i].contents
+                    )
+                )
+            }
+        }
         listAdapter.notifyDataSetChanged()
+    }
+
+    fun loadFilteredData() {
+        RequestToServer.service.getFilterdDiary(
+            Authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
+            userId = 2,
+            year = filter_year,
+            month = filter_month,
+            order = "filter",
+            emotionId = filter_emotion,
+            depth = filter_depth
+        ).enqueue(object : Callback<ResponseFilterData> {
+            override fun onResponse(
+                call: Call<ResponseFilterData>,
+                response: Response<ResponseFilterData>
+            ) {
+                response.takeIf { it.isSuccessful}
+                    ?.body()
+                    ?.let { it ->
+                        Log.d("ListActivity-server", "success : ${response.body()!!.data}, message : ${response.message()}")
+
+                        loadListData(response.body()!!.data)
+
+                    } ?: showError(response.errorBody())
+            }
+
+            override fun onFailure(call: Call<ResponseFilterData>, t: Throwable) {
+                Log.d("ListActivity-server", "fail : ${t.message}")
+            }
+
+        })
+    }
+
+    private fun showError(error : ResponseBody?) {
+        val e = error ?: return
+        val ob = JSONObject(e.string())
+        this.showToast(ob.getString("message"))
+        Log.d("ListActivity-server", ob.getString("message"))
     }
 
 }

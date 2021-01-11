@@ -21,7 +21,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.lang.StringBuilder
 import java.util.*
 
-class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int, Int) -> Unit) : BottomSheetDialogFragment() {
+class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int?, Int?) -> Unit) : BottomSheetDialogFragment() {
 
     private var _binding: BottomsheetListFilterBinding? = null
     private val binding get() = _binding!!
@@ -38,8 +38,8 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int, 
     // 현재 날짜와 선택한 날짜가 같으면 true, 아니면 false
     private var isCurrentDate = false
 
-    private var selectEmotion = 0
-    private var selectDepth = 0
+    private var selectEmotion : Int? = null
+    private var selectDepth : Int? = null
 
     private lateinit var year : NumberPicker
     private lateinit var month : NumberPicker
@@ -200,7 +200,7 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int, 
         }
     }
 
-    private fun setSelectedFilter(emotionIdx : Int, depthIdx : Int) {
+    private fun setSelectedFilter(emotionIdx : Int?, depthIdx : Int?) {
         when (emotionIdx) {
             1 -> binding.imgbtnFilterLove.isChecked = true
             2 -> binding.imgbtnFilterHappy.isChecked = true
@@ -214,13 +214,13 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int, 
         }
 
         when (depthIdx) {
-            1 -> binding.imgbtnFilterDepth2.isChecked = true
-            2 -> binding.imgbtnFilterDepth30.isChecked = true
-            3 -> binding.imgbtnFilterDepth100.isChecked = true
-            4 -> binding.imgbtnFilterDepth300.isChecked = true
-            5 -> binding.imgbtnFilterDepth700.isChecked = true
-            6 ->binding.imgbtnFilterDepth1005.isChecked = true
-            7 ->binding.imgbtnFilterDepthUnder.isChecked = true
+            0 -> binding.imgbtnFilterDepth2.isChecked = true
+            1 -> binding.imgbtnFilterDepth30.isChecked = true
+            2 -> binding.imgbtnFilterDepth100.isChecked = true
+            3 -> binding.imgbtnFilterDepth300.isChecked = true
+            4 -> binding.imgbtnFilterDepth700.isChecked = true
+            5 ->binding.imgbtnFilterDepth1005.isChecked = true
+            6 ->binding.imgbtnFilterDepthUnder.isChecked = true
             else -> Log.d("setSelectedFilter", "depth: nothing selected")
         }
     }
@@ -249,7 +249,7 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int, 
             }
             else if (!this.isChecked) {
                 this.isChecked = false
-                selectEmotion = 0
+                selectEmotion = null
             }
         }
     }
@@ -303,20 +303,20 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int, 
             }
             else if (!this.isChecked) {
                 this.isChecked = false
-                selectDepth = 0
+                selectDepth = null
             }
         }
     }
 
     private fun addDepthId(id : Int) {
         when(id) {
-            binding.imgbtnFilterDepth2.id -> selectDepth = 1
-            binding.imgbtnFilterDepth30.id -> selectDepth = 2
-            binding.imgbtnFilterDepth100.id -> selectDepth = 3
-            binding.imgbtnFilterDepth300.id -> selectDepth = 4
-            binding.imgbtnFilterDepth700.id -> selectDepth = 5
-            binding.imgbtnFilterDepth1005.id -> selectDepth = 6
-            binding.imgbtnFilterDepthUnder.id -> selectDepth = 7
+            binding.imgbtnFilterDepth2.id -> selectDepth = 0
+            binding.imgbtnFilterDepth30.id -> selectDepth = 1
+            binding.imgbtnFilterDepth100.id -> selectDepth = 2
+            binding.imgbtnFilterDepth300.id -> selectDepth = 3
+            binding.imgbtnFilterDepth700.id -> selectDepth = 4
+            binding.imgbtnFilterDepth1005.id -> selectDepth = 5
+            binding.imgbtnFilterDepthUnder.id -> selectDepth = 6
             else -> Log.d("id", "error")
         }
     }
