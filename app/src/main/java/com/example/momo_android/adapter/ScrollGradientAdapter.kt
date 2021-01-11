@@ -12,7 +12,7 @@ class ScrollGradientAdapter() : RecyclerView.Adapter<ScrollGradientViewHolder>()
     private val viewBinding get() = _viewBinding!!
 
 
-    override fun getItemCount(): Int = 7
+    override fun getItemCount(): Int = 8
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScrollGradientViewHolder {
         _viewBinding = ItemScrollGradientBinding.inflate(LayoutInflater.from(parent.context))
         setMatchParentToItem()

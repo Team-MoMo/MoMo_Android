@@ -1,7 +1,6 @@
 package com.example.momo_android.ui
 
 import android.animation.ObjectAnimator
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -9,14 +8,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.momo_android.R
 import com.example.momo_android.adapter.ScrollGradientAdapter
 import com.example.momo_android.databinding.FragmentScrollBinding
+import com.example.momo_android.list.ui.ListActivity
 import com.example.momo_android.ui.HomeActivity.Companion.IS_FROM_SCROLL
 
 

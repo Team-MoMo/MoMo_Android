@@ -14,8 +14,16 @@ class ScrollGradientViewHolder(
 
 
     fun onBind(position: Int) {
-        setOvalRecyclerView()
-        setDepthViews(position)
+        when (position) {
+            0, 1, 2, 3, 4, 5, 6 -> {
+                setOvalRecyclerView()
+                setDepthViews(position)
+            }
+            7 -> {
+                setLastItemView()
+                Log.d("TAG", "onBind: last item binded")
+            }
+        }
     }
 
     private fun setOvalRecyclerView() {
@@ -59,6 +67,13 @@ class ScrollGradientViewHolder(
             constraintLayout.addView(viewBinding.textViewDepth)
             constraintLayout.addView(viewBinding.recyclerViewOval)
             viewStubGradient.inflate()
+        }
+    }
+
+    private fun setLastItemView() {
+        viewBinding.apply {
+            constraintLayout.removeAllViews()
+            constraintLayout.addView(viewBinding.imageViewBottom)
         }
     }
 
