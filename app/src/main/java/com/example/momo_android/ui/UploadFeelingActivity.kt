@@ -9,7 +9,7 @@ import com.example.momo_android.diary.ui.EditDateBottomSheetFragment
 
 class UploadFeelingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUploadFeelingBinding//뷰바인딩
-    private var feeling=""
+    private var feeling=0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,14 +59,14 @@ class UploadFeelingActivity : AppCompatActivity() {
     private fun ConstraintLayout.click(){
         this.setOnClickListener {
             when(this){
-                binding.btnLove->{feeling="사랑"}
-                binding.btnHappy->{feeling="행복"}
-                binding.btnConsole->{feeling="위로"}
-                binding.btnAngry->{feeling="화남"}
-                binding.btnSad->{feeling="슬픔"}
-                binding.btnBored->{feeling="우울"}
-                binding.btnMemory->{feeling="추억"}
-                binding.btnDaily->{feeling="일상"}
+                binding.btnLove->{feeling=1}
+                binding.btnHappy->{feeling=2}
+                binding.btnConsole->{feeling=3}
+                binding.btnAngry->{feeling=4}
+                binding.btnSad->{feeling=5}
+                binding.btnBored->{feeling=6}
+                binding.btnMemory->{feeling=7}
+                binding.btnDaily->{feeling=8}
 
             }
             val intent= Intent(this@UploadFeelingActivity, UploadSentenceActivity::class.java)

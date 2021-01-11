@@ -7,40 +7,16 @@
     android:background="@color/white"
     tools:context=".ui.UploadFeelingActivity">
 
-    <ImageView
-        android:id="@+id/img_back"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:paddingLeft="16dp"
-        android:paddingTop="13dp"
-        android:src="@drawable/btn_back_black"
-        app:layout_constraintDimensionRatio="1:0.93"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.1" />
-
-    <ImageView
-        android:id="@+id/img_close"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:paddingTop="13dp"
-        android:paddingRight="16dp"
-        app:layout_constraintDimensionRatio="1:0.93"
-        app:layout_constraintWidth_percent="0.1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/btn_close_black" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout12"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="58dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout11"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_back"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed">
 
         <TextView
@@ -52,7 +28,7 @@
             android:includeFontPadding="false"
             android:letterSpacing="-0.05"
             android:lineSpacingExtra="10sp"
-            android:text="오늘의\n감정은 어땠나요?"
+            android:text="먼저 오늘의\n감정을 선택해주세요"
             android:textColor="@color/black_1"
             android:textSize="22dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -74,18 +50,6 @@
             app:layout_constraintStart_toStartOf="@+id/tv_today_feeling"
             app:layout_constraintTop_toBottomOf="@+id/tv_today_feeling" />
 
-        <ImageView
-            android:id="@+id/img_date"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="6dp"
-            android:background="@drawable/btn_ic_calender_16"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_date"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintStart_toEndOf="@+id/tv_date"
-            app:layout_constraintTop_toTopOf="@+id/tv_date"
-            app:layout_constraintWidth_percent="0.04" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -93,7 +57,7 @@
         android:id="@+id/constraintLayout11"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="38dp"
         android:layout_marginBottom="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -593,8 +557,6 @@
         </soup.neumorphism.NeumorphCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,7 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.momo_android.R
 import com.example.momo_android.upload.UploadSentenceAdapter
 import com.example.momo_android.databinding.ActivityUploadSentenceBinding
 import com.example.momo_android.upload.UploadSentenceData
@@ -22,35 +24,41 @@ class UploadSentenceActivity : AppCompatActivity() {
         val view = binding.root // 3
         setContentView(view)
 
-        val feeling=intent.getStringExtra("feeling")
-        binding.tvFeeling.text=feeling.toString()
-        /*이미지 넣을때 고려해서 이렇게 해놓음. 1 대신 "행복" 이런걸로 바꿔야함.
+        val feeling=intent.getIntExtra("feeling",0)
         when(feeling){
             1->{
-                binding.tvFeeling.text=feeling.toString()
+                binding.tvFeeling.text="사랑"
+                binding.imgFeeling.setImageResource(R.drawable.ic_love_14_black)
             }
             2->{
-                binding.tvFeeling.text=feeling.toString()
+                binding.tvFeeling.text="행복"
+                binding.imgFeeling.setImageResource(R.drawable.ic_happy_14_black)
             }
             3->{
-                binding.tvFeeling.text=feeling.toString()
+                binding.tvFeeling.text="위로"
+                binding.imgFeeling.setImageResource(R.drawable.ic_console_14_black)
             }
             4->{
-                binding.tvFeeling.text=feeling.toString()
+                binding.tvFeeling.text="화남"
+                binding.imgFeeling.setImageResource(R.drawable.ic_angry_14_black)
             }
             5->{
-                binding.tvFeeling.text=feeling.toString()
+                binding.tvFeeling.text="슬픔"
+                binding.imgFeeling.setImageResource(R.drawable.ic_sad_14_black)
             }
             6->{
-                binding.tvFeeling.text=feeling.toString()
+                binding.tvFeeling.text="우울"
+                binding.imgFeeling.setImageResource(R.drawable.ic_bored_14_black)
             }
             7->{
-                binding.tvFeeling.text=feeling.toString()
+                binding.tvFeeling.text="추억"
+                binding.imgFeeling.setImageResource(R.drawable.ic_memory_14_black)
             }
             8->{
-                binding.tvFeeling.text=feeling.toString()
+                binding.tvFeeling.text="일상"
+                binding.imgFeeling.setImageResource(R.drawable.ic_daily_14_black)
             }
-        }*/
+        }
 
 
         //RecylerView 이용한 버튼
