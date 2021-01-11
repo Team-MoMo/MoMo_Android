@@ -29,7 +29,7 @@
             android:text="감정과 어울리는 문장을\n매일 3개씩 소개해드릴게요"
             android:textColor="@color/black_1"
             android:textFontWeight="300"
-            android:textSize="22sp"
+            android:textSize="22dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,7 +45,7 @@
             android:text="2020.12.26.토요일"
             android:textColor="@color/black_4"
             android:textFontWeight="400"
-            android:textSize="14sp"
+            android:textSize="14dp"
             app:layout_constraintStart_toStartOf="@+id/tv_meeting"
             app:layout_constraintTop_toBottomOf="@+id/tv_meeting" />
 
@@ -73,7 +73,7 @@
             android:text="화남"
             android:textColor="@color/black_3_list"
             android:textFontWeight="400"
-            android:textSize="14sp"
+            android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="@+id/img_feeling"
             app:layout_constraintStart_toEndOf="@+id/img_feeling"
             app:layout_constraintTop_toTopOf="@+id/img_feeling" />
