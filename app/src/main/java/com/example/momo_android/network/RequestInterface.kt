@@ -1,11 +1,9 @@
 package com.example.momo_android.network
 
 import com.example.momo_android.diary.data.ResponseDiaryData
+import com.example.momo_android.list.data.ResponseFilterData
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Headers
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface RequestInterface {
 
@@ -17,5 +15,14 @@ interface RequestInterface {
         @Path("id") params: Int
     ) : Call<ResponseDiaryData>
 
+    // 리스트 필터별 조회
+    @Headers("Content-Type: application/json")
+    @GET("/diaries")
+    fun getFilterdDiary(
+        @Header("Authorization") Authorization: String?,
+        @Query("userId") userId: Int,
+        @Query("year") year: Int,
+        @Query("month") month: Int,
+    ) : Call<ResponseFilterData>
 
 }

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.momo_android.R
-import com.example.momo_android.ui.DiaryActivity
+import com.example.momo_android.diary.ui.DiaryActivity
 import kotlinx.android.synthetic.main.item_list.view.*
 
 class ListAdapter (private val context : Context) : RecyclerView.Adapter<ListViewHolder>() {

@@ -11,7 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityListBinding
 import com.example.momo_android.list.*
+import com.example.momo_android.list.data.ResponseFilterData
+import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.util.showToast
+import okhttp3.ResponseBody
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.lang.StringBuilder
 import java.util.*
 
@@ -50,6 +57,8 @@ class ListActivity : AppCompatActivity() {
         setCurrentDate()
 
         initToolbar()
+
+        loadFilteredData()
 
         filterLabelAdapter = FilterLabelAdapter(this)
         binding.rcvFilterLabel.adapter = filterLabelAdapter
@@ -286,6 +295,38 @@ class ListActivity : AppCompatActivity() {
             )
         )
         listAdapter.notifyDataSetChanged()
+    }
+
+    private fun loadFilteredData() {
+        RequestToServer.service.getFilterdDiary(
+            Authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
+            userId = 2,
+            year = 2020,
+            month = 8
+        ).enqueue(object : Callback<ResponseFilterData> {
+            override fun onResponse(
+                call: Call<ResponseFilterData>,
+                response: Response<ResponseFilterData>
+            ) {
+                response.takeIf { it.isSuccessful}
+                    ?.body()
+                    ?.let { it ->
+                        Log.d("ListActivity-server", "success : ${response.body()!!.data}, message : ${response.message()}")
+                    } ?: showError(response.errorBody())
+            }
+
+            override fun onFailure(call: Call<ResponseFilterData>, t: Throwable) {
+                Log.d("ListActivity-server", "fail : ${t.message}")
+            }
+
+        })
+    }
+
+    private fun showError(error : ResponseBody?) {
+        val e = error ?: return
+        val ob = JSONObject(e.string())
+        this.showToast(ob.getString("message"))
+        Log.d("ListActivity-server", ob.getString("message"))
     }
 
 }
