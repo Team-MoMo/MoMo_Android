@@ -113,6 +113,11 @@ class ListActivity : AppCompatActivity() {
             R.id.graph -> {
                 //graph 버튼 클릭 시 발생하는 이벤트 설정
             }
+            android.R.id.home -> {
+                // back 버튼 클릭 시 발생하는 이벤트 설정 -> home 화면으로 다시 이동
+                finish()
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }
