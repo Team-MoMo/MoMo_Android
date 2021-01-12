@@ -10,18 +10,22 @@ import com.example.momo_android.R
 import com.example.momo_android.databinding.BottomsheetScrollDatePickerBinding
 import com.example.momo_android.home.ui.ScrollFragment.Companion.QUERY_MONTH
 import com.example.momo_android.home.ui.ScrollFragment.Companion.QUERY_YEAR
+import com.example.momo_android.util.ScrollDatePickerListener
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.util.*
 
 
-class DatePickerBottomSheetFragment() : BottomSheetDialogFragment() {
+class DatePickerBottomSheetFragment(
+    private val clickListener: ScrollDatePickerListener
+) : BottomSheetDialogFragment() {
 
     private var _viewBinding: BottomsheetScrollDatePickerBinding? = null
     private val viewBinding get() = _viewBinding!!
 
     private var selectedYear = 0
     private var selectedMonth = 0
-    private lateinit var currentDate: Calendar
+    private val currentYear = Calendar.getInstance().get(Calendar.YEAR)
+    private val currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1
 
 
     override fun getTheme(): Int = R.style.RoundBottomSheetDialog
@@ -50,15 +54,15 @@ class DatePickerBottomSheetFragment() : BottomSheetDialogFragment() {
     }
 
     private fun initDatePicker() {
-
-        // year & month picker setting
-        currentDate = Calendar.getInstance()
-        setYearPickerSetting(currentDate.get(Calendar.YEAR))
+        // year picker setting - 순서중요 !!
+        setYearPickerSetting(currentYear)
         initYearPickerValue()
-        setMonthPickerSetting(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH))
+
+        // month picker setting - 순서중요 !!
+        setMonthPickerSetting(currentYear, currentMonth)
         initMonthPickerValue()
 
-        // date picker setting
+        // date picker setting - 순서중요 !!
         setDatePickerSetting()
     }
 
@@ -109,18 +113,23 @@ class DatePickerBottomSheetFragment() : BottomSheetDialogFragment() {
                 this.dismiss()
             }
             viewBinding.buttonApply.id -> {
-                QUERY_YEAR = selectedYear
-                QUERY_MONTH = selectedMonth
+                updateQueryData()
+                clickListener.onClickDatePickerApplyButton(selectedYear, selectedMonth)
                 this.dismiss()
             }
         }
     }
 
     private val datePickerChangedListener = NumberPicker.OnValueChangeListener { _, _, _ ->
-        setMonthPickerSetting(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH))
+        setMonthPickerSetting(currentYear, currentMonth)
         selectedYear = viewBinding.includeYmPicker.year.value
         selectedMonth = viewBinding.includeYmPicker.month.value
         updateApplyButtonStatus()
+    }
+
+    private fun updateQueryData() {
+        QUERY_YEAR = selectedYear
+        QUERY_MONTH = selectedMonth
     }
 
     private fun updateApplyButtonStatus() {

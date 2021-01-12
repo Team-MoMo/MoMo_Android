@@ -7,6 +7,8 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.momo_android.databinding.ItemScrollOvalBinding
+import com.example.momo_android.home.data.ResponseDiaryList
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.properties.Delegates
 
@@ -19,9 +21,10 @@ class ScrollOvalViewHolder(
     private val displayMetrics: DisplayMetrics = Resources.getSystem().displayMetrics
 
 
-    fun onBind(position: Int) {
+    fun onBind(xPosition: Int, diaryData: ResponseDiaryList.Data) {
         getItemAreaWidth()
         setOvalXPosition(9)
+        setDiaryData(diaryData)
     }
 
     fun onEmptyBind() {
@@ -48,6 +51,18 @@ class ScrollOvalViewHolder(
 
         layoutParams.marginStart = leftMargin.toInt()
         viewBinding.imageButtonOval.layoutParams = layoutParams
+    }
+
+    private fun setDiaryData(diaryData: ResponseDiaryList.Data) {
+        convertUpdatedAtToDate(diaryData.updatedAt)
+        viewBinding.textViewCategory.text = diaryData.emotion.name
+    }
+
+    private fun convertUpdatedAtToDate(updatedAt: String) {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss.sss'Z'", Locale.KOREAN)
+        val parsedDate = dateFormat.parse(updatedAt)
+        val diaryDate = SimpleDateFormat("MM/dd", Locale.KOREA).format(parsedDate!!)
+        viewBinding.textViewDate.text = diaryDate
     }
 
     companion object {

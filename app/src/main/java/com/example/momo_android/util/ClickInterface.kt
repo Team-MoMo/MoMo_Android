@@ -13,7 +13,12 @@ interface ModalClickListener {
     fun onOKClicked(content: String)
 }
 
-/* 스크롤 리사이클러뷰 물방울 클릭 인터페이스 */
-interface OvalListeners {
+/* ScrollFragment.kt 리사이클러뷰 물방울 클릭 인터페이스 */
+interface OvalClickListeners {
     fun onClickOvalItem(view: View, diaryData: String)
+}
+
+/* DatePickerBottomSheetFragment.kt 적용 버튼 클릭 인터페이스 */
+interface ScrollDatePickerListener {
+    fun onClickDatePickerApplyButton(year: Int, month: Int)
 }

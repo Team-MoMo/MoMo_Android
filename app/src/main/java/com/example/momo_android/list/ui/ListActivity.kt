@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityListBinding
 import com.example.momo_android.list.*
@@ -17,6 +18,7 @@ import com.example.momo_android.list.data.ResponseFilterData
 import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.upload.ui.UploadFeelingActivity
 import com.example.momo_android.util.showToast
+import kotlinx.android.synthetic.main.activity_list.*
 import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.Call
@@ -59,6 +61,9 @@ class ListActivity : AppCompatActivity() {
 
         mContext = this
 
+        filter_emotion = null
+        filter_depth = null
+
         setCurrentDate()
 
         initToolbar()
@@ -73,8 +78,20 @@ class ListActivity : AppCompatActivity() {
 
         loadFilteredData()
 
-        //loadListData()
+    }
 
+    fun disableScroll() {
+        binding.nestedscrollviewList.isNestedScrollingEnabled = false
+    }
+
+    fun enableScroll() {
+        binding.nestedscrollviewList.isNestedScrollingEnabled = true
+
+    }
+
+    private fun scrollTop() {
+        binding.nestedscrollviewList.scrollTo(0, binding.rcvList.top)
+        binding.appbarlayoutList.setExpanded(true)
     }
 
     private fun initToolbar() {
@@ -274,6 +291,9 @@ class ListActivity : AppCompatActivity() {
 
     private fun loadListData(data: List<ListData>) {
 
+        // 리사이클러뷰의 최상단으로 이동
+        scrollTop()
+
         // 검색 결과가 없을 때 (데이터가 0개)
         if (data.isEmpty()) {
             binding.rcvList.visibility = View.GONE
@@ -290,6 +310,7 @@ class ListActivity : AppCompatActivity() {
             // + 버튼 클릭 시 upload 뷰로 이동
             binding.imagebuttonListCreateDiary.setOnClickListener {
                 val intent = Intent(this, UploadFeelingActivity::class.java)
+                intent.putExtra("intentFrom", "List -> Upload")
                 startActivity(intent)
             }
         }

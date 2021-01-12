@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import com.example.momo_android.R
 import com.example.momo_android.databinding.FragmentHomeBinding
 import com.example.momo_android.diary.ui.DiaryActivity
-import com.example.momo_android.home.data.ResponseHomeDiary
+import com.example.momo_android.home.data.ResponseDiaryList
 import com.example.momo_android.list.ui.ListActivity
 import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.upload.ui.UploadFeelingActivity
@@ -172,41 +172,41 @@ class HomeFragment : Fragment() {
 
     private fun getServerDiaryData() {
         val currentCalendar = Calendar.getInstance()
-        RequestToServer.service.getHomeDiary(
+        RequestToServer.service.getHomeDiaryList(
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
             "filter",
             currentCalendar.get(Calendar.YEAR),
             currentCalendar.get(Calendar.MONTH) + 1,
             currentCalendar.get(Calendar.DATE),
             2
-        ).enqueue(object : Callback<ResponseHomeDiary> {
+        ).enqueue(object : Callback<ResponseDiaryList> {
             override fun onResponse(
-                call: Call<ResponseHomeDiary>,
-                response: Response<ResponseHomeDiary>
+                call: Call<ResponseDiaryList>,
+                responseList: Response<ResponseDiaryList>
             ) {
-                when (response.code()) {
-                    200 -> setServerDiaryData(response.body()!!.data)
-                    400 -> Log.d("TAG", "onResponse: ${response.code()} + 필요한 값이 없습니다.")
-                    500 -> Log.d("TAG", "onResponse: ${response.code()} + 일기 전체 조회 실패(서버 내부 에러)")
-                    else -> Log.d("TAG", "onResponse: ${response.code()} + 예외 상황")
+                when (responseList.code()) {
+                    200 -> setServerDiaryData(responseList.body()!!.data)
+                    400 -> Log.d("TAG", "onResponse: ${responseList.code()} + 필요한 값이 없습니다.")
+                    500 -> Log.d("TAG", "onResponse: ${responseList.code()} + 일기 전체 조회 실패(서버 내부 에러)")
+                    else -> Log.d("TAG", "onResponse: ${responseList.code()} + 예외 상황")
                 }
             }
 
-            override fun onFailure(call: Call<ResponseHomeDiary>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseDiaryList>, t: Throwable) {
                 Log.d("TAG", "onFailure: ${t.localizedMessage}")
             }
         })
     }
 
-    private fun setServerDiaryData(diaryData: List<ResponseHomeDiary.Data>) {
-        if (diaryData.isEmpty()) {
+    private fun setServerDiaryData(diaryListData: List<ResponseDiaryList.Data>) {
+        if (diaryListData.isEmpty()) {
             setDayView(true)
         } else {
             setDayView(false)
-            setEmotionData(diaryData[0].emotionId)
-            setDepthData(diaryData[0].depth)
-            setBookData(diaryData[0].sentence)
-            setDiaryData(diaryData[0].contents)
+            setEmotionData(diaryListData[0].emotionId)
+            setDepthData(diaryListData[0].depth)
+            setBookData(diaryListData[0].sentence)
+            setDiaryData(diaryListData[0].contents)
 
         }
     }
@@ -304,7 +304,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setBookData(book: ResponseHomeDiary.Data.Sentence) {
+    private fun setBookData(book: ResponseDiaryList.Data.Sentence) {
         viewBinding.apply {
             includeHomeDayDiary.textViewQuotation.text = book.contents
             includeHomeDayDiary.textViewAuthor.text = book.writer
