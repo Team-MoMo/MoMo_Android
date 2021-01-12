@@ -215,7 +215,7 @@
         android:id="@+id/button_showFull"
         android:layout_width="60dp"
         android:layout_height="24dp"
-        android:layout_marginBottom="240dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/button_rectangle_radius8"
         android:backgroundTint="@color/blue_7"
         android:fontFamily="@font/notosanskrregular"
@@ -228,7 +228,7 @@
         android:textColor="@color/blue_1"
         android:textSize="12dp"
         android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/imageView_sea"
         app:layout_constraintStart_toStartOf="@+id/textView_diary" />
 
     <ImageView
