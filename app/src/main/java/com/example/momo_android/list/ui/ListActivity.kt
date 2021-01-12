@@ -16,7 +16,7 @@ import com.example.momo_android.list.*
 import com.example.momo_android.list.data.ListData
 import com.example.momo_android.list.data.ResponseFilterData
 import com.example.momo_android.network.RequestToServer
-import com.example.momo_android.ui.UploadFeelingActivity
+import com.example.momo_android.upload.ui.UploadFeelingActivity
 import com.example.momo_android.util.showToast
 import kotlinx.android.synthetic.main.activity_list.*
 import okhttp3.ResponseBody

@@ -13,7 +13,7 @@ import com.example.momo_android.diary.ui.DiaryActivity
 import com.example.momo_android.home.data.ResponseDiaryList
 import com.example.momo_android.list.ui.ListActivity
 import com.example.momo_android.network.RequestToServer
-import com.example.momo_android.ui.UploadFeelingActivity
+import com.example.momo_android.upload.ui.UploadFeelingActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -1,4 +1,4 @@
-package com.example.momo_android.ui
+package com.example.momo_android.upload.ui
 
 import android.animation.ObjectAnimator
 import android.graphics.Bitmap
@@ -7,7 +7,6 @@ import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +17,6 @@ import android.widget.SeekBar
 import android.widget.TextView
 import androidx.core.animation.doOnEnd
 import com.example.momo_android.R
-import com.example.momo_android.databinding.ActivityDiaryEditDeepBinding
 import com.example.momo_android.databinding.ActivityUploadDeepBinding
 import com.example.momo_android.upload.ModalUploadDeepExit
 import kotlinx.android.synthetic.main.activity_upload_deep.*

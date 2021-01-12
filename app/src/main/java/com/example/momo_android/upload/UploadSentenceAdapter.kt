@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityUploadSentenceBinding
+import com.example.momo_android.upload.data.UploadSentenceData
 import com.example.momo_android.util.ItemClickListener
 
 class UploadSentenceAdapter (private val context: Context) : RecyclerView.Adapter<UploadSentenceViewHolder>(){
