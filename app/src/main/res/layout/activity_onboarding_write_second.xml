@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.OnboardingWriteSecondActivity">
+    tools:context=".onboarding.ui.OnboardingWriteSecondActivity">
 
     <TextView
         android:id="@+id/tv_explain"

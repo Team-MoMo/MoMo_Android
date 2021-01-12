@@ -33,22 +33,22 @@ class FilterLabelAdapter(private val context : Context) : RecyclerView.Adapter<F
     // 필터 라벨 삭제
     private fun removeItem(position : Int) {
 
-        if (filter_emotion != 0 || filter_depth != 0) {
-            if (filter_emotion != 0 && filter_depth == 0) {
-                filter_emotion = 0
+        if (filter_emotion != null || filter_depth != null) {
+            if (filter_emotion != null && filter_depth == null) {
+                filter_emotion = null
             }
-            else if (filter_emotion == 0 && filter_depth != 0) {
-                filter_depth = 0
+            else if (filter_emotion == null && filter_depth != null) {
+                filter_depth = null
             }
-            else if (filter_emotion != 0 && filter_depth != 0) {
+            else if (filter_emotion != null && filter_depth != null) {
 
                 if (position == 0) {
                     //감정 라벨을 삭제했을 때
-                    filter_emotion = 0
+                    filter_emotion = null
                 }
                 else if (position == 1) {
                     //깊이 라벨을 삭제했을 때
-                    filter_depth = 0
+                    filter_depth = null
                 }
             }
         }
@@ -58,6 +58,9 @@ class FilterLabelAdapter(private val context : Context) : RecyclerView.Adapter<F
         notifyDataSetChanged()
 
         val aContext : ListActivity = mContext as ListActivity
+
         aContext.activeFilterButton()
+
+        aContext.loadFilteredData()
     }
 }
