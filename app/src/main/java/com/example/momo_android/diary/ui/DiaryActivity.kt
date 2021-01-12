@@ -72,7 +72,7 @@ class DiaryActivity : AppCompatActivity() {
                 when {
                     response.code() == 200 -> {
                         tv_contents.text = response.body()!!.data.Sentence.contents
-                        tv_diary_content.text = response.body()!!.data.contents
+                        tv_diary_content.text = response.body()!!.data.content
                         Log.d("getDiary 통신성공", "??")
                     }
                     response.code() == 400 -> {
