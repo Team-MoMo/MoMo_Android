@@ -5,13 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.momo_android.databinding.ItemScrollOvalBinding
 import com.example.momo_android.home.data.ResponseDiaryList
-import com.example.momo_android.util.OvalListeners
+import com.example.momo_android.util.OvalClickListeners
 import kotlinx.android.synthetic.main.item_scroll_oval.view.*
-import java.util.*
 
 
 class ScrollOvalAdapter(
-    private val clickListener: OvalListeners,
+    private val clickListener: OvalClickListeners,
     private val diaryList: List<ResponseDiaryList.Data>
 ) : RecyclerView.Adapter<ScrollOvalViewHolder>() {
 

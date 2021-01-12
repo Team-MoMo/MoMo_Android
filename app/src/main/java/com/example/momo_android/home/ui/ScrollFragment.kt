@@ -17,10 +17,11 @@ import com.example.momo_android.databinding.FragmentScrollBinding
 import com.example.momo_android.list.ui.ListActivity
 import com.example.momo_android.home.ui.HomeActivity.Companion.IS_FROM_SCROLL
 import com.example.momo_android.ui.UploadFeelingActivity
+import com.example.momo_android.util.ScrollDatePickerListener
 import java.util.*
 
 
-class ScrollFragment : Fragment() {
+class ScrollFragment : Fragment(), ScrollDatePickerListener {
 
     private var _viewBinding: FragmentScrollBinding? = null
     private val viewBinding get() = _viewBinding!!
@@ -41,7 +42,8 @@ class ScrollFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setListeners()
-        setGradientRecyclerView()
+        initQueryDate()
+        setGradientRecyclerView(QUERY_YEAR, QUERY_MONTH)
     }
 
     private fun setListeners() {
@@ -55,9 +57,14 @@ class ScrollFragment : Fragment() {
         }
     }
 
-    private fun setGradientRecyclerView() {
+    private fun initQueryDate() {
+        QUERY_MONTH = Calendar.getInstance().get(Calendar.YEAR)
+        QUERY_MONTH = Calendar.getInstance().get(Calendar.MONTH) + 1
+    }
+
+    private fun setGradientRecyclerView(year: Int, month: Int) {
         viewBinding.recyclerViewGradient.apply {
-            adapter = ScrollGradientAdapter()
+            adapter = ScrollGradientAdapter(year, month)
             layoutManager = LinearLayoutManager(requireContext())
             addOnScrollListener(scrollListener)
         }
@@ -104,7 +111,11 @@ class ScrollFragment : Fragment() {
     }
 
     private fun setIntentToDatePicker() {
-        DatePickerBottomSheetFragment().show(requireFragmentManager(), tag)
+        DatePickerBottomSheetFragment(this).show(requireFragmentManager(), tag)
+    }
+
+    override fun onClickDatePickerApplyButton(year: Int, month: Int) {
+        setGradientRecyclerView(year, month)
     }
 
     private fun scrollToTop() {
