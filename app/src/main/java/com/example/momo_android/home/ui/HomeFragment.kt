@@ -173,7 +173,7 @@ class HomeFragment : Fragment() {
     private fun setServerDiaryData(diaryList: List<ResponseDiaryList.Data>) {
         when (diaryList.size) {
             0 -> setEmptyView()
-            1 -> {
+            else -> {
                 setDiaryView()
                 setEmotionData(diaryList[0].emotionId, isDay)
                 setDepthData(diaryList[0].depth)
