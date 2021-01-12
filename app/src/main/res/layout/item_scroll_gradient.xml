@@ -39,7 +39,7 @@
         android:letterSpacing="-0.05"
         android:text="100m"
         android:textColor="@color/blue_6"
-        android:textSize="22sp"
+        android:textSize="22dp"
         android:textStyle="normal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

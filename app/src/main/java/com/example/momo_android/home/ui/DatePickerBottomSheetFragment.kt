@@ -81,13 +81,11 @@ class DatePickerBottomSheetFragment(
     private fun setMonthPickerSetting(currentYear: Int, currentMonth: Int) {
         viewBinding.includeYmPicker.apply {
             month.minValue = 1
-            month.maxValue =
-                if (year.value == currentYear) {
-                    currentMonth + 1
-                    Log.d("TAG", "setMonthMinMaxValue: $currentMonth")
-                } else {
-                    12
-                }
+            if (year.value == currentYear) {
+                month.maxValue = currentMonth
+            } else {
+                month.maxValue = 12
+            }
         }
     }
 

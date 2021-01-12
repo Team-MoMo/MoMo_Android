@@ -1,5 +1,7 @@
 package com.example.momo_android.home.ui
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -91,6 +93,7 @@ class HomeFragment : Fragment() {
             setNightView()
             isDay = false
         }
+        setLoadingViewBackground()
     }
 
     private fun setDayView() {
@@ -180,6 +183,7 @@ class HomeFragment : Fragment() {
                 setBookDiaryData(diaryList[0])
             }
         }
+        fadeOutLoadingView()
     }
 
     private fun setEmptyView() { // visible invisible 처리
@@ -187,25 +191,25 @@ class HomeFragment : Fragment() {
             textViewDiaryEmpty.visibility = TextView.VISIBLE
             buttonUpload.visibility = Button.VISIBLE
 
-            imageViewEmotion.visibility = ImageView.INVISIBLE
-            textViewEmotion.visibility = TextView.INVISIBLE
-            imageViewLogo.visibility = ImageView.INVISIBLE
-            textViewDepth.visibility = TextView.INVISIBLE
-            textViewQuotation.visibility = TextView.INVISIBLE
-            textViewAuthor.visibility = TextView.INVISIBLE
-            textViewTitle.visibility = TextView.INVISIBLE
-            textViewPublisher.visibility = TextView.INVISIBLE
-            viewLine.visibility = View.INVISIBLE
-            textViewDiary.visibility = TextView.INVISIBLE
-            buttonShowFull.visibility = Button.INVISIBLE
-            imageButtonUpload.visibility = ImageButton.INVISIBLE
+            imageViewEmotion.visibility = ImageView.GONE
+            textViewEmotion.visibility = TextView.GONE
+            imageViewLogo.visibility = ImageView.GONE
+            textViewDepth.visibility = TextView.GONE
+            textViewQuotation.visibility = TextView.GONE
+            textViewAuthor.visibility = TextView.GONE
+            textViewTitle.visibility = TextView.GONE
+            textViewPublisher.visibility = TextView.GONE
+            viewLine.visibility = View.GONE
+            textViewDiary.visibility = TextView.GONE
+            buttonShowFull.visibility = Button.GONE
+            imageButtonUpload.visibility = ImageButton.GONE
         }
     }
 
     private fun setDiaryView() {
         viewBinding.apply {
-            textViewDiaryEmpty.visibility = TextView.INVISIBLE
-            buttonUpload.visibility = Button.INVISIBLE
+            textViewDiaryEmpty.visibility = TextView.GONE
+            buttonUpload.visibility = Button.GONE
 
             imageViewEmotion.visibility = ImageView.VISIBLE
             textViewEmotion.visibility = TextView.VISIBLE
@@ -305,9 +309,33 @@ class HomeFragment : Fragment() {
         viewBinding.apply {
             textViewQuotation.text = data.sentence.contents
             textViewAuthor.text = data.sentence.writer
-            textViewTitle.text = data.sentence.bookName
-            textViewPublisher.text = data.sentence.publisher
+            textViewTitle.text = "<${data.sentence.bookName}>"
+            textViewPublisher.text = "(${data.sentence.publisher})"
             textViewDiary.text = data.contents
+        }
+    }
+
+    private fun fadeOutLoadingView() {
+        viewBinding.viewLoading.apply {
+            alpha = 1f
+            animate()
+                .alpha(0f)
+                .setDuration(resources.getInteger(android.R.integer.config_longAnimTime).toLong())
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        viewBinding.viewLoading.visibility = View.GONE
+                    }
+                })
+        }
+    }
+
+    private fun setLoadingViewBackground() {
+        viewBinding.viewLoading.apply {
+            when(isDay) {
+                true -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
+                false -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_grey))
+            }
+            visibility = View.VISIBLE
         }
     }
 
