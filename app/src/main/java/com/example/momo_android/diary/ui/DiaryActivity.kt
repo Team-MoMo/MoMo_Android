@@ -9,6 +9,7 @@ import com.example.momo_android.databinding.ActivityDiaryBinding
 import com.example.momo_android.diary.data.ResponseDiaryData
 import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.util.*
+import kotlinx.android.synthetic.main.activity_diary.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,13 +43,6 @@ class DiaryActivity : AppCompatActivity() {
 
         // data
         val tv_diary_date = binding.tvDiaryDate
-        val img_diary_emotion = binding.imgDiaryEmotion
-        val tv_diary_emotion = binding.tvDiaryEmotion
-        val tv_diary_deep = binding.tvDiaryDeep
-        val tv_contents = binding.tvContents
-        val tv_bookname = binding.tvBookname
-        val tv_writer = binding.tvWriter
-        val tv_publisher = binding.tvPublisher
         val tv_diary_content = binding.tvDiaryContent
 
         // back 버튼
@@ -67,46 +61,7 @@ class DiaryActivity : AppCompatActivity() {
 
 
         // 다이어리 조회
-        RequestToServer.service.getDiary(
-            Authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
-            params = intent.getIntExtra("id", 0)
-        ).enqueue(object : Callback<ResponseDiaryData> {
-            override fun onResponse(call: Call<ResponseDiaryData>, response: Response<ResponseDiaryData>) {
-
-                when {
-                    response.code() == 200 -> {
-
-                        val body = response.body()!!
-                        tv_diary_date.text = getFormedDate(body.data.updatedAt) // 날짜
-                        setPickerDate(body.data.wroteAt) // 피커 날짜
-
-                        img_diary_emotion.setImageResource(getEmotionImg(body.data.emotionId)) // 감정아이콘
-                        tv_diary_emotion.text = getEmotionStr(body.data.emotionId) // 감정텍스트
-                        tv_diary_deep.text = getDepthString(body.data.depth) // 깊이
-
-                        tv_contents.text = body.data.Sentence.contents // 문장
-                        tv_bookname.text = "<${body.data.Sentence.bookName}>" // 책 제목
-                        tv_writer.text = body.data.Sentence.writer // 저자
-                        tv_publisher.text = "(${body.data.Sentence.publisher})" // 출판사
-                        tv_diary_content.text = body.data.contents // 일기
-                        depth = body.data.depth
-
-
-                    }
-                    response.code() == 400 -> {
-                        Log.d("getDiary 400", response.message())
-                    }
-                    else -> {
-                        Log.d("getDiary 500", response.message())
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<ResponseDiaryData>, t: Throwable) {
-                Log.d("getDiary ERROR", "$t")
-            }
-
-        })
+        requestGetDiary()
 
 
         // 날짜 수정
@@ -174,17 +129,105 @@ class DiaryActivity : AppCompatActivity() {
 
     }
 
-    fun getFormedDate(wroteAt: String) : String {
+    private fun requestGetDiary() {
+
+        val tv_diary_date = binding.tvDiaryDate
+        val img_diary_emotion = binding.imgDiaryEmotion
+        val tv_diary_emotion = binding.tvDiaryEmotion
+        val tv_diary_deep = binding.tvDiaryDeep
+        val tv_contents = binding.tvContents
+        val tv_bookname = binding.tvBookname
+        val tv_writer = binding.tvWriter
+        val tv_publisher = binding.tvPublisher
+        val tv_diary_content = binding.tvDiaryContent
+
+        // 다이어리 조회
+        RequestToServer.service.getDiary(
+            Authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
+            params = intent.getIntExtra("diaryId", 0)
+        ).enqueue(object : Callback<ResponseDiaryData> {
+            override fun onResponse(call: Call<ResponseDiaryData>, response: Response<ResponseDiaryData>) {
+
+                when {
+                    response.code() == 200 -> {
+
+                        val body = response.body()!!
+                        tv_diary_date.text = getFormedDate(body.data.wroteAt) // 날짜
+                        setPickerDate(body.data.wroteAt) // 피커 날짜
+
+                        img_diary_emotion.setImageResource(getEmotionImg(body.data.emotionId)) // 감정아이콘
+                        tv_diary_emotion.text = getEmotionStr(body.data.emotionId) // 감정텍스트
+                        tv_diary_deep.text = getDepthString(body.data.depth) // 깊이
+                        setDepthBackground(body.data.depth) // 배경 오브제
+
+                        tv_contents.text = body.data.Sentence.contents // 문장
+                        tv_bookname.text = "<${body.data.Sentence.bookName}>" // 책 제목
+                        tv_writer.text = body.data.Sentence.writer // 저자
+                        tv_publisher.text = "(${body.data.Sentence.publisher})" // 출판사
+                        tv_diary_content.text = body.data.contents // 일기
+                        depth = body.data.depth
+
+
+                    }
+                    response.code() == 400 -> {
+                        Log.d("getDiary 400", response.message())
+                    }
+                    else -> {
+                        Log.d("getDiary 500", response.message())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseDiaryData>, t: Throwable) {
+                Log.d("getDiary ERROR", "$t")
+            }
+
+        })
+    }
+
+    private fun getFormedDate(wroteAt: String) : String {
         val dateformat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss.sss'Z'", Locale.KOREAN).parse(wroteAt)
         val diary_day = SimpleDateFormat("yyyy. MM. dd. EEEE", Locale.KOREA).format(dateformat)
         return diary_day
     }
 
-    fun setPickerDate(wroteAt: String) {
+    private fun setPickerDate(wroteAt: String) {
         val dateformat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss.sss'Z'", Locale.KOREAN).parse(wroteAt)
         diary_year = SimpleDateFormat("yyyy", Locale.KOREA).format(dateformat).toInt()
         diary_month = SimpleDateFormat("MM", Locale.KOREA).format(dateformat).toInt()
         diary_date = SimpleDateFormat("dd", Locale.KOREA).format(dateformat).toInt()
+    }
+
+    private fun setDepthBackground(depth: Int) {
+        when (depth) {
+            0 -> {
+                binding.root.background = resources.getDrawable(R.drawable.bg_deep1, null)
+                object_deep1.setVisible()
+            }
+            1 -> {
+                binding.root.background = resources.getDrawable(R.drawable.bg_deep2, null)
+                object_deep2.setVisible()
+            }
+            2 -> {
+                binding.root.background = resources.getDrawable(R.drawable.bg_deep3, null)
+                object_deep3.setVisible()
+            }
+            3 -> {
+                binding.root.background = resources.getDrawable(R.drawable.bg_deep4, null)
+                object_deep4.setVisible()
+            }
+            4 -> {
+                binding.root.background = resources.getDrawable(R.drawable.bg_deep5, null)
+                object_deep5.setVisible()
+            }
+            5 -> {
+                binding.root.background = resources.getDrawable(R.drawable.bg_deep6, null)
+                object_deep6.setVisible()
+            }
+            6 -> {
+                binding.root.background = resources.getDrawable(R.drawable.bg_deep7, null)
+            }
+        }
     }
 
     private fun getDepthString(depth : Int) : String {
@@ -209,7 +252,7 @@ class DiaryActivity : AppCompatActivity() {
             5 -> R.drawable.ic_sad_14_white
             6 -> R.drawable.ic_bored_14_white
             7 -> R.drawable.ic_memory_14_white
-            else -> R.drawable.ic_happy_blue
+            else -> R.drawable.ic_daily_14_white
         }
     }
 
