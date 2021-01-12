@@ -1,5 +1,6 @@
 package com.example.momo_android.network
 
+import com.example.momo_android.diary.data.RequestEditDiaryData
 import com.example.momo_android.diary.data.ResponseDiaryData
 import com.example.momo_android.home.data.ResponseDiaryList
 import com.example.momo_android.list.data.ResponseFilterData
@@ -12,6 +13,23 @@ interface RequestInterface {
     @Headers("Content-Type: application/json")
     @GET("/diaries/{id}")
     fun getDiary(
+        @Header("Authorization") Authorization: String?,
+        @Path("id") params: Int
+    ) : Call<ResponseDiaryData>
+
+    // 다이어리 수정
+    @Headers("Content-Type: application/json")
+    @PUT("/diaries/{id}")
+    fun editDiary(
+        @Header("Authorization") Authorization: String?,
+        @Path("id") params: Int,
+        @Body body : RequestEditDiaryData
+    ) : Call<ResponseDiaryData>
+
+    // 다이어리 삭제
+    @Headers("Content-Type: application/json")
+    @DELETE("/diaries/{id}")
+    fun deleteDiary(
         @Header("Authorization") Authorization: String?,
         @Path("id") params: Int
     ) : Call<ResponseDiaryData>

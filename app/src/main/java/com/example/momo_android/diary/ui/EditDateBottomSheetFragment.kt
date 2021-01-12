@@ -13,14 +13,22 @@ import android.widget.FrameLayout
 import android.widget.NumberPicker
 import com.example.momo_android.R
 import com.example.momo_android.databinding.BottomsheetDiaryEditDateBinding
+import com.example.momo_android.diary.data.RequestEditDiaryData
+import com.example.momo_android.diary.data.ResponseDiaryData
 import com.example.momo_android.diary.ui.DiaryActivity.Companion.diary_date
 import com.example.momo_android.diary.ui.DiaryActivity.Companion.diary_month
 import com.example.momo_android.diary.ui.DiaryActivity.Companion.diary_year
+import com.example.momo_android.list.data.ResponseFilterData
+import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.util.showToast
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import retrofit2.Call
+import retrofit2.Response
+import java.text.SimpleDateFormat
 import java.util.*
+import javax.security.auth.callback.Callback
 
 class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomSheetDialogFragment() {
 
@@ -96,7 +104,7 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
         date.minValue = 1
 
         // maxValue = 최대 날짜 표시
-        year.maxValue = 2021
+        year.maxValue = currentDate.get(Calendar.YEAR)
 
         // year에 따라 month maxValue 변경
         if(diary_year == currentDate.get(Calendar.YEAR)) {
@@ -113,10 +121,7 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
             setMonthMax()
         }
 
-        // 일단은
-        Log.d("companion", diary_year.toString())
-        Log.d("companion", diary_month.toString())
-        Log.d("companion", diary_date.toString())
+
         year.value = diary_year
         month.value = diary_month
         date.value = diary_date
@@ -162,16 +167,21 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
 
         }
 
-        Binding.btnDiaryDateEdit.isEnabled = true
+        date.setOnValueChangedListener { _, _, _ ->
+            requestCheckDiary(year.value, month.value, date.value)
+        }
+
+
+
+
+
 
         Binding.btnDiaryDateEdit.setOnClickListener {
             val pick = intArrayOf(year.value, month.value, date.value)
             itemClick(pick)
 
             // 날짜수정 통신
-
-            context!!.showToast("날짜가 수정되었습니다.")
-            dialog?.dismiss()
+            requestEditDiary()
         }
 
         Binding.btnCloseDiaryEditDate.setOnClickListener {
@@ -180,6 +190,103 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
 
 
 
+    }
+
+    // 해당 날짜에 쓰인 일기가 있는지 확인
+    private fun requestCheckDiary(year: Int, month: Int, date: Int) {
+
+        RequestToServer.service.getFilterdDiary(
+            Authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
+            userId = DiaryActivity.responseData[0].userId,
+            year = year,
+            month = month,
+            order = "date",
+            emotionId = 1,
+            depth = 1
+        ).enqueue(object : retrofit2.Callback<ResponseFilterData> {
+            override fun onResponse(
+                call: Call<ResponseFilterData>,
+                response: Response<ResponseFilterData>
+            ) {
+
+                // 코드 400으로 뜸
+                when {
+                    response.code() == 200 -> {
+                        val checkDate = "$year$month$date"
+                        for(i in 0..response.body()!!.data.size) {
+                            val matchDate = getFormedDate(response.body()!!.data[i].wroteAt)
+                            if(checkDate == matchDate) {
+                                Log.d("가능여부", "놉")
+                                Binding.btnDiaryDateEdit.isEnabled = false
+                                break
+                            } else {
+                                Log.d("가능여부", "된다")
+                                Binding.btnDiaryDateEdit.isEnabled = true
+                            }
+
+                        }
+
+                    }
+                    response.code() == 400 -> {
+                        Log.d("checkDiary 400", response.message())
+                    }
+                    else -> {
+                        Log.d("checkDiary 500", response.message())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseFilterData>, t: Throwable) {
+                Log.d("checkDiary ERROR", "$t")
+            }
+
+        })
+    }
+
+    private fun requestEditDiary() {
+
+        RequestToServer.service.editDiary(
+            Authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
+            params = DiaryActivity.responseData[0].id,
+            RequestEditDiaryData(
+                depth = DiaryActivity.responseData[0].depth,
+                contents = DiaryActivity.responseData[0].contents,
+                userId = DiaryActivity.responseData[0].userId,
+                sentenceId = DiaryActivity.responseData[0].sentenceId,
+                emotionId = DiaryActivity.responseData[0].emotionId,
+                wroteAt = "$diary_year-$diary_month-$diary_date"
+            )
+        ).enqueue(object : retrofit2.Callback<ResponseDiaryData> {
+            override fun onResponse(
+                call: Call<ResponseDiaryData>,
+                response: Response<ResponseDiaryData>
+            ) {
+                when {
+                    response.code() == 200 -> {
+                        Log.d("날짜 수정 성공", response.body().toString())
+                        context!!.showToast("날짜가 수정되었습니다.")
+                        dialog?.dismiss()
+                    }
+                    response.code() == 400 -> {
+                        Log.d("editDiary 400", response.message())
+                    }
+                    else -> {
+                        Log.d("editDiary 500", response.message())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseDiaryData>, t: Throwable) {
+                Log.d("editDiary ERROR", "$t")
+            }
+
+        })
+    }
+
+    private fun getFormedDate(wroteAt: String) : String {
+        val dateformat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss.sss'Z'", Locale.KOREAN).parse(wroteAt)
+        val diary_day = SimpleDateFormat("yyyyMMdd", Locale.KOREA).format(dateformat)
+        return diary_day
     }
 
     // 달 별로 일수 다른거 미리 세팅해둔 함수
