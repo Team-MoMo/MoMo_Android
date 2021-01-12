@@ -18,8 +18,17 @@ import android.widget.TextView
 import androidx.core.animation.doOnEnd
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityUploadDeepBinding
+import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.upload.ModalUploadDeepExit
+import com.example.momo_android.upload.data.RequestUploadDiaryData
+import com.example.momo_android.upload.data.ResponseUploadDiaryData
+import com.example.momo_android.util.showToast
 import kotlinx.android.synthetic.main.activity_upload_deep.*
+import okhttp3.ResponseBody
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import kotlin.math.abs
 
 class UploadDeepActivity : AppCompatActivity() {
@@ -31,6 +40,11 @@ class UploadDeepActivity : AppCompatActivity() {
         binding = ActivityUploadDeepBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        val emotionId = intent.getIntExtra("emotionId", 0)
+        val sentenceId = intent.getIntExtra("sentenceId", 0)
+        val contents = intent.getStringExtra("contents")
+        var depth = 0
 
         // 총 3개의 시크바 사용
         val mainSeekbar = binding.mainSeekBar
@@ -82,6 +96,10 @@ class UploadDeepActivity : AppCompatActivity() {
 
         textSeekbar.progress = mainSeekbar.progress
         (textThumb.findViewById(R.id.tv_seekbar_depth) as TextView).text = getDepth(textSeekbar.progress)
+
+        // 깊이 설정
+        depth = textSeekbar.progress
+
         textSeekbar.thumb = textThumb.getThumb()
         textSeekbar.setOnTouchListener { _, _ -> true }
 
@@ -125,6 +143,7 @@ class UploadDeepActivity : AppCompatActivity() {
         // 기록하기 버튼
         btn_edit_deep.setOnClickListener {
             // 기록하기 통신
+            uploadDiary(contents!!, sentenceId, emotionId, depth)
         }
 
 
@@ -207,6 +226,46 @@ class UploadDeepActivity : AppCompatActivity() {
             }
             start()
         }
+    }
+
+    private fun uploadDiary(contents: String, sentenceId: Int, emotionId: Int, depth: Int) {
+        RequestToServer.service.uploadDiary(
+            Authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
+            RequestUploadDiaryData(
+                contents = contents,
+                depth = depth,
+                userId = 2,
+                sentenceId = sentenceId,
+                emotionId = emotionId,
+                wroteAt = "2020-08-16"
+            )
+        ).enqueue(object : Callback<ResponseUploadDiaryData> {
+            override fun onResponse(
+                call: Call<ResponseUploadDiaryData>,
+                response: Response<ResponseUploadDiaryData>
+            ) {
+                response.takeIf { it.isSuccessful}
+                    ?.body()
+                    ?.let { it ->
+                        Log.d("uploadDiary-server", "success : ${response.body()!!.data}, message : ${response.message()}")
+
+                        // 다이어리 뷰로 이동
+
+                    } ?: showError(response.errorBody())
+            }
+
+            override fun onFailure(call: Call<ResponseUploadDiaryData>, t: Throwable) {
+                Log.d("uploadDiary-server", "fail : ${t.message}")
+            }
+
+        })
+    }
+
+    private fun showError(error : ResponseBody?) {
+        val e = error ?: return
+        val ob = JSONObject(e.string())
+        this.showToast(ob.getString("message"))
+        Log.d("UploadSentence-server", ob.getString("message"))
     }
 
 

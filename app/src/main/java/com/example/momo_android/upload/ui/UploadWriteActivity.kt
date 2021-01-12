@@ -19,6 +19,11 @@ class UploadWriteActivity : AppCompatActivity() {
         setContentView(view)
 
         val feeling=intent.getIntExtra("feeling",0)
+        val sentenceId = intent.getIntExtra("sentenceId", 0)
+        val emotionId = intent.getIntExtra("emotionId", 0)
+        var contents = ""
+        //val date = intent.getStringExtra("date")
+
         when(feeling){
             1->{
                 binding.tvFeeling.text="사랑"
@@ -73,6 +78,14 @@ class UploadWriteActivity : AppCompatActivity() {
         binding.tvNext.setOnClickListener {
             //홈화면
             val intent= Intent(this@UploadWriteActivity, UploadDeepActivity::class.java)
+
+            if (binding.etDiary.text.toString() != "") {
+                contents = binding.etDiary.text.toString()
+            }
+            intent.putExtra("contents", contents)
+            intent.putExtra("sentenceId", sentenceId)
+            intent.putExtra("emotionId", emotionId)
+
             startActivity(intent)
         }
         //토글 기능
