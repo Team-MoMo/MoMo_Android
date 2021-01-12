@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.OnboardingFeelingActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="58dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout11"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <TextView
+            android:id="@+id/tv_today_feeling"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:fontFamily="@font/notosanskrlight"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.05"
+            android:lineSpacingExtra="10sp"
+            android:text="먼저 오늘의\n감정을 선택해주세요"
+            android:textColor="@color/black_1"
+            android:textSize="22dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/notosans"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.07"
+            android:lineSpacingExtra="0sp"
+            android:text="2020. 12. 26. 토요일"
+            android:textColor="@color/blue_1"
+            android:textFontWeight="400"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_today_feeling"
+            app:layout_constraintTop_toBottomOf="@+id/tv_today_feeling" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout11"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="38dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout12">
+
+        <soup.neumorphism.NeumorphCardView
+            android:id="@+id/neumorphCardView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="6dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            app:layout_constraintDimensionRatio="1:0.65"
+            app:layout_constraintEnd_toStartOf="@+id/neumorphCardView2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.42"
+            app:neumorph_backgroundColor="#FFFFFF"
+            app:neumorph_insetBottom="6dp"
+            app:neumorph_insetEnd="8dp"
+            app:neumorph_insetStart="0dp"
+            app:neumorph_insetTop="0dp"
+            app:neumorph_lightSource="leftTop"
+            app:neumorph_shadowColorDark="@color/gray_shadow"
+            app:neumorph_shadowColorLight="#FFFFFF"
+            app:neumorph_shadowElevation="4dp"
+            app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
+            app:neumorph_shapeType="flat">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_love"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp">
+
+                <ImageView
+                    android:id="@+id/img_love"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/upload_ic_love"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_love"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/notosans"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="-0.06"
+                    android:lineSpacingExtra="0sp"
+                    android:text="사랑"
+                    android:textColor="@color/blue_2"
+                    android:textFontWeight="500"
+                    android:textSize="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </soup.neumorphism.NeumorphCardView>
+
+        <soup.neumorphism.NeumorphCardView
+            android:id="@+id/neumorphCardView3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="6dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            app:layout_constraintDimensionRatio="1:0.65"
+            app:layout_constraintStart_toStartOf="@+id/neumorphCardView"
+            app:layout_constraintTop_toBottomOf="@+id/neumorphCardView"
+            app:layout_constraintWidth_percent="0.42"
+            app:neumorph_backgroundColor="#FFFFFF"
+            app:neumorph_insetBottom="6dp"
+            app:neumorph_insetEnd="8dp"
+            app:neumorph_insetStart="0dp"
+            app:neumorph_insetTop="0dp"
+            app:neumorph_lightSource="leftTop"
+            app:neumorph_shadowColorDark="@color/gray_shadow"
+            app:neumorph_shadowColorLight="#FFFFFF"
+            app:neumorph_shadowElevation="4dp"
+            app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
+            app:neumorph_shapeType="flat">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_console"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="20dp">
+
+                <ImageView
+                    android:id="@+id/img_console"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/upload_ic_console"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_console"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/notosans"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="-0.06"
+                    android:lineSpacingExtra="0sp"
+                    android:text="위로"
+                    android:textColor="@color/blue_2"
+                    android:textFontWeight="500"
+                    android:textSize="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </soup.neumorphism.NeumorphCardView>
+
+        <soup.neumorphism.NeumorphCardView
+            android:id="@+id/neumorphCardView4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="0dp"
+            android:padding="6dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            app:layout_constraintDimensionRatio="1:0.65"
+            app:layout_constraintStart_toStartOf="@+id/neumorphCardView3"
+            app:layout_constraintTop_toBottomOf="@+id/neumorphCardView3"
+            app:layout_constraintWidth_percent="0.42"
+            app:neumorph_backgroundColor="#FFFFFF"
+            app:neumorph_insetBottom="6dp"
+            app:neumorph_insetEnd="8dp"
+            app:neumorph_insetStart="0dp"
+            app:neumorph_insetTop="0dp"
+            app:neumorph_lightSource="leftTop"
+            app:neumorph_shadowColorDark="@color/gray_shadow"
+            app:neumorph_shadowColorLight="#FFFFFF"
+            app:neumorph_shadowElevation="4dp"
+            app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
+            app:neumorph_shapeType="flat">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_sad"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation="8dp"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="20dp">
+
+                <ImageView
+                    android:id="@+id/imageView12"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/upload_ic_sad"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_sad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/notosans"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="-0.06"
+                    android:lineSpacingExtra="0sp"
+                    android:text="슬픔"
+                    android:textColor="@color/blue_2"
+                    android:textFontWeight="500"
+                    android:textSize="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </soup.neumorphism.NeumorphCardView>
+
+        <soup.neumorphism.NeumorphCardView
+            android:id="@+id/neumorphCardView6"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="0dp"
+            android:padding="6dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            app:layout_constraintDimensionRatio="1:0.65"
+            app:layout_constraintStart_toStartOf="@+id/neumorphCardView4"
+            app:layout_constraintTop_toBottomOf="@+id/neumorphCardView4"
+            app:layout_constraintWidth_percent="0.42"
+            app:neumorph_backgroundColor="#FFFFFF"
+            app:neumorph_insetBottom="6dp"
+            app:neumorph_insetEnd="8dp"
+            app:neumorph_insetStart="0dp"
+            app:neumorph_insetTop="0dp"
+            app:neumorph_lightSource="leftTop"
+            app:neumorph_shadowColorDark="@color/gray_shadow"
+            app:neumorph_shadowColorLight="#FFFFFF"
+            app:neumorph_shadowElevation="4dp"
+            app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
+            app:neumorph_shapeType="flat">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_memory"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#FFFFFF"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="20dp">
+
+                <ImageView
+                    android:id="@+id/img_memory"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/upload_ic_memory"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_memory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/notosans"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="-0.06"
+                    android:lineSpacingExtra="0sp"
+                    android:text="추억"
+                    android:textColor="@color/blue_2"
+                    android:textFontWeight="500"
+                    android:textSize="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </soup.neumorphism.NeumorphCardView>
+
+        <soup.neumorphism.NeumorphCardView
+            android:id="@+id/neumorphCardView2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="4dp"
+            android:padding="6dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            app:layout_constraintDimensionRatio="1:0.65"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/neumorphCardView"
+            app:layout_constraintTop_toTopOf="@+id/neumorphCardView"
+            app:layout_constraintWidth_percent="0.42"
+            app:neumorph_backgroundColor="#FFFFFF"
+            app:neumorph_insetBottom="6dp"
+            app:neumorph_insetEnd="8dp"
+            app:neumorph_insetStart="0dp"
+            app:neumorph_insetTop="0dp"
+            app:neumorph_lightSource="leftTop"
+            app:neumorph_shadowColorDark="@color/gray_shadow"
+            app:neumorph_shadowColorLight="#FFFFFF"
+            app:neumorph_shadowElevation="4dp"
+            app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
+            app:neumorph_shapeType="flat">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_happy"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteX="24dp"
+                tools:layout_editor_absoluteY="8dp">
+
+                <ImageView
+                    android:id="@+id/img_happy"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/upload_ic_happy"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_happy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/notosans"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="-0.06"
+                    android:lineSpacingExtra="0sp"
+                    android:text="행복"
+                    android:textColor="@color/blue_2"
+                    android:textFontWeight="500"
+                    android:textSize="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </soup.neumorphism.NeumorphCardView>
+
+        <soup.neumorphism.NeumorphCardView
+            android:id="@+id/neumorphCardView5"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="0dp"
+            android:padding="6dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            app:layout_constraintDimensionRatio="1:0.65"
+            app:layout_constraintStart_toStartOf="@+id/neumorphCardView2"
+            app:layout_constraintTop_toBottomOf="@+id/neumorphCardView2"
+            app:layout_constraintWidth_percent="0.42"
+            app:neumorph_backgroundColor="#FFFFFF"
+            app:neumorph_insetBottom="6dp"
+            app:neumorph_insetEnd="8dp"
+            app:neumorph_insetStart="0dp"
+            app:neumorph_insetTop="0dp"
+            app:neumorph_lightSource="leftTop"
+            app:neumorph_shadowColorDark="@color/gray_shadow"
+            app:neumorph_shadowColorLight="#FFFFFF"
+            app:neumorph_shadowElevation="4dp"
+            app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
+            app:neumorph_shapeType="flat">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_angry"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp">
+
+                <ImageView
+                    android:id="@+id/img_angry"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/upload_ic_angry"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/tv_angry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/notosans"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="-0.06"
+                    android:lineSpacingExtra="0sp"
+                    android:text="화남"
+                    android:textColor="@color/blue_2"
+                    android:textFontWeight="500"
+                    android:textSize="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </soup.neumorphism.NeumorphCardView>
+
+        <soup.neumorphism.NeumorphCardView
+            android:id="@+id/neumorphCardView7"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="6dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            app:layout_constraintDimensionRatio="1:0.65"
+            app:layout_constraintStart_toStartOf="@+id/neumorphCardView5"
+            app:layout_constraintTop_toBottomOf="@+id/neumorphCardView5"
+            app:layout_constraintWidth_percent="0.42"
+            app:neumorph_backgroundColor="#FFFFFF"
+            app:neumorph_insetBottom="6dp"
+            app:neumorph_insetEnd="8dp"
+            app:neumorph_insetStart="0dp"
+            app:neumorph_insetTop="0dp"
+            app:neumorph_lightSource="leftTop"
+            app:neumorph_shadowColorDark="@color/gray_shadow"
+            app:neumorph_shadowColorLight="#FFFFFF"
+            app:neumorph_shadowElevation="4dp"
+            app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
+            app:neumorph_shapeType="flat">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_bored"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp">
+
+                <ImageView
+                    android:id="@+id/img_bored"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/upload_ic_bored"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_bored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/notosans"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="-0.06"
+                    android:lineSpacingExtra="0sp"
+                    android:text="우울"
+                    android:textColor="@color/blue_2"
+                    android:textFontWeight="500"
+                    android:textSize="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </soup.neumorphism.NeumorphCardView>
+
+        <soup.neumorphism.NeumorphCardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="0dp"
+            android:padding="6dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            app:layout_constraintDimensionRatio="1:0.65"
+            app:layout_constraintStart_toStartOf="@+id/neumorphCardView7"
+            app:layout_constraintTop_toBottomOf="@+id/neumorphCardView7"
+            app:layout_constraintWidth_percent="0.42"
+            app:neumorph_backgroundColor="#FFFFFF"
+            app:neumorph_insetBottom="6dp"
+            app:neumorph_insetEnd="8dp"
+            app:neumorph_insetStart="0dp"
+            app:neumorph_insetTop="0dp"
+            app:neumorph_lightSource="leftTop"
+            app:neumorph_shadowColorDark="@color/gray_shadow"
+            app:neumorph_shadowColorLight="#FFFFFF"
+            app:neumorph_shadowElevation="4dp"
+            app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
+            app:neumorph_shapeType="flat">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_daily"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#FFFFFF"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp">
+
+                <ImageView
+                    android:id="@+id/img_daily"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/upload_ic_daily"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_daily"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/notosans"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="-0.06"
+                    android:lineSpacingExtra="0sp"
+                    android:text="일상"
+                    android:textColor="@color/blue_2"
+                    android:textFontWeight="500"
+                    android:textSize="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </soup.neumorphism.NeumorphCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

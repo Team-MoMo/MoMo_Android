@@ -13,26 +13,29 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoMo_Android"
         android:usesCleartextTraffic="true">
-        <activity android:name=".login.ui.MainLoginActivity">
-        </activity>
-        <activity android:name=".signup.ui.SignUpActivity"></activity>
-        <activity android:name=".splash.SplashActivity">
+        <activity android:name=".ui.OnboardingWriteSecondActivity"></activity>
+        <activity android:name=".ui.OnboardingWriteFirstActivity" />
+        <activity android:name=".ui.OnboardingDepthActivity" />
+        <activity android:name=".ui.OnboardingSentenceActivity" />
+        <activity android:name=".ui.OnboardingFeelingActivity" />
+        <activity android:name=".ui.OnboardingStartActivity" >
+
 
         </activity>
+        <activity android:name=".login.ui.MainLoginActivity" />
+        <activity android:name=".signup.ui.SignUpActivity" />
+        <activity android:name=".splash.SplashActivity" />
         <activity
             android:name=".login.ui.LoginActivity"
-            android:windowSoftInputMode="adjustResize"></activity>
-        <activity android:name=".home.ui.HomeActivity"></activity>
-        <activity android:name=".diary.ui.DiaryActivity"></activity>
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".home.ui.HomeActivity" />
+        <activity android:name=".diary.ui.DiaryActivity" />
         <activity android:name=".diary.ui.DiaryEditDeepActivity" />
         <activity
             android:name=".ui.UploadWriteActivity"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity android:name=".ui.UploadSentenceActivity" />
-        <activity android:name=".ui.UploadFeelingActivity" />
-        <activity android:name=".ui.UploadDeepActivity" />
-
-        <activity android:name=".ui.OnboardingActivity">
+        <activity android:name=".ui.UploadFeelingActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,8 +43,9 @@
             </intent-filter>
 
         </activity>
-
-
+        <activity android:name=".ui.UploadDeepActivity" />
+        <activity android:name=".ui.OnboardingActivity">
+        </activity>
         <activity
             android:name=".list.ui.ListActivity"
             android:theme="@style/Theme.listTheme" />

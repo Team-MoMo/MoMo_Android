@@ -50,6 +50,8 @@ class OnboardingSentenceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Binding.tvDate.text= companion_date
+        Binding.tvFeeling.text= companion_feeling
 
         //(companion_feeling)
         Log.d("feeling", companion_feeling)
@@ -89,6 +91,7 @@ class OnboardingSentenceFragment : Fragment() {
 
     }
 
+    /*
     override fun onAttach(context: Context) {
         super.onAttach(context)
         onboardingActivity=context as OnboardingActivity
@@ -103,7 +106,7 @@ class OnboardingSentenceFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         Binding.tvDate.text= companion_date
         Binding.tvFeeling.text= companion_feeling
-    }
+    }*/
 
     fun changeFeeling(feeling:Int){
         when(feeling){

@@ -1,9 +1,11 @@
 package com.example.momo_android.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityUploadWriteBinding
 import com.example.momo_android.util.*
 
@@ -16,8 +18,42 @@ class UploadWriteActivity : AppCompatActivity() {
         val view = binding.root // 3
         setContentView(view)
 
-        val feeling=intent.getStringExtra("feeling")
-        binding.tvFeeling.text=feeling.toString()
+        val feeling=intent.getIntExtra("feeling",0)
+        when(feeling){
+            1->{
+                binding.tvFeeling.text="사랑"
+                binding.imgFeeling.setImageResource(R.drawable.ic_love_14_black)
+            }
+            2->{
+                binding.tvFeeling.text="행복"
+                binding.imgFeeling.setImageResource(R.drawable.ic_happy_14_black)
+            }
+            3->{
+                binding.tvFeeling.text="위로"
+                binding.imgFeeling.setImageResource(R.drawable.ic_console_14_black)
+            }
+            4->{
+                binding.tvFeeling.text="화남"
+                binding.imgFeeling.setImageResource(R.drawable.ic_angry_14_black)
+            }
+            5->{
+                binding.tvFeeling.text="슬픔"
+                binding.imgFeeling.setImageResource(R.drawable.ic_sad_14_black)
+            }
+            6->{
+                binding.tvFeeling.text="우울"
+                binding.imgFeeling.setImageResource(R.drawable.ic_bored_14_black)
+            }
+            7->{
+                binding.tvFeeling.text="추억"
+                binding.imgFeeling.setImageResource(R.drawable.ic_memory_14_black)
+            }
+            8->{
+                binding.tvFeeling.text="일상"
+                binding.imgFeeling.setImageResource(R.drawable.ic_daily_14_black)
+            }
+        }
+
         val date=intent.getStringExtra("date")
         binding.tvDate.text=date.toString()
         binding.tvAuthor.text=intent.getStringExtra("author")
@@ -25,7 +61,20 @@ class UploadWriteActivity : AppCompatActivity() {
         binding.tvPublisher.text=intent.getStringExtra("publisher")
         binding.tvSentence.text=intent.getStringExtra("sentence")
 
+        //< 뒤로가기버튼
+        binding.imgBack.setOnClickListener {
+            //홈화면
+            val intent= Intent(this@UploadWriteActivity, UploadSentenceActivity::class.java)
+            intent.putExtra("feeling",feeling)
+            startActivity(intent)
+        }
 
+        //< 뒤로가기버튼
+        binding.tvNext.setOnClickListener {
+            //홈화면
+            val intent= Intent(this@UploadWriteActivity, UploadDeepActivity::class.java)
+            startActivity(intent)
+        }
         //토글 기능
         binding.togglebtn.setOnClickListener {
             if(binding.tvSentence.visibility==View.GONE){

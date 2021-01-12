@@ -84,7 +84,8 @@ class OnboardingFeelingFragment : Fragment() {
                 Binding.btnDaily->{feeling=8}
             }
             //companion_feeling=feeling
-            act.onboarding.currentItem = 2
+            val onboarding = act.findViewById<ViewPager>(R.id.onboarding)
+            onboarding.currentItem = 1
         }
     }
 

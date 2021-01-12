@@ -5,21 +5,7 @@
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".onboarding.OnboardingWriteFragment">
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottie"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_fileName="OnboardingCircle.json"
-        app:lottie_loop="false" />
+    tools:context=".ui.OnboardingWriteSecondActivity">
 
     <TextView
         android:id="@+id/tv_explain"
@@ -43,9 +29,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout18"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="131dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout23"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,13 +47,11 @@
             android:letterSpacing="-0.09"
             android:lineSpacingExtra="0sp"
             android:text="작가"
-            android:textColor="@color/black_2_nav"
+            android:textColor="@color/black_4"
             android:textFontWeight="500"
             android:textSize="12dp"
-            app:layout_constraintEnd_toStartOf="@+id/tv_book"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/img_feather"
             app:layout_constraintTop_toBottomOf="@+id/img_feather"
             tools:layout_conversion_absoluteHeight="16dp"
             tools:layout_conversion_absoluteWidth="18dp" />
@@ -82,11 +66,9 @@
             android:letterSpacing="-0.09"
             android:lineSpacingExtra="0sp"
             android:text="책"
-            android:textColor="@color/black_2_nav"
+            android:textColor="@color/black_4"
             android:textFontWeight="500"
             android:textSize="12dp"
-            app:layout_constraintEnd_toStartOf="@+id/tv_publisher"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tv_author"
             app:layout_constraintTop_toTopOf="@+id/tv_author"
             tools:layout_conversion_absoluteHeight="16dp"
@@ -105,8 +87,6 @@
             android:textColor="@color/black_5_publish"
             android:textFontWeight="400"
             android:textSize="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tv_book"
             app:layout_constraintTop_toTopOf="@+id/tv_book"
             tools:layout_conversion_absoluteHeight="16dp"
@@ -116,20 +96,19 @@
             android:id="@+id/tv_sentence"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="42dp"
             android:layout_marginTop="19dp"
-            android:layout_marginEnd="42dp"
+            android:layout_marginEnd="51dp"
             android:fontFamily="@font/notosans"
-            android:gravity="center"
+            android:gravity="left"
             android:includeFontPadding="false"
-            android:letterSpacing="-0.08"
-            android:lineSpacingExtra="7sp"
+            android:letterSpacing="-0.07"
+            android:lineSpacingExtra="11sp"
             android:text="문장"
-            android:textColor="@color/black_3_list"
+            android:textColor="@color/black_4"
             android:textFontWeight="400"
             android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_author"
             app:layout_constraintTop_toBottomOf="@+id/tv_book"
             tools:layout_conversion_absoluteHeight="19dp"
             tools:layout_conversion_absoluteWidth="297dp" />
@@ -138,11 +117,80 @@
             android:id="@+id/img_feather"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginStart="32dp"
             app:layout_constraintDimensionRatio="1:1.13"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.042"
             app:srcCompat="@drawable/ic_feather_black" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/imageView34"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="58dp"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/onboarding_circle_small" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout23"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="85dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout18">
+
+        <TextView
+            android:id="@+id/tv_cursor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosanskrbold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.06"
+            android:lineSpacingExtra="4sp"
+            android:text="ㅣ"
+            android:textColor="@color/blue_3"
+            android:textFontWeight="500"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_write"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_write"
+            app:layout_constraintTop_toTopOf="@+id/tv_write" />
+
+        <TextView
+            android:id="@+id/tv_write"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosanskrmedium"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.06"
+            android:lineSpacingExtra="4sp"
+            android:text="새로운 인연이 기대되는 하루였다."
+            android:textColor="@color/blue_2"
+            android:textFontWeight="500"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/tv_cursor"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/imageView36"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/onboarding_circle_big" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -34,9 +34,9 @@ class OnboardingWriteFragment : Fragment() {
         Binding.tvSentence.text=companion_sentence
     }
 
-
+    /*
     override fun onDestroyView() {
         super.onDestroyView()
         _Binding = null
-    }
+    }*/
 }
