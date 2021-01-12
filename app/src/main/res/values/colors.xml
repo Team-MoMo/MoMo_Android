@@ -44,6 +44,9 @@
     <color name="gray_shadow">#2321619C</color>
     <color name="red_2_error">#fc5151</color>
 
+    <color name="home_day_gradient_start">#f1f7ff</color>
+    <color name="home_day_gradient_end">#00fffcf9</color>
+
     <color name="gradient_2m_start">#6bb7fa</color>
     <color name="gradient_30m_start">#91d5fc</color>
     <color name="gradient_100m_start">#5ed5ef</color>
