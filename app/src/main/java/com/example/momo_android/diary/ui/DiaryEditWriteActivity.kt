@@ -2,20 +2,23 @@ package com.example.momo_android.diary.ui
 
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.momo_android.databinding.ActivityDiaryEditWriteBinding
 import com.example.momo_android.diary.data.RequestEditDiaryData
 import com.example.momo_android.diary.data.ResponseDiaryData
 import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.util.*
+import com.example.momo_android.util.BackPressEditText.OnBackPressListener
 import retrofit2.Call
 import retrofit2.Response
+
 
 class DiaryEditWriteActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDiaryEditWriteBinding
+    private var beforeDiary = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +28,8 @@ class DiaryEditWriteActivity : AppCompatActivity() {
 
 
         binding.etDiary.setText(intent.getStringExtra("tv_diary_content").toString())
+
+        beforeDiary = binding.etDiary.text.toString()
 
         binding.togglebtn.rotation=180.0f
         binding.tvSentence.setGone()
@@ -53,6 +58,41 @@ class DiaryEditWriteActivity : AppCompatActivity() {
         binding.cardview.toggle_visible()
 
         binding.btnBack.setOnClickListener {
+            checkEditDiary()
+        }
+
+        binding.btnEdit.setOnClickListener {
+            // 일기수정 통신
+            requestEditDiary()
+        }
+
+        binding.etDiary.setOnBackPressListener(onBackPressListener)
+
+    }
+
+    private val onBackPressListener: OnBackPressListener = object : OnBackPressListener {
+        override fun onBackPress() {
+            binding.togglebtn.rotation=0.0f
+            binding.tvSentence.setVisible()
+        }
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if(event!!.action == KeyEvent.ACTION_DOWN) {
+            if(keyCode == KeyEvent.KEYCODE_BACK) {
+                checkEditDiary()
+                return true
+            }
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
+    private fun checkEditDiary() {
+        // 일기를 1자라도 수정했을 경우 팝업
+        // 일기를 수정하지 않은 경우 팝업 없이 finish()
+        if(binding.etDiary.text.toString() == beforeDiary) {
+            finish()
+        } else {
             val backModal = ModalDiaryEditBack(this)
             backModal.start()
             backModal.setOnClickListener {
@@ -61,17 +101,8 @@ class DiaryEditWriteActivity : AppCompatActivity() {
                 }
             }
         }
-
-        binding.btnEdit.setOnClickListener {
-            // 일기수정 통신
-            requestEditDiary()
-        }
-
-
-
-
-
     }
+
 
     private fun View.toggle_visible(){
         this.setOnClickListener {
