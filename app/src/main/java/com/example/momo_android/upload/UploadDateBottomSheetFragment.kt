@@ -5,6 +5,7 @@ import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import android.widget.NumberPicker
 import com.example.momo_android.R
 import com.example.momo_android.databinding.BottomsheetDiaryEditDateBinding
 import com.example.momo_android.diary.ui.DiaryActivity
+import com.example.momo_android.util.showToast
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -95,27 +97,30 @@ class UploadDateBottomSheetFragment (val itemClick: (IntArray) -> Unit) : Bottom
         year.maxValue = 2021
 
         // year에 따라 month maxValue 변경
-        if(year.value == currentDate.get(Calendar.YEAR)) {
+        if(DiaryActivity.diary_year == currentDate.get(Calendar.YEAR)) {
             month.maxValue = currentDate.get(Calendar.MONTH) + 1
         } else {
             month.maxValue = 12
         }
 
         // month에 따라 month, date maxValue 변경
-        if(month.value == currentDate.get(Calendar.MONTH) + 1) {
+        if(DiaryActivity.diary_month == currentDate.get(Calendar.MONTH) + 1) {
             month.maxValue = currentDate.get(Calendar.MONTH) + 1
             date.maxValue = currentDate.get(Calendar.DAY_OF_MONTH)
         } else {
             setMonthMax()
         }
 
-        // year.value = diary_year
         // 일단은
-        year.value = currentDate.get(Calendar.YEAR)
+        Log.d("companion", DiaryActivity.diary_year.toString())
+        Log.d("companion", DiaryActivity.diary_month.toString())
+        Log.d("companion", DiaryActivity.diary_date.toString())
+        year.value = DiaryActivity.diary_year
         month.value = DiaryActivity.diary_month
         date.value = DiaryActivity.diary_date
 
         // 순환 안되게 막기
+
         year.wrapSelectorWheel = false
         month.wrapSelectorWheel = false
         date.wrapSelectorWheel = false
@@ -160,6 +165,14 @@ class UploadDateBottomSheetFragment (val itemClick: (IntArray) -> Unit) : Bottom
         Binding.btnDiaryDateEdit.setOnClickListener {
             val pick = intArrayOf(year.value, month.value, date.value)
             itemClick(pick)
+
+            // 날짜수정 통신
+
+            context!!.showToast("날짜가 수정되었습니다.")
+            dialog?.dismiss()
+        }
+
+        Binding.btnCloseDiaryEditDate.setOnClickListener {
             dialog?.dismiss()
         }
 

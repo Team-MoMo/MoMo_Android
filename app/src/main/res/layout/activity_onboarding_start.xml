@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".onboarding.OnboardingStartFragment">
+    tools:context=".onboarding.ui.OnboardingStartActivity">
 
     <TextView
         android:id="@+id/tv_start"
@@ -32,6 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginTop="34dp"
+        android:scaleType="fitXY"
         android:adjustViewBounds="true"
         app:layout_constraintBottom_toTopOf="@+id/under_background"
         app:layout_constraintEnd_toEndOf="parent"

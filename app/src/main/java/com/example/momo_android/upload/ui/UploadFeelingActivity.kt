@@ -1,4 +1,4 @@
-package com.example.momo_android.ui
+package com.example.momo_android.upload.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,10 +6,17 @@ import android.os.Bundle
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.momo_android.databinding.ActivityUploadFeelingBinding
 import com.example.momo_android.diary.ui.EditDateBottomSheetFragment
+import com.example.momo_android.home.ui.HomeActivity
 
 class UploadFeelingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUploadFeelingBinding//뷰바인딩
     private var feeling=0
+
+    companion object {
+        var diary_year = 0
+        var diary_month = 0
+        var diary_date = 0
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +43,9 @@ class UploadFeelingActivity : AppCompatActivity() {
 
         //< 뒤로가기버튼
         binding.imgBack.setOnClickListener {
-            //홈화면 보여주기
+            //홈화면
+            val intent= Intent(this@UploadFeelingActivity, HomeActivity::class.java)
+            startActivity(intent)
         }
 
         //X 버튼

@@ -25,5 +25,6 @@
     <font
         android:font="@font/notosanskrthin"
         android:fontWeight="100"
-        android:fontStyle="normal" />
+        android:fontStyle="normal"
+        tools:targetApi="o"/>
 </font-family>

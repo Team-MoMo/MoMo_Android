@@ -4,18 +4,19 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.momo_android.databinding.ItemScrollOvalBinding
-import com.example.momo_android.util.OvalListeners
+import com.example.momo_android.home.data.ResponseDiaryList
+import com.example.momo_android.util.OvalClickListeners
 import kotlinx.android.synthetic.main.item_scroll_oval.view.*
-import java.util.*
 
 
 class ScrollOvalAdapter(
-    private val clickListener: OvalListeners
+    private val clickListener: OvalClickListeners,
+    private val diaryList: List<ResponseDiaryList.Data>
 ) : RecyclerView.Adapter<ScrollOvalViewHolder>() {
 
     private var _viewBinding: ItemScrollOvalBinding? = null
     private val viewBinding get() = _viewBinding!!
-    private val itemCount = Random().nextInt(10)
+    private val itemCount = diaryList.size
 
 
     override fun getItemCount(): Int {
@@ -31,7 +32,7 @@ class ScrollOvalAdapter(
 
     override fun onBindViewHolder(holder: ScrollOvalViewHolder, position: Int) {
         if (position < itemCount) {
-            holder.onBind(position)
+            holder.onBind(position, diaryList[position])
             holder.itemView.imageButton_oval.setOnClickListener {
                 clickListener.onClickOvalItem(it, "")
             }

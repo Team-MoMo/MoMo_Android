@@ -5,7 +5,21 @@
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".onboarding.OnboardingWriteFragment">
+    tools:context=".onboarding.ui.OnboardingWriteFirstActivity">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="OnboardingCircle.json"
+        app:lottie_loop="false" />
 
     <TextView
         android:id="@+id/tv_explain"
@@ -47,7 +61,7 @@
             android:letterSpacing="-0.09"
             android:lineSpacingExtra="0sp"
             android:text="작가"
-            android:textColor="@color/black_2_nav"
+            android:textColor="@color/black_4"
             android:textFontWeight="500"
             android:textSize="12dp"
             app:layout_constraintEnd_toStartOf="@+id/tv_book"
@@ -68,7 +82,7 @@
             android:letterSpacing="-0.09"
             android:lineSpacingExtra="0sp"
             android:text="책"
-            android:textColor="@color/black_2_nav"
+            android:textColor="@color/black_4"
             android:textFontWeight="500"
             android:textSize="12dp"
             app:layout_constraintEnd_toStartOf="@+id/tv_publisher"
@@ -108,10 +122,10 @@
             android:fontFamily="@font/notosans"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:letterSpacing="-0.08"
-            android:lineSpacingExtra="7sp"
+            android:letterSpacing="-0.07"
+            android:lineSpacingExtra="11sp"
             android:text="문장"
-            android:textColor="@color/black_3_list"
+            android:textColor="@color/black_1"
             android:textFontWeight="400"
             android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"

@@ -1,4 +1,4 @@
-package com.example.momo_android.upload
+package com.example.momo_android.upload.data
 
 data class UploadSentenceData(
         val author:String,
