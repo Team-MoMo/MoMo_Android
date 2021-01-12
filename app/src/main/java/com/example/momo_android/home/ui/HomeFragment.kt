@@ -305,8 +305,8 @@ class HomeFragment : Fragment() {
         viewBinding.apply {
             textViewQuotation.text = data.sentence.contents
             textViewAuthor.text = data.sentence.writer
-            textViewTitle.text = data.sentence.bookName
-            textViewPublisher.text = data.sentence.publisher
+            textViewTitle.text = "<${data.sentence.bookName}>"
+            textViewPublisher.text = "(${data.sentence.publisher})"
             textViewDiary.text = data.contents
         }
     }
