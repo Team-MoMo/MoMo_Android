@@ -1,5 +1,7 @@
 package com.example.momo_android.home.ui
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Build
@@ -44,6 +46,7 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
         setListeners()
         initQueryDate()
         setGradientRecyclerView(QUERY_YEAR, QUERY_MONTH)
+        fadeOutLoadingView()
     }
 
     private fun setListeners() {
@@ -67,6 +70,21 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
             adapter = ScrollGradientAdapter(year, month)
             layoutManager = LinearLayoutManager(requireContext())
             addOnScrollListener(scrollListener)
+        }
+    }
+
+    private fun fadeOutLoadingView() {
+        viewBinding.viewLoading.apply {
+            visibility = View.VISIBLE
+            alpha = 1f
+            animate()
+                .alpha(0f)
+                .setDuration(resources.getInteger(android.R.integer.config_longAnimTime).toLong())
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        viewBinding.viewLoading.visibility = View.GONE
+                    }
+                })
         }
     }
 
@@ -97,6 +115,14 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
             .start()
     }
 
+    private fun checkHomeButtonStatus() {
+        if (visibleItemPosition == 0 && isHomeButtonClicked) {
+            IS_FROM_SCROLL = true
+            requireActivity().onBackPressed()
+            isHomeButtonClicked = false
+        }
+    }
+
     private val fragmentOnTouchListener = View.OnTouchListener { _, _ -> true }
     private val fragmentOnClickListener = View.OnClickListener {
         viewBinding.apply {
@@ -115,20 +141,13 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
     }
 
     override fun onClickDatePickerApplyButton(year: Int, month: Int) {
+        fadeOutLoadingView()
         setGradientRecyclerView(year, month)
     }
 
     private fun scrollToTop() {
         viewBinding.recyclerViewGradient.smoothScrollToPosition(0)
         isHomeButtonClicked = true
-    }
-
-    private fun checkHomeButtonStatus() {
-        if (visibleItemPosition == 0 && isHomeButtonClicked) {
-            IS_FROM_SCROLL = true
-            requireActivity().onBackPressed()
-            isHomeButtonClicked = false
-        }
     }
 
     private fun setIntentToUploadActivity() {
