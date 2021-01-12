@@ -26,6 +26,14 @@ interface RequestInterface {
         @Body body : RequestEditDiaryData
     ) : Call<ResponseDiaryData>
 
+    // 다이어리 삭제
+    @Headers("Content-Type: application/json")
+    @DELETE("/diaries/{id}")
+    fun deleteDiary(
+        @Header("Authorization") Authorization: String?,
+        @Path("id") params: Int
+    ) : Call<ResponseDiaryData>
+
     // 리스트 필터별 조회
     @Headers("Content-Type: application/json")
     @GET("/diaries")

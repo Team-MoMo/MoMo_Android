@@ -112,8 +112,7 @@ class DiaryActivity : AppCompatActivity() {
             deleteModal.start()
             deleteModal.setOnClickListener {
                 if (it == "삭제") {
-                    // 일기삭제 통신
-                    // finish()
+                    deleteDiary()
                 }
             }
         }
@@ -186,7 +185,35 @@ class DiaryActivity : AppCompatActivity() {
         })
     }
 
+    private fun deleteDiary() {
+        RequestToServer.service.deleteDiary(
+            Authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
+            params = intent.getIntExtra("diaryId", 0)
+        ).enqueue(object : Callback<ResponseDiaryData> {
+            override fun onResponse(
+                call: Call<ResponseDiaryData>,
+                response: Response<ResponseDiaryData>
+            ) {
+                when {
+                    response.code() == 200 -> {
+                        Log.d("일기 삭제 성공", response.body().toString())
+                        finish()
+                    }
+                    response.code() == 400 -> {
+                        Log.d("deleteDiary 400", response.message())
+                    }
+                    else -> {
+                        Log.d("deleteDiary 500", response.message())
+                    }
+                }
+            }
 
+            override fun onFailure(call: Call<ResponseDiaryData>, t: Throwable) {
+                Log.d("deleteDiary ERROR", "$t")
+            }
+
+        })
+    }
 
     private fun getFormedDate(wroteAt: String) : String {
         val dateformat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss.sss'Z'", Locale.KOREAN).parse(wroteAt)

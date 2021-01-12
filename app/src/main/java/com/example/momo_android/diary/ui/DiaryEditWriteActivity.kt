@@ -65,8 +65,6 @@ class DiaryEditWriteActivity : AppCompatActivity() {
         binding.btnEdit.setOnClickListener {
             // 일기수정 통신
             requestEditDiary()
-            finish()
-            this.showToast("일기가 수정되었습니다.")
         }
 
 
@@ -104,6 +102,8 @@ class DiaryEditWriteActivity : AppCompatActivity() {
                 when {
                     response.code() == 200 -> {
                         Log.d("일기내용 수정 성공", response.body().toString())
+                        finish()
+                        applicationContext.showToast("일기가 수정되었습니다.")
                     }
                     response.code() == 400 -> {
                         Log.d("editDiary 400", response.message())

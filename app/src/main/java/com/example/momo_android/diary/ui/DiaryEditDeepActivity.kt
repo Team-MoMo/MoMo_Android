@@ -125,8 +125,7 @@ class DiaryEditDeepActivity : AppCompatActivity() {
         btn_edit_deep.setOnClickListener {
             // 깊이수정 통신
             requestEditDiary(mainSeekbar.progress)
-            finish()
-            this.showToast("깊이가 수정되었습니다.")
+
         }
 
 
@@ -154,6 +153,8 @@ class DiaryEditDeepActivity : AppCompatActivity() {
                 when {
                     response.code() == 200 -> {
                         Log.d("깊이 수정 성공", response.body().toString())
+                        finish()
+                        applicationContext.showToast("깊이가 수정되었습니다.")
                     }
                     response.code() == 400 -> {
                         Log.d("editDiary 400", response.message())

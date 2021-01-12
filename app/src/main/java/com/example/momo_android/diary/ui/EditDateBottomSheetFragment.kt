@@ -182,9 +182,6 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
 
             // 날짜수정 통신
             requestEditDiary()
-
-            context!!.showToast("날짜가 수정되었습니다.")
-            dialog?.dismiss()
         }
 
         Binding.btnCloseDiaryEditDate.setOnClickListener {
@@ -267,6 +264,8 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
                 when {
                     response.code() == 200 -> {
                         Log.d("날짜 수정 성공", response.body().toString())
+                        context!!.showToast("날짜가 수정되었습니다.")
+                        dialog?.dismiss()
                     }
                     response.code() == 400 -> {
                         Log.d("editDiary 400", response.message())
