@@ -25,7 +25,10 @@ class UploadSentenceActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUploadSentenceBinding
     private var cardview=0
     private lateinit var uploadSentenceAdapter: UploadSentenceAdapter// 버튼을 Recycler의 형태로 제작
-    val datas = mutableListOf<UploadSentenceData>()
+
+    private var sentence1 = 0
+    private var sentence2 = 0
+    private var sentence3 = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,6 +72,9 @@ class UploadSentenceActivity : AppCompatActivity() {
             }
         }
 
+        // 서버로부터 문장 3개 받아오기
+        loadSentenceData(feeling)
+
         //< 뒤로가기버튼
         binding.imgBack.setOnClickListener {
             //홈화면
@@ -86,6 +92,15 @@ class UploadSentenceActivity : AppCompatActivity() {
         uploadSentenceAdapter = UploadSentenceAdapter(this)
         uploadSentenceAdapter.setItemClickListener(object: ItemClickListener {
             override fun onClickItem(view: View, position:Int){
+
+                var sentenceId = 0
+
+                when (position) {
+                    0 -> sentenceId = sentence1
+                    1 -> sentenceId = sentence2
+                    2 -> sentenceId = sentence3
+                }
+
                 val intent= Intent(this@UploadSentenceActivity, UploadWriteActivity::class.java)
                 intent.putExtra("feeling",feeling)
                 intent.putExtra("date",binding.tvDate.text.toString())
@@ -93,6 +108,8 @@ class UploadSentenceActivity : AppCompatActivity() {
                 intent.putExtra("book",uploadSentenceAdapter.data[position].book)
                 intent.putExtra("publisher",uploadSentenceAdapter.data[position].publisher)
                 intent.putExtra("sentence",uploadSentenceAdapter.data[position].sentence)
+                intent.putExtra("sentenceId", sentenceId)
+                intent.putExtra("emotionId", feeling)
                 //Toast.makeText(this@UploadSentenceActivity,uploadSentenceAdapter.data[0].author,Toast.LENGTH_SHORT).show()
                 startActivity(intent)
             }
@@ -100,9 +117,6 @@ class UploadSentenceActivity : AppCompatActivity() {
 
         binding.rvSelectSentence.adapter=uploadSentenceAdapter
         binding.rvSelectSentence.layoutManager = LinearLayoutManager(this)
-
-        // 서버로부터 문장 3개 받아오기
-        loadSentenceData(feeling)
 
     }
 
@@ -123,6 +137,10 @@ class UploadSentenceActivity : AppCompatActivity() {
 
                         // recyclerview에 문장 등록
                         setSentence(response.body()!!.data)
+
+                        sentence1 = it.data[0].id
+                        sentence2 = it.data[1].id
+                        sentence3 = it.data[2].id
 
                     } ?: showError(response.errorBody())
             }
