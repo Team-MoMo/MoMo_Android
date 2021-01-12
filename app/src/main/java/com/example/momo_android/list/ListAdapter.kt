@@ -35,7 +35,7 @@ class ListAdapter (private val context : Context) : RecyclerView.Adapter<ListVie
 
         // > 버튼 클릭 시 다이어리 뷰로 전환
        holder.itemView.imagebutton_list_next.setOnClickListener {
-           val intentFrom = "List"
+           val intentFrom = "List -> Diary"
            val emotionText = data[position].emotionText
            val date = data[position].date
            val day = data[position].day

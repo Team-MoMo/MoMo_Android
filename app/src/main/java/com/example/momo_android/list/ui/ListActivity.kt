@@ -310,6 +310,7 @@ class ListActivity : AppCompatActivity() {
             // + 버튼 클릭 시 upload 뷰로 이동
             binding.imagebuttonListCreateDiary.setOnClickListener {
                 val intent = Intent(this, UploadFeelingActivity::class.java)
+                intent.putExtra("intentFrom", "List -> Upload")
                 startActivity(intent)
             }
         }
