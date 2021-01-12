@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.momo_android.databinding.ItemScrollGradientBinding
 
 
-class ScrollGradientAdapter() : RecyclerView.Adapter<ScrollGradientViewHolder>() {
+class ScrollGradientAdapter : RecyclerView.Adapter<ScrollGradientViewHolder>() {
 
     private var _viewBinding: ItemScrollGradientBinding? = null
     private val viewBinding get() = _viewBinding!!

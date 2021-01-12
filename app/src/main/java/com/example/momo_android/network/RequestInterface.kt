@@ -35,7 +35,6 @@ interface RequestInterface {
         @Query("userId") userId: Int,
         @Query("year") year: Int,
         @Query("month") month: Int,
-        @Query("order") order: String,
-        @Query("depth") depth: Int
+        @Query("order") order: String
     ): Call<ResponseDiaryList>
 }
