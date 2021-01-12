@@ -77,8 +77,14 @@ class ListActivity : AppCompatActivity() {
         binding.rcvList.adapter = listAdapter
         binding.rcvList.layoutManager = LinearLayoutManager(this)
 
-        loadFilteredData()
+        //loadFilteredData()
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        loadFilteredData()
     }
 
     fun disableScroll() {
