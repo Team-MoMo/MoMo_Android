@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityListBinding
 import com.example.momo_android.list.*
@@ -17,6 +18,7 @@ import com.example.momo_android.list.data.ResponseFilterData
 import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.ui.UploadFeelingActivity
 import com.example.momo_android.util.showToast
+import kotlinx.android.synthetic.main.activity_list.*
 import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.Call
@@ -84,6 +86,12 @@ class ListActivity : AppCompatActivity() {
 
     fun enableScroll() {
         binding.nestedscrollviewList.isNestedScrollingEnabled = true
+
+    }
+
+    private fun scrollTop() {
+        binding.nestedscrollviewList.scrollTo(0, binding.rcvList.top)
+        binding.appbarlayoutList.setExpanded(true)
     }
 
     private fun initToolbar() {
@@ -282,6 +290,9 @@ class ListActivity : AppCompatActivity() {
     }
 
     private fun loadListData(data: List<ListData>) {
+
+        // 리사이클러뷰의 최상단으로 이동
+        scrollTop()
 
         // 검색 결과가 없을 때 (데이터가 0개)
         if (data.isEmpty()) {
