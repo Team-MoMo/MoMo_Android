@@ -59,6 +59,9 @@ class ListActivity : AppCompatActivity() {
 
         mContext = this
 
+        filter_emotion = null
+        filter_depth = null
+
         setCurrentDate()
 
         initToolbar()
