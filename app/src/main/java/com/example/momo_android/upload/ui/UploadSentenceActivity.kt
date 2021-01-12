@@ -3,13 +3,23 @@ package com.example.momo_android.upload.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.momo_android.R
 import com.example.momo_android.upload.UploadSentenceAdapter
 import com.example.momo_android.databinding.ActivityUploadSentenceBinding
+import com.example.momo_android.network.RequestToServer
+import com.example.momo_android.upload.data.Data
+import com.example.momo_android.upload.data.ResponseSentenceData
 import com.example.momo_android.upload.data.UploadSentenceData
 import com.example.momo_android.util.ItemClickListener
+import com.example.momo_android.util.showToast
+import okhttp3.ResponseBody
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class UploadSentenceActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUploadSentenceBinding
@@ -59,7 +69,6 @@ class UploadSentenceActivity : AppCompatActivity() {
             }
         }
 
-
         //< 뒤로가기버튼
         binding.imgBack.setOnClickListener {
             //홈화면
@@ -92,27 +101,59 @@ class UploadSentenceActivity : AppCompatActivity() {
         binding.rvSelectSentence.adapter=uploadSentenceAdapter
         binding.rvSelectSentence.layoutManager = LinearLayoutManager(this)
 
-
-
-        uploadSentenceAdapter.data = mutableListOf(
-            UploadSentenceData(
-                "구병모",
-                "<파과>",
-                "(위즈덤하우스)",
-                "점입가경, 이게 웬 심장이 콧구멍으로 쏟아질 얘긴가 싶지만 그저 지레짐작이나 얻어걸린 이야기일 가능성이 더 많으니 조각은 표정을 바꾸지 않는다."
-            ),
-            UploadSentenceData("author", "<book>", "(publisher)", "한줄이다"),
-            UploadSentenceData(
-                "박연준",
-                "<인생은 이상하게 흐른다>",
-                "(달)",
-                "소년이여, 야망을 가져라란 말이었다. 분명 어디서 들어본듯한, 그러나 은근히 책상머리에 붙여놓아도 별 손색이 없을, 미적지근 훌륭한 격언이라는 생각이 들었다."
-            )
-        )
-        uploadSentenceAdapter.notifyDataSetChanged()
+        // 서버로부터 문장 3개 받아오기
+        loadSentenceData(feeling)
 
     }
 
+    private fun loadSentenceData(emotionId: Int) {
+        RequestToServer.service.getSentence(
+            Authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
+            emotionId = emotionId,
+            userId = 2
+        ).enqueue(object : Callback<ResponseSentenceData> {
+            override fun onResponse(
+                call: Call<ResponseSentenceData>,
+                response: Response<ResponseSentenceData>
+            ) {
+                response.takeIf { it.isSuccessful}
+                    ?.body()
+                    ?.let { it ->
+                        Log.d("UploadSentence-server", "success : ${response.body()!!.data}, message : ${response.message()}")
 
+                        // recyclerview에 문장 등록
+                        setSentence(response.body()!!.data)
+
+                    } ?: showError(response.errorBody())
+            }
+
+            override fun onFailure(call: Call<ResponseSentenceData>, t: Throwable) {
+                Log.d("UploadSentence-server", "fail : ${t.message}")
+            }
+
+        })
+    }
+
+    private fun showError(error : ResponseBody?) {
+        val e = error ?: return
+        val ob = JSONObject(e.string())
+        this.showToast(ob.getString("message"))
+        Log.d("UploadSentence-server", ob.getString("message"))
+    }
+
+    private fun setSentence(data: List<Data>) {
+        uploadSentenceAdapter.data = mutableListOf()
+        for (i in data.indices) {
+            uploadSentenceAdapter.data.add(
+                UploadSentenceData(
+                    data[i].writer,
+                    "<" + data[i].bookName + ">",
+                    "(" + data[i].publisher + ")",
+                    data[i].contents
+                )
+            )
+        }
+        uploadSentenceAdapter.notifyDataSetChanged()
+    }
 
 }
