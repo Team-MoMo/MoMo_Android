@@ -6,126 +6,128 @@
     android:layout_height="match_parent"
     tools:context=".ui.UploadSentenceActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottie"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="UploadSentenceCircle.json"
-            app:lottie_loop="false" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="UploadSentenceCircle.json"
+        app:lottie_loop="false" />
 
     <ImageView
         android:id="@+id/img_back"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintWidth_percent="0.06"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="13dp"
-        android:background="@drawable/btn_back_black"
+        android:layout_height="33dp"
+        android:paddingLeft="16dp"
+        android:paddingTop="13dp"
+        android:src="@drawable/btn_back_black"
+        app:layout_constraintBottom_toTopOf="@+id/text_constraint"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.1" />
 
     <ImageView
         android:id="@+id/img_close"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintWidth_percent="0.06"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="16dp"
+        android:paddingTop="13dp"
+        android:paddingRight="16dp"
+        app:layout_constraintDimensionRatio="1:0.93"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.1"
         app:srcCompat="@drawable/btn_close_black" />
 
-    <TextView
-        android:id="@+id/tv_meeting"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/text_constraint"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="21dp"
-        android:fontFamily="@font/notosanskrlight"
-        android:includeFontPadding="false"
-        android:letterSpacing="-0.05"
-        android:lineSpacingExtra="10sp"
-        android:text="마음에 파동이\n이는 문장을 만나보세요"
-        android:textColor="@color/black_1"
-        android:textFontWeight="300"
-        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/rv_select_sentence"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_back" />
+        app:layout_constraintTop_toBottomOf="@+id/img_back">
 
-    <TextView
-        android:id="@+id/tv_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/notosans"
-        android:includeFontPadding="false"
-        android:letterSpacing="-0.07"
-        android:lineSpacingExtra="0sp"
-        android:text="2020.12.26.토요일"
-        android:textColor="@color/black_4"
-        android:textFontWeight="400"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_meeting"
-        app:layout_constraintTop_toBottomOf="@+id/tv_meeting" />
+        <TextView
+            android:id="@+id/tv_meeting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:fontFamily="@font/notosanskrlight"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.05"
+            android:lineSpacingExtra="10sp"
+            android:text="마음에 파동이\n이는 문장을 만나보세요"
+            android:textColor="@color/black_1"
+            android:textFontWeight="300"
+            android:textSize="22dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/img_feeling"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintWidth_percent="0.039"
-        android:layout_marginStart="12dp"
-        android:background="@drawable/ic_angry_14_black"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_date"
-        app:layout_constraintStart_toEndOf="@+id/tv_date"
-        app:layout_constraintTop_toTopOf="@+id/tv_date" />
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/notosans"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.07"
+            android:lineSpacingExtra="0sp"
+            android:text="2020.12.26.토요일"
+            android:textColor="@color/black_4"
+            android:textFontWeight="400"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_meeting"
+            app:layout_constraintTop_toBottomOf="@+id/tv_meeting" />
 
-    <TextView
-        android:id="@+id/tv_feeling"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:fontFamily="@font/notosans"
-        android:includeFontPadding="false"
-        android:letterSpacing="-0.07"
-        android:lineSpacingExtra="0sp"
-        android:text="화남"
-        android:textColor="@color/black_3_list"
-        android:textFontWeight="400"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/img_feeling"
-        app:layout_constraintStart_toEndOf="@+id/img_feeling"
-        app:layout_constraintTop_toTopOf="@+id/img_feeling" />
+        <ImageView
+            android:id="@+id/img_feeling"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="12dp"
+            android:src="@drawable/ic_angry_14_black"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_date"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toEndOf="@+id/tv_date"
+            app:layout_constraintTop_toTopOf="@+id/tv_date"
+            app:layout_constraintWidth_percent="0.039" />
 
+        <TextView
+            android:id="@+id/tv_feeling"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:fontFamily="@font/notosans"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.07"
+            android:lineSpacingExtra="0sp"
+            android:text="화남"
+            android:textColor="@color/black_3_list"
+            android:textFontWeight="400"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_feeling"
+            app:layout_constraintStart_toEndOf="@+id/img_feeling"
+            app:layout_constraintTop_toTopOf="@+id/img_feeling" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_select_sentence"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="40dp"
         android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_date"
+        app:layout_constraintTop_toBottomOf="@+id/text_constraint"
         app:layout_constraintWidth_percent="0.93">
 
     </androidx.recyclerview.widget.RecyclerView>

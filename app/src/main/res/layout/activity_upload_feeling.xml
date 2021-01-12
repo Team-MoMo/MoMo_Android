@@ -11,24 +11,24 @@
         android:id="@+id/img_back"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="13dp"
-        android:background="@drawable/btn_back_black"
-        app:layout_constraintDimensionRatio="1:1"
+        android:paddingLeft="16dp"
+        android:paddingTop="13dp"
+        android:src="@drawable/btn_back_black"
+        app:layout_constraintDimensionRatio="1:0.93"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.06" />
+        app:layout_constraintWidth_percent="0.1" />
 
     <ImageView
         android:id="@+id/img_close"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintDimensionRatio="1:1"
+        android:paddingTop="13dp"
+        android:paddingRight="16dp"
+        app:layout_constraintDimensionRatio="1:0.93"
+        app:layout_constraintWidth_percent="0.1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.06"
         app:srcCompat="@drawable/btn_close_black" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,14 +48,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:fontFamily="@font/notosans"
+            android:fontFamily="@font/notosanskrlight"
             android:includeFontPadding="false"
             android:letterSpacing="-0.05"
             android:lineSpacingExtra="10sp"
             android:text="오늘의\n감정은 어땠나요?"
             android:textColor="@color/black_1"
-            android:textFontWeight="300"
-            android:textSize="22sp"
+            android:textSize="22dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -71,7 +70,7 @@
             android:text="2020. 12. 26. 토요일"
             android:textColor="@color/blue_1"
             android:textFontWeight="400"
-            android:textSize="14sp"
+            android:textSize="14dp"
             app:layout_constraintStart_toStartOf="@+id/tv_today_feeling"
             app:layout_constraintTop_toBottomOf="@+id/tv_today_feeling" />
 
@@ -122,7 +121,7 @@
             app:neumorph_insetStart="0dp"
             app:neumorph_insetTop="0dp"
             app:neumorph_lightSource="leftTop"
-            app:neumorph_shadowColorDark="#2321619C"
+            app:neumorph_shadowColorDark="@color/gray_shadow"
             app:neumorph_shadowColorLight="#FFFFFF"
             app:neumorph_shadowElevation="4dp"
             app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
@@ -158,7 +157,7 @@
                     android:text="사랑"
                     android:textColor="@color/blue_2"
                     android:textFontWeight="500"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -181,7 +180,7 @@
             app:neumorph_insetStart="0dp"
             app:neumorph_insetTop="0dp"
             app:neumorph_lightSource="leftTop"
-            app:neumorph_shadowColorDark="#2321619C"
+            app:neumorph_shadowColorDark="@color/gray_shadow"
             app:neumorph_shadowColorLight="#FFFFFF"
             app:neumorph_shadowElevation="4dp"
             app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
@@ -217,7 +216,7 @@
                     android:text="위로"
                     android:textColor="@color/blue_2"
                     android:textFontWeight="500"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -241,7 +240,7 @@
             app:neumorph_insetStart="0dp"
             app:neumorph_insetTop="0dp"
             app:neumorph_lightSource="leftTop"
-            app:neumorph_shadowColorDark="#2321619C"
+            app:neumorph_shadowColorDark="@color/gray_shadow"
             app:neumorph_shadowColorLight="#FFFFFF"
             app:neumorph_shadowElevation="4dp"
             app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
@@ -278,7 +277,7 @@
                     android:text="슬픔"
                     android:textColor="@color/blue_2"
                     android:textFontWeight="500"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -304,7 +303,7 @@
             app:neumorph_insetStart="0dp"
             app:neumorph_insetTop="0dp"
             app:neumorph_lightSource="leftTop"
-            app:neumorph_shadowColorDark="#2321619C"
+            app:neumorph_shadowColorDark="@color/gray_shadow"
             app:neumorph_shadowColorLight="#FFFFFF"
             app:neumorph_shadowElevation="4dp"
             app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
@@ -341,7 +340,7 @@
                     android:text="추억"
                     android:textColor="@color/blue_2"
                     android:textFontWeight="500"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
 
@@ -369,7 +368,7 @@
             app:neumorph_insetStart="0dp"
             app:neumorph_insetTop="0dp"
             app:neumorph_lightSource="leftTop"
-            app:neumorph_shadowColorDark="#2321619C"
+            app:neumorph_shadowColorDark="@color/gray_shadow"
             app:neumorph_shadowColorLight="#FFFFFF"
             app:neumorph_shadowElevation="4dp"
             app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
@@ -405,7 +404,7 @@
                     android:text="행복"
                     android:textColor="@color/blue_2"
                     android:textFontWeight="500"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -429,7 +428,7 @@
             app:neumorph_insetStart="0dp"
             app:neumorph_insetTop="0dp"
             app:neumorph_lightSource="leftTop"
-            app:neumorph_shadowColorDark="#2321619C"
+            app:neumorph_shadowColorDark="@color/gray_shadow"
             app:neumorph_shadowColorLight="#FFFFFF"
             app:neumorph_shadowElevation="4dp"
             app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
@@ -467,7 +466,7 @@
                     android:text="화남"
                     android:textColor="@color/blue_2"
                     android:textFontWeight="500"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -491,7 +490,7 @@
             app:neumorph_insetStart="0dp"
             app:neumorph_insetTop="0dp"
             app:neumorph_lightSource="leftTop"
-            app:neumorph_shadowColorDark="#2321619C"
+            app:neumorph_shadowColorDark="@color/gray_shadow"
             app:neumorph_shadowColorLight="#FFFFFF"
             app:neumorph_shadowElevation="4dp"
             app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
@@ -527,7 +526,7 @@
                     android:text="우울"
                     android:textColor="@color/blue_2"
                     android:textFontWeight="500"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -550,7 +549,7 @@
             app:neumorph_insetStart="0dp"
             app:neumorph_insetTop="0dp"
             app:neumorph_lightSource="leftTop"
-            app:neumorph_shadowColorDark="#2321619C"
+            app:neumorph_shadowColorDark="@color/gray_shadow"
             app:neumorph_shadowColorLight="#FFFFFF"
             app:neumorph_shadowElevation="4dp"
             app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
@@ -587,7 +586,7 @@
                     android:text="일상"
                     android:textColor="@color/blue_2"
                     android:textFontWeight="500"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
