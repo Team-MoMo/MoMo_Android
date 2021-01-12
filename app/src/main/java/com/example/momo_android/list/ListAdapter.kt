@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.momo_android.R
 import com.example.momo_android.diary.ui.DiaryActivity
+import com.example.momo_android.list.ui.ListActivity
 import kotlinx.android.synthetic.main.item_list.view.*
 
 class ListAdapter (private val context : Context) : RecyclerView.Adapter<ListViewHolder>() {
@@ -21,6 +22,16 @@ class ListAdapter (private val context : Context) : RecyclerView.Adapter<ListVie
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         holder.onBind(data[position])
+
+        val aContext : ListActivity = ListActivity.mContext as ListActivity
+
+        // 리사이클러뷰 아이템이 하나 혹은 0개일 때 스크롤 막기
+        if (data.size == 0 || data.size == 1) {
+            aContext.disableScroll()
+        }
+        else {
+            aContext.enableScroll()
+        }
 
         // > 버튼 클릭 시 다이어리 뷰로 전환
        holder.itemView.imagebutton_list_next.setOnClickListener {

@@ -76,8 +76,14 @@ class ListActivity : AppCompatActivity() {
 
         loadFilteredData()
 
-        //loadListData()
+    }
 
+    fun disableScroll() {
+        binding.nestedscrollviewList.isNestedScrollingEnabled = false
+    }
+
+    fun enableScroll() {
+        binding.nestedscrollviewList.isNestedScrollingEnabled = true
     }
 
     private fun initToolbar() {
