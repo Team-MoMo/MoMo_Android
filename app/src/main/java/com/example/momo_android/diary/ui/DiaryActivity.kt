@@ -84,8 +84,6 @@ class DiaryActivity : AppCompatActivity() {
                 diary_month = it[1]
                 diary_date = it[2]
 
-                // 서버 : 수정한 날짜 다시 받아와서 tv_diary_date 에 넣어주기 -> 그래야 깊이수정으로 바뀐 날짜 넘어감
-
             }
 
             fragEditDate.show(supportFragmentManager, fragEditDate.tag)
