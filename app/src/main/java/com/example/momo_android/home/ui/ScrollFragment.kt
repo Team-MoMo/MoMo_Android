@@ -10,10 +10,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AbsListView.OnScrollListener.SCROLL_STATE_IDLE
+import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_DRAGGING
 import com.example.momo_android.home.adapter.ScrollGradientAdapter
 import com.example.momo_android.databinding.FragmentScrollBinding
 import com.example.momo_android.list.ui.ListActivity
@@ -92,9 +95,16 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
         @RequiresApi(Build.VERSION_CODES.N)
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
-            visibleItemPosition = getVisibleItemPosition()
-            updateVerticalSeekBar(visibleItemPosition)
             checkHomeButtonStatus()
+            updateVerticalSeekBar(getVisibleItemPosition())
+        }
+
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            when (newState) {
+                SCROLL_STATE_IDLE -> fadeInSwipeImage()
+                SCROLL_STATE_DRAGGING -> fadeOutSwipeImage()
+            }
         }
     }
 
@@ -120,6 +130,68 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
             IS_FROM_SCROLL = true
             requireActivity().onBackPressed()
             isHomeButtonClicked = false
+        }
+    }
+
+    private fun fadeInSwipeImage() {
+        fadeInSwipeUpImage()
+        fadeInSwipeDownImage()
+    }
+
+    private fun fadeInSwipeUpImage() {
+        viewBinding.imageViewSwipeUp.apply {
+            visibility = View.VISIBLE
+            alpha = 0f
+            animate()
+                .alpha(1f)
+                .setDuration(resources.getInteger(android.R.integer.config_longAnimTime).toLong())
+                .setListener(null)
+        }
+    }
+
+    private fun fadeInSwipeDownImage() {
+        viewBinding.apply {
+            when ((recyclerViewGradient.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()) {
+                7 -> imageViewSwipeDown.visibility = ImageView.INVISIBLE
+                else -> {
+                    imageViewSwipeDown.visibility = View.VISIBLE
+                    imageViewSwipeDown.alpha = 0f
+                    imageViewSwipeDown.animate()
+                        .alpha(1f)
+                        .setDuration(
+                            resources.getInteger(android.R.integer.config_longAnimTime).toLong()
+                        )
+                        .setListener(null)
+                }
+            }
+        }
+    }
+
+    private fun fadeOutSwipeImage() {
+        viewBinding.imageViewSwipeUp.apply {
+            visibility = View.VISIBLE
+            alpha = 1f
+            animate()
+                .alpha(0f)
+                .setDuration(resources.getInteger(android.R.integer.config_longAnimTime).toLong())
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        viewBinding.viewLoading.visibility = View.INVISIBLE
+                    }
+                })
+        }
+
+        viewBinding.imageViewSwipeDown.apply {
+            visibility = View.VISIBLE
+            alpha = 1f
+            animate()
+                .alpha(0f)
+                .setDuration(resources.getInteger(android.R.integer.config_longAnimTime).toLong())
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        viewBinding.viewLoading.visibility = View.INVISIBLE
+                    }
+                })
         }
     }
 
