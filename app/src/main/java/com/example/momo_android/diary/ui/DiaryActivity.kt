@@ -6,6 +6,8 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityDiaryBinding
+import com.example.momo_android.diary.data.Diary
+import com.example.momo_android.diary.data.RequestEditDiaryData
 import com.example.momo_android.diary.data.ResponseDiaryData
 import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.util.*
@@ -22,10 +24,16 @@ class DiaryActivity : AppCompatActivity() {
         var diary_year = 0
         var diary_month = 0
         var diary_date = 0
+        lateinit var responseData : List<Diary>
     }
 
     private lateinit var binding: ActivityDiaryBinding
-    private var depth = -1
+
+    override fun onResume() {
+        super.onResume()
+        // 다이어리 조회
+        requestGetDiary()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,10 +68,6 @@ class DiaryActivity : AppCompatActivity() {
         }
 
 
-        // 다이어리 조회
-        requestGetDiary()
-
-
         // 날짜 수정
         btn_edit_date.setOnClickListener {
             menu_edit.setGone()
@@ -82,9 +86,7 @@ class DiaryActivity : AppCompatActivity() {
 
                 // 서버 : 수정한 날짜 다시 받아와서 tv_diary_date 에 넣어주기 -> 그래야 깊이수정으로 바뀐 날짜 넘어감
 
-
             }
-
 
             fragEditDate.show(supportFragmentManager, fragEditDate.tag)
         }
@@ -152,6 +154,8 @@ class DiaryActivity : AppCompatActivity() {
                     response.code() == 200 -> {
 
                         val body = response.body()!!
+                        responseData = listOf(response.body()!!.data)
+
                         tv_diary_date.text = getFormedDate(body.data.wroteAt) // 날짜
                         setPickerDate(body.data.wroteAt) // 피커 날짜
 
@@ -165,7 +169,6 @@ class DiaryActivity : AppCompatActivity() {
                         tv_writer.text = body.data.Sentence.writer // 저자
                         tv_publisher.text = "(${body.data.Sentence.publisher})" // 출판사
                         tv_diary_content.text = body.data.contents // 일기
-                        depth = body.data.depth
 
 
                     }
@@ -184,6 +187,8 @@ class DiaryActivity : AppCompatActivity() {
 
         })
     }
+
+
 
     private fun getFormedDate(wroteAt: String) : String {
         val dateformat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss.sss'Z'", Locale.KOREAN).parse(wroteAt)
