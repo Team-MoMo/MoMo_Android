@@ -66,17 +66,13 @@ class DiaryActivity : AppCompatActivity() {
 
         RequestToServer.service.getDiary(
             Authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
-            params = 1
+            params = 20
         ).enqueue(object : Callback<ResponseDiaryData> {
             override fun onResponse(call: Call<ResponseDiaryData>, response: Response<ResponseDiaryData>) {
-                Log.d("뭐가 되긴 한겅미???", response.toString())
-
-                if(response.code() == 400) {
-                    Log.d("아아아ㅏㅇㄱ 400", response.message())
-                }
                 when {
                     response.code() == 200 -> {
                         tv_contents.text = response.body()!!.data.Sentence.contents
+                        tv_diary_content.text = response.body()!!.data.contents
                         Log.d("getDiary 통신성공", "??")
                     }
                     response.code() == 400 -> {
@@ -137,6 +133,21 @@ class DiaryActivity : AppCompatActivity() {
             fragEditDate.show(supportFragmentManager, fragEditDate.tag)
         }
 
+        // 일기 수정
+        btn_edit_diary.setOnClickListener {
+            menu_edit.setGone()
+            val intent = Intent(this, DiaryEditWriteActivity::class.java)
+            intent.putExtra("tv_diary_content", tv_diary_content.text.toString())
+            startActivity(intent)
+        }
+
+        // 깊이 수정
+        btn_edit_depth.setOnClickListener {
+            menu_edit.setGone()
+            val intent = Intent(this, DiaryEditDeepActivity::class.java)
+            intent.putExtra("diary_day", diary_day)
+            startActivity(intent)
+        }
 
         // 일기 삭제
         btn_edit_delete.setOnClickListener {
@@ -151,14 +162,6 @@ class DiaryActivity : AppCompatActivity() {
             }
         }
 
-        // 깊이 수정
-        btn_edit_depth.setOnClickListener {
-            menu_edit.setGone()
-            val intent = Intent(this, DiaryEditDeepActivity::class.java)
-            intent.putExtra("diary_day", diary_day)
-            startActivity(intent)
-        }
-
         view.setOnClickListener {
             menu_edit.setGone()
         }
@@ -166,6 +169,7 @@ class DiaryActivity : AppCompatActivity() {
         binding.clDiary.setOnClickListener {
             menu_edit.setGone()
         }
+
 
     }
 

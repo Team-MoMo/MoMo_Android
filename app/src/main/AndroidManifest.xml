@@ -23,8 +23,11 @@
         <activity android:name=".login.ui.FindPasswordActivity"
             android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".login.ui.MainLoginActivity"></activity>
-        <activity android:name=".signup.ui.SignUpActivity" />
+        <activity android:name=".diary.ui.DiaryEditWriteActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize">
 
+        </activity>
+        <activity android:name=".signup.ui.SignUpActivity" />
         <activity android:name=".splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
