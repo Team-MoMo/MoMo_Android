@@ -1,27 +1,23 @@
 package com.example.momo_android.home.adapter
 
-import android.content.Intent
 import android.util.Log
 import android.view.View
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ItemScrollGradientBinding
 import com.example.momo_android.home.data.ResponseDiaryList
-import com.example.momo_android.home.ui.ScrollFragment
 import com.example.momo_android.network.RequestToServer
-import com.example.momo_android.ui.UploadFeelingActivity
-import com.example.momo_android.util.OvalListeners
+import com.example.momo_android.util.OvalClickListeners
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 
 
 class ScrollGradientViewHolder(
+    private val queryYear: Int,
+    private val queryMonth: Int,
     private val viewBinding: ItemScrollGradientBinding
-) : RecyclerView.ViewHolder(viewBinding.root), OvalListeners {
+) : RecyclerView.ViewHolder(viewBinding.root), OvalClickListeners {
 
     private var wholeDiaryList = listOf<ResponseDiaryList.Data>()
 
@@ -79,12 +75,11 @@ class ScrollGradientViewHolder(
     }
 
     private fun getServerDiaryData(depth: Int) {
-        val currentCalendar = Calendar.getInstance()
         RequestToServer.service.getScrollDiaryList(
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
             2,
-            currentCalendar.get(Calendar.YEAR),
-            currentCalendar.get(Calendar.MONTH) + 1,
+            queryYear,
+            queryMonth,
             "depth"
         ).enqueue(object : Callback<ResponseDiaryList> {
             override fun onResponse(
