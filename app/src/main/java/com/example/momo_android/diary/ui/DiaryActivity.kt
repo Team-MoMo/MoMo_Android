@@ -93,7 +93,9 @@ class DiaryActivity : AppCompatActivity() {
         btn_edit_diary.setOnClickListener {
             menu_edit.setGone()
             val intent = Intent(this, DiaryEditWriteActivity::class.java)
-            intent.putExtra("tv_diary_content", tv_diary_content.text.toString())
+            intent.putExtra("diary_day", tv_diary_date.text.toString())
+            intent.putExtra("diary_content", tv_diary_content.text.toString())
+            intent.putExtra("diary_depth", binding.tvDiaryDeep.text.toString())
             startActivity(intent)
         }
 
