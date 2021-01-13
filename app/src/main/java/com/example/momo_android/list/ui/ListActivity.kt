@@ -98,7 +98,7 @@ class ListActivity : AppCompatActivity() {
     }
 
     private fun scrollTop() {
-        binding.nestedscrollviewList.scrollTo(0, binding.rcvList.top)
+        binding.nestedscrollviewList.scrollTo(0, binding.rcvFilterLabel.top)
         binding.appbarlayoutList.setExpanded(true)
     }
 
