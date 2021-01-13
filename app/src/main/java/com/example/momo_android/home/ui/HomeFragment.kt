@@ -18,6 +18,7 @@ import com.example.momo_android.R
 import com.example.momo_android.databinding.FragmentHomeBinding
 import com.example.momo_android.diary.ui.DiaryActivity
 import com.example.momo_android.home.data.ResponseDiaryList
+import com.example.momo_android.home.ui.ScrollFragment.Companion.IS_EDITED
 import com.example.momo_android.list.ui.ListActivity
 import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.upload.ui.UploadFeelingActivity
@@ -51,13 +52,16 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setListeners()
+        updateByServerData()
     }
 
     override fun onResume() {
         super.onResume()
-        setCurrentDate()
-        setDayNightStatus()
-        getServerDiaryData()
+        if(IS_EDITED) {
+            Log.d("TAG", "onResume: ")
+            updateByServerData()
+            IS_EDITED = false
+        }
     }
 
     private fun setListeners() {
@@ -68,6 +72,13 @@ class HomeFragment : Fragment() {
             imageButtonUpload.setOnClickListener(fragmentOnClickListener)
             imageButtonList.setOnClickListener(fragmentOnClickListener)
         }
+    }
+
+    private fun updateByServerData() {
+//        setLoadingViewBackground()
+        setCurrentDate()
+        setDayNightStatus()
+        getServerDiaryData()
     }
 
     private fun setCurrentDate() {
@@ -98,6 +109,7 @@ class HomeFragment : Fragment() {
             setNightView()
             isDay = false
         }
+        setLoadingViewBackground()
     }
 
     private fun setDayView() {
@@ -192,6 +204,30 @@ class HomeFragment : Fragment() {
             }
         }
         fadeOutLoadingView()
+    }
+
+    private fun fadeOutLoadingView() {
+        viewBinding.viewLoading.apply {
+            alpha = 1f
+            animate()
+                .alpha(0f)
+                .setDuration(resources.getInteger(android.R.integer.config_longAnimTime).toLong())
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        viewBinding.viewLoading.visibility = View.GONE
+                    }
+                })
+        }
+    }
+
+    private fun setLoadingViewBackground() {
+        viewBinding.viewLoading.apply {
+            when(isDay) {
+                true -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
+                false -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_grey))
+            }
+            visibility = View.VISIBLE
+        }
     }
 
     private fun setEmptyView() { // visible invisible 처리
@@ -320,20 +356,6 @@ class HomeFragment : Fragment() {
             textViewTitle.text = "<${data.sentence.bookName}>"
             textViewPublisher.text = "(${data.sentence.publisher})"
             textViewDiary.text = data.contents
-        }
-    }
-
-    private fun fadeOutLoadingView() {
-        viewBinding.viewLoading.apply {
-            alpha = 1f
-            animate()
-                .alpha(0f)
-                .setDuration(resources.getInteger(android.R.integer.config_longAnimTime).toLong())
-                .setListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animator) {
-                        viewBinding.viewLoading.visibility = View.GONE
-                    }
-                })
         }
     }
 
