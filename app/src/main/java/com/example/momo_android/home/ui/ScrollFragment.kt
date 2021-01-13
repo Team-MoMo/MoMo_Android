@@ -13,10 +13,12 @@ import android.view.ViewGroup
 import android.widget.AbsListView.OnScrollListener.SCROLL_STATE_IDLE
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_DRAGGING
+import com.example.momo_android.R
 import com.example.momo_android.home.adapter.ScrollGradientAdapter
 import com.example.momo_android.databinding.FragmentScrollBinding
 import com.example.momo_android.list.ui.ListActivity
@@ -52,6 +54,17 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
         initQueryDate()
         setGradientRecyclerView(QUERY_YEAR, QUERY_MONTH)
         fadeOutLoadingView()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(IS_EDITED) {
+            setLoadingViewBackground()
+            viewBinding.recyclerViewGradient.adapter!!.notifyDataSetChanged()
+            viewBinding.recyclerViewGradient.scrollToPosition(EDITED_DEPTH + 1)
+            fadeOutLoadingView()
+            IS_EDITED = false
+        }
     }
 
     private fun setListeners() {
@@ -90,6 +103,20 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
                         viewBinding.viewLoading.visibility = View.GONE
                     }
                 })
+        }
+    }
+
+    private fun setLoadingViewBackground() {
+        viewBinding.viewLoading.apply {
+            when(EDITED_DEPTH + 1) {
+                2 -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_30m_start))
+                3 -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_100m_start))
+                4 -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_300m_start))
+                5 -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_700m_start))
+                6 -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_1005m_start))
+                7 -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_deep_sea_start))
+                else -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_2m_start))
+            }
         }
     }
 
@@ -254,5 +281,7 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
     companion object {
         var QUERY_YEAR = Calendar.getInstance().get(Calendar.YEAR)
         var QUERY_MONTH = Calendar.getInstance().get(Calendar.MONTH) + 1
+        var IS_EDITED = false
+        var EDITED_DEPTH = 0
     }
 }
