@@ -261,6 +261,7 @@
                 android:textColorHint="@color/blue_3"
                 android:textFontWeight="400"
                 android:textSize="13dp"
+                android:theme="@style/CustomEditTextTheme"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
