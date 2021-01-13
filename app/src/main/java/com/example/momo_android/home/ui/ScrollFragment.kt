@@ -31,7 +31,6 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
     private var _viewBinding: FragmentScrollBinding? = null
     private val viewBinding get() = _viewBinding!!
 
-    private var visibleItemPosition: Int = 0
     private var isHomeButtonClicked: Boolean = false
 
 
@@ -123,7 +122,7 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
                     .ofInt(
                         viewBinding.verticalSeekBarDepth,
                         "progress",
-                        visibleItemPosition - 1 * 80
+                        (visibleItemPosition - 1) * 80
                     )
                     .setDuration(1000)
                     .start()
