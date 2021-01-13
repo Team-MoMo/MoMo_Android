@@ -13,9 +13,10 @@ import com.example.momo_android.util.ItemClickListener
 
 class OnboardingSentenceActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOnboardingSentenceBinding
-    private var cardview=0
+    private var cardview = 0
     private lateinit var uploadSentenceAdapter: UploadSentenceAdapter// 버튼을 Recycler의 형태로 제작
     val datas = mutableListOf<UploadSentenceData>()
+    private var feeling = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,39 +24,39 @@ class OnboardingSentenceActivity : AppCompatActivity() {
         val view = binding.root // 3
         setContentView(view)
 
-        val feeling=intent.getIntExtra("feeling",0)
-        binding.tvDate.text=intent.getStringExtra("date")
-        when(feeling){
-            1->{
-                binding.tvFeeling.text="사랑"
+        feeling = intent.getIntExtra("feeling", 0)
+        binding.tvDate.text = intent.getStringExtra("date")
+        when (feeling) {
+            1 -> {
+                binding.tvFeeling.text = "사랑"
                 binding.imgFeeling.setImageResource(R.drawable.ic_love_14_black)
             }
-            2->{
-                binding.tvFeeling.text="행복"
+            2 -> {
+                binding.tvFeeling.text = "행복"
                 binding.imgFeeling.setImageResource(R.drawable.ic_happy_14_black)
             }
-            3->{
-                binding.tvFeeling.text="위로"
+            3 -> {
+                binding.tvFeeling.text = "위로"
                 binding.imgFeeling.setImageResource(R.drawable.ic_console_14_black)
             }
-            4->{
-                binding.tvFeeling.text="화남"
+            4 -> {
+                binding.tvFeeling.text = "화남"
                 binding.imgFeeling.setImageResource(R.drawable.ic_angry_14_black)
             }
-            5->{
-                binding.tvFeeling.text="슬픔"
+            5 -> {
+                binding.tvFeeling.text = "슬픔"
                 binding.imgFeeling.setImageResource(R.drawable.ic_sad_14_black)
             }
-            6->{
-                binding.tvFeeling.text="우울"
+            6 -> {
+                binding.tvFeeling.text = "우울"
                 binding.imgFeeling.setImageResource(R.drawable.ic_bored_14_black)
             }
-            7->{
-                binding.tvFeeling.text="추억"
+            7 -> {
+                binding.tvFeeling.text = "추억"
                 binding.imgFeeling.setImageResource(R.drawable.ic_memory_14_black)
             }
-            8->{
-                binding.tvFeeling.text="일상"
+            8 -> {
+                binding.tvFeeling.text = "일상"
                 binding.imgFeeling.setImageResource(R.drawable.ic_daily_14_black)
             }
         }
@@ -64,20 +65,24 @@ class OnboardingSentenceActivity : AppCompatActivity() {
         //RecylerView 이용한 버튼
         //RecyclerView 밖에 있는 것들도 이 방식을 사용해서 불러옴. Interface를 만들어서
         uploadSentenceAdapter = UploadSentenceAdapter(this)
-        uploadSentenceAdapter.setItemClickListener(object: ItemClickListener {
-            override fun onClickItem(view: View, position:Int){
-                val intent= Intent(this@OnboardingSentenceActivity, OnboardingWriteFirstActivity::class.java)
-                intent.putExtra("author",uploadSentenceAdapter.data[position].author)
-                intent.putExtra("book",uploadSentenceAdapter.data[position].book)
-                intent.putExtra("publisher",uploadSentenceAdapter.data[position].publisher)
-                intent.putExtra("sentence",uploadSentenceAdapter.data[position].sentence)
-                intent.putExtra("feeling",feeling)
+        uploadSentenceAdapter.setItemClickListener(object : ItemClickListener {
+            override fun onClickItem(view: View, position: Int) {
+                val intent = Intent(
+                    this@OnboardingSentenceActivity,
+                    OnboardingWriteFirstActivity::class.java
+                )
+                intent.putExtra("author", uploadSentenceAdapter.data[position].author)
+                intent.putExtra("book", uploadSentenceAdapter.data[position].book)
+                intent.putExtra("publisher", uploadSentenceAdapter.data[position].publisher)
+                intent.putExtra("sentence", uploadSentenceAdapter.data[position].sentence)
+                intent.putExtra("feeling", feeling)
                 //Toast.makeText(this@UploadSentenceActivity,uploadSentenceAdapter.data[0].author,Toast.LENGTH_SHORT).show()
                 startActivity(intent)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
             }
         })
 
-        binding.rvSelectSentence.adapter=uploadSentenceAdapter
+        binding.rvSelectSentence.adapter = uploadSentenceAdapter
         binding.rvSelectSentence.layoutManager = LinearLayoutManager(this)
 
 
@@ -101,5 +106,11 @@ class OnboardingSentenceActivity : AppCompatActivity() {
 
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this, OnboardingFeelingActivity::class.java)
+        startActivity(intent)
+        overridePendingTransition(R.anim.horizontal_right_in, R.anim.horizontal_left_out)
+    }
 
 }

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import androidx.appcompat.app.AppCompatActivity
+import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityOnboardingWriteSecondBinding
 
 
@@ -25,10 +26,10 @@ class OnboardingWriteSecondActivity : AppCompatActivity() {
         startActivityIntent()
     }
 
-    override fun onPause() {
-        super.onPause()
-        handler.removeCallbacksAndMessages(null)
-    }
+//    override fun onPause() {
+//        super.onPause()
+//        handler.removeCallbacksAndMessages(null)
+//    }
 
     private fun setViewBinding() {
         viewBinding = ActivityOnboardingWriteSecondBinding.inflate(layoutInflater)
@@ -80,7 +81,14 @@ class OnboardingWriteSecondActivity : AppCompatActivity() {
     }
 
     private fun startActivityIntent() {
+        val feeling = intent.getIntExtra("feeling", 0)
         val intent = Intent(this, OnboardingDepthActivity::class.java)
-        handler.postDelayed({ startActivity(intent) }, 7000L)
+        intent.putExtra("feeling", feeling)
+        handler.postDelayed({
+            startActivity(intent)
+            overridePendingTransition(R.anim.horizontal_left_in, R.anim.horizontal_right_out)
+        }, 6000L)
     }
+
+    override fun onBackPressed() {}
 }
