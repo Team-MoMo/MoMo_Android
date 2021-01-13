@@ -94,7 +94,6 @@ class HomeFragment : Fragment() {
             setNightView()
             isDay = false
         }
-        setLoadingViewBackground()
     }
 
     private fun setDayView() {
@@ -331,16 +330,6 @@ class HomeFragment : Fragment() {
                         viewBinding.viewLoading.visibility = View.GONE
                     }
                 })
-        }
-    }
-
-    private fun setLoadingViewBackground() {
-        viewBinding.viewLoading.apply {
-            when(isDay) {
-                true -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
-                false -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_grey))
-            }
-            visibility = View.VISIBLE
         }
     }
 
