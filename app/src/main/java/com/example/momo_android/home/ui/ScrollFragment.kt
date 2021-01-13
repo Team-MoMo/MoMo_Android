@@ -255,6 +255,9 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
     }
 
     private fun scrollToTop() {
+        if (getVisibleItemPosition() == 0) {
+            requireActivity().onBackPressed()
+        }
         viewBinding.recyclerViewGradient.smoothScrollToPosition(0)
         isHomeButtonClicked = true
     }
