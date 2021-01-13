@@ -16,7 +16,7 @@ import com.example.momo_android.home.adapter.ScrollGradientAdapter
 import com.example.momo_android.databinding.FragmentScrollBinding
 import com.example.momo_android.list.ui.ListActivity
 import com.example.momo_android.home.ui.HomeActivity.Companion.IS_FROM_SCROLL
-import com.example.momo_android.ui.UploadFeelingActivity
+import com.example.momo_android.upload.ui.UploadFeelingActivity
 import com.example.momo_android.util.ScrollDatePickerListener
 import java.util.*
 

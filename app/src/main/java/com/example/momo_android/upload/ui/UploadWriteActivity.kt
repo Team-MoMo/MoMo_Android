@@ -63,16 +63,23 @@ class UploadWriteActivity : AppCompatActivity() {
 
         //< 뒤로가기버튼
         binding.imgBack.setOnClickListener {
-            //홈화면
-            val intent= Intent(this@UploadWriteActivity, UploadSentenceActivity::class.java)
-            intent.putExtra("feeling",feeling)
-            startActivity(intent)
+//            //홈화면
+//            val intent= Intent(this@UploadWriteActivity, UploadSentenceActivity::class.java)
+//            intent.putExtra("feeling",feeling)
+//            startActivity(intent)
+            finish()
         }
 
-        //< 뒤로가기버튼
+        //다음버튼
         binding.tvNext.setOnClickListener {
             //홈화면
             val intent= Intent(this@UploadWriteActivity, UploadDeepActivity::class.java)
+            intent.putExtra("feeling",feeling)
+            intent.putExtra("date",binding.tvDate.text.toString())
+            intent.putExtra("author",binding.tvAuthor.text.toString())
+            intent.putExtra("book",binding.tvBook.text.toString())
+            intent.putExtra("publisher",binding.tvPublisher.text.toString())
+            intent.putExtra("sentence",binding.tvSentence.text.toString())
             startActivity(intent)
         }
         //토글 기능

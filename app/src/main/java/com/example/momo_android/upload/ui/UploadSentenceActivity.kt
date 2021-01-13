@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.momo_android.R
 import com.example.momo_android.upload.UploadSentenceAdapter
 import com.example.momo_android.databinding.ActivityUploadSentenceBinding
+import com.example.momo_android.list.ui.ListActivity
 import com.example.momo_android.upload.data.UploadSentenceData
 import com.example.momo_android.util.ItemClickListener
 
@@ -63,13 +64,20 @@ class UploadSentenceActivity : AppCompatActivity() {
         //< 뒤로가기버튼
         binding.imgBack.setOnClickListener {
             //홈화면
-            val intent= Intent(this@UploadSentenceActivity, UploadFeelingActivity::class.java)
-            startActivity(intent)
+            finish()
         }
 
         //X 버튼
         binding.imgClose.setOnClickListener {
             //Upload 들어오기 전화면 보여주기
+            var page=intent.getStringExtra("intentFrom")
+            when(page){
+                "List -> Upload"->{
+                    val intent=Intent(this,ListActivity::class.java)
+                }
+                //그 외 다른 뷰에서 넘어온 경우.
+            }
+
         }
 
         //RecylerView 이용한 버튼
