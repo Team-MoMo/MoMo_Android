@@ -5,6 +5,8 @@ import com.example.momo_android.diary.data.ResponseDiaryData
 import com.example.momo_android.home.data.ResponseDiaryList
 import com.example.momo_android.list.data.ResponseFilterData
 import com.example.momo_android.onboarding.ui.ResponseOnboardingData
+import com.example.momo_android.signup.data.RequestUserData
+import com.example.momo_android.signup.data.ResponseUserData
 import com.example.momo_android.upload.data.RequestUploadDiaryData
 import com.example.momo_android.upload.data.ResponseSentenceData
 import com.example.momo_android.upload.data.ResponseUploadDiaryData
@@ -99,4 +101,24 @@ interface RequestInterface {
         @Query("emotionId") emotionId: Int
     ):Call<ResponseOnboardingData>
 
+    // 회원가입
+    @Headers("Content-Type: application/json")
+    @POST("/users/signup")
+    fun postSignUp(
+        @Body body: RequestUserData
+    ) : Call<ResponseUserData>
+
+    // 로그인
+    @Headers("Content-Type: application/json")
+    @POST("/users/signin")
+    fun postLogin(
+        @Body body: RequestUserData
+    ) : Call<ResponseUserData>
+
+    // 이메일 중복확인
+    @Headers("Content-Type: application/json")
+    @GET("/users/signup")
+    fun checkDuplicate(
+        @Query("email") email: String
+    ) : Call<ResponseUserData>
 }

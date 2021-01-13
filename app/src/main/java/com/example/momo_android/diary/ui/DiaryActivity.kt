@@ -1,8 +1,10 @@
 package com.example.momo_android.diary.ui
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityDiaryBinding
@@ -40,6 +42,11 @@ class DiaryActivity : AppCompatActivity() {
         binding = ActivityDiaryBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        window?.decorView?.systemUiVisibility =
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        window.statusBarColor = Color.TRANSPARENT
 
         val btn_back = binding.btnBack
         val btn_menu = binding.btnMenu
@@ -93,7 +100,9 @@ class DiaryActivity : AppCompatActivity() {
         btn_edit_diary.setOnClickListener {
             menu_edit.setGone()
             val intent = Intent(this, DiaryEditWriteActivity::class.java)
-            intent.putExtra("tv_diary_content", tv_diary_content.text.toString())
+            intent.putExtra("diary_day", tv_diary_date.text.toString())
+            intent.putExtra("diary_content", tv_diary_content.text.toString())
+            intent.putExtra("diary_depth", binding.tvDiaryDeep.text.toString())
             startActivity(intent)
         }
 
@@ -142,7 +151,7 @@ class DiaryActivity : AppCompatActivity() {
 
         // 다이어리 조회
         RequestToServer.service.getDiary(
-            Authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
+            Authorization = SharedPreferenceController.getAccessToken(this),
             params = intent.getIntExtra("diaryId", 0)
         ).enqueue(object : Callback<ResponseDiaryData> {
             override fun onResponse(call: Call<ResponseDiaryData>, response: Response<ResponseDiaryData>) {
@@ -187,7 +196,7 @@ class DiaryActivity : AppCompatActivity() {
 
     private fun deleteDiary() {
         RequestToServer.service.deleteDiary(
-            Authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
+            Authorization = SharedPreferenceController.getAccessToken(this),
             params = intent.getIntExtra("diaryId", 0)
         ).enqueue(object : Callback<ResponseDiaryData> {
             override fun onResponse(

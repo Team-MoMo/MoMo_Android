@@ -3,6 +3,7 @@ package com.example.momo_android.diary.ui
 import android.animation.ObjectAnimator
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +22,10 @@ import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityDiaryEditDeepBinding
 import com.example.momo_android.diary.data.RequestEditDiaryData
 import com.example.momo_android.diary.data.ResponseDiaryData
+import com.example.momo_android.home.ui.ScrollFragment.Companion.EDITED_DEPTH
+import com.example.momo_android.home.ui.ScrollFragment.Companion.IS_EDITED
 import com.example.momo_android.network.RequestToServer
+import com.example.momo_android.util.SharedPreferenceController
 import com.example.momo_android.util.showToast
 import retrofit2.Call
 import retrofit2.Response
@@ -36,6 +40,11 @@ class DiaryEditDeepActivity : AppCompatActivity() {
         binding = ActivityDiaryEditDeepBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        window?.decorView?.systemUiVisibility =
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        window.statusBarColor = Color.TRANSPARENT
 
         // 총 3개의 시크바 사용
         val mainSeekbar = binding.mainSeekBar
@@ -135,9 +144,9 @@ class DiaryEditDeepActivity : AppCompatActivity() {
     private fun requestEditDiary(depth : Int) {
 
         RequestToServer.service.editDiary(
-            Authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
+            Authorization = SharedPreferenceController.getAccessToken(this),
             params = DiaryActivity.responseData[0].id,
-            RequestEditDiaryData(
+            body = RequestEditDiaryData(
                 depth = depth,
                 contents = DiaryActivity.responseData[0].contents,
                 userId = DiaryActivity.responseData[0].userId,
@@ -152,6 +161,8 @@ class DiaryEditDeepActivity : AppCompatActivity() {
             ) {
                 when {
                     response.code() == 200 -> {
+                        IS_EDITED = true
+                        EDITED_DEPTH = response.body()!!.data.depth
                         Log.d("깊이 수정 성공", response.body().toString())
                         finish()
                         applicationContext.showToast("깊이가 수정되었습니다.")

@@ -11,6 +11,8 @@ import android.widget.FrameLayout
 import android.widget.NumberPicker
 import com.example.momo_android.R
 import com.example.momo_android.databinding.BottomsheetListFilterBinding
+import com.example.momo_android.list.ui.ListActivity.Companion.filter_current_month
+import com.example.momo_android.list.ui.ListActivity.Companion.filter_current_year
 import com.example.momo_android.list.ui.ListActivity.Companion.filter_depth
 import com.example.momo_android.list.ui.ListActivity.Companion.filter_emotion
 import com.example.momo_android.list.ui.ListActivity.Companion.filter_month
@@ -173,8 +175,7 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int?,
 
     private fun isCurrentDate() {
         // 현재 날짜와 선택한 날짜가 동일할 경우 isCurrentDate 변수에 true 대입
-        isCurrentDate = (year.value == currentDate.get(Calendar.YEAR) && month.value == currentDate.get(
-        Calendar.MONTH) + 1)
+        isCurrentDate = (year.value == filter_current_year && month.value == filter_current_month)
     }
 
     private fun addDateToggle() {

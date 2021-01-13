@@ -214,5 +214,12 @@ class OnboardingDepthActivity : AppCompatActivity() {
         }
     }
 
-
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val feeling = intent.getIntExtra("feeling", 0)
+        val intent = Intent(this, OnboardingSentenceActivity::class.java)
+        intent.putExtra("feeling", feeling)
+        startActivity(intent)
+        overridePendingTransition(R.anim.horizontal_right_in, R.anim.horizontal_left_out)
+    }
 }

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityDiaryEditWriteBinding
 import com.example.momo_android.diary.data.RequestEditDiaryData
 import com.example.momo_android.diary.data.ResponseDiaryData
@@ -27,10 +28,20 @@ class DiaryEditWriteActivity : AppCompatActivity() {
         setContentView(view)
 
 
-        binding.etDiary.setText(intent.getStringExtra("tv_diary_content").toString())
+        binding.tvDate.text = intent.getStringExtra("diary_day")
+        binding.etDiary.setText(intent.getStringExtra("diary_content").toString())
+        binding.imgFeeling.setImageResource(getEmotionImg(DiaryActivity.responseData[0].emotionId))
+        binding.tvFeeling.text = getEmotionStr(DiaryActivity.responseData[0].emotionId)
+        binding.tvAuthor.text = DiaryActivity.responseData[0].Sentence.writer
+        binding.tvBook.text = "<${DiaryActivity.responseData[0].Sentence.bookName}>"
+        binding.tvPublisher.text = "(${DiaryActivity.responseData[0].Sentence.publisher})"
+        binding.tvSentence.text = DiaryActivity.responseData[0].Sentence.contents
+        binding.tvDepth.text = intent.getStringExtra("diary_depth")
 
         beforeDiary = binding.etDiary.text.toString()
 
+
+        binding.etDiary.showKeyboard()
         binding.togglebtn.rotation=180.0f
         binding.tvSentence.setGone()
 
@@ -115,7 +126,7 @@ class DiaryEditWriteActivity : AppCompatActivity() {
     private fun requestEditDiary() {
 
         RequestToServer.service.editDiary(
-            Authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
+            Authorization = SharedPreferenceController.getAccessToken(this),
             params = DiaryActivity.responseData[0].id,
             RequestEditDiaryData(
                 depth = DiaryActivity.responseData[0].depth,
@@ -152,5 +163,30 @@ class DiaryEditWriteActivity : AppCompatActivity() {
         })
     }
 
+    private fun getEmotionImg(emotionIdx: Int) : Int {
+        return when (emotionIdx) {
+            1 -> R.drawable.ic_love_14_black
+            2 -> R.drawable.ic_happy_14_black
+            3 -> R.drawable.ic_console_14_black
+            4 -> R.drawable.ic_angry_14_black
+            5 -> R.drawable.ic_sad_14_black
+            6 -> R.drawable.ic_bored_14_black
+            7 -> R.drawable.ic_memory_14_black
+            else -> R.drawable.ic_daily_14_black
+        }
+    }
+
+    private fun getEmotionStr(emotionIdx: Int) : String {
+        return when (emotionIdx) {
+            1 -> "사랑"
+            2 -> "행복"
+            3 -> "위로"
+            4 -> "화남"
+            5 -> "슬픔"
+            6 -> "우울"
+            7 -> "추억"
+            else -> "일상"
+        }
+    }
 
 }

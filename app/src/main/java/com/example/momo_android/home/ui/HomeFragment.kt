@@ -18,6 +18,7 @@ import com.example.momo_android.R
 import com.example.momo_android.databinding.FragmentHomeBinding
 import com.example.momo_android.diary.ui.DiaryActivity
 import com.example.momo_android.home.data.ResponseDiaryList
+import com.example.momo_android.home.ui.ScrollFragment.Companion.IS_EDITED
 import com.example.momo_android.list.ui.ListActivity
 import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.upload.ui.UploadFeelingActivity
@@ -33,6 +34,7 @@ class HomeFragment : Fragment() {
     private val viewBinding get() = _viewBinding!!
 
     private var isDay = true
+    private var diaryId = 0
     private val currentYear = Calendar.getInstance().get(Calendar.YEAR)
     private val currentMonth = (Calendar.getInstance().get(Calendar.MONTH) + 1)
     private val currentDate = Calendar.getInstance().get(Calendar.DATE)
@@ -50,9 +52,16 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setListeners()
-        setCurrentDate()
-        setDayNightStatus()
-        getServerDiaryData()
+        updateByServerData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(IS_EDITED) {
+            Log.d("TAG", "onResume: ")
+            updateByServerData()
+            IS_EDITED = false
+        }
     }
 
     private fun setListeners() {
@@ -63,6 +72,13 @@ class HomeFragment : Fragment() {
             imageButtonUpload.setOnClickListener(fragmentOnClickListener)
             imageButtonList.setOnClickListener(fragmentOnClickListener)
         }
+    }
+
+    private fun updateByServerData() {
+//        setLoadingViewBackground()
+        setCurrentDate()
+        setDayNightStatus()
+        getServerDiaryData()
     }
 
     private fun setCurrentDate() {
@@ -175,15 +191,43 @@ class HomeFragment : Fragment() {
 
     private fun setServerDiaryData(diaryList: List<ResponseDiaryList.Data>) {
         when (diaryList.size) {
-            0 -> setEmptyView()
+            0 -> {
+                setEmptyView()
+                DIARY_STATUS = false
+            }
             else -> {
                 setDiaryView()
+                diaryId = diaryList[0].id
                 setEmotionData(diaryList[0].emotionId, isDay)
                 setDepthData(diaryList[0].depth)
                 setBookDiaryData(diaryList[0])
             }
         }
         fadeOutLoadingView()
+    }
+
+    private fun fadeOutLoadingView() {
+        viewBinding.viewLoading.apply {
+            alpha = 1f
+            animate()
+                .alpha(0f)
+                .setDuration(resources.getInteger(android.R.integer.config_longAnimTime).toLong())
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        viewBinding.viewLoading.visibility = View.GONE
+                    }
+                })
+        }
+    }
+
+    private fun setLoadingViewBackground() {
+        viewBinding.viewLoading.apply {
+            when(isDay) {
+                true -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
+                false -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_grey))
+            }
+            visibility = View.VISIBLE
+        }
     }
 
     private fun setEmptyView() { // visible invisible 처리
@@ -315,30 +359,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun fadeOutLoadingView() {
-        viewBinding.viewLoading.apply {
-            alpha = 1f
-            animate()
-                .alpha(0f)
-                .setDuration(resources.getInteger(android.R.integer.config_longAnimTime).toLong())
-                .setListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animator) {
-                        viewBinding.viewLoading.visibility = View.GONE
-                    }
-                })
-        }
-    }
-
-    private fun setLoadingViewBackground() {
-        viewBinding.viewLoading.apply {
-            when(isDay) {
-                true -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
-                false -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_grey))
-            }
-            visibility = View.VISIBLE
-        }
-    }
-
     private val fragmentOnClickListener = View.OnClickListener {
         viewBinding.apply {
             when (it.id) {
@@ -353,21 +373,30 @@ class HomeFragment : Fragment() {
 
     private fun setIntentToDiaryActivity() {
         val intent = Intent(requireContext(), DiaryActivity::class.java)
+        intent.putExtra("diaryId", diaryId)
         startActivity(intent)
     }
 
     private fun setIntentToUploadActivity() {
         val intent = Intent(requireContext(), UploadFeelingActivity::class.java)
+        intent.putExtra("intentFrom", "Home -> Upload")
+        intent.putExtra("diaryStatus", DIARY_STATUS)
         startActivity(intent)
     }
 
     private fun setIntentToListActivity() {
         val intent = Intent(requireContext(), ListActivity::class.java)
+        intent.putExtra("year", currentYear)
+        intent.putExtra("month", currentMonth)
         startActivity(intent)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _viewBinding = null
+    }
+
+    companion object {
+        var DIARY_STATUS = true
     }
 }

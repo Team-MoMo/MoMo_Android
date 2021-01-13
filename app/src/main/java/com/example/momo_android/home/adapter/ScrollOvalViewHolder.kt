@@ -21,9 +21,9 @@ class ScrollOvalViewHolder(
     private val displayMetrics: DisplayMetrics = Resources.getSystem().displayMetrics
 
 
-    fun onBind(xPosition: Int, diaryData: ResponseDiaryList.Data) {
+    fun onBind(diaryData: ResponseDiaryList.Data) {
         getItemAreaWidth()
-        setOvalXPosition(9)
+        setOvalXPosition()
         setDiaryData(diaryData)
     }
 
@@ -44,7 +44,7 @@ class ScrollOvalViewHolder(
             (deviceWidthPixels.toFloat() - itemWidthPixels - horizontalMarginPixels) / (ITEM_AMOUNT - 1)
     }
 
-    private fun setOvalXPosition(xPosition: Int) {
+    private fun setOvalXPosition() {
         val xPosition: Int = Random().nextInt(ITEM_AMOUNT)
         val leftMargin = ((itemDistance * xPosition) + (HORIZONTAL_MARGIN * displayMetrics.density))
         val layoutParams = viewBinding.imageButtonOval.layoutParams as ConstraintLayout.LayoutParams
@@ -54,7 +54,7 @@ class ScrollOvalViewHolder(
     }
 
     private fun setDiaryData(diaryData: ResponseDiaryList.Data) {
-        convertUpdatedAtToDate(diaryData.updatedAt)
+        convertUpdatedAtToDate(diaryData.wroteAt)
         viewBinding.textViewCategory.text = diaryData.emotion.name
     }
 

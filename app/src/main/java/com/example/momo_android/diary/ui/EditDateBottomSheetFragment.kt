@@ -9,8 +9,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.NumberPicker
+import android.widget.NumberPicker.OnScrollListener.SCROLL_STATE_IDLE
+import androidx.appcompat.app.AppCompatActivity
 import com.example.momo_android.R
 import com.example.momo_android.databinding.BottomsheetDiaryEditDateBinding
 import com.example.momo_android.diary.data.RequestEditDiaryData
@@ -18,8 +21,12 @@ import com.example.momo_android.diary.data.ResponseDiaryData
 import com.example.momo_android.diary.ui.DiaryActivity.Companion.diary_date
 import com.example.momo_android.diary.ui.DiaryActivity.Companion.diary_month
 import com.example.momo_android.diary.ui.DiaryActivity.Companion.diary_year
+import com.example.momo_android.home.data.ResponseDiaryList
 import com.example.momo_android.list.data.ResponseFilterData
 import com.example.momo_android.network.RequestToServer
+import com.example.momo_android.util.SharedPreferenceController
+import com.example.momo_android.util.getDate
+import com.example.momo_android.util.getMonth
 import com.example.momo_android.util.showToast
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -60,6 +67,10 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _Binding = BottomsheetDiaryEditDateBinding.inflate(layoutInflater)
+
+        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        (activity as AppCompatActivity).supportActionBar?.hide()
+
         return Binding.root
     }
 
@@ -167,13 +178,11 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
 
         }
 
-        date.setOnValueChangedListener { _, _, _ ->
-            requestCheckDiary(year.value, month.value, date.value)
-        }
 
-
-
-
+        // 스크롤 했을 때 해당 날짜에 일기가 있는지 체크
+        year.setOnScrollListener(pickerScrollListener)
+        month.setOnScrollListener(pickerScrollListener)
+        date.setOnScrollListener(pickerScrollListener)
 
 
         Binding.btnDiaryDateEdit.setOnClickListener {
@@ -192,38 +201,39 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
 
     }
 
+    private val pickerScrollListener = NumberPicker.OnScrollListener { _, state ->
+        if(state == SCROLL_STATE_IDLE) {
+            requestCheckDiary(
+                Binding.includeYmdPicker.year.value,
+                Binding.includeYmdPicker.month.value,
+                Binding.includeYmdPicker.date.value)
+        }
+    }
+
     // 해당 날짜에 쓰인 일기가 있는지 확인
     private fun requestCheckDiary(year: Int, month: Int, date: Int) {
 
-        RequestToServer.service.getFilterdDiary(
-            Authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
-            userId = DiaryActivity.responseData[0].userId,
+        RequestToServer.service.getHomeDiaryList(
+            authorization = context?.let { SharedPreferenceController.getAccessToken(it) },
+            order = "filter",
             year = year,
             month = month,
-            order = "date",
-            emotionId = 1,
-            depth = 1
-        ).enqueue(object : retrofit2.Callback<ResponseFilterData> {
+            day = date,
+            userId = DiaryActivity.responseData[0].userId
+        ).enqueue(object : retrofit2.Callback<ResponseDiaryList> {
             override fun onResponse(
-                call: Call<ResponseFilterData>,
-                response: Response<ResponseFilterData>
+                call: Call<ResponseDiaryList>,
+                response: Response<ResponseDiaryList>
             ) {
-
-                // 코드 400으로 뜸
                 when {
                     response.code() == 200 -> {
-                        val checkDate = "$year$month$date"
-                        for(i in 0..response.body()!!.data.size) {
-                            val matchDate = getFormedDate(response.body()!!.data[i].wroteAt)
-                            if(checkDate == matchDate) {
-                                Log.d("가능여부", "놉")
-                                Binding.btnDiaryDateEdit.isEnabled = false
-                                break
-                            } else {
-                                Log.d("가능여부", "된다")
-                                Binding.btnDiaryDateEdit.isEnabled = true
-                            }
 
+                        if(response.body()!!.data.isNullOrEmpty()) {
+                            Log.d("가능여부", "된다?")
+                            Binding.btnDiaryDateEdit.isEnabled = true
+                        } else {
+                            Log.d("가능여부", "놉")
+                            Binding.btnDiaryDateEdit.isEnabled = false
                         }
 
                     }
@@ -236,7 +246,7 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
                 }
             }
 
-            override fun onFailure(call: Call<ResponseFilterData>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseDiaryList>, t: Throwable) {
                 Log.d("checkDiary ERROR", "$t")
             }
 
@@ -246,7 +256,7 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
     private fun requestEditDiary() {
 
         RequestToServer.service.editDiary(
-            Authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
+            Authorization = context?.let { SharedPreferenceController.getAccessToken(it) },
             params = DiaryActivity.responseData[0].id,
             RequestEditDiaryData(
                 depth = DiaryActivity.responseData[0].depth,
@@ -283,12 +293,6 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
         })
     }
 
-    private fun getFormedDate(wroteAt: String) : String {
-        val dateformat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss.sss'Z'", Locale.KOREAN).parse(wroteAt)
-        val diary_day = SimpleDateFormat("yyyyMMdd", Locale.KOREA).format(dateformat)
-        return diary_day
-    }
-
     // 달 별로 일수 다른거 미리 세팅해둔 함수
     private fun setMonthMax() {
         val month = Binding.includeYmdPicker.month
@@ -307,7 +311,9 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
         }
     }
 
-
-
-
+    override fun onDestroy() {
+        super.onDestroy()
+        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        (activity as AppCompatActivity).supportActionBar?.show()
+    }
 }

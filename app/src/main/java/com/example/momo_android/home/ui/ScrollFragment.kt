@@ -13,14 +13,17 @@ import android.view.ViewGroup
 import android.widget.AbsListView.OnScrollListener.SCROLL_STATE_IDLE
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_DRAGGING
+import com.example.momo_android.R
 import com.example.momo_android.home.adapter.ScrollGradientAdapter
 import com.example.momo_android.databinding.FragmentScrollBinding
 import com.example.momo_android.list.ui.ListActivity
 import com.example.momo_android.home.ui.HomeActivity.Companion.IS_FROM_SCROLL
+import com.example.momo_android.home.ui.HomeFragment.Companion.DIARY_STATUS
 import com.example.momo_android.upload.ui.UploadFeelingActivity
 import com.example.momo_android.util.ScrollDatePickerListener
 import java.util.*
@@ -32,6 +35,8 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
     private val viewBinding get() = _viewBinding!!
 
     private var isHomeButtonClicked: Boolean = false
+    private var selectedYear = QUERY_YEAR
+    private var selectedMonth = QUERY_MONTH
 
 
     override fun onCreateView(
@@ -49,6 +54,17 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
         initQueryDate()
         setGradientRecyclerView(QUERY_YEAR, QUERY_MONTH)
         fadeOutLoadingView()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(IS_EDITED) {
+            setLoadingViewBackground()
+            viewBinding.recyclerViewGradient.adapter!!.notifyDataSetChanged()
+            viewBinding.recyclerViewGradient.scrollToPosition(EDITED_DEPTH + 1)
+            fadeOutLoadingView()
+            IS_EDITED = false
+        }
     }
 
     private fun setListeners() {
@@ -90,6 +106,20 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
         }
     }
 
+    private fun setLoadingViewBackground() {
+        viewBinding.viewLoading.apply {
+            when(EDITED_DEPTH + 1) {
+                2 -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_30m_start))
+                3 -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_100m_start))
+                4 -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_300m_start))
+                5 -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_700m_start))
+                6 -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_1005m_start))
+                7 -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_deep_sea_start))
+                else -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_2m_start))
+            }
+        }
+    }
+
     private val scrollListener = object : RecyclerView.OnScrollListener() {
         @RequiresApi(Build.VERSION_CODES.N)
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -115,8 +145,8 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
 
     @RequiresApi(Build.VERSION_CODES.N)
     private fun updateVerticalSeekBar(visibleItemPosition: Int) {
-        when(visibleItemPosition) {
-            0 -> Log.d("TAG", "updateVerticalSeekBar: $visibleItemPosition")
+        when (visibleItemPosition) {
+            0 -> {}
             else -> {
                 ObjectAnimator
                     .ofInt(
@@ -157,7 +187,7 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
     private fun fadeInSwipeDownImage() {
         viewBinding.apply {
             when ((recyclerViewGradient.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()) {
-                7 -> imageViewSwipeDown.visibility = ImageView.INVISIBLE
+                8 -> imageViewSwipeDown.visibility = ImageView.INVISIBLE
                 else -> {
                     imageViewSwipeDown.visibility = View.VISIBLE
                     imageViewSwipeDown.alpha = 0f
@@ -218,22 +248,31 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
     }
 
     override fun onClickDatePickerApplyButton(year: Int, month: Int) {
+        selectedYear = year
+        selectedMonth = month
         fadeOutLoadingView()
-        setGradientRecyclerView(year, month)
+        setGradientRecyclerView(selectedYear, selectedMonth)
     }
 
     private fun scrollToTop() {
+        if (getVisibleItemPosition() == 0) {
+            requireActivity().onBackPressed()
+        }
         viewBinding.recyclerViewGradient.smoothScrollToPosition(0)
         isHomeButtonClicked = true
     }
 
     private fun setIntentToUploadActivity() {
         val intent = Intent(requireContext(), UploadFeelingActivity::class.java)
+        intent.putExtra("intentFrom", "Scroll -> Upload")
+        intent.putExtra("diaryStatus", DIARY_STATUS)
         startActivity(intent)
     }
 
     private fun setIntentToListActivity() {
         val intent = Intent(requireContext(), ListActivity::class.java)
+        intent.putExtra("year", selectedYear)
+        intent.putExtra("month", selectedMonth)
         startActivity(intent)
     }
 
@@ -245,5 +284,7 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
     companion object {
         var QUERY_YEAR = Calendar.getInstance().get(Calendar.YEAR)
         var QUERY_MONTH = Calendar.getInstance().get(Calendar.MONTH) + 1
+        var IS_EDITED = false
+        var EDITED_DEPTH = 0
     }
 }

@@ -7,9 +7,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_momo_appicon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_momo_appicon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MoMo_Android"
         android:usesCleartextTraffic="true">
@@ -32,10 +32,10 @@
         <activity android:name=".login.ui.MainLoginActivity" />
         <activity
             android:name=".diary.ui.DiaryEditWriteActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize">
-
-        </activity>
+            android:windowSoftInputMode="stateVisible|adjustResize"/>
         <activity android:name=".signup.ui.SignUpActivity" />
+        <activity android:name=".splash.SplashActivity"
+            android:theme="@style/Theme.splashTheme">
         <activity android:name=".splash.SplashActivity">
             <!--
             <intent-filter>
