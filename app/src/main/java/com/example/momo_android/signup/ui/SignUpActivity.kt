@@ -135,22 +135,21 @@ class SignUpActivity : AppCompatActivity() {
         val et_email = binding.etSignupEmail
         val tv_email_error = binding.tvEmailError
 
-        tv_email.setTextColor(ContextCompat.getColor(applicationContext, R.color.red_2_error))
-        et_email.background = resources.getDrawable(R.drawable.signup_et_area_error, null)
-        tv_email_error.setVisible()
+
 
         if(et_email.text.isEmpty()) {
+            tv_email.setTextColor(ContextCompat.getColor(applicationContext, R.color.red_2_error))
+            et_email.background = resources.getDrawable(R.drawable.signup_et_area_error, null)
+            tv_email_error.setVisible()
             tv_email_error.text = "이메일을 입력해 주세요"
         } else if(et_email.text.isNotEmpty() &&
             !android.util.Patterns.EMAIL_ADDRESS.matcher(et_email.text.toString()).matches()) {
+            tv_email.setTextColor(ContextCompat.getColor(applicationContext, R.color.red_2_error))
+            et_email.background = resources.getDrawable(R.drawable.signup_et_area_error, null)
+            tv_email_error.setVisible()
             tv_email_error.text = "올바른 이메일 형식이 아닙니다"
         } else {
-            // 서버통신으로 확인
-            // tv_email_error.text = "MOMO에 이미 가입된 이메일이에요!"
-            tv_email.setTextColor(ContextCompat.getColor(applicationContext, R.color.blue_2))
-            et_email.background = resources.getDrawable(R.drawable.signup_et_area, null)
-            tv_email_error.setInVisible()
-            passwordController()
+            checkDuplicate() // 이메일 중복체크
         }
     }
 
@@ -230,6 +229,9 @@ class SignUpActivity : AppCompatActivity() {
                         // 토큰 저장
                         SharedPreferenceController.setAccessToken(applicationContext,
                             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc")
+                        // 유저 아이디 저장
+                        //SharedPreferenceController.setUserId(applicationContext, response.body()!!.data.user.id)
+                        SharedPreferenceController.setUserId(applicationContext, 2)
 
                         // 홈으로 이동
                         val intent = Intent(applicationContext, HomeActivity::class.java)
@@ -247,6 +249,40 @@ class SignUpActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<ResponseUserData>, t: Throwable) {
                 Log.d("postSignUp ERROR", "$t")
+            }
+
+        })
+    }
+
+    private fun checkDuplicate() {
+        RequestToServer.service.checkDuplicate(
+            email = binding.etSignupEmail.text.toString()
+        ).enqueue(object : Callback<ResponseUserData> {
+            override fun onResponse(
+                call: Call<ResponseUserData>,
+                response: Response<ResponseUserData>
+            ) {
+                when(response.code()) {
+                    200 -> {
+                        Log.d("이메일 체크", "사용 가능")
+                        binding.tvEmail.setTextColor(ContextCompat.getColor(applicationContext, R.color.blue_2))
+                        binding.etSignupEmail.background = resources.getDrawable(R.drawable.signup_et_area, null)
+                        binding.tvEmailError.setInVisible()
+                        passwordController()
+                    }
+                    400 -> {
+                        Log.d("이메일 체크", "중복 메일")
+                        binding.tvEmail.setTextColor(ContextCompat.getColor(applicationContext, R.color.red_2_error))
+                        binding.etSignupEmail.background = resources.getDrawable(R.drawable.signup_et_area_error, null)
+                        binding.tvEmailError.setVisible()
+                        binding.tvEmailError.text = "MOMO에 이미 가입된 이메일이에요!"
+                    }
+                    else -> Log.d("checkDuplicate 500", response.message())
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseUserData>, t: Throwable) {
+                Log.d("checkDuplicate ERROR", "$t")
             }
 
         })
