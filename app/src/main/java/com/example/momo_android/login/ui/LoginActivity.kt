@@ -5,15 +5,20 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import com.example.momo_android.databinding.ActivityDiaryBinding
 import com.example.momo_android.databinding.ActivityLoginBinding
+import com.example.momo_android.home.ui.HomeActivity
+import com.example.momo_android.network.RequestToServer
+import com.example.momo_android.signup.data.RequestUserData
+import com.example.momo_android.signup.data.ResponseUserData
 import com.example.momo_android.signup.ui.SignUpActivity
-import com.example.momo_android.util.setGone
-import com.example.momo_android.util.setInVisible
-import com.example.momo_android.util.setVisible
-import com.example.momo_android.util.unshowKeyboard
+import com.example.momo_android.util.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
 
@@ -31,12 +36,7 @@ class LoginActivity : AppCompatActivity() {
         val tv_login_alert = binding.tvLoginAlert
 
         btn_login.setOnClickListener {
-            et_email.isCursorVisible = false
-            et_passwd.isCursorVisible = false
-            if(et_email.text.isNotEmpty() || et_passwd.text.isNotEmpty()) {
-                et_email.unshowKeyboard()
-                tv_login_alert.setVisible()
-            }
+            postLogin()
         }
 
         binding.btnGoSignup.setOnClickListener {
@@ -68,4 +68,48 @@ class LoginActivity : AppCompatActivity() {
         binding.etEmail.isCursorVisible = true
         binding.etPasswd.isCursorVisible = true
     }
+
+    private fun postLogin() {
+        RequestToServer.service.postLogin(
+            RequestUserData(
+                email = binding.etEmail.text.toString(),
+                password = binding.etPasswd.text.toString()
+            )
+        ).enqueue(object : Callback<ResponseUserData> {
+            override fun onResponse(
+                call: Call<ResponseUserData>,
+                response: Response<ResponseUserData>
+            ) {
+                when {
+                    response.code() == 200 -> {
+                        // 토큰 저장
+                        SharedPreferenceController.setAccessToken(applicationContext, response.body()!!.data.token)
+
+                        // 홈으로 이동
+                        val intent = Intent(applicationContext, HomeActivity::class.java)
+                        startActivity(intent)
+                        finishAffinity()
+                    }
+                    response.code() == 400 -> {
+                        Log.d("postSignUp 400", response.message())
+                        binding.etEmail.isCursorVisible = false
+                        binding.etPasswd.isCursorVisible = false
+                        if(binding.etEmail.text.isNotEmpty() || binding.etPasswd.text.isNotEmpty()) {
+                            binding.etEmail.unshowKeyboard()
+                            binding.tvLoginAlert.setVisible()
+                        }
+                    }
+                    else -> {
+                        Log.d("postSignUp 500", response.message())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseUserData>, t: Throwable) {
+                Log.d("postLogin ERROR", "$t")
+            }
+
+        })
+    }
+
 }
