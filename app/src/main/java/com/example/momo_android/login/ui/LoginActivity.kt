@@ -1,5 +1,6 @@
 package com.example.momo_android.login.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -8,6 +9,7 @@ import android.view.View
 import android.widget.EditText
 import com.example.momo_android.databinding.ActivityDiaryBinding
 import com.example.momo_android.databinding.ActivityLoginBinding
+import com.example.momo_android.signup.ui.SignUpActivity
 import com.example.momo_android.util.setGone
 import com.example.momo_android.util.setInVisible
 import com.example.momo_android.util.setVisible
@@ -35,6 +37,16 @@ class LoginActivity : AppCompatActivity() {
                 et_email.unshowKeyboard()
                 tv_login_alert.setVisible()
             }
+        }
+
+        binding.btnGoSignup.setOnClickListener {
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnFindPw.setOnClickListener {
+            val intent = Intent(this, FindPasswordActivity::class.java)
+            startActivity(intent)
         }
 
         et_email.onFocusChangeListener = editTextFocusChangeListener

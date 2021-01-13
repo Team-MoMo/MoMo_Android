@@ -56,6 +56,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/filter_button_radius"
+        android:enabled="false"
         android:fontFamily="@font/notosanskrmedium"
         android:gravity="center"
         android:includeFontPadding="false"

@@ -7,11 +7,13 @@ import android.graphics.drawable.ColorDrawable
 import android.view.Window
 import android.widget.TextView
 import com.example.momo_android.R
+import com.example.momo_android.util.ModalClickListener
 
 class ModalDiaryEditBack(context : Context) {
     private val dlg = Dialog(context)   //부모 액티비티의 context 가 들어감
     private lateinit var btn_cancel : TextView
     private lateinit var btn_yes : TextView
+    private lateinit var listener: ModalClickListener
 
     fun start() {
         dlg.requestWindowFeature(Window.FEATURE_NO_TITLE)   //타이틀바 제거
@@ -26,11 +28,19 @@ class ModalDiaryEditBack(context : Context) {
 
         btn_yes = dlg.findViewById(R.id.btn_edit_yes)
         btn_yes.setOnClickListener {
-
+            listener.onOKClicked("확인")
         }
 
         dlg.show()
     }
 
+    fun setOnClickListener(listener: (String) -> Unit) {
+        this.listener = object:
+            ModalClickListener {
+            override fun onOKClicked(content: String) {
+                listener(content)
+            }
+        }
+    }
 
 }

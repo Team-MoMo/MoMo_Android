@@ -9,14 +9,15 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityListBinding
+import com.example.momo_android.diary.ui.DiaryActivity
 import com.example.momo_android.list.*
 import com.example.momo_android.list.data.ListData
 import com.example.momo_android.list.data.ResponseFilterData
 import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.upload.ui.UploadFeelingActivity
+import com.example.momo_android.util.ItemClickListener
 import com.example.momo_android.util.showToast
 import kotlinx.android.synthetic.main.activity_list.*
 import okhttp3.ResponseBody
@@ -76,8 +77,14 @@ class ListActivity : AppCompatActivity() {
         binding.rcvList.adapter = listAdapter
         binding.rcvList.layoutManager = LinearLayoutManager(this)
 
-        loadFilteredData()
+        //loadFilteredData()
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        loadFilteredData()
     }
 
     fun disableScroll() {
@@ -341,6 +348,23 @@ class ListActivity : AppCompatActivity() {
             }
         }
         listAdapter.notifyDataSetChanged()
+
+        initItemClickListener(data)
+    }
+
+    // DiaryActivity로 intent 보내는 부분
+    private fun initItemClickListener(data: List<ListData>) {
+        listAdapter.setItemClickListener(object : ItemClickListener{
+            override fun onClickItem(view: View, position: Int) {
+                val intentFrom = "List -> Diary"
+                val id = data[position].id
+
+                val intent = Intent(this@ListActivity, DiaryActivity::class.java)
+                intent.putExtra("intentFrom", intentFrom)
+                intent.putExtra("diaryId", id)
+                startActivity(intent)
+            }
+        })
     }
 
     fun loadFilteredData() {

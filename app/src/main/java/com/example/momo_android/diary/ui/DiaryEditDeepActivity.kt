@@ -19,7 +19,12 @@ import android.widget.TextView
 import androidx.core.animation.doOnEnd
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityDiaryEditDeepBinding
+import com.example.momo_android.diary.data.RequestEditDiaryData
+import com.example.momo_android.diary.data.ResponseDiaryData
+import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.util.showToast
+import retrofit2.Call
+import retrofit2.Response
 import kotlin.math.abs
 
 class DiaryEditDeepActivity : AppCompatActivity() {
@@ -50,6 +55,9 @@ class DiaryEditDeepActivity : AppCompatActivity() {
         }
 
         tv_deep_date.text = intent.getStringExtra("diary_day")
+        binding.imgDeepEmotion.setImageResource(getEmotionImg(DiaryActivity.responseData[0].emotionId))
+        binding.tvDeepEmotion.text = getEmotionStr(DiaryActivity.responseData[0].emotionId)
+        val depth = DiaryActivity.responseData[0].depth
 
         val lineThumb = LayoutInflater.from(this).inflate(
             R.layout.seekbar_line_thumb, null, false
@@ -60,7 +68,7 @@ class DiaryEditDeepActivity : AppCompatActivity() {
         )
 
         // 수정 전 단계를 progress에 넣어줘야함 !!
-        mainSeekbar.progress = 4
+        mainSeekbar.progress = depth
         scrollToDepth() // 수정 전 단계에 따라 배경색 변화
 
 
@@ -116,12 +124,52 @@ class DiaryEditDeepActivity : AppCompatActivity() {
         // 수정하기 버튼
         btn_edit_deep.setOnClickListener {
             // 깊이수정 통신
-            finish()
-            this.showToast("깊이가 수정되었습니다.")
+            requestEditDiary(mainSeekbar.progress)
+
         }
 
 
 
+    }
+
+    private fun requestEditDiary(depth : Int) {
+
+        RequestToServer.service.editDiary(
+            Authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
+            params = DiaryActivity.responseData[0].id,
+            RequestEditDiaryData(
+                depth = depth,
+                contents = DiaryActivity.responseData[0].contents,
+                userId = DiaryActivity.responseData[0].userId,
+                sentenceId = DiaryActivity.responseData[0].sentenceId,
+                emotionId = DiaryActivity.responseData[0].emotionId,
+                wroteAt = DiaryActivity.responseData[0].wroteAt
+            )
+        ).enqueue(object : retrofit2.Callback<ResponseDiaryData> {
+            override fun onResponse(
+                call: Call<ResponseDiaryData>,
+                response: Response<ResponseDiaryData>
+            ) {
+                when {
+                    response.code() == 200 -> {
+                        Log.d("깊이 수정 성공", response.body().toString())
+                        finish()
+                        applicationContext.showToast("깊이가 수정되었습니다.")
+                    }
+                    response.code() == 400 -> {
+                        Log.d("editDiary 400", response.message())
+                    }
+                    else -> {
+                        Log.d("editDiary 500", response.message())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseDiaryData>, t: Throwable) {
+                Log.d("editDiary ERROR", "$t")
+            }
+
+        })
     }
 
 
@@ -210,6 +258,32 @@ class DiaryEditDeepActivity : AppCompatActivity() {
                 onEnd()
             }
             start()
+        }
+    }
+
+    private fun getEmotionImg(emotionIdx: Int) : Int {
+        return when (emotionIdx) {
+            1 -> R.drawable.ic_love_14_white
+            2 -> R.drawable.ic_happy_14_white
+            3 -> R.drawable.ic_console_14_white
+            4 -> R.drawable.ic_angry_14_white
+            5 -> R.drawable.ic_sad_14_white
+            6 -> R.drawable.ic_bored_14_white
+            7 -> R.drawable.ic_memory_14_white
+            else -> R.drawable.ic_daily_14_white
+        }
+    }
+
+    private fun getEmotionStr(emotionIdx: Int) : String {
+        return when (emotionIdx) {
+            1 -> "사랑"
+            2 -> "행복"
+            3 -> "위로"
+            4 -> "화남"
+            5 -> "슬픔"
+            6 -> "우울"
+            7 -> "추억"
+            else -> "일상"
         }
     }
 

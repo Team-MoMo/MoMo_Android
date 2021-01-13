@@ -46,12 +46,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/text_constraint"
-        android:layout_width="360dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="21dp"
         app:layout_constraintBottom_toTopOf="@+id/rv_select_sentence"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_back">
 
         <TextView

@@ -7,7 +7,7 @@ data class ResponseDiaryData (
 
 data class Diary(
     val id : Int,
-    val content : String,
+    val contents : String,
     val position : Int,
     val depth : Int,
     val userId : Int,
