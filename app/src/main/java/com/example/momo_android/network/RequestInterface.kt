@@ -4,8 +4,8 @@ import com.example.momo_android.diary.data.RequestEditDiaryData
 import com.example.momo_android.diary.data.ResponseDiaryData
 import com.example.momo_android.home.data.ResponseDiaryList
 import com.example.momo_android.list.data.ResponseFilterData
-import com.example.momo_android.signup.data.RequestSignupData
-import com.example.momo_android.signup.data.ResponseSignupData
+import com.example.momo_android.signup.data.RequestUserData
+import com.example.momo_android.signup.data.ResponseUserData
 import com.example.momo_android.upload.data.RequestUploadDiaryData
 import com.example.momo_android.upload.data.ResponseSentenceData
 import com.example.momo_android.upload.data.ResponseUploadDiaryData
@@ -96,7 +96,13 @@ interface RequestInterface {
     @Headers("Content-Type: application/json")
     @POST("/users/signup")
     fun postSignUp(
-        @Body body: RequestSignupData
-    ) : Call<ResponseSignupData>
+        @Body body: RequestUserData
+    ) : Call<ResponseUserData>
 
+    // 로그인
+    @Headers("Content-Type: application/json")
+    @POST("/users/signin")
+    fun postLogin(
+        @Body body: RequestUserData
+    ) : Call<ResponseUserData>
 }

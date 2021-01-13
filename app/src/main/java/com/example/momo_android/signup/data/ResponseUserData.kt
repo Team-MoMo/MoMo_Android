@@ -1,6 +1,6 @@
 package com.example.momo_android.signup.data
 
-data class ResponseSignupData(
+data class ResponseUserData(
     val message : String,
     val data : SignUp
 )

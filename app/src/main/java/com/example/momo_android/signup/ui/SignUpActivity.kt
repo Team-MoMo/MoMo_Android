@@ -15,10 +15,9 @@ import androidx.core.content.ContextCompat
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivitySignUpBinding
 import com.example.momo_android.home.ui.HomeActivity
-import com.example.momo_android.home.ui.ScrollFragment
 import com.example.momo_android.network.RequestToServer
-import com.example.momo_android.signup.data.RequestSignupData
-import com.example.momo_android.signup.data.ResponseSignupData
+import com.example.momo_android.signup.data.RequestUserData
+import com.example.momo_android.signup.data.ResponseUserData
 import com.example.momo_android.util.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -217,14 +216,14 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun postSignUp() {
         RequestToServer.service.postSignUp(
-            RequestSignupData(
+            RequestUserData(
                 email = binding.etSignupEmail.text.toString(),
                 password = binding.etSignupPasswd.text.toString()
             )
-        ).enqueue(object : Callback<ResponseSignupData> {
+        ).enqueue(object : Callback<ResponseUserData> {
             override fun onResponse(
-                call: Call<ResponseSignupData>,
-                response: Response<ResponseSignupData>
+                call: Call<ResponseUserData>,
+                response: Response<ResponseUserData>
             ) {
                 when {
                     response.code() == 201 -> {
@@ -245,7 +244,7 @@ class SignUpActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<ResponseSignupData>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseUserData>, t: Throwable) {
                 Log.d("postSignUp ERROR", "$t")
             }
 
