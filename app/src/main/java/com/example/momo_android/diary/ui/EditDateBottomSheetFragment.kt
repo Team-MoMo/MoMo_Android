@@ -22,6 +22,7 @@ import com.example.momo_android.diary.ui.DiaryActivity.Companion.diary_date
 import com.example.momo_android.diary.ui.DiaryActivity.Companion.diary_month
 import com.example.momo_android.diary.ui.DiaryActivity.Companion.diary_year
 import com.example.momo_android.home.data.ResponseDiaryList
+import com.example.momo_android.home.ui.ScrollFragment
 import com.example.momo_android.list.data.ResponseFilterData
 import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.util.SharedPreferenceController
@@ -258,7 +259,7 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
         RequestToServer.service.editDiary(
             Authorization = context?.let { SharedPreferenceController.getAccessToken(it) },
             params = DiaryActivity.responseData[0].id,
-            RequestEditDiaryData(
+            body = RequestEditDiaryData(
                 depth = DiaryActivity.responseData[0].depth,
                 contents = DiaryActivity.responseData[0].contents,
                 userId = DiaryActivity.responseData[0].userId,
@@ -273,6 +274,8 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
             ) {
                 when {
                     response.code() == 200 -> {
+                        ScrollFragment.IS_EDITED = true
+                        ScrollFragment.EDITED_DEPTH = response.body()!!.data.depth
                         Log.d("날짜 수정 성공", response.body().toString())
                         context!!.showToast("날짜가 수정되었습니다.")
                         dialog?.dismiss()

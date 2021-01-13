@@ -11,6 +11,9 @@ import com.example.momo_android.databinding.ActivityDiaryBinding
 import com.example.momo_android.diary.data.Diary
 import com.example.momo_android.diary.data.RequestEditDiaryData
 import com.example.momo_android.diary.data.ResponseDiaryData
+import com.example.momo_android.home.ui.ScrollFragment
+import com.example.momo_android.home.ui.ScrollFragment.Companion.EDITED_DEPTH
+import com.example.momo_android.home.ui.ScrollFragment.Companion.IS_EDITED
 import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.util.*
 import kotlinx.android.synthetic.main.activity_diary.*
@@ -205,6 +208,8 @@ class DiaryActivity : AppCompatActivity() {
             ) {
                 when {
                     response.code() == 200 -> {
+                        IS_EDITED = true
+                        EDITED_DEPTH = 0
                         Log.d("일기 삭제 성공", response.body().toString())
                         finish()
                     }

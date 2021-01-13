@@ -337,13 +337,13 @@ class HomeFragment : Fragment() {
     private fun setDepthData(depth: Int) {
         viewBinding.apply {
             when (depth) {
-                1 -> textViewDepth.text = "2m"
-                2 -> textViewDepth.text = "30m"
-                3 -> textViewDepth.text = "100m"
-                4 -> textViewDepth.text = "300m"
-                5 -> textViewDepth.text = "700m"
-                6 -> textViewDepth.text = "1,0005m"
-                7 -> textViewDepth.text = "심해"
+                0 -> textViewDepth.text = "2m"
+                1 -> textViewDepth.text = "30m"
+                2 -> textViewDepth.text = "100m"
+                3 -> textViewDepth.text = "300m"
+                4 -> textViewDepth.text = "700m"
+                5 -> textViewDepth.text = "1,005m"
+                6 -> textViewDepth.text = "심해"
                 else -> Log.d("TAG", "setEmotionData: unknown depth")
             }
         }
