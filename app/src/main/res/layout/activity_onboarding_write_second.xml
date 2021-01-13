@@ -7,6 +7,20 @@
     android:layout_height="match_parent"
     tools:context=".onboarding.ui.OnboardingWriteSecondActivity">
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="false"
+        app:lottie_fileName="OnboardingCircle.json"
+        app:lottie_loop="false" />
+
     <TextView
         android:id="@+id/tv_explain"
         android:layout_width="wrap_content"
@@ -36,6 +50,17 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_explain">
+
+        <ImageView
+            android:id="@+id/img_feather"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintDimensionRatio="1:1.13"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.042"
+            app:srcCompat="@drawable/ic_feather_black" />
 
         <TextView
             android:id="@+id/tv_author"
@@ -113,28 +138,7 @@
             tools:layout_conversion_absoluteHeight="19dp"
             tools:layout_conversion_absoluteWidth="297dp" />
 
-        <ImageView
-            android:id="@+id/img_feather"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="32dp"
-            app:layout_constraintDimensionRatio="1:1.13"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.042"
-            app:srcCompat="@drawable/ic_feather_black" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <ImageView
-        android:id="@+id/imageView34"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="58dp"
-        android:scaleType="fitXY"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/onboarding_circle_small" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout23"
@@ -159,6 +163,7 @@
             android:textColor="@color/blue_3"
             android:textFontWeight="500"
             android:textSize="20dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/tv_write"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -174,7 +179,7 @@
             android:includeFontPadding="false"
             android:letterSpacing="-0.06"
             android:lineSpacingExtra="4sp"
-            android:text="새로운 인연이 기대되는 하루였다."
+            android:text=""
             android:textColor="@color/blue_2"
             android:textFontWeight="500"
             android:textSize="16dp"
@@ -185,14 +190,5 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <ImageView
-        android:id="@+id/imageView36"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/onboarding_circle_big" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
