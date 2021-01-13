@@ -91,6 +91,6 @@ class OnboardingFeelingActivity : AppCompatActivity() {
         super.onBackPressed()
         val intent = Intent(this, OnboardingStartActivity::class.java)
         startActivity(intent)
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        overridePendingTransition(R.anim.horizontal_right_in, R.anim.horizontal_left_out)
     }
 }

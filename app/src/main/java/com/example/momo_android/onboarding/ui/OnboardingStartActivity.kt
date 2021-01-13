@@ -3,6 +3,7 @@ package com.example.momo_android.onboarding.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityOnboardingStartBinding
 import com.example.momo_android.login.ui.MainLoginActivity
 
@@ -19,6 +20,7 @@ class OnboardingStartActivity : AppCompatActivity() {
         binding.btnStart.setOnClickListener {
             val intent=Intent(this@OnboardingStartActivity, OnboardingFeelingActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
         binding.tvAccountOk.setOnClickListener {
             /********************** Login으로 가게 바꾸기************/
