@@ -171,16 +171,11 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
 
         }
 
-//        date.setOnValueChangedListener { _, _, _ ->
-//            requestCheckDiary(year.value, month.value, date.value)
-//        }
 
-        date.setOnScrollListener { _, scrollState ->
-            if(scrollState == SCROLL_STATE_IDLE) {
-                requestCheckDiary(year.value, month.value, date.value)
-            }
-        }
-
+        // 스크롤 했을 때 해당 날짜에 일기가 있는지 체크
+        year.setOnScrollListener(pickerScrollListener)
+        month.setOnScrollListener(pickerScrollListener)
+        date.setOnScrollListener(pickerScrollListener)
 
 
         Binding.btnDiaryDateEdit.setOnClickListener {
@@ -199,6 +194,15 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
 
     }
 
+    private val pickerScrollListener = NumberPicker.OnScrollListener { _, state ->
+        if(state == SCROLL_STATE_IDLE) {
+            requestCheckDiary(
+                Binding.includeYmdPicker.year.value,
+                Binding.includeYmdPicker.month.value,
+                Binding.includeYmdPicker.date.value)
+        }
+    }
+
     // 해당 날짜에 쓰인 일기가 있는지 확인
     private fun requestCheckDiary(year: Int, month: Int, date: Int) {
 
@@ -214,9 +218,6 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
                 call: Call<ResponseDiaryList>,
                 response: Response<ResponseDiaryList>
             ) {
-                Log.d("하요하요", response.toString())
-                val month = getMonth(month)
-                val date = getDate(date)
                 when {
                     response.code() == 200 -> {
 
@@ -283,12 +284,6 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
             }
 
         })
-    }
-
-    private fun getFormedDate(wroteAt: String) : String {
-        val dateformat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss.sss'Z'", Locale.KOREAN).parse(wroteAt)
-        val diary_day = SimpleDateFormat("yyyyMMdd", Locale.KOREA).format(dateformat)
-        return diary_day
     }
 
     // 달 별로 일수 다른거 미리 세팅해둔 함수
