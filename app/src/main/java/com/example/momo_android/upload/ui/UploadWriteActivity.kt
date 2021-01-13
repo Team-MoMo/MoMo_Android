@@ -2,11 +2,12 @@ package com.example.momo_android.upload.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityUploadWriteBinding
+import com.example.momo_android.upload.ModalUploadWriteBack
 import com.example.momo_android.util.*
 
 class UploadWriteActivity : AppCompatActivity() {
@@ -24,6 +25,116 @@ class UploadWriteActivity : AppCompatActivity() {
         var contents = ""
         //val date = intent.getStringExtra("date")
 
+        showFeeling(feeling)
+
+        val date=intent.getStringExtra("date")
+        binding.tvDate.text=date.toString()
+        binding.tvAuthor.text=intent.getStringExtra("author")
+        binding.tvBook.text=intent.getStringExtra("book")
+        binding.tvPublisher.text=intent.getStringExtra("publisher")
+        binding.tvSentence.text=intent.getStringExtra("sentence")
+
+
+        //토글 기능
+        binding.togglebtn.setOnClickListener {
+            if(binding.tvSentence.visibility==View.GONE){
+                binding.togglebtn.rotation=0.0f
+                binding.tvSentence.setVisible()
+            }
+            else{
+                binding.togglebtn.rotation=180.0f
+                binding.tvSentence.setGone()
+            }
+        }
+        //EditText터치시
+        binding.etDiary.setOnClickListener {
+            binding.togglebtn.rotation=180.0f
+            binding.tvSentence.setGone()
+        }
+        //EditText외 부분 터치시 키보드 안뜨게. 그 외 부분에 다 터치 인식
+        binding.constraintlayout.toggle_visible()
+        binding.cardview.toggle_visible()
+
+        //< 뒤로가기버튼
+        binding.imgBack.setOnClickListener {
+            checkEditDiary()
+        }
+
+        //다음버튼
+        binding.tvNext.setOnClickListener {
+            //홈화면
+            if (binding.etDiary.text.toString() != "") {
+                val intent= Intent(this@UploadWriteActivity, UploadDeepActivity::class.java)
+                contents = binding.etDiary.text.toString()
+                intent.putExtra("contents", contents)
+                intent.putExtra("sentenceId", sentenceId)
+                intent.putExtra("emotionId", emotionId)
+
+                intent.putExtra("feeling",feeling)
+                intent.putExtra("date",binding.tvDate.text.toString())
+                intent.putExtra("author",binding.tvAuthor.text.toString())
+                intent.putExtra("book",binding.tvBook.text.toString())
+                intent.putExtra("publisher",binding.tvPublisher.text.toString())
+                intent.putExtra("sentence",binding.tvSentence.text.toString())
+                startActivity(intent)
+            }
+            else{
+                showToast("일기를 작성해 주세요!")
+            }
+
+        }
+
+
+        binding.etDiary.setOnBackPressListener(onBackPressListener)
+
+
+    }
+
+    private val onBackPressListener: BackPressEditText.OnBackPressListener = object :
+        BackPressEditText.OnBackPressListener {
+        override fun onBackPress() {
+            binding.togglebtn.rotation=0.0f
+            binding.tvSentence.setVisible()
+        }
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if(event!!.action == KeyEvent.ACTION_DOWN) {
+            if(keyCode == KeyEvent.KEYCODE_BACK) {
+                checkEditDiary()
+                return true
+            }
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
+
+    private fun checkEditDiary() {
+        // 일기를 1자라도 수정했을 경우 팝업
+        // 일기를 수정하지 않은 경우 팝업 없이 finish()
+        if(binding.etDiary.text.toString() == "") {
+            finish()
+        } else {
+            val backModal = ModalUploadWriteBack(this)
+            backModal.start()
+            backModal.setOnClickListener {
+                if(it == "확인") {
+                    finish()
+                }
+            }
+        }
+    }
+
+    private fun View.toggle_visible(){
+        this.setOnClickListener {
+            binding.etDiary.unshowKeyboard()
+            binding.togglebtn.rotation=0.0f
+            binding.tvSentence.setVisible()
+        }
+    }
+
+
+    private fun showFeeling(feeling:Int){
         when(feeling){
             1->{
                 binding.tvFeeling.text="사랑"
@@ -58,93 +169,6 @@ class UploadWriteActivity : AppCompatActivity() {
                 binding.imgFeeling.setImageResource(R.drawable.ic_daily_14_black)
             }
         }
-
-        val date=intent.getStringExtra("date")
-        binding.tvDate.text=date.toString()
-        binding.tvAuthor.text=intent.getStringExtra("author")
-        binding.tvBook.text=intent.getStringExtra("book")
-        binding.tvPublisher.text=intent.getStringExtra("publisher")
-        binding.tvSentence.text=intent.getStringExtra("sentence")
-
-        //< 뒤로가기버튼
-        binding.imgBack.setOnClickListener {
-//            //홈화면
-//            val intent= Intent(this@UploadWriteActivity, UploadSentenceActivity::class.java)
-//            intent.putExtra("feeling",feeling)
-//            startActivity(intent)
-            finish()
-        }
-
-        //다음버튼
-        binding.tvNext.setOnClickListener {
-            //홈화면
-            val intent= Intent(this@UploadWriteActivity, UploadDeepActivity::class.java)
-
-            if (binding.etDiary.text.toString() != "") {
-                contents = binding.etDiary.text.toString()
-            }
-            intent.putExtra("contents", contents)
-            intent.putExtra("sentenceId", sentenceId)
-            intent.putExtra("emotionId", emotionId)
-
-            intent.putExtra("feeling",feeling)
-            intent.putExtra("date",binding.tvDate.text.toString())
-            intent.putExtra("author",binding.tvAuthor.text.toString())
-            intent.putExtra("book",binding.tvBook.text.toString())
-            intent.putExtra("publisher",binding.tvPublisher.text.toString())
-            intent.putExtra("sentence",binding.tvSentence.text.toString())
-            startActivity(intent)
-        }
-        //토글 기능
-        binding.togglebtn.setOnClickListener {
-            if(binding.tvSentence.visibility==View.GONE){
-                binding.togglebtn.rotation=0.0f
-                binding.tvSentence.setVisible()
-            }
-            else{
-                binding.togglebtn.rotation=180.0f
-                binding.tvSentence.setGone()
-            }
-        }
-
-        //EditText터치시
-        binding.etDiary.setOnClickListener {
-            binding.togglebtn.rotation=180.0f
-            binding.tvSentence.setGone()
-        }
-        //EditText외 부분 터치시 키보드 안뜨게. 그 외 부분에 다 터치 인식
-        binding.constraintlayout.toggle_visible()
-        binding.cardview.toggle_visible()
-
-        binding.line.setOnClickListener {
-            binding.etDiary.unshowKeyboard()
-            binding.togglebtn.rotation=0.0f
-            binding.tvSentence.setVisible()
-        }
-
-        onBackPressed()
-
     }
-
-    fun ConstraintLayout.toggle_visible(){
-        this.setOnClickListener {
-            binding.etDiary.unshowKeyboard()
-            binding.togglebtn.rotation=0.0f
-            binding.tvSentence.setVisible()
-        }
-    }
-
-    override fun onBackPressed() {
-        binding.etDiary.unshowKeyboard()
-        binding.togglebtn.rotation=0.0f
-        binding.tvSentence.setVisible()
-    }
-    /*
-    fun onKeyPreIme(keyCode: Int, event: KeyEvent?): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-        }
-        return true
-    }*/
-
 
 }

@@ -16,7 +16,6 @@
         android:fontFamily="@font/notosanskrlight"
         android:includeFontPadding="false"
         android:letterSpacing="-0.05"
-        android:lineSpacingExtra="10sp"
         android:text="문장이 감정을 자극하고\n깊이있는 기록을 도와줄 거예요"
         android:textColor="@color/black_1"
         android:textFontWeight="300"

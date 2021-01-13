@@ -17,7 +17,6 @@
         android:fontFamily="@font/notosanskrlight"
         android:includeFontPadding="false"
         android:letterSpacing="-0.05"
-        android:lineSpacingExtra="10sp"
         android:text="감정 기록이\n어려웠던 적이 있나요?"
         android:textColor="@color/blue_2"
         android:textSize="22dp"

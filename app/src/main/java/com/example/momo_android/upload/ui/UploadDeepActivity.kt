@@ -1,6 +1,7 @@
 package com.example.momo_android.upload.ui
 
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Rect
@@ -18,10 +19,12 @@ import android.widget.TextView
 import androidx.core.animation.doOnEnd
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityUploadDeepBinding
+import com.example.momo_android.diary.ui.DiaryActivity
 import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.upload.ModalUploadDeepExit
 import com.example.momo_android.upload.data.RequestUploadDiaryData
 import com.example.momo_android.upload.data.ResponseUploadDiaryData
+import com.example.momo_android.util.SharedPreferenceController
 import com.example.momo_android.util.showToast
 import kotlinx.android.synthetic.main.activity_upload_deep.*
 import okhttp3.ResponseBody
@@ -54,6 +57,12 @@ class UploadDeepActivity : AppCompatActivity() {
         val btn_back = binding.btnBack
         val tv_deep_date = binding.tvDeepDate
         val btn_edit_deep = binding.btnUploadDeep
+
+        //감정,이미지,날짜 화면에 입히기.
+        val feeling=intent.getIntExtra("feeling",0)
+        showFeeling(feeling)
+        val date=intent.getStringExtra("date")
+        tv_deep_date.text=date
 
 
         // 스크롤뷰 스크롤 막기
@@ -143,7 +152,9 @@ class UploadDeepActivity : AppCompatActivity() {
         // 기록하기 버튼
         btn_edit_deep.setOnClickListener {
             // 기록하기 통신
+            //uploadDiary(contents!!, sentenceId, emotionId, depth)
             uploadDiary(contents!!, sentenceId, emotionId, depth)
+
         }
 
 
@@ -230,7 +241,7 @@ class UploadDeepActivity : AppCompatActivity() {
 
     private fun uploadDiary(contents: String, sentenceId: Int, emotionId: Int, depth: Int) {
         RequestToServer.service.uploadDiary(
-            Authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
+            Authorization = SharedPreferenceController.getAccessToken(this),
             RequestUploadDiaryData(
                 contents = contents,
                 depth = depth,
@@ -250,6 +261,9 @@ class UploadDeepActivity : AppCompatActivity() {
                         Log.d("uploadDiary-server", "success : ${response.body()!!.data}, message : ${response.message()}")
 
                         // 다이어리 뷰로 이동
+                        val intent= Intent(this@UploadDeepActivity,DiaryActivity::class.java)
+                        intent.putExtra("diaryId",response.body()!!.data.id)
+                        startActivity(intent)
 
                     } ?: showError(response.errorBody())
             }
@@ -268,5 +282,42 @@ class UploadDeepActivity : AppCompatActivity() {
         Log.d("UploadSentence-server", ob.getString("message"))
     }
 
+
+    private fun showFeeling(feeling:Int){
+        when(feeling){
+            1->{
+                binding.tvDeepEmotion.text="사랑"
+                binding.imgDeepEmotion.setImageResource(R.drawable.ic_love_14_white)
+            }
+            2->{
+                binding.tvDeepEmotion.text="행복"
+                binding.imgDeepEmotion.setImageResource(R.drawable.ic_happy_14_white)
+            }
+            3->{
+                binding.tvDeepEmotion.text="위로"
+                binding.imgDeepEmotion.setImageResource(R.drawable.ic_console_14_white)
+            }
+            4->{
+                binding.tvDeepEmotion.text="화남"
+                binding.imgDeepEmotion.setImageResource(R.drawable.ic_angry_14_white)
+            }
+            5->{
+                binding.tvDeepEmotion.text="슬픔"
+                binding.imgDeepEmotion.setImageResource(R.drawable.ic_sad_14_white)
+            }
+            6->{
+                binding.tvDeepEmotion.text="우울"
+                binding.imgDeepEmotion.setImageResource(R.drawable.ic_bored_14_white)
+            }
+            7->{
+                binding.tvDeepEmotion.text="추억"
+                binding.imgDeepEmotion.setImageResource(R.drawable.ic_memory_14_white)
+            }
+            8->{
+                binding.tvDeepEmotion.text="일상"
+                binding.imgDeepEmotion.setImageResource(R.drawable.ic_daily_14_white)
+            }
+        }
+    }
 
 }

@@ -27,7 +27,6 @@
             android:fontFamily="@font/notosanskrlight"
             android:includeFontPadding="false"
             android:letterSpacing="-0.05"
-            android:lineSpacingExtra="10sp"
             android:text="먼저 오늘의\n감정을 선택해주세요"
             android:textColor="@color/black_1"
             android:textSize="22dp"

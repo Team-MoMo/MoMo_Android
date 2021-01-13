@@ -82,6 +82,6 @@ class OnboardingFeelingActivity : AppCompatActivity() {
             7->strWeek="토요일"
         }
 
-        return year+"."+strMonth+"."+strDay+"."+strWeek
+        return year+". "+strMonth+". "+strDay+". "+strWeek
     }
 }
