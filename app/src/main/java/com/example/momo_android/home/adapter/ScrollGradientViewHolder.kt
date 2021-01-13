@@ -24,13 +24,12 @@ class ScrollGradientViewHolder(
 
     fun onBind(position: Int) {
         when (position) {
-            0, 1, 2, 3, 4, 5, 6 -> {
-                setDepthViews(position)
-                getServerDiaryData(position)
+            0 -> setFirstItemView()
+            1, 2, 3, 4, 5, 6, 7 -> {
+                setDepthViews(position - 1)
+                getServerDiaryData(position - 1)
             }
-            7 -> {
-                setLastItemView()
-            }
+            8 -> setLastItemView()
         }
     }
 
@@ -119,10 +118,17 @@ class ScrollGradientViewHolder(
         return sortedDiaryList
     }
 
+    private fun setFirstItemView() {
+        viewBinding.apply {
+            constraintLayout.removeAllViews()
+            constraintLayout.addView(this.viewLine)
+        }
+    }
+
     private fun setLastItemView() {
         viewBinding.apply {
             constraintLayout.removeAllViews()
-            constraintLayout.addView(viewBinding.imageViewBottom)
+            constraintLayout.addView(this.imageViewBottom)
         }
     }
 
