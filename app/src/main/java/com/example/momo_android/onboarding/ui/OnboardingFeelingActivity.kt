@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityOnboardingFeelingBinding
 import java.util.*
 
@@ -48,6 +49,7 @@ class OnboardingFeelingActivity : AppCompatActivity() {
             intent.putExtra("feeling",feeling)
             intent.putExtra("date",binding.tvDate.text.toString())
             startActivity(intent)
+            overridePendingTransition(R.anim.horizontal_left_in, R.anim.horizontal_right_out)
         }
     }
 
@@ -83,5 +85,12 @@ class OnboardingFeelingActivity : AppCompatActivity() {
         }
 
         return year+"."+strMonth+"."+strDay+"."+strWeek
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this, OnboardingStartActivity::class.java)
+        startActivity(intent)
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
 }

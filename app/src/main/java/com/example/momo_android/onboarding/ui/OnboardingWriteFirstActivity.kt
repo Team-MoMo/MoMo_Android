@@ -1,11 +1,10 @@
 package com.example.momo_android.onboarding.ui
 
 import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import android.os.Handler
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityOnboardingWriteFirstBinding
 
@@ -13,6 +12,7 @@ import com.example.momo_android.databinding.ActivityOnboardingWriteFirstBinding
 class OnboardingWriteFirstActivity : AppCompatActivity() {
 
     private lateinit var viewBinding: ActivityOnboardingWriteFirstBinding
+    private val handler = Handler()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +25,7 @@ class OnboardingWriteFirstActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         viewBinding.lottie.cancelAnimation()
+        handler.removeCallbacksAndMessages(null)
     }
 
     private fun setViewBinding() {
@@ -43,10 +44,10 @@ class OnboardingWriteFirstActivity : AppCompatActivity() {
 
     private fun initOnboardingAnimation() {
         viewBinding.lottie.apply {
-            setAnimation("OnboardingCircle.json")
-            playAnimation()
-            addAnimatorListener(animatorListener)
-        }
+                setAnimation("OnboardingCircle.json")
+                playAnimation()
+                addAnimatorListener(animatorListener)
+            }
     }
 
     private val animatorListener = object : Animator.AnimatorListener {
@@ -54,8 +55,10 @@ class OnboardingWriteFirstActivity : AppCompatActivity() {
         override fun onAnimationRepeat(animation: Animator?) {}
         override fun onAnimationCancel(animation: Animator?) {}
         override fun onAnimationEnd(animation: Animator?) {
-            startActivityIntent()
-            finish()
+            handler.postDelayed({
+                startActivityIntent()
+                finish()
+            }, 500)
         }
     }
 
@@ -68,6 +71,15 @@ class OnboardingWriteFirstActivity : AppCompatActivity() {
         intent.putExtra("sentence", viewBinding.tvSentence.text)
         intent.putExtra("feeling", feeling)
         startActivity(intent)
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out_long)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val feeling = intent.getIntExtra("feeling", 0)
+        val intent = Intent(this, OnboardingSentenceActivity::class.java)
+        intent.putExtra("feeling", feeling)
+        startActivity(intent)
+        overridePendingTransition(R.anim.horizontal_right_in, R.anim.horizontal_left_out)
     }
 }
