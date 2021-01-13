@@ -51,6 +51,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_explain">
 
+        <ImageView
+            android:id="@+id/img_feather"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1.13"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.042"
+            app:srcCompat="@drawable/ic_feather_black" />
+
         <TextView
             android:id="@+id/tv_author"
             android:layout_width="wrap_content"
@@ -134,15 +145,6 @@
             tools:layout_conversion_absoluteHeight="19dp"
             tools:layout_conversion_absoluteWidth="297dp" />
 
-        <ImageView
-            android:id="@+id/img_feather"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="1:1.13"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.042"
-            app:srcCompat="@drawable/ic_feather_black" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
