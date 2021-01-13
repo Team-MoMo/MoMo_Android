@@ -38,6 +38,9 @@ class ListActivity : AppCompatActivity() {
         var filter_emotion : Int? = null
         var filter_depth : Int? = null
 
+        var filter_current_year = 0
+        var filter_current_month = 0
+
         // picker에서 선택한 날짜가 현재 날짜인 경우 true
         var selectCurrentDate = false
 
@@ -48,11 +51,11 @@ class ListActivity : AppCompatActivity() {
     private lateinit var listAdapter : ListAdapter
     private lateinit var filterLabelAdapter : FilterLabelAdapter
 
-    private lateinit var currentDate : Calendar
-
     private lateinit var selectEmotion : String
     private lateinit var selectDepth : String
 
+    private var fromDiaryFlag = false
+    
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +68,7 @@ class ListActivity : AppCompatActivity() {
         filter_emotion = null
         filter_depth = null
 
-        setCurrentDate()
+        setCurrentDate(intent.getIntExtra("year", 0), intent.getIntExtra("month", 0))
 
         initToolbar()
 
@@ -76,8 +79,6 @@ class ListActivity : AppCompatActivity() {
         listAdapter = ListAdapter(this)
         binding.rcvList.adapter = listAdapter
         binding.rcvList.layoutManager = LinearLayoutManager(this)
-
-        //loadFilteredData()
 
     }
 
@@ -136,6 +137,9 @@ class ListActivity : AppCompatActivity() {
 
                     Log.d("filter0", filter_emotion.toString())
                     Log.d("filter0", filter_depth.toString())
+                    Log.d("filter0", isCurrentDate.toString())
+                    Log.d("filter0", filter_year.toString())
+                    Log.d("filter0", filter_month.toString())
 
                     // 필터 모달에서 선택한 날짜로 toolbar의 title도 변경
                     binding.collapsingtoolbarlayoutList.title = date
@@ -164,10 +168,11 @@ class ListActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun setCurrentDate() {
-        currentDate = Calendar.getInstance()
-        filter_year = currentDate.get(Calendar.YEAR)
-        filter_month = currentDate.get(Calendar.MONTH) + 1
+    private fun setCurrentDate(year : Int, month : Int) {
+        filter_year = year
+        filter_month = month
+        filter_current_year = year
+        filter_current_month = month
     }
 
     fun activeFilterButton() {
@@ -299,7 +304,11 @@ class ListActivity : AppCompatActivity() {
     private fun loadListData(data: List<ListData>) {
 
         // 리사이클러뷰의 최상단으로 이동
-        scrollTop()
+        // 다이어리뷰에서 back 버튼을 눌러서 다시 리스트뷰로 왔을 땐, 최상단으로 스크롤 x
+        if (!fromDiaryFlag) {
+            scrollTop()   
+        }
+        fromDiaryFlag = false
 
         // 검색 결과가 없을 때 (데이터가 0개)
         if (data.isEmpty()) {
@@ -356,6 +365,8 @@ class ListActivity : AppCompatActivity() {
     private fun initItemClickListener(data: List<ListData>) {
         listAdapter.setItemClickListener(object : ItemClickListener{
             override fun onClickItem(view: View, position: Int) {
+                fromDiaryFlag = true
+
                 val intentFrom = "List -> Diary"
                 val id = data[position].id
 
