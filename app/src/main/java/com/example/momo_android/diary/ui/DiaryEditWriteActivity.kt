@@ -126,7 +126,7 @@ class DiaryEditWriteActivity : AppCompatActivity() {
     private fun requestEditDiary() {
 
         RequestToServer.service.editDiary(
-            Authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
+            Authorization = SharedPreferenceController.getAccessToken(this),
             params = DiaryActivity.responseData[0].id,
             RequestEditDiaryData(
                 depth = DiaryActivity.responseData[0].depth,

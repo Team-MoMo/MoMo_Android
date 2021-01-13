@@ -230,6 +230,9 @@ class SignUpActivity : AppCompatActivity() {
                         // 토큰 저장
                         SharedPreferenceController.setAccessToken(applicationContext,
                             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc")
+                        // 유저 아이디 저장
+                        //SharedPreferenceController.setUserId(applicationContext, response.body()!!.data.user.id)
+                        SharedPreferenceController.setUserId(applicationContext, 2)
 
                         // 홈으로 이동
                         val intent = Intent(applicationContext, HomeActivity::class.java)
