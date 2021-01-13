@@ -31,7 +31,6 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
     private var _viewBinding: FragmentScrollBinding? = null
     private val viewBinding get() = _viewBinding!!
 
-    private var visibleItemPosition: Int = 0
     private var isHomeButtonClicked: Boolean = false
 
 
@@ -95,8 +94,9 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
         @RequiresApi(Build.VERSION_CODES.N)
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
-            checkHomeButtonStatus()
-            updateVerticalSeekBar(getVisibleItemPosition())
+            val visibleItemPosition = getVisibleItemPosition()
+            checkHomeButtonStatus(visibleItemPosition)
+            updateVerticalSeekBar(visibleItemPosition)
         }
 
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -115,17 +115,22 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
 
     @RequiresApi(Build.VERSION_CODES.N)
     private fun updateVerticalSeekBar(visibleItemPosition: Int) {
-        ObjectAnimator
-            .ofInt(
-                viewBinding.verticalSeekBarDepth,
-                "progress",
-                visibleItemPosition * 80
-            )
-            .setDuration(1000)
-            .start()
+        when(visibleItemPosition) {
+            0 -> Log.d("TAG", "updateVerticalSeekBar: $visibleItemPosition")
+            else -> {
+                ObjectAnimator
+                    .ofInt(
+                        viewBinding.verticalSeekBarDepth,
+                        "progress",
+                        (visibleItemPosition - 1) * 80
+                    )
+                    .setDuration(1000)
+                    .start()
+            }
+        }
     }
 
-    private fun checkHomeButtonStatus() {
+    private fun checkHomeButtonStatus(visibleItemPosition: Int) {
         if (visibleItemPosition == 0 && isHomeButtonClicked) {
             IS_FROM_SCROLL = true
             requireActivity().onBackPressed()
