@@ -32,9 +32,9 @@ class ScrollOvalAdapter(
 
     override fun onBindViewHolder(holder: ScrollOvalViewHolder, position: Int) {
         if (position < itemCount) {
-            holder.onBind(position, diaryList[position])
+            holder.onBind(diaryList[position])
             holder.itemView.imageButton_oval.setOnClickListener {
-                clickListener.onClickOvalItem(it, "")
+                clickListener.onClickOvalItem(it, diaryList[position].id)
             }
         } else {
             holder.onEmptyBind()

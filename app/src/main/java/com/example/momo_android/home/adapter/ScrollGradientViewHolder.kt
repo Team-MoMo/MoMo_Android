@@ -1,10 +1,12 @@
 package com.example.momo_android.home.adapter
 
+import android.content.Intent
 import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ItemScrollGradientBinding
+import com.example.momo_android.diary.ui.DiaryActivity
 import com.example.momo_android.home.data.ResponseDiaryList
 import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.util.OvalClickListeners
@@ -132,7 +134,9 @@ class ScrollGradientViewHolder(
         }
     }
 
-    override fun onClickOvalItem(view: View, diaryData: String) {
-        Log.d("TAG", "onClickOvalItem: clicked")
+    override fun onClickOvalItem(view: View, diaryId: Int) {
+        val intent = Intent(view.context, DiaryActivity::class.java)
+        intent.putExtra("diaryId", diaryId)
+        view.context.startActivity(intent)
     }
 }
