@@ -229,6 +229,12 @@ class DiaryActivity : AppCompatActivity() {
     }
 
     private fun setDepthBackground(depth: Int) {
+        binding.objectDeep1.setGone()
+        binding.objectDeep2.setGone()
+        binding.objectDeep3.setGone()
+        binding.objectDeep4.setGone()
+        binding.objectDeep5.setGone()
+        binding.objectDeep6.setGone()
         when (depth) {
             0 -> {
                 binding.root.background = resources.getDrawable(R.drawable.bg_deep1, null)
