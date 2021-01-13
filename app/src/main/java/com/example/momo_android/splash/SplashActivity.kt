@@ -2,10 +2,14 @@ package com.example.momo_android.splash
 
 import android.animation.Animator
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.momo_android.databinding.ActivitySplashBinding
 import com.example.momo_android.home.ui.HomeActivity
+import com.example.momo_android.login.ui.MainLoginActivity
+import com.example.momo_android.onboarding.ui.OnboardingStartActivity
+import com.example.momo_android.util.SharedPreferenceController
 
 class SplashActivity : AppCompatActivity() {
 
@@ -30,11 +34,29 @@ class SplashActivity : AppCompatActivity() {
             }
 
             override fun onAnimationEnd(animation: Animator?) {
-                // splash 애니메이션이 종료되면 onboarding Activity로 넘어감
-                // Todo: Onboarding Activity로 연결하기
-                val intent = Intent(this@SplashActivity, HomeActivity::class.java)
-                startActivity(intent)
-                finish()
+
+                if(SharedPreferenceController.getOnBoarding(this@SplashActivity) == "true") {
+                    // 한 번 실행했으면 true
+                    if(SharedPreferenceController.getAccessToken(this@SplashActivity).isNullOrBlank()) {
+                        // 토큰이 저장되어 있지 않으면 => 로그인으로 이동
+                        val intent = Intent(this@SplashActivity, MainLoginActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        // 토큰이 저장되어 있으면 => 홈으로 이동
+                        val intent = Intent(this@SplashActivity, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                } else {
+                    // 온보딩 실행 & true로 변경
+                    SharedPreferenceController.setOnBoarding(this@SplashActivity, "true")
+                    val intent = Intent(this@SplashActivity, OnboardingStartActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+
+
            }
 
             override fun onAnimationCancel(animation: Animator?) {

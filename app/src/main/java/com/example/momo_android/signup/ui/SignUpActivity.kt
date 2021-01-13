@@ -1,6 +1,7 @@
 package com.example.momo_android.signup.ui
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -13,9 +14,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivitySignUpBinding
-import com.example.momo_android.util.setGone
-import com.example.momo_android.util.setInVisible
-import com.example.momo_android.util.setVisible
+import com.example.momo_android.home.ui.HomeActivity
+import com.example.momo_android.network.RequestToServer
+import com.example.momo_android.signup.data.RequestUserData
+import com.example.momo_android.signup.data.ResponseUserData
+import com.example.momo_android.util.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.regex.Pattern
 
 class SignUpActivity : AppCompatActivity() {
@@ -204,8 +210,45 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         if(binding.checkboxPrivacy.isChecked && binding.checkboxService.isChecked) {
-            // 찐 홈으로 이동 , 서버 통신
+            postSignUp()
         }
+    }
+
+    private fun postSignUp() {
+        RequestToServer.service.postSignUp(
+            RequestUserData(
+                email = binding.etSignupEmail.text.toString(),
+                password = binding.etSignupPasswd.text.toString()
+            )
+        ).enqueue(object : Callback<ResponseUserData> {
+            override fun onResponse(
+                call: Call<ResponseUserData>,
+                response: Response<ResponseUserData>
+            ) {
+                when {
+                    response.code() == 201 -> {
+                        // 토큰 저장
+                        SharedPreferenceController.setAccessToken(applicationContext, response.body()!!.data.token)
+
+                        // 홈으로 이동
+                        val intent = Intent(applicationContext, HomeActivity::class.java)
+                        startActivity(intent)
+                        finishAffinity()
+                    }
+                    response.code() == 400 -> {
+                        Log.d("postSignUp 400", response.message())
+                    }
+                    else -> {
+                        Log.d("postSignUp 500", response.message())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseUserData>, t: Throwable) {
+                Log.d("postSignUp ERROR", "$t")
+            }
+
+        })
     }
 
     private fun EditText.etFocusListener(tv : TextView, tv_error : TextView, button : ImageView) {
