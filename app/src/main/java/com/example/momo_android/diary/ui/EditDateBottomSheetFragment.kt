@@ -9,9 +9,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.NumberPicker
 import android.widget.NumberPicker.OnScrollListener.SCROLL_STATE_IDLE
+import androidx.appcompat.app.AppCompatActivity
 import com.example.momo_android.R
 import com.example.momo_android.databinding.BottomsheetDiaryEditDateBinding
 import com.example.momo_android.diary.data.RequestEditDiaryData
@@ -64,6 +66,10 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _Binding = BottomsheetDiaryEditDateBinding.inflate(layoutInflater)
+
+        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        (activity as AppCompatActivity).supportActionBar?.hide()
+
         return Binding.root
     }
 
@@ -304,7 +310,9 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
         }
     }
 
-
-
-
+    override fun onDestroy() {
+        super.onDestroy()
+        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        (activity as AppCompatActivity).supportActionBar?.show()
+    }
 }

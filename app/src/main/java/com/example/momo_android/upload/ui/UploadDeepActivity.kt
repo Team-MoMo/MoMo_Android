@@ -3,6 +3,7 @@ package com.example.momo_android.upload.ui
 import android.animation.ObjectAnimator
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
@@ -40,6 +41,11 @@ class UploadDeepActivity : AppCompatActivity() {
         binding = ActivityUploadDeepBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        window?.decorView?.systemUiVisibility =
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        window.statusBarColor = Color.TRANSPARENT
 
         val emotionId = intent.getIntExtra("emotionId", 0)
         val sentenceId = intent.getIntExtra("sentenceId", 0)

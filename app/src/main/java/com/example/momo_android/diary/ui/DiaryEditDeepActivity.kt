@@ -3,6 +3,7 @@ package com.example.momo_android.diary.ui
 import android.animation.ObjectAnimator
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
@@ -38,6 +39,11 @@ class DiaryEditDeepActivity : AppCompatActivity() {
         binding = ActivityDiaryEditDeepBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        window?.decorView?.systemUiVisibility =
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        window.statusBarColor = Color.TRANSPARENT
 
         // 총 3개의 시크바 사용
         val mainSeekbar = binding.mainSeekBar
