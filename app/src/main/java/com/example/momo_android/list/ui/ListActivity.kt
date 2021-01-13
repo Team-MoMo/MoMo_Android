@@ -54,6 +54,8 @@ class ListActivity : AppCompatActivity() {
     private lateinit var selectEmotion : String
     private lateinit var selectDepth : String
 
+    private var fromDiaryFlag = false
+    
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -302,7 +304,11 @@ class ListActivity : AppCompatActivity() {
     private fun loadListData(data: List<ListData>) {
 
         // 리사이클러뷰의 최상단으로 이동
-        scrollTop()
+        // 다이어리뷰에서 back 버튼을 눌러서 다시 리스트뷰로 왔을 땐, 최상단으로 스크롤 x
+        if (!fromDiaryFlag) {
+            scrollTop()   
+        }
+        fromDiaryFlag = false
 
         // 검색 결과가 없을 때 (데이터가 0개)
         if (data.isEmpty()) {
@@ -359,6 +365,8 @@ class ListActivity : AppCompatActivity() {
     private fun initItemClickListener(data: List<ListData>) {
         listAdapter.setItemClickListener(object : ItemClickListener{
             override fun onClickItem(view: View, position: Int) {
+                fromDiaryFlag = true
+
                 val intentFrom = "List -> Diary"
                 val id = data[position].id
 
