@@ -106,4 +106,10 @@ interface RequestInterface {
         @Body body: RequestUserData
     ) : Call<ResponseUserData>
 
+    // 이메일 중복확인
+    @Headers("Content-Type: application/json")
+    @GET("/users/signup")
+    fun checkDuplicate(
+        @Query("email") email: String
+    ) : Call<ResponseUserData>
 }
