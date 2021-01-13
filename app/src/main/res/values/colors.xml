@@ -8,6 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <!-- status bar color -->
+    <color name="gray_status_bar">#f1f1f1</color>
+
     <!-- splash color -->
     <color name="blue_splash">#4993da</color>
 

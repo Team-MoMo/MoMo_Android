@@ -24,11 +24,10 @@
         <activity android:name=".login.ui.MainLoginActivity" />
         <activity
             android:name=".diary.ui.DiaryEditWriteActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize">
-
-        </activity>
+            android:windowSoftInputMode="stateVisible|adjustResize"/>
         <activity android:name=".signup.ui.SignUpActivity" />
-        <activity android:name=".splash.SplashActivity">
+        <activity android:name=".splash.SplashActivity"
+            android:theme="@style/Theme.splashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,10 +45,7 @@
             android:name=".upload.ui.UploadWriteActivity"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity android:name=".upload.ui.UploadSentenceActivity" />
-        <activity android:name=".upload.ui.UploadFeelingActivity">
-
-
-        </activity>
+        <activity android:name=".upload.ui.UploadFeelingActivity"/>
         <activity android:name=".upload.ui.UploadDeepActivity" />
         <activity
             android:name=".list.ui.ListActivity"
