@@ -51,6 +51,10 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setListeners()
+    }
+
+    override fun onResume() {
+        super.onResume()
         setCurrentDate()
         setDayNightStatus()
         getServerDiaryData()
