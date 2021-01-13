@@ -3,8 +3,10 @@ package com.example.momo_android.home.ui
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityHomeBinding
 import com.example.momo_android.home.adapter.HomeViewPager2Adapter
+import com.example.momo_android.util.setCustomCurrentItem
 
 
 class HomeActivity : AppCompatActivity() {
