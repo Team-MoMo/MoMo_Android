@@ -4,6 +4,8 @@ import com.example.momo_android.diary.data.RequestEditDiaryData
 import com.example.momo_android.diary.data.ResponseDiaryData
 import com.example.momo_android.home.data.ResponseDiaryList
 import com.example.momo_android.list.data.ResponseFilterData
+import com.example.momo_android.signup.data.RequestSignupData
+import com.example.momo_android.signup.data.ResponseSignupData
 import com.example.momo_android.upload.data.RequestUploadDiaryData
 import com.example.momo_android.upload.data.ResponseSentenceData
 import com.example.momo_android.upload.data.ResponseUploadDiaryData
@@ -89,5 +91,12 @@ interface RequestInterface {
         @Header("Authorization") Authorization: String?,
         @Body body: RequestUploadDiaryData
     ) : Call<ResponseUploadDiaryData>
+
+    // 회원가입
+    @Headers("Content-Type: application/json")
+    @POST("/users/signup")
+    fun postSignUp(
+        @Body body: RequestSignupData
+    ) : Call<ResponseSignupData>
 
 }
