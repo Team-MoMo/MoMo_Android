@@ -33,6 +33,7 @@ class HomeFragment : Fragment() {
     private val viewBinding get() = _viewBinding!!
 
     private var isDay = true
+    private var diaryId = 0
     private val currentYear = Calendar.getInstance().get(Calendar.YEAR)
     private val currentMonth = (Calendar.getInstance().get(Calendar.MONTH) + 1)
     private val currentDate = Calendar.getInstance().get(Calendar.DATE)
@@ -175,9 +176,13 @@ class HomeFragment : Fragment() {
 
     private fun setServerDiaryData(diaryList: List<ResponseDiaryList.Data>) {
         when (diaryList.size) {
-            0 -> setEmptyView()
+            0 -> {
+                setEmptyView()
+                DIARY_STATUS = false
+            }
             else -> {
                 setDiaryView()
+                diaryId = diaryList[0].id
                 setEmotionData(diaryList[0].emotionId, isDay)
                 setDepthData(diaryList[0].depth)
                 setBookDiaryData(diaryList[0])
@@ -353,21 +358,30 @@ class HomeFragment : Fragment() {
 
     private fun setIntentToDiaryActivity() {
         val intent = Intent(requireContext(), DiaryActivity::class.java)
+        intent.putExtra("diaryId", diaryId)
         startActivity(intent)
     }
 
     private fun setIntentToUploadActivity() {
         val intent = Intent(requireContext(), UploadFeelingActivity::class.java)
+        intent.putExtra("intentFrom", "Home -> Upload")
+        intent.putExtra("diaryStatus", DIARY_STATUS)
         startActivity(intent)
     }
 
     private fun setIntentToListActivity() {
         val intent = Intent(requireContext(), ListActivity::class.java)
+        intent.putExtra("year", currentYear)
+        intent.putExtra("month", currentMonth)
         startActivity(intent)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _viewBinding = null
+    }
+
+    companion object {
+        var DIARY_STATUS = true
     }
 }

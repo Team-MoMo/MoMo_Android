@@ -21,6 +21,7 @@ import com.example.momo_android.home.adapter.ScrollGradientAdapter
 import com.example.momo_android.databinding.FragmentScrollBinding
 import com.example.momo_android.list.ui.ListActivity
 import com.example.momo_android.home.ui.HomeActivity.Companion.IS_FROM_SCROLL
+import com.example.momo_android.home.ui.HomeFragment.Companion.DIARY_STATUS
 import com.example.momo_android.upload.ui.UploadFeelingActivity
 import com.example.momo_android.util.ScrollDatePickerListener
 import java.util.*
@@ -32,6 +33,8 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
     private val viewBinding get() = _viewBinding!!
 
     private var isHomeButtonClicked: Boolean = false
+    private var selectedYear = QUERY_YEAR
+    private var selectedMonth = QUERY_MONTH
 
 
     override fun onCreateView(
@@ -115,8 +118,8 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
 
     @RequiresApi(Build.VERSION_CODES.N)
     private fun updateVerticalSeekBar(visibleItemPosition: Int) {
-        when(visibleItemPosition) {
-            0 -> Log.d("TAG", "updateVerticalSeekBar: $visibleItemPosition")
+        when (visibleItemPosition) {
+            0 -> {}
             else -> {
                 ObjectAnimator
                     .ofInt(
@@ -157,7 +160,7 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
     private fun fadeInSwipeDownImage() {
         viewBinding.apply {
             when ((recyclerViewGradient.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()) {
-                7 -> imageViewSwipeDown.visibility = ImageView.INVISIBLE
+                8 -> imageViewSwipeDown.visibility = ImageView.INVISIBLE
                 else -> {
                     imageViewSwipeDown.visibility = View.VISIBLE
                     imageViewSwipeDown.alpha = 0f
@@ -218,8 +221,10 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
     }
 
     override fun onClickDatePickerApplyButton(year: Int, month: Int) {
+        selectedYear = year
+        selectedMonth = month
         fadeOutLoadingView()
-        setGradientRecyclerView(year, month)
+        setGradientRecyclerView(selectedYear, selectedMonth)
     }
 
     private fun scrollToTop() {
@@ -229,11 +234,15 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
 
     private fun setIntentToUploadActivity() {
         val intent = Intent(requireContext(), UploadFeelingActivity::class.java)
+        intent.putExtra("intentFrom", "Scroll -> Upload")
+        intent.putExtra("diaryStatus", DIARY_STATUS)
         startActivity(intent)
     }
 
     private fun setIntentToListActivity() {
         val intent = Intent(requireContext(), ListActivity::class.java)
+        intent.putExtra("year", selectedYear)
+        intent.putExtra("month", selectedMonth)
         startActivity(intent)
     }
 
