@@ -24,6 +24,7 @@ import com.example.momo_android.diary.ui.DiaryActivity.Companion.diary_year
 import com.example.momo_android.home.data.ResponseDiaryList
 import com.example.momo_android.list.data.ResponseFilterData
 import com.example.momo_android.network.RequestToServer
+import com.example.momo_android.util.SharedPreferenceController
 import com.example.momo_android.util.getDate
 import com.example.momo_android.util.getMonth
 import com.example.momo_android.util.showToast
@@ -213,7 +214,7 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
     private fun requestCheckDiary(year: Int, month: Int, date: Int) {
 
         RequestToServer.service.getHomeDiaryList(
-            authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
+            authorization = context?.let { SharedPreferenceController.getAccessToken(it) },
             order = "filter",
             year = year,
             month = month,
@@ -255,7 +256,7 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
     private fun requestEditDiary() {
 
         RequestToServer.service.editDiary(
-            Authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
+            Authorization = context?.let { SharedPreferenceController.getAccessToken(it) },
             params = DiaryActivity.responseData[0].id,
             RequestEditDiaryData(
                 depth = DiaryActivity.responseData[0].depth,

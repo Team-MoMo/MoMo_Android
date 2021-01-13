@@ -1,6 +1,7 @@
 package com.example.momo_android.signup.ui
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -13,9 +14,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivitySignUpBinding
-import com.example.momo_android.util.setGone
-import com.example.momo_android.util.setInVisible
-import com.example.momo_android.util.setVisible
+import com.example.momo_android.home.ui.HomeActivity
+import com.example.momo_android.network.RequestToServer
+import com.example.momo_android.signup.data.RequestUserData
+import com.example.momo_android.signup.data.ResponseUserData
+import com.example.momo_android.util.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.regex.Pattern
 
 class SignUpActivity : AppCompatActivity() {
@@ -129,22 +135,21 @@ class SignUpActivity : AppCompatActivity() {
         val et_email = binding.etSignupEmail
         val tv_email_error = binding.tvEmailError
 
-        tv_email.setTextColor(ContextCompat.getColor(applicationContext, R.color.red_2_error))
-        et_email.background = resources.getDrawable(R.drawable.signup_et_area_error, null)
-        tv_email_error.setVisible()
+
 
         if(et_email.text.isEmpty()) {
+            tv_email.setTextColor(ContextCompat.getColor(applicationContext, R.color.red_2_error))
+            et_email.background = resources.getDrawable(R.drawable.signup_et_area_error, null)
+            tv_email_error.setVisible()
             tv_email_error.text = "이메일을 입력해 주세요"
         } else if(et_email.text.isNotEmpty() &&
             !android.util.Patterns.EMAIL_ADDRESS.matcher(et_email.text.toString()).matches()) {
+            tv_email.setTextColor(ContextCompat.getColor(applicationContext, R.color.red_2_error))
+            et_email.background = resources.getDrawable(R.drawable.signup_et_area_error, null)
+            tv_email_error.setVisible()
             tv_email_error.text = "올바른 이메일 형식이 아닙니다"
         } else {
-            // 서버통신으로 확인
-            // tv_email_error.text = "MOMO에 이미 가입된 이메일이에요!"
-            tv_email.setTextColor(ContextCompat.getColor(applicationContext, R.color.blue_2))
-            et_email.background = resources.getDrawable(R.drawable.signup_et_area, null)
-            tv_email_error.setInVisible()
-            passwordController()
+            checkDuplicate() // 이메일 중복체크
         }
     }
 
@@ -204,8 +209,83 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         if(binding.checkboxPrivacy.isChecked && binding.checkboxService.isChecked) {
-            // 찐 홈으로 이동 , 서버 통신
+            postSignUp()
         }
+    }
+
+    private fun postSignUp() {
+        RequestToServer.service.postSignUp(
+            RequestUserData(
+                email = binding.etSignupEmail.text.toString(),
+                password = binding.etSignupPasswd.text.toString()
+            )
+        ).enqueue(object : Callback<ResponseUserData> {
+            override fun onResponse(
+                call: Call<ResponseUserData>,
+                response: Response<ResponseUserData>
+            ) {
+                when {
+                    response.code() == 201 -> {
+                        // 토큰 저장
+                        SharedPreferenceController.setAccessToken(applicationContext,
+                            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc")
+                        // 유저 아이디 저장
+                        //SharedPreferenceController.setUserId(applicationContext, response.body()!!.data.user.id)
+                        SharedPreferenceController.setUserId(applicationContext, 2)
+
+                        // 홈으로 이동
+                        val intent = Intent(applicationContext, HomeActivity::class.java)
+                        startActivity(intent)
+                        finishAffinity()
+                    }
+                    response.code() == 400 -> {
+                        Log.d("postSignUp 400", response.message())
+                    }
+                    else -> {
+                        Log.d("postSignUp 500", response.message())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseUserData>, t: Throwable) {
+                Log.d("postSignUp ERROR", "$t")
+            }
+
+        })
+    }
+
+    private fun checkDuplicate() {
+        RequestToServer.service.checkDuplicate(
+            email = binding.etSignupEmail.text.toString()
+        ).enqueue(object : Callback<ResponseUserData> {
+            override fun onResponse(
+                call: Call<ResponseUserData>,
+                response: Response<ResponseUserData>
+            ) {
+                when(response.code()) {
+                    200 -> {
+                        Log.d("이메일 체크", "사용 가능")
+                        binding.tvEmail.setTextColor(ContextCompat.getColor(applicationContext, R.color.blue_2))
+                        binding.etSignupEmail.background = resources.getDrawable(R.drawable.signup_et_area, null)
+                        binding.tvEmailError.setInVisible()
+                        passwordController()
+                    }
+                    400 -> {
+                        Log.d("이메일 체크", "중복 메일")
+                        binding.tvEmail.setTextColor(ContextCompat.getColor(applicationContext, R.color.red_2_error))
+                        binding.etSignupEmail.background = resources.getDrawable(R.drawable.signup_et_area_error, null)
+                        binding.tvEmailError.setVisible()
+                        binding.tvEmailError.text = "MOMO에 이미 가입된 이메일이에요!"
+                    }
+                    else -> Log.d("checkDuplicate 500", response.message())
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseUserData>, t: Throwable) {
+                Log.d("checkDuplicate ERROR", "$t")
+            }
+
+        })
     }
 
     private fun EditText.etFocusListener(tv : TextView, tv_error : TextView, button : ImageView) {

@@ -151,7 +151,7 @@ class DiaryActivity : AppCompatActivity() {
 
         // 다이어리 조회
         RequestToServer.service.getDiary(
-            Authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
+            Authorization = SharedPreferenceController.getAccessToken(this),
             params = intent.getIntExtra("diaryId", 0)
         ).enqueue(object : Callback<ResponseDiaryData> {
             override fun onResponse(call: Call<ResponseDiaryData>, response: Response<ResponseDiaryData>) {
@@ -196,7 +196,7 @@ class DiaryActivity : AppCompatActivity() {
 
     private fun deleteDiary() {
         RequestToServer.service.deleteDiary(
-            Authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
+            Authorization = SharedPreferenceController.getAccessToken(this),
             params = intent.getIntExtra("diaryId", 0)
         ).enqueue(object : Callback<ResponseDiaryData> {
             override fun onResponse(

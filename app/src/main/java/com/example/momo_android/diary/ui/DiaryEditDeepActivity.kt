@@ -25,6 +25,7 @@ import com.example.momo_android.diary.data.ResponseDiaryData
 import com.example.momo_android.home.ui.ScrollFragment.Companion.EDITED_DEPTH
 import com.example.momo_android.home.ui.ScrollFragment.Companion.IS_EDITED
 import com.example.momo_android.network.RequestToServer
+import com.example.momo_android.util.SharedPreferenceController
 import com.example.momo_android.util.showToast
 import retrofit2.Call
 import retrofit2.Response
@@ -143,7 +144,7 @@ class DiaryEditDeepActivity : AppCompatActivity() {
     private fun requestEditDiary(depth : Int) {
 
         RequestToServer.service.editDiary(
-            Authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
+            Authorization = SharedPreferenceController.getAccessToken(this),
             params = DiaryActivity.responseData[0].id,
             body = RequestEditDiaryData(
                 depth = depth,

@@ -7,7 +7,7 @@ object SharedPreferenceController {
     private val TOKEN = "TOKEN"
     private val MY_ACCOUNT = "MY_ACCOUNT"
     private val ON_BOARDING = "ON_BOARDING"
-    private val CURRENT_TIME = "CURRENT_TIME"
+    private val USER_ID = "USER_ID"
 
 
     // 토큰
@@ -15,7 +15,7 @@ object SharedPreferenceController {
         val pref = context.getSharedPreferences(TOKEN, Context.MODE_PRIVATE)
         val editor = pref.edit()
         editor.putString("access_token", authorization)
-        editor.commit()
+        editor.apply()
     }
 
     fun getAccessToken(context: Context): String? {
@@ -23,8 +23,20 @@ object SharedPreferenceController {
         return pref.getString("access_token", "")
     }
 
+    // userId 유저아이디 = 서버에 보내주는 Int값
+    fun setUserId(context: Context, userId: Int) {
+        val pref = context.getSharedPreferences(USER_ID, Context.MODE_PRIVATE)
+        val editor = pref.edit()
+        editor.putInt("USER_ID", userId)
+        editor.apply()
+    }
 
-    // 자동로그인
+    fun getUserId(context: Context): Int? {
+        val pref = context.getSharedPreferences(USER_ID, Context.MODE_PRIVATE)
+        return pref.getInt("USER_ID", 0)
+    }
+
+    // 자동로그인 & 메일, 비밀번호 정보
     fun setMail(context: Context, input: String) {
         val prefs = context.getSharedPreferences(MY_ACCOUNT, Context.MODE_PRIVATE)
         val editor = prefs.edit()
@@ -54,20 +66,6 @@ object SharedPreferenceController {
         val editor = prefs.edit()
         editor.clear()
         editor.apply()
-    }
-
-
-    // 현재 시간 저장 - 토큰 갱신
-    fun setCurrentTime(context: Context, input: String) {
-        val prefs = context.getSharedPreferences(CURRENT_TIME, Context.MODE_PRIVATE)
-        val editor = prefs.edit()
-        editor.putString("CURRENT_TIME", input)
-        editor.apply()
-    }
-
-    fun getCurrentTime(context: Context) : String? {
-        val prefs = context.getSharedPreferences(CURRENT_TIME, Context.MODE_PRIVATE)
-        return prefs.getString("CURRENT_TIME", "")
     }
 
 
