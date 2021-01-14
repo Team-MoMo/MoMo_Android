@@ -13,6 +13,9 @@ import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityListBinding
 import com.example.momo_android.diary.ui.DiaryActivity
 import com.example.momo_android.list.*
+import com.example.momo_android.list.adapter.FilterLabelAdapter
+import com.example.momo_android.list.adapter.FilterLabelData
+import com.example.momo_android.list.adapter.ListAdapter
 import com.example.momo_android.list.data.ListData
 import com.example.momo_android.list.data.ResponseFilterData
 import com.example.momo_android.network.RequestToServer
@@ -341,7 +344,7 @@ class ListActivity : AppCompatActivity() {
 
             for (i in 0..data.size-1) {
                 listAdapter.data.add(
-                    ListData(
+                    com.example.momo_android.list.adapter.ListData(
                         baseContext?.getDrawable(getEmotionImg(data[i].emotionId)),
                         data[i].Emotion.name,
                         getFormedDate(data[i].wroteAt),
