@@ -5,18 +5,30 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings.Global.getString
+import android.util.Log
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.momo_android.databinding.ActivityUploadFeelingBinding
 import com.example.momo_android.diary.data.Diary
 import com.example.momo_android.diary.ui.DiaryActivity
 import com.example.momo_android.diary.ui.EditDateBottomSheetFragment
 import com.example.momo_android.home.ui.HomeActivity
+import com.example.momo_android.home.ui.ScrollFragment
 import com.example.momo_android.list.ui.ListActivity
+import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.upload.UploadDateBottomSheetFragment
+import com.example.momo_android.upload.data.ResponseRecentWriteData
+import com.example.momo_android.util.SharedPreferenceController
 import com.example.momo_android.util.getDate
 import com.example.momo_android.util.getMonth
+import com.example.momo_android.util.showToast
+import okhttp3.ResponseBody
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Response
+import retrofit2.http.Header
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.security.auth.callback.Callback
 
 class UploadFeelingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUploadFeelingBinding//뷰바인딩
@@ -24,9 +36,9 @@ class UploadFeelingActivity : AppCompatActivity() {
 
     //넘어오는 화면 저장해뒀다가 UploadSentence에게도 intent
     companion object {
-        var upload_year = 2020
-        var upload_month = 1
-        var upload_date = 12
+        var upload_year = 0
+        var upload_month = 0
+        var upload_date = 0
         var upload_wroteAt = ""
 
         var activity : Activity? = null
@@ -42,21 +54,18 @@ class UploadFeelingActivity : AppCompatActivity() {
         //Sentence Activity에서 Feeling 이전의 창으로 넘어가기 위함
         activity = this
 
+
         //HomeActivity에서 오늘일기가 있을때 없을 때 + ListView 오늘일기 없을때(else)
         if(intent.hasExtra("diaryStatus")){
             var value=intent.getBooleanExtra("diaryStatus",true)
             when(value){
-                true->{
-                    //오늘일기가 있으면 모달이 바로 뜬다.
-                    //여기도 0붙여주는거 해야함.
-                    //서버 여기서 연결한 다음.  가장 최근 일기 안쓴 날짜 받아와서 .text시키고. 배경택스트 바꿔줘야
-                    // 그 companion넣은 다음 openDateModal로 수정
-                    ////////////서버통신 자리////////////
-                    //openDateModal()
-                    setToday() // 위에 처리 했으면 지워야함.
+                true->{//오늘일기가 있으면 모달이 바로 뜬다
+
+                    //일기 안쓴 가장 최근 일자 가져오기. Picker용과 tvDate용 설정
+                    loadRecentData()
+                    //받아온 최근 날짜를 기준으로 모달이 뜬다.
                 }
-                false->{
-                    //오늘 일기가 없으면 오늘 날짜로 설정한다.
+                false->{ //오늘 일기가 없으면 오늘 날짜로 설정한다.
                     setToday()
                 }
             }
@@ -159,4 +168,66 @@ class UploadFeelingActivity : AppCompatActivity() {
 
         fragEditDate.show(supportFragmentManager, fragEditDate.tag)
     }
+
+    //안쓴 날짜중 가장 최근날 가져오는것
+    private fun loadRecentData(){
+        RequestToServer.service.getRecentNoWrite(
+            Authorization = SharedPreferenceController.getAccessToken(this),
+            userId = SharedPreferenceController.getUserId(this)
+        ).enqueue(object:retrofit2.Callback<ResponseRecentWriteData> {
+            override fun onResponse(
+                call: Call<ResponseRecentWriteData>,
+                response: Response<ResponseRecentWriteData>
+            ) {
+                when {
+                    response.code() == 200 -> {
+                        Log.d("recentData 200","통신 가능")
+                        val no_data_day=response.body()!!.data
+                        // string to date
+                        setDate(no_data_day)
+                        openDateModal()
+                    }
+                    response.code() == 400 -> {
+                        Log.d("recentData 401", response.message())
+                    }
+                    else -> {
+                        Log.d("recentData 500", response.message())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseRecentWriteData>, t: Throwable) {
+                Log.d("recentData_fail", "fail : ${t.message}")
+            }
+        })
+    }
+//    private fun showError(error: ResponseBody?) {
+//        val e = error ?: return
+//        val ob = JSONObject(e.string())
+//        this.showToast(ob.getString("message"))
+//        Log.d("RecentData_showError", ob.getString("message"))
+//    }
+
+    //
+    private fun setDate(no_data_day: String) {
+        //"2021-01-13T00:00:00+00:00"
+        //val dateformat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss.sss'Z'", Locale.KOREAN).parse(wroteAt)
+        val dateformat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX").parse(no_data_day)
+        val diary_day = SimpleDateFormat("yyyy. MM. dd. EEEE", Locale.KOREA).format(dateformat)
+
+        upload_year = SimpleDateFormat("yyyy", Locale.KOREA).format(dateformat).toInt()
+        upload_month = SimpleDateFormat("MM", Locale.KOREA).format(dateformat).toInt()
+        upload_date = SimpleDateFormat("dd", Locale.KOREA).format(dateformat).toInt()
+        val week=SimpleDateFormat("EEEE",Locale.KOREA).format(dateformat)
+
+        val month= getMonth(upload_month)
+        val date= getDate(upload_date)
+
+        binding.tvDate.text="${upload_year}. ${month}. ${date}. ${week}"
+        upload_wroteAt = "${upload_year}"+"-"+"${month}"+"-"+"${date}"
+        Log.d("upload_identify", "$upload_month"+" "+ "$upload_date")
+        Log.d("upload_wroteAt","$upload_wroteAt")
+    }
+
+
 }
