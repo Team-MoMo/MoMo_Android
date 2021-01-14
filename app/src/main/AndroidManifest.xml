@@ -18,15 +18,7 @@
         <activity android:name=".onboarding.ui.OnboardingDepthActivity" />
         <activity android:name=".onboarding.ui.OnboardingSentenceActivity" />
         <activity android:name=".onboarding.ui.OnboardingFeelingActivity" />
-        <activity android:name=".onboarding.ui.OnboardingStartActivity">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-        </activity>
+        <activity android:name=".onboarding.ui.OnboardingStartActivity"/>
 
         <activity android:name=".login.ui.FindPasswordActivity" />
         <activity android:name=".login.ui.MainLoginActivity" />
@@ -36,15 +28,11 @@
         <activity android:name=".signup.ui.SignUpActivity" />
         <activity android:name=".splash.SplashActivity"
             android:theme="@style/Theme.splashTheme">
-        <activity android:name=".splash.SplashActivity">
-            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-            -->
         </activity>
 
         <activity
