@@ -305,34 +305,53 @@
                 app:layout_constraintStart_toStartOf="@+id/constraintLayout22"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout22" />
 
-            <TextView
-                android:id="@+id/tv_cb_privacy_error1"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_go_privacy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:fontFamily="@font/notosanskrmedium"
-                android:includeFontPadding="false"
-                android:letterSpacing="-0.07"
-                android:text="[필수]"
-                android:textColor="@color/black_2_nav"
-                android:textSize="14dp"
                 app:layout_constraintBottom_toBottomOf="@+id/checkbox_privacy"
                 app:layout_constraintStart_toEndOf="@+id/checkbox_privacy"
-                app:layout_constraintTop_toTopOf="@+id/checkbox_privacy" />
+                app:layout_constraintTop_toTopOf="@+id/checkbox_privacy">
 
-            <TextView
-                android:id="@+id/tv_cb_privacy_error2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/notosanskrregular"
-                android:includeFontPadding="false"
-                android:letterSpacing="-0.07"
-                android:text=" 개인정보 수집이용 동의"
-                android:textColor="@color/black_2_nav"
-                android:textSize="14dp"
-                app:layout_constraintBottom_toBottomOf="@+id/checkbox_privacy"
-                app:layout_constraintStart_toEndOf="@+id/tv_cb_privacy_error1"
-                app:layout_constraintTop_toTopOf="@+id/checkbox_privacy" />
+                <TextView
+                    android:id="@+id/tv_cb_privacy_error1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosanskrmedium"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="-0.07"
+                    android:text="[필수]"
+                    android:textColor="@color/black_2_nav"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_cb_privacy_error2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosanskrregular"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="-0.07"
+                    android:text=" 개인정보 수집이용 동의"
+                    android:textColor="@color/black_2_nav"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_cb_privacy_error1"
+                    app:layout_constraintStart_toEndOf="@+id/tv_cb_privacy_error1"
+                    app:layout_constraintTop_toTopOf="@+id/tv_cb_privacy_error1" />
+
+                <ImageView
+                    android:id="@+id/img_ch_privacy_error"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_cb_privacy_error2"
+                    app:layout_constraintStart_toEndOf="@+id/tv_cb_privacy_error2"
+                    app:layout_constraintTop_toTopOf="@+id/tv_cb_privacy_error2"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:srcCompat="@drawable/btn_arrow_right_black" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <CheckBox
                 android:id="@+id/checkbox_service"
@@ -346,34 +365,53 @@
                 app:layout_constraintTop_toBottomOf="@+id/checkbox_privacy"
                 app:layout_constraintVertical_chainStyle="spread_inside" />
 
-            <TextView
-                android:id="@+id/tv_cb_service_error1"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_go_service"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:fontFamily="@font/notosanskrmedium"
-                android:includeFontPadding="false"
-                android:letterSpacing="-0.07"
-                android:text="[필수]"
-                android:textColor="@color/black_2_nav"
-                android:textSize="14dp"
                 app:layout_constraintBottom_toBottomOf="@+id/checkbox_service"
                 app:layout_constraintStart_toEndOf="@+id/checkbox_service"
-                app:layout_constraintTop_toTopOf="@+id/checkbox_service" />
+                app:layout_constraintTop_toTopOf="@+id/checkbox_service">
 
-            <TextView
-                android:id="@+id/tv_cb_service_error2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/notosanskrregular"
-                android:includeFontPadding="false"
-                android:letterSpacing="-0.07"
-                android:text=" 서비스 이용약관 동의"
-                android:textColor="@color/black_2_nav"
-                android:textSize="14dp"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_cb_service_error1"
-                app:layout_constraintStart_toEndOf="@+id/tv_cb_service_error1"
-                app:layout_constraintTop_toTopOf="@+id/tv_cb_service_error1" />
+                <TextView
+                    android:id="@+id/tv_cb_service_error1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosanskrmedium"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="-0.07"
+                    android:text="[필수]"
+                    android:textColor="@color/black_2_nav"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_cb_service_error2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosanskrregular"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="-0.07"
+                    android:text=" 서비스 이용약관 동의"
+                    android:textColor="@color/black_2_nav"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_cb_service_error1"
+                    app:layout_constraintStart_toEndOf="@+id/tv_cb_service_error1"
+                    app:layout_constraintTop_toTopOf="@+id/tv_cb_service_error1" />
+
+                <ImageView
+                    android:id="@+id/img_ch_service_error"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_cb_service_error2"
+                    app:layout_constraintStart_toEndOf="@+id/tv_cb_service_error2"
+                    app:layout_constraintTop_toTopOf="@+id/tv_cb_service_error2"
+                    app:layout_constraintVertical_bias="0.103"
+                    app:srcCompat="@drawable/btn_arrow_right_black" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/btn_signup"
