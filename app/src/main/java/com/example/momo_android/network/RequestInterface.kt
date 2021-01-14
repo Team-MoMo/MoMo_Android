@@ -58,11 +58,11 @@ interface RequestInterface {
     @GET("/diaries")
     fun getHomeDiaryList(
         @Header("Authorization") authorization: String?,
+        @Query("userId") userId: Int,
         @Query("order") order: String,
         @Query("year") year: Int,
         @Query("month") month: Int,
-        @Query("day") day: Int,
-        @Query("userId") userId: Int
+        @Query("day") day: Int
     ): Call<ResponseDiaryList>
 
     // ScrollFragment.kt 다이어리 조회별 (월별)
@@ -71,9 +71,9 @@ interface RequestInterface {
     fun getScrollDiaryList(
         @Header("Authorization") authorization: String?,
         @Query("userId") userId: Int,
+        @Query("order") order: String,
         @Query("year") year: Int,
         @Query("month") month: Int,
-        @Query("order") order: String
     ): Call<ResponseDiaryList>
 
     // UploadSentenceActivity.kt 문장 3개 조회

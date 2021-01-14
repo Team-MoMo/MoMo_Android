@@ -10,6 +10,7 @@ import com.example.momo_android.diary.ui.DiaryActivity
 import com.example.momo_android.home.data.ResponseDiaryList
 import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.util.OvalClickListeners
+import com.example.momo_android.util.SharedPreferenceController
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -77,11 +78,11 @@ class ScrollGradientViewHolder(
 
     private fun getServerDiaryData(depth: Int) {
         RequestToServer.service.getScrollDiaryList(
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
-            2,
+            SharedPreferenceController.getAccessToken(viewBinding.root.context),
+            SharedPreferenceController.getUserId(viewBinding.root.context)!!,
+            "depth",
             queryYear,
-            queryMonth,
-            "depth"
+            queryMonth
         ).enqueue(object : Callback<ResponseDiaryList> {
             override fun onResponse(
                 call: Call<ResponseDiaryList>,
