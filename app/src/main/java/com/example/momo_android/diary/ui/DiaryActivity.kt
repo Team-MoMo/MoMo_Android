@@ -1,11 +1,14 @@
 package com.example.momo_android.diary.ui
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityDiaryBinding
 import com.example.momo_android.diary.data.Diary
@@ -179,7 +182,8 @@ class DiaryActivity : AppCompatActivity() {
                         tv_publisher.text = "(${body.data.Sentence.publisher})" // 출판사
                         tv_diary_content.text = body.data.contents // 일기
 
-
+                        setLoadingViewBackground(body.data.depth)
+                        fadeOutLoadingView()
                     }
                     response.code() == 400 -> {
                         Log.d("getDiary 400", response.message())
@@ -316,6 +320,35 @@ class DiaryActivity : AppCompatActivity() {
             6 -> "우울"
             7 -> "추억"
             else -> "일상"
+        }
+    }
+
+    private fun fadeOutLoadingView() {
+        binding.viewDiaryLoading.apply {
+            visibility = View.VISIBLE
+            alpha = 1f
+            animate()
+                .alpha(0f)
+                .setDuration(resources.getInteger(android.R.integer.config_longAnimTime).toLong())
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        binding.viewDiaryLoading.setGone()
+                    }
+                })
+        }
+    }
+
+    private fun setLoadingViewBackground(depth : Int) {
+        binding.viewDiaryLoading.apply {
+            when(depth) {
+                0 -> background = resources.getDrawable(R.drawable.bg_deep1, null)
+                1 -> background = resources.getDrawable(R.drawable.bg_deep2, null)
+                2 -> background = resources.getDrawable(R.drawable.bg_deep3, null)
+                3 -> background = resources.getDrawable(R.drawable.bg_deep4, null)
+                4 -> background = resources.getDrawable(R.drawable.bg_deep5, null)
+                5 -> background = resources.getDrawable(R.drawable.bg_deep6, null)
+                else -> background = resources.getDrawable(R.drawable.bg_deep7, null)
+            }
         }
     }
 
