@@ -31,7 +31,7 @@ object SharedPreferenceController {
         editor.apply()
     }
 
-    fun getUserId(context: Context): Int? {
+    fun getUserId(context: Context): Int {
         val pref = context.getSharedPreferences(USER_ID, Context.MODE_PRIVATE)
         return pref.getInt("USER_ID", 0)
     }

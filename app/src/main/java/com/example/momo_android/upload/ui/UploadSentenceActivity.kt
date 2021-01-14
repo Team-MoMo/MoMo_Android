@@ -134,7 +134,7 @@ class UploadSentenceActivity : AppCompatActivity() {
         RequestToServer.service.getSentence(
             Authorization = SharedPreferenceController.getAccessToken(this),
             emotionId = emotionId,
-            userId = 2
+            userId = SharedPreferenceController.getUserId(this)
         ).enqueue(object : Callback<ResponseSentenceData> {
             override fun onResponse(
                 call: Call<ResponseSentenceData>,
