@@ -21,6 +21,7 @@ import com.example.momo_android.list.data.ResponseFilterData
 import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.upload.ui.UploadFeelingActivity
 import com.example.momo_android.util.ItemClickListener
+import com.example.momo_android.util.SharedPreferenceController
 import com.example.momo_android.util.showToast
 import kotlinx.android.synthetic.main.activity_list.*
 import okhttp3.ResponseBody
@@ -383,8 +384,8 @@ class ListActivity : AppCompatActivity() {
 
     fun loadFilteredData() {
         RequestToServer.service.getFilterdDiary(
-            Authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
-            userId = 2,
+            Authorization = SharedPreferenceController.getAccessToken(this),
+            userId = SharedPreferenceController.getUserId(this)!!,
             year = filter_year,
             month = filter_month,
             order = "filter",
