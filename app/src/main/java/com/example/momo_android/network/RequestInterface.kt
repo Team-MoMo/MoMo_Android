@@ -4,6 +4,7 @@ import com.example.momo_android.diary.data.RequestEditDiaryData
 import com.example.momo_android.diary.data.ResponseDiaryData
 import com.example.momo_android.home.data.ResponseDiaryList
 import com.example.momo_android.list.data.ResponseFilterData
+import com.example.momo_android.onboarding.ui.ResponseOnboardingData
 import com.example.momo_android.signup.data.RequestUserData
 import com.example.momo_android.signup.data.ResponseUserData
 import com.example.momo_android.upload.data.RequestUploadDiaryData
@@ -91,6 +92,14 @@ interface RequestInterface {
         @Header("Authorization") Authorization: String?,
         @Body body: RequestUploadDiaryData
     ) : Call<ResponseUploadDiaryData>
+
+    //OnboardingSentenceActivity.kt 부분 문장 3개 조회
+    @Headers("Content-Type: application/json")
+    @GET("/sentences/onboarding")
+    fun getOnboarding(
+        @Header("Authorization") Authorization: String?,
+        @Query("emotionId") emotionId: Int
+    ):Call<ResponseOnboardingData>
 
     // 회원가입
     @Headers("Content-Type: application/json")

@@ -18,7 +18,7 @@
         <activity android:name=".onboarding.ui.OnboardingDepthActivity" />
         <activity android:name=".onboarding.ui.OnboardingSentenceActivity" />
         <activity android:name=".onboarding.ui.OnboardingFeelingActivity" />
-        <activity android:name=".onboarding.ui.OnboardingStartActivity" />
+        <activity android:name=".onboarding.ui.OnboardingStartActivity"/>
 
         <activity android:name=".login.ui.FindPasswordActivity" />
         <activity android:name=".login.ui.MainLoginActivity" />
