@@ -82,7 +82,7 @@ class OnboardingWriteSecondActivity : AppCompatActivity() {
         handler.postDelayed({
             startActivity(intent)
             overridePendingTransition(R.anim.horizontal_left_in, R.anim.horizontal_right_out)
-        }, 6000L)
+        }, 6500L)
     }
 
     override fun onBackPressed() {}
