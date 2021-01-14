@@ -26,11 +26,6 @@ class OnboardingWriteSecondActivity : AppCompatActivity() {
         startActivityIntent()
     }
 
-//    override fun onPause() {
-//        super.onPause()
-//        handler.removeCallbacksAndMessages(null)
-//    }
-
     private fun setViewBinding() {
         viewBinding = ActivityOnboardingWriteSecondBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
@@ -87,7 +82,7 @@ class OnboardingWriteSecondActivity : AppCompatActivity() {
         handler.postDelayed({
             startActivity(intent)
             overridePendingTransition(R.anim.horizontal_left_in, R.anim.horizontal_right_out)
-        }, 6000L)
+        }, 6500L)
     }
 
     override fun onBackPressed() {}

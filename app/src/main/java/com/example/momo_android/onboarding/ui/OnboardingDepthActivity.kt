@@ -42,8 +42,6 @@ class OnboardingDepthActivity : AppCompatActivity() {
         val lineSeekbar = binding.lineSeekBar
         val textSeekbar = binding.textSeekBar
         val svDeep = binding.svUploadDeep
-        //val btn_back = binding.btnBack
-        val tv_deep_date = binding.tvDeepDate
         val btn_edit_deep = binding.btnUploadDeep
 
 
@@ -57,24 +55,6 @@ class OnboardingDepthActivity : AppCompatActivity() {
             startActivity(intent)
             finishAffinity()
         }
-        /*뒤로가기
-        btn_back.setOnClickListener {
-            finish()
-        }*/
-
-        /*닫기
-        btn_close.setOnClickListener {
-            val exitModal = ModalUploadDeepExit(this)
-            exitModal.start()
-            exitModal.setOnClickListener {
-                if(it == "닫기") {
-                    finish()
-                }
-            }
-        }*/
-
-        // 앞에서 받아온 일기쓰는 날짜
-        // tv_deep_date.text = intent.getStringExtra("diary_day")
 
         val lineThumb = LayoutInflater.from(this).inflate(
             R.layout.seekbar_line_thumb, null, false

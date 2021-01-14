@@ -7,7 +7,7 @@
 
     <View
         android:id="@+id/view11"
-        android:layout_width="0.5dp"
+        android:layout_width="1dp"
         android:layout_height="105dp"
         android:background="@color/blue_6"
         app:layout_constraintStart_toStartOf="parent"

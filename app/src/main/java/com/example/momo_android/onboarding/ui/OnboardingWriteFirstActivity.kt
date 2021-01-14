@@ -55,10 +55,8 @@ class OnboardingWriteFirstActivity : AppCompatActivity() {
         override fun onAnimationRepeat(animation: Animator?) {}
         override fun onAnimationCancel(animation: Animator?) {}
         override fun onAnimationEnd(animation: Animator?) {
-            handler.postDelayed({
-                startActivityIntent()
-                finish()
-            }, 500)
+            startActivityIntent()
+            finish()
         }
     }
 
@@ -71,7 +69,7 @@ class OnboardingWriteFirstActivity : AppCompatActivity() {
         intent.putExtra("sentence", viewBinding.tvSentence.text)
         intent.putExtra("feeling", feeling)
         startActivity(intent)
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out_long)
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
 
     override fun onBackPressed() {

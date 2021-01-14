@@ -8,6 +8,7 @@ import com.example.momo_android.onboarding.ui.ResponseOnboardingData
 import com.example.momo_android.signup.data.RequestUserData
 import com.example.momo_android.signup.data.ResponseUserData
 import com.example.momo_android.upload.data.RequestUploadDiaryData
+import com.example.momo_android.upload.data.ResponseRecentWriteData
 import com.example.momo_android.upload.data.ResponseSentenceData
 import com.example.momo_android.upload.data.ResponseUploadDiaryData
 import retrofit2.Call
@@ -121,4 +122,12 @@ interface RequestInterface {
     fun checkDuplicate(
         @Query("email") email: String
     ) : Call<ResponseUserData>
+
+    //일기작성안된 가장 최근 날짜: UploadFeelingActivity
+    @Headers("Content-Type: application/json")
+    @GET("/diaries/recent")
+    fun getRecentNoWrite(
+        @Header("Authorization") Authorization: String?,
+        @Query("userId") userId:Int
+    ):Call<ResponseRecentWriteData>
 }

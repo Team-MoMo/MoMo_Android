@@ -1,4 +1,4 @@
-package com.example.momo_android.util
+package com.example.momo_android.util.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,8 +8,8 @@ import android.graphics.Rect
 import android.util.AttributeSet
 import androidx.annotation.IntDef
 import com.example.momo_android.R
-import com.example.momo_android.util.UnderlineTextView.UnderLinePosition.Companion.POSITION_BASELINE
-import com.example.momo_android.util.UnderlineTextView.UnderLinePosition.Companion.POSITION_BELOW
+import com.example.momo_android.util.ui.UnderlineTextView.UnderLinePosition.Companion.POSITION_BASELINE
+import com.example.momo_android.util.ui.UnderlineTextView.UnderLinePosition.Companion.POSITION_BELOW
 
 class UnderlineTextView @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0

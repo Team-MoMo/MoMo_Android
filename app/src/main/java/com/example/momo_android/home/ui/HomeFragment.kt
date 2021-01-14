@@ -77,7 +77,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun updateByServerData() {
-//        setLoadingViewBackground()
         setCurrentDate()
         setDayNightStatus()
         getServerDiaryData()
@@ -199,6 +198,7 @@ class HomeFragment : Fragment() {
             }
             else -> {
                 setDiaryView()
+                DIARY_STATUS = true
                 diaryId = diaryList[0].id
                 setEmotionData(diaryList[0].emotionId, isDay)
                 setDepthData(diaryList[0].depth)

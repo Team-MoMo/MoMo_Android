@@ -267,7 +267,7 @@
                 tools:layout_conversion_absoluteHeight="1dp"
                 tools:layout_conversion_absoluteWidth="313dp" />
 
-            <com.example.momo_android.util.BackPressEditText
+            <com.example.momo_android.util.ui.BackPressEditText
                 android:id="@+id/et_diary"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
