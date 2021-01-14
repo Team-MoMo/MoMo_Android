@@ -10,24 +10,23 @@
     <ImageView
         android:id="@+id/img_close"
         android:layout_width="0dp"
-        android:layout_height="34dp"
-        android:paddingTop="13dp"
-        android:paddingRight="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout12"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="13dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintWidth_percent="0.1"
         app:srcCompat="@drawable/btn_close_black" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout12"
-        android:layout_width="360dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout11"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_close">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_close"
+        app:layout_constraintVertical_chainStyle="packed">
 
         <TextView
             android:id="@+id/tv_today_feeling"
@@ -56,6 +55,7 @@
             android:textColor="@color/blue_1"
             android:textFontWeight="400"
             android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_today_feeling"
             app:layout_constraintTop_toBottomOf="@+id/tv_today_feeling" />
 
@@ -76,9 +76,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout11"
-        android:layout_width="360dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="38dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout12">

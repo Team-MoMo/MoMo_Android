@@ -23,11 +23,10 @@
     <ImageView
         android:id="@+id/img_back"
         android:layout_width="0dp"
-        android:layout_height="33dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="13dp"
         android:paddingLeft="16dp"
-        android:paddingTop="13dp"
         android:src="@drawable/btn_back_black"
-        app:layout_constraintBottom_toTopOf="@+id/text_constraint"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.1" />
@@ -35,23 +34,26 @@
     <ImageView
         android:id="@+id/img_close"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:paddingTop="13dp"
-        android:paddingRight="16dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="13dp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_back"
         app:layout_constraintDimensionRatio="1:0.93"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/img_back"
         app:layout_constraintWidth_percent="0.1"
         app:srcCompat="@drawable/btn_close_black" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/text_constraint"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/rv_select_sentence"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_back">
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lottie"
+        app:layout_constraintVertical_chainStyle="packed">
 
         <TextView
             android:id="@+id/tv_meeting"
@@ -118,10 +120,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_select_sentence"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:overScrollMode="never"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/lottie"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
