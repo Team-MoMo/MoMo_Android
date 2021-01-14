@@ -10,8 +10,7 @@
         android:id="@+id/text_constraint"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="492dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -82,15 +81,14 @@
         android:id="@+id/rv_select_sentence"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginBottom="10dp"
         android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_constraint">
+        app:layout_constraintTop_toBottomOf="@+id/text_constraint"
+        app:layout_constraintWidth_percent="0.93">
 
     </androidx.recyclerview.widget.RecyclerView>
 
