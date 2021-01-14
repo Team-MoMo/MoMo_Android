@@ -26,11 +26,6 @@ class OnboardingWriteSecondActivity : AppCompatActivity() {
         startActivityIntent()
     }
 
-//    override fun onPause() {
-//        super.onPause()
-//        handler.removeCallbacksAndMessages(null)
-//    }
-
     private fun setViewBinding() {
         viewBinding = ActivityOnboardingWriteSecondBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
