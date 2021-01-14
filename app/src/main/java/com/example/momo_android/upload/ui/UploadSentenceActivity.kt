@@ -48,7 +48,7 @@ class UploadSentenceActivity : AppCompatActivity() {
 
         val date=intent.getStringExtra("date")
         binding.tvDate.text=date.toString()
-        var wroteAt=intent.getStringExtra("wroteAt")
+        val wroteAt=intent.getStringExtra("wroteAt")
 
         val feeling = intent.getIntExtra("feeling", 0)
         when (feeling) {

@@ -53,7 +53,7 @@ class UploadDeepActivity : AppCompatActivity() {
         val emotionId = intent.getIntExtra("emotionId", 0)
         val sentenceId = intent.getIntExtra("sentenceId", 0)
         val contents = intent.getStringExtra("contents")
-        var wroteAt=intent.getStringExtra("wroteAt")
+        val wroteAt : String = intent.getStringExtra("wroteAt").toString()
 
         // 총 3개의 시크바 사용
         val mainSeekbar = binding.mainSeekBar
@@ -155,7 +155,7 @@ class UploadDeepActivity : AppCompatActivity() {
         // 기록하기 버튼
         btn_edit_deep.setOnClickListener {
             // 기록하기 통신
-            uploadDiary(contents!!, sentenceId, emotionId, mainSeekbar.progress)
+            uploadDiary(contents!!, sentenceId, emotionId, mainSeekbar.progress, wroteAt)
         }
 
 
