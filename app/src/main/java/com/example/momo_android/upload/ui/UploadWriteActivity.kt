@@ -23,6 +23,7 @@ class UploadWriteActivity : AppCompatActivity() {
         val sentenceId = intent.getIntExtra("sentenceId", 0)
         val emotionId = intent.getIntExtra("emotionId", 0)
         var contents = ""
+        var wroteAt=intent.getStringExtra("wroteAt")
         //val date = intent.getStringExtra("date")
 
         showFeeling(feeling)
@@ -69,6 +70,7 @@ class UploadWriteActivity : AppCompatActivity() {
                 intent.putExtra("contents", contents)
                 intent.putExtra("sentenceId", sentenceId)
                 intent.putExtra("emotionId", emotionId)
+                intent.putExtra("wroteAt",wroteAt)
 
                 intent.putExtra("feeling",feeling)
                 intent.putExtra("date",binding.tvDate.text.toString())
