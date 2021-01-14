@@ -7,19 +7,16 @@
     android:layout_height="match_parent"
     tools:context=".onboarding.ui.OnboardingWriteSecondActivity">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottie"
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
+        android:src="@drawable/android_onboarding_end"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="false"
-        app:lottie_fileName="OnboardingCircle.json"
-        app:lottie_loop="false" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_explain"
