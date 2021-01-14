@@ -215,7 +215,7 @@ class UploadDateBottomSheetFragment (val itemClick: (IntArray) -> Unit) : Bottom
             year = year,
             month = month,
             day = date,
-            userId = 2
+            userId =SharedPreferenceController.getUserId(view!!.context)
         ).enqueue(object : retrofit2.Callback<ResponseDiaryList> {
             override fun onResponse(
                 call: Call<ResponseDiaryList>,

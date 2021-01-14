@@ -252,7 +252,7 @@ class UploadDeepActivity : AppCompatActivity() {
             RequestUploadDiaryData(
                 contents = contents,
                 depth = depth,
-                userId = 2,
+                userId=SharedPreferenceController.getUserId(this),
                 sentenceId = sentenceId,
                 emotionId = emotionId,
                 wroteAt = wroteAt
