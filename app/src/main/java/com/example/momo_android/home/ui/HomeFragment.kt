@@ -22,6 +22,7 @@ import com.example.momo_android.home.ui.ScrollFragment.Companion.IS_EDITED
 import com.example.momo_android.list.ui.ListActivity
 import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.upload.ui.UploadFeelingActivity
+import com.example.momo_android.util.SharedPreferenceController
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -163,12 +164,12 @@ class HomeFragment : Fragment() {
     private fun getServerDiaryData() {
         var serverDiaryList = listOf<ResponseDiaryList.Data>()
         RequestToServer.service.getHomeDiaryList(
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
+            SharedPreferenceController.getAccessToken(requireContext()),
+            SharedPreferenceController.getUserId(requireContext())!!,
             "filter",
             currentYear,
             currentMonth,
-            currentDate,
-            2
+            currentDate
         ).enqueue(object : Callback<ResponseDiaryList> {
             override fun onResponse(
                 call: Call<ResponseDiaryList>,
