@@ -21,6 +21,7 @@ import androidx.core.animation.doOnEnd
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityUploadDeepBinding
 import com.example.momo_android.diary.ui.DiaryActivity
+import com.example.momo_android.home.ui.ScrollFragment.Companion.IS_EDITED
 import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.upload.ModalUploadDeepExit
 import com.example.momo_android.upload.data.RequestUploadDiaryData
@@ -243,7 +244,7 @@ class UploadDeepActivity : AppCompatActivity() {
     private fun uploadDiary(contents: String, sentenceId: Int, emotionId: Int, depth: Int, wroteAt:String) {
         RequestToServer.service.uploadDiary(
             Authorization = SharedPreferenceController.getAccessToken(this),
-            RequestUploadDiaryData(
+            body = RequestUploadDiaryData(
                 contents = contents,
                 depth = depth,
                 userId=SharedPreferenceController.getUserId(this),
@@ -262,6 +263,7 @@ class UploadDeepActivity : AppCompatActivity() {
                         Log.d("uploadDiary-server", "success : ${response.body()!!.data}, message : ${response.message()}")
 
                         // 다이어리 뷰로 이동
+                        IS_EDITED = true
                         val intent= Intent(this@UploadDeepActivity,DiaryActivity::class.java)
                         intent.putExtra("diaryId",response.body()!!.data.id)
                         startActivity(intent)

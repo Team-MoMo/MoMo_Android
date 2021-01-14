@@ -60,6 +60,7 @@ class OnboardingSentenceActivity : AppCompatActivity() {
                 intent.putExtra("book", uploadSentenceAdapter.data[position].book)
                 intent.putExtra("publisher", uploadSentenceAdapter.data[position].publisher)
                 intent.putExtra("sentence", uploadSentenceAdapter.data[position].sentence)
+                intent.putExtra("feeling", feeling)
                 //Toast.makeText(this@UploadSentenceActivity,uploadSentenceAdapter.data[0].author,Toast.LENGTH_SHORT).show()
                 startActivity(intent)
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
