@@ -53,7 +53,7 @@ class UploadDeepActivity : AppCompatActivity() {
         val emotionId = intent.getIntExtra("emotionId", 0)
         val sentenceId = intent.getIntExtra("sentenceId", 0)
         val contents = intent.getStringExtra("contents")
-
+        var wroteAt=intent.getStringExtra("wroteAt")
 
         // 총 3개의 시크바 사용
         val mainSeekbar = binding.mainSeekBar
@@ -158,6 +158,7 @@ class UploadDeepActivity : AppCompatActivity() {
             uploadDiary(contents!!, sentenceId, emotionId, mainSeekbar.progress)
         }
 
+
     }
 
     // 깊이에 따른 배경색 매치
@@ -239,16 +240,16 @@ class UploadDeepActivity : AppCompatActivity() {
         }
     }
 
-    private fun uploadDiary(contents: String, sentenceId: Int, emotionId: Int, depth: Int) {
+    private fun uploadDiary(contents: String, sentenceId: Int, emotionId: Int, depth: Int, wroteAt:String) {
         RequestToServer.service.uploadDiary(
             Authorization = SharedPreferenceController.getAccessToken(this),
             RequestUploadDiaryData(
                 contents = contents,
                 depth = depth,
-                userId = 2,
+                userId=SharedPreferenceController.getUserId(this),
                 sentenceId = sentenceId,
                 emotionId = emotionId,
-                wroteAt = "2021-01-01"
+                wroteAt = wroteAt
             )
         ).enqueue(object : Callback<ResponseUploadDiaryData> {
             override fun onResponse(

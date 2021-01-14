@@ -18,15 +18,15 @@
         <activity android:name=".onboarding.ui.OnboardingDepthActivity" />
         <activity android:name=".onboarding.ui.OnboardingSentenceActivity" />
         <activity android:name=".onboarding.ui.OnboardingFeelingActivity" />
-        <activity android:name=".onboarding.ui.OnboardingStartActivity"/>
-
+        <activity android:name=".onboarding.ui.OnboardingStartActivity" />
         <activity android:name=".login.ui.FindPasswordActivity" />
         <activity android:name=".login.ui.MainLoginActivity" />
         <activity
             android:name=".diary.ui.DiaryEditWriteActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize"/>
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".signup.ui.SignUpActivity" />
-        <activity android:name=".splash.SplashActivity"
+        <activity
+            android:name=".splash.SplashActivity"
             android:theme="@style/Theme.splashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,7 +34,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".login.ui.LoginActivity"
             android:windowSoftInputMode="adjustResize" />
@@ -45,11 +44,12 @@
             android:name=".upload.ui.UploadWriteActivity"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity android:name=".upload.ui.UploadSentenceActivity" />
-        <activity android:name=".upload.ui.UploadFeelingActivity"/>
+        <activity android:name=".upload.ui.UploadFeelingActivity" />
         <activity android:name=".upload.ui.UploadDeepActivity" />
         <activity
             android:name=".list.ui.ListActivity"
             android:theme="@style/Theme.listTheme" />
+        <activity android:name=".setting.SettingActivity"/>
     </application>
 
 </manifest>
