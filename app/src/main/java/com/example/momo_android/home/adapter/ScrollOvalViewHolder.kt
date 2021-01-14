@@ -23,7 +23,7 @@ class ScrollOvalViewHolder(
 
     fun onBind(diaryData: ResponseDiaryList.Data) {
         getItemAreaWidth()
-        setOvalXPosition()
+        setOvalXPosition(diaryData.position)
         setDiaryData(diaryData)
     }
 
@@ -44,11 +44,9 @@ class ScrollOvalViewHolder(
             (deviceWidthPixels.toFloat() - itemWidthPixels - horizontalMarginPixels) / (ITEM_AMOUNT - 1)
     }
 
-    private fun setOvalXPosition() {
-        val xPosition: Int = Random().nextInt(ITEM_AMOUNT)
+    private fun setOvalXPosition(xPosition: Int) {
         val leftMargin = ((itemDistance * xPosition) + (HORIZONTAL_MARGIN * displayMetrics.density))
         val layoutParams = viewBinding.imageButtonOval.layoutParams as ConstraintLayout.LayoutParams
-
         layoutParams.marginStart = leftMargin.toInt()
         viewBinding.imageButtonOval.layoutParams = layoutParams
     }
