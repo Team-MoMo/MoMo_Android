@@ -33,12 +33,18 @@ class UploadSentenceActivity : AppCompatActivity() {
     private var sentence2 = 0
     private var sentence3 = 0
 
+    companion object {
+        var activity : Activity? = null
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUploadSentenceBinding.inflate(layoutInflater) // 2
         val view = binding.root // 3
         setContentView(view)
+
+        activity = this
 
         val date=intent.getStringExtra("date")
         binding.tvDate.text=date.toString()

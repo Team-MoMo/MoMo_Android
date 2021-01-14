@@ -53,7 +53,7 @@ class UploadDeepActivity : AppCompatActivity() {
         val emotionId = intent.getIntExtra("emotionId", 0)
         val sentenceId = intent.getIntExtra("sentenceId", 0)
         val contents = intent.getStringExtra("contents")
-        var depth = 0
+
 
         // 총 3개의 시크바 사용
         val mainSeekbar = binding.mainSeekBar
@@ -112,9 +112,6 @@ class UploadDeepActivity : AppCompatActivity() {
         textSeekbar.progress = mainSeekbar.progress
         (textThumb.findViewById(R.id.tv_seekbar_depth) as TextView).text = getDepth(textSeekbar.progress)
 
-        // 깊이 설정
-        depth = textSeekbar.progress
-
         textSeekbar.thumb = textThumb.getThumb()
         textSeekbar.setOnTouchListener { _, _ -> true }
 
@@ -158,11 +155,8 @@ class UploadDeepActivity : AppCompatActivity() {
         // 기록하기 버튼
         btn_edit_deep.setOnClickListener {
             // 기록하기 통신
-            //uploadDiary(contents!!, sentenceId, emotionId, depth)
-            uploadDiary(contents!!, sentenceId, emotionId, depth)
-
+            uploadDiary(contents!!, sentenceId, emotionId, mainSeekbar.progress)
         }
-
 
     }
 
@@ -254,7 +248,7 @@ class UploadDeepActivity : AppCompatActivity() {
                 userId = 2,
                 sentenceId = sentenceId,
                 emotionId = emotionId,
-                wroteAt = "2020-08-16"
+                wroteAt = "2021-01-01"
             )
         ).enqueue(object : Callback<ResponseUploadDiaryData> {
             override fun onResponse(
@@ -270,6 +264,12 @@ class UploadDeepActivity : AppCompatActivity() {
                         val intent= Intent(this@UploadDeepActivity,DiaryActivity::class.java)
                         intent.putExtra("diaryId",response.body()!!.data.id)
                         startActivity(intent)
+
+                        // 업로드 플로우 액티비티 모두 종료
+                        UploadWriteActivity.activity?.finish()
+                        UploadSentenceActivity.activity?.finish()
+                        UploadFeelingActivity.activity?.finish()
+                        finish()
 
                     } ?: showError(response.errorBody())
             }
