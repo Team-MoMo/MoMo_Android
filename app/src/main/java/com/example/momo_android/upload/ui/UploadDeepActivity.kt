@@ -53,6 +53,7 @@ class UploadDeepActivity : AppCompatActivity() {
         val emotionId = intent.getIntExtra("emotionId", 0)
         val sentenceId = intent.getIntExtra("sentenceId", 0)
         val contents = intent.getStringExtra("contents")
+        var wroteAt=intent.getStringExtra("wroteAt")
         var depth = 0
 
         // 총 3개의 시크바 사용
@@ -159,7 +160,7 @@ class UploadDeepActivity : AppCompatActivity() {
         btn_edit_deep.setOnClickListener {
             // 기록하기 통신
             //uploadDiary(contents!!, sentenceId, emotionId, depth)
-            uploadDiary(contents!!, sentenceId, emotionId, depth)
+            uploadDiary(contents!!, sentenceId, emotionId, depth, wroteAt!!)
 
         }
 
@@ -245,16 +246,16 @@ class UploadDeepActivity : AppCompatActivity() {
         }
     }
 
-    private fun uploadDiary(contents: String, sentenceId: Int, emotionId: Int, depth: Int) {
+    private fun uploadDiary(contents: String, sentenceId: Int, emotionId: Int, depth: Int, wroteAt:String) {
         RequestToServer.service.uploadDiary(
             Authorization = SharedPreferenceController.getAccessToken(this),
             RequestUploadDiaryData(
                 contents = contents,
                 depth = depth,
-                userId = 2,
+                userId=SharedPreferenceController.getUserId(this),
                 sentenceId = sentenceId,
                 emotionId = emotionId,
-                wroteAt = "2020-08-16"
+                wroteAt = wroteAt
             )
         ).enqueue(object : Callback<ResponseUploadDiaryData> {
             override fun onResponse(

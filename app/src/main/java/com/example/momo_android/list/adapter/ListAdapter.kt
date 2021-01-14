@@ -1,4 +1,4 @@
-package com.example.momo_android.list
+package com.example.momo_android.list.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

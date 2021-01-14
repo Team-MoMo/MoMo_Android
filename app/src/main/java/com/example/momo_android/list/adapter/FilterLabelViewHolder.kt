@@ -1,9 +1,10 @@
-package com.example.momo_android.list
+package com.example.momo_android.list.adapter
 
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.momo_android.R
+import com.example.momo_android.list.adapter.FilterLabelData
 
 class FilterLabelViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
 

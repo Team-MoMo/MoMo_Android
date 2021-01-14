@@ -1,4 +1,4 @@
-package com.example.momo_android.list
+package com.example.momo_android.list.adapter
 
 import android.graphics.drawable.Drawable
 

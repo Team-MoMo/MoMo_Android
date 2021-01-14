@@ -9,19 +9,29 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.NumberPicker
+import androidx.appcompat.app.AppCompatActivity
 import com.example.momo_android.R
 import com.example.momo_android.databinding.BottomsheetDiaryEditDateBinding
+import com.example.momo_android.diary.data.RequestEditDiaryData
+import com.example.momo_android.diary.data.ResponseDiaryData
 import com.example.momo_android.diary.ui.DiaryActivity
+import com.example.momo_android.home.data.ResponseDiaryList
+import com.example.momo_android.home.ui.ScrollFragment
+import com.example.momo_android.network.RequestToServer
+import com.example.momo_android.upload.ui.UploadFeelingActivity
+import com.example.momo_android.util.SharedPreferenceController
 import com.example.momo_android.util.showToast
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import retrofit2.Call
+import retrofit2.Response
 import java.util.*
 
 class UploadDateBottomSheetFragment (val itemClick: (IntArray) -> Unit) : BottomSheetDialogFragment() {
-
     private var _Binding: BottomsheetDiaryEditDateBinding? = null
     private val Binding get() = _Binding!!
 
@@ -29,6 +39,7 @@ class UploadDateBottomSheetFragment (val itemClick: (IntArray) -> Unit) : Bottom
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val bottomSheetDialog = BottomSheetDialog(activity!!, theme)
+
 
         bottomSheetDialog.setOnShowListener { dialog ->
             val bottomSheet =
@@ -50,6 +61,11 @@ class UploadDateBottomSheetFragment (val itemClick: (IntArray) -> Unit) : Bottom
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _Binding = BottomsheetDiaryEditDateBinding.inflate(layoutInflater)
+
+        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        (activity as AppCompatActivity).supportActionBar?.hide()
+
+        Binding.tvChangeDate.text="날짜 변경"
         return Binding.root
     }
 
@@ -94,30 +110,27 @@ class UploadDateBottomSheetFragment (val itemClick: (IntArray) -> Unit) : Bottom
         date.minValue = 1
 
         // maxValue = 최대 날짜 표시
-        year.maxValue = 2021
+        year.maxValue = currentDate.get(Calendar.YEAR)
 
         // year에 따라 month maxValue 변경
-        if(DiaryActivity.diary_year == currentDate.get(Calendar.YEAR)) {
+        if(UploadFeelingActivity.upload_year == currentDate.get(Calendar.YEAR)) {
             month.maxValue = currentDate.get(Calendar.MONTH) + 1
         } else {
             month.maxValue = 12
         }
 
         // month에 따라 month, date maxValue 변경
-        if(DiaryActivity.diary_month == currentDate.get(Calendar.MONTH) + 1) {
+        if(UploadFeelingActivity.upload_month == currentDate.get(Calendar.MONTH) + 1) {
             month.maxValue = currentDate.get(Calendar.MONTH) + 1
             date.maxValue = currentDate.get(Calendar.DAY_OF_MONTH)
         } else {
             setMonthMax()
         }
 
-        // 일단은
-        Log.d("companion", DiaryActivity.diary_year.toString())
-        Log.d("companion", DiaryActivity.diary_month.toString())
-        Log.d("companion", DiaryActivity.diary_date.toString())
-        year.value = DiaryActivity.diary_year
-        month.value = DiaryActivity.diary_month
-        date.value = DiaryActivity.diary_date
+
+        year.value = UploadFeelingActivity.upload_year
+        month.value = UploadFeelingActivity.upload_month
+        date.value = UploadFeelingActivity.upload_date
 
         // 순환 안되게 막기
 
@@ -160,16 +173,20 @@ class UploadDateBottomSheetFragment (val itemClick: (IntArray) -> Unit) : Bottom
 
         }
 
-        Binding.btnDiaryDateEdit.isEnabled = true
+
+        // 스크롤 했을 때 해당 날짜에 일기가 있는지 체크
+        year.setOnScrollListener(pickerScrollListener)
+        month.setOnScrollListener(pickerScrollListener)
+        date.setOnScrollListener(pickerScrollListener)
+
 
         Binding.btnDiaryDateEdit.setOnClickListener {
             val pick = intArrayOf(year.value, month.value, date.value)
             itemClick(pick)
 
-            // 날짜수정 통신
-
-            context!!.showToast("날짜가 수정되었습니다.")
-            dialog?.dismiss()
+            if(Binding.btnDiaryDateEdit.isEnabled){
+                dismiss()
+            }
         }
 
         Binding.btnCloseDiaryEditDate.setOnClickListener {
@@ -179,6 +196,60 @@ class UploadDateBottomSheetFragment (val itemClick: (IntArray) -> Unit) : Bottom
 
 
     }
+
+    private val pickerScrollListener = NumberPicker.OnScrollListener { _, state ->
+        if(state == NumberPicker.OnScrollListener.SCROLL_STATE_IDLE) {
+            requestCheckDiary(
+                Binding.includeYmdPicker.year.value,
+                Binding.includeYmdPicker.month.value,
+                Binding.includeYmdPicker.date.value)
+        }
+    }
+
+    // 해당 날짜에 쓰인 일기가 있는지 확인
+    private fun requestCheckDiary(year: Int, month: Int, date: Int) {
+
+        RequestToServer.service.getHomeDiaryList(
+            authorization = context?.let { SharedPreferenceController.getAccessToken(it) },
+            order = "filter",
+            year = year,
+            month = month,
+            day = date,
+            userId =SharedPreferenceController.getUserId(view!!.context)
+        ).enqueue(object : retrofit2.Callback<ResponseDiaryList> {
+            override fun onResponse(
+                call: Call<ResponseDiaryList>,
+                response: Response<ResponseDiaryList>
+            ) {
+                when {
+                    response.code() == 200 -> {
+
+                        if(response.body()!!.data.isNullOrEmpty()) {
+                            Log.d("가능여부", "된다?")
+                            Binding.btnDiaryDateEdit.isEnabled = true
+                        } else {
+                            Log.d("가능여부", "놉")
+                            Binding.btnDiaryDateEdit.isEnabled = false
+                        }
+
+                    }
+                    response.code() == 400 -> {
+                        Log.d("checkDiary 400", response.message())
+                    }
+                    else -> {
+                        Log.d("checkDiary 500", response.message())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseDiaryList>, t: Throwable) {
+                Log.d("checkDiary ERROR", "$t")
+            }
+
+        })
+    }
+
+
 
     // 달 별로 일수 다른거 미리 세팅해둔 함수
     private fun setMonthMax() {
@@ -198,7 +269,11 @@ class UploadDateBottomSheetFragment (val itemClick: (IntArray) -> Unit) : Bottom
         }
     }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        (activity as AppCompatActivity).supportActionBar?.show()
+    }
 
 
 }

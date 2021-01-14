@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".setting.SettingActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout19"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.0694"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/imagebutton_setting_back"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/btn_back_black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.0666" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="환경설정"
+            android:textColor="@color/black_2_nav"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintlayout_touchbox_info"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintDimensionRatio="1:0.2051"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout19"
+        app:layout_constraintWidth_percent="0.8666" >
+
+        <ImageView
+            android:id="@+id/imageView34"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="13dp"
+            android:src="@drawable/ic_user"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.0769" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="내 정보"
+            android:textColor="@color/black"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView34"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/view13"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/line_light_gray"
+        app:layout_constraintEnd_toEndOf="@+id/constraintlayout_touchbox_info"
+        app:layout_constraintStart_toStartOf="@+id/constraintlayout_touchbox_info"
+        app:layout_constraintTop_toBottomOf="@+id/constraintlayout_touchbox_info" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintlayout_touchbox_lock"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:0.2051"
+        app:layout_constraintEnd_toEndOf="@+id/constraintlayout_touchbox_info"
+        app:layout_constraintStart_toStartOf="@+id/constraintlayout_touchbox_info"
+        app:layout_constraintTop_toBottomOf="@+id/view13"
+        app:layout_constraintWidth_percent="0.8666" >
+
+        <ImageView
+            android:id="@+id/imageView35"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="13dp"
+            android:src="@drawable/ic_lock"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.0769" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="암호 잠금"
+            android:textColor="@color/black"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView35"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Switch
+            android:id="@+id/switch_lock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:switchMinWidth="34dp"
+            android:thumb="@drawable/switch_setting_thumb_selector"
+            android:track="@drawable/switch_setting_track_selector"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        <ImageButton
+            android:id="@+id/imagebutton_resetting"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/btn_resetting"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/switch_lock"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.09615" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/view14"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/line_light_gray"
+        app:layout_constraintEnd_toEndOf="@+id/constraintlayout_touchbox_lock"
+        app:layout_constraintStart_toStartOf="@+id/constraintlayout_touchbox_lock"
+        app:layout_constraintTop_toBottomOf="@+id/constraintlayout_touchbox_lock" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintlayout_touchbox_license"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:0.2051"
+        app:layout_constraintEnd_toEndOf="@+id/constraintlayout_touchbox_lock"
+        app:layout_constraintStart_toStartOf="@+id/constraintlayout_touchbox_lock"
+        app:layout_constraintTop_toBottomOf="@+id/view14"
+        app:layout_constraintWidth_percent="0.8666" >
+
+        <ImageView
+            android:id="@+id/imageView36"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="13dp"
+            android:src="@drawable/ic_license"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.0769" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="오픈 소스 라이선스"
+            android:textColor="@color/black"
+            android:textSize="14dp"
+            android:layout_marginStart="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView36"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/view15"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/line_light_gray"
+        app:layout_constraintEnd_toEndOf="@+id/constraintlayout_touchbox_license"
+        app:layout_constraintStart_toStartOf="@+id/constraintlayout_touchbox_license"
+        app:layout_constraintTop_toBottomOf="@+id/constraintlayout_touchbox_license" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintlayout_touchbox_momo_info"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:0.2051"
+        app:layout_constraintEnd_toEndOf="@+id/constraintlayout_touchbox_license"
+        app:layout_constraintStart_toStartOf="@+id/constraintlayout_touchbox_license"
+        app:layout_constraintTop_toBottomOf="@+id/view15"
+        app:layout_constraintWidth_percent="0.8666" >
+
+        <ImageView
+            android:id="@+id/imageView38"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="13dp"
+            android:src="@drawable/ic_team"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.0769" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="Team MOMO"
+            android:textColor="@color/black"
+            android:textSize="14dp"
+            android:layout_marginStart="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView38"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/view16"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/line_light_gray"
+        app:layout_constraintEnd_toEndOf="@+id/constraintlayout_touchbox_momo_info"
+        app:layout_constraintStart_toStartOf="@+id/constraintlayout_touchbox_momo_info"
+        app:layout_constraintTop_toBottomOf="@+id/constraintlayout_touchbox_momo_info" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintlayout_touchbox_insta"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:0.2051"
+        app:layout_constraintEnd_toEndOf="@+id/constraintlayout_touchbox_momo_info"
+        app:layout_constraintStart_toStartOf="@+id/constraintlayout_touchbox_momo_info"
+        app:layout_constraintTop_toBottomOf="@+id/view16"
+        app:layout_constraintWidth_percent="0.8666" >
+
+        <ImageView
+            android:id="@+id/imageView39"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="13dp"
+            android:src="@drawable/ic_insta_logo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.0769" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="MOMO 인스타그램"
+            android:textColor="@color/black"
+            android:textSize="14dp"
+            android:layout_marginStart="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView39"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/view17"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/line_light_gray"
+        app:layout_constraintEnd_toEndOf="@+id/constraintlayout_touchbox_insta"
+        app:layout_constraintStart_toStartOf="@+id/constraintlayout_touchbox_insta"
+        app:layout_constraintTop_toBottomOf="@+id/constraintlayout_touchbox_insta" />
+
+    <TextView
+        android:id="@+id/tv_setting_version_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/notosanskrregular"
+        android:includeFontPadding="false"
+        android:text="Ver. 1.0"
+        android:textColor="@color/blue_4"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

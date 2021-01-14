@@ -13,11 +13,15 @@ import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityListBinding
 import com.example.momo_android.diary.ui.DiaryActivity
 import com.example.momo_android.list.*
+import com.example.momo_android.list.adapter.FilterLabelAdapter
+import com.example.momo_android.list.adapter.FilterLabelData
+import com.example.momo_android.list.adapter.ListAdapter
 import com.example.momo_android.list.data.ListData
 import com.example.momo_android.list.data.ResponseFilterData
 import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.upload.ui.UploadFeelingActivity
 import com.example.momo_android.util.ItemClickListener
+import com.example.momo_android.util.SharedPreferenceController
 import com.example.momo_android.util.showToast
 import kotlinx.android.synthetic.main.activity_list.*
 import okhttp3.ResponseBody
@@ -341,7 +345,7 @@ class ListActivity : AppCompatActivity() {
 
             for (i in 0..data.size-1) {
                 listAdapter.data.add(
-                    ListData(
+                    com.example.momo_android.list.adapter.ListData(
                         baseContext?.getDrawable(getEmotionImg(data[i].emotionId)),
                         data[i].Emotion.name,
                         getFormedDate(data[i].wroteAt),
@@ -380,8 +384,8 @@ class ListActivity : AppCompatActivity() {
 
     fun loadFilteredData() {
         RequestToServer.service.getFilterdDiary(
-            Authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
-            userId = 2,
+            Authorization = SharedPreferenceController.getAccessToken(this),
+            userId = SharedPreferenceController.getUserId(this)!!,
             year = filter_year,
             month = filter_month,
             order = "filter",
