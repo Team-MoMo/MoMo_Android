@@ -9,6 +9,9 @@ import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityDiaryEditWriteBinding
 import com.example.momo_android.diary.data.RequestEditDiaryData
 import com.example.momo_android.diary.data.ResponseDiaryData
+import com.example.momo_android.home.ui.ScrollFragment
+import com.example.momo_android.home.ui.ScrollFragment.Companion.EDITED_DEPTH
+import com.example.momo_android.home.ui.ScrollFragment.Companion.IS_EDITED
 import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.util.*
 import com.example.momo_android.util.BackPressEditText.OnBackPressListener
@@ -128,7 +131,7 @@ class DiaryEditWriteActivity : AppCompatActivity() {
         RequestToServer.service.editDiary(
             Authorization = SharedPreferenceController.getAccessToken(this),
             params = DiaryActivity.responseData[0].id,
-            RequestEditDiaryData(
+            body = RequestEditDiaryData(
                 depth = DiaryActivity.responseData[0].depth,
                 contents = binding.etDiary.text.toString(),
                 userId = DiaryActivity.responseData[0].userId,
@@ -143,6 +146,8 @@ class DiaryEditWriteActivity : AppCompatActivity() {
             ) {
                 when {
                     response.code() == 200 -> {
+                        IS_EDITED = true
+                        EDITED_DEPTH = response.body()!!.data.depth
                         Log.d("일기내용 수정 성공", response.body().toString())
                         finish()
                         applicationContext.showToast("일기가 수정되었습니다.")
