@@ -42,6 +42,7 @@ class UploadSentenceActivity : AppCompatActivity() {
 
         val date=intent.getStringExtra("date")
         binding.tvDate.text=date.toString()
+        var wroteAt=intent.getStringExtra("wroteAt")
 
         val feeling = intent.getIntExtra("feeling", 0)
         when (feeling) {
@@ -118,6 +119,7 @@ class UploadSentenceActivity : AppCompatActivity() {
                 intent.putExtra("sentence", uploadSentenceAdapter.data[position].sentence)
                 intent.putExtra("sentenceId", sentenceId)
                 intent.putExtra("emotionId", feeling)
+                intent.putExtra("wroteAt",wroteAt)
                 //Toast.makeText(this@UploadSentenceActivity,uploadSentenceAdapter.data[0].author,Toast.LENGTH_SHORT).show()
                 startActivity(intent)
             }
