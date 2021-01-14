@@ -3,6 +3,7 @@ package com.example.momo_android.home.ui
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import com.example.momo_android.databinding.ActivityHomeBinding
 import com.example.momo_android.home.adapter.HomeViewPager2Adapter
 
@@ -26,7 +27,10 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setViewPager2() {
-        viewBinding.viewPager2.adapter = HomeViewPager2Adapter(this)
+        viewBinding.viewPager2.apply {
+            adapter = HomeViewPager2Adapter(this@HomeActivity)
+            (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+        }
     }
 
     override fun onBackPressed() {
