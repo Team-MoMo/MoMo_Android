@@ -343,14 +343,14 @@ class DiaryActivity : AppCompatActivity() {
 
     private fun setLoadingViewBackground(depth : Int) {
         binding.viewDiaryLoading.apply {
-            when(depth) {
-                0 -> background = resources.getDrawable(R.drawable.bg_deep1, null)
-                1 -> background = resources.getDrawable(R.drawable.bg_deep2, null)
-                2 -> background = resources.getDrawable(R.drawable.bg_deep3, null)
-                3 -> background = resources.getDrawable(R.drawable.bg_deep4, null)
-                4 -> background = resources.getDrawable(R.drawable.bg_deep5, null)
-                5 -> background = resources.getDrawable(R.drawable.bg_deep6, null)
-                else -> background = resources.getDrawable(R.drawable.bg_deep7, null)
+            background = when(depth) {
+                0 -> resources.getDrawable(R.drawable.bg_deep1, null)
+                1 -> resources.getDrawable(R.drawable.bg_deep2, null)
+                2 -> resources.getDrawable(R.drawable.bg_deep3, null)
+                3 -> resources.getDrawable(R.drawable.bg_deep4, null)
+                4 -> resources.getDrawable(R.drawable.bg_deep5, null)
+                5 -> resources.getDrawable(R.drawable.bg_deep6, null)
+                else -> resources.getDrawable(R.drawable.bg_deep7, null)
             }
         }
     }
