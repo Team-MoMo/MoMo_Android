@@ -10,6 +10,7 @@ import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityUploadWriteBinding
 import com.example.momo_android.upload.ModalUploadWriteBack
 import com.example.momo_android.util.*
+import com.example.momo_android.util.ui.BackPressEditText
 
 class UploadWriteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUploadWriteBinding

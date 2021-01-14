@@ -11,8 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.momo_android.R
-import com.example.momo_android.list.adapter.ListData
-import com.example.momo_android.util.UnderlineTextView
+import com.example.momo_android.util.ui.UnderlineTextView
 
 class ListViewHolder (itemView : View) : RecyclerView.ViewHolder(itemView) {
 
