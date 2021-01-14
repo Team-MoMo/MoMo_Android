@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".upload.ui.UploadSentenceActivity">
 
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie"
         android:layout_width="match_parent"

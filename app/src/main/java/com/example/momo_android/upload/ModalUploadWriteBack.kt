@@ -26,12 +26,12 @@ class ModalUploadWriteBack(context : Context) {
         dlg.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dlg.setContentView(R.layout.modal_upload_write_back)     //다이얼로그에 사용할 xml 파일을 불러옴
 
-        btn_cancel = dlg.findViewById(R.id.btn_edit_cancel)
+        btn_cancel = dlg.findViewById(R.id.btn_cancel)
         btn_cancel.setOnClickListener {
             dlg.dismiss()
         }
 
-        btn_yes = dlg.findViewById(R.id.btn_edit_yes)
+        btn_yes = dlg.findViewById(R.id.btn_yes)
         btn_yes.setOnClickListener {
             listener.onOKClicked("확인")
         }

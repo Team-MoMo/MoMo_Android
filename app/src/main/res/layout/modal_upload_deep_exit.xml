@@ -99,7 +99,7 @@
         app:layout_constraintTop_toTopOf="@+id/view3" />
 
     <TextView
-        android:id="@+id/btn_exit"
+        android:id="@+id/btn_yes"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fontFamily="@font/notosanskrregular"
