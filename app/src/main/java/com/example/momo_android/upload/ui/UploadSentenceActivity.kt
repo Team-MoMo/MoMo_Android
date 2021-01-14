@@ -33,6 +33,10 @@ class UploadSentenceActivity : AppCompatActivity() {
     private var sentence2 = 0
     private var sentence3 = 0
 
+    companion object {
+        var activity : Activity? = null
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +44,11 @@ class UploadSentenceActivity : AppCompatActivity() {
         val view = binding.root // 3
         setContentView(view)
 
+        activity = this
+
         val date=intent.getStringExtra("date")
         binding.tvDate.text=date.toString()
-        var wroteAt=intent.getStringExtra("wroteAt")
+        val wroteAt=intent.getStringExtra("wroteAt")
 
         val feeling = intent.getIntExtra("feeling", 0)
         when (feeling) {

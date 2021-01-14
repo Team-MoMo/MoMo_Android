@@ -27,7 +27,7 @@ class UploadFeelingActivity : AppCompatActivity() {
         var upload_year = 2020
         var upload_month = 1
         var upload_date = 12
-        var wroteAt=""
+        var upload_wroteAt = ""
 
         var activity : Activity? = null
     }
@@ -105,7 +105,7 @@ class UploadFeelingActivity : AppCompatActivity() {
             val intent= Intent(this@UploadFeelingActivity, UploadSentenceActivity::class.java)
             intent.putExtra("feeling",feeling)
             intent.putExtra("date",binding.tvDate.text.toString())
-            intent.putExtra("wroteAt", wroteAt)
+            intent.putExtra("wroteAt", upload_wroteAt)
             startActivity(intent)
         }
     }
@@ -134,7 +134,7 @@ class UploadFeelingActivity : AppCompatActivity() {
         }
 
         binding.tvDate.text="${upload_year}. ${month}. ${date}. ${week}요일"
-        wroteAt="${upload_year}-${month}-${date}"
+        upload_wroteAt = "${upload_year}-${month}-${date}"
 
     }
 
@@ -153,7 +153,7 @@ class UploadFeelingActivity : AppCompatActivity() {
             upload_month = it[1]
             upload_date = it[2]
 
-            wroteAt="${it[0]}-${getMonth(it[1])}-${getDate(it[2])}"
+            upload_wroteAt = "${it[0]}-${getMonth(it[1])}-${getDate(it[2])}"
 
         }
 

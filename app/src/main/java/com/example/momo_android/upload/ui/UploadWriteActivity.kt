@@ -1,5 +1,6 @@
 package com.example.momo_android.upload.ui
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
@@ -13,17 +14,23 @@ import com.example.momo_android.util.*
 class UploadWriteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUploadWriteBinding
 
+    companion object {
+        var activity : Activity? = null
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUploadWriteBinding.inflate(layoutInflater) // 2
         val view = binding.root // 3
         setContentView(view)
 
+        activity = this
+
         val feeling=intent.getIntExtra("feeling",0)
         val sentenceId = intent.getIntExtra("sentenceId", 0)
         val emotionId = intent.getIntExtra("emotionId", 0)
         var contents = ""
-        var wroteAt=intent.getStringExtra("wroteAt")
+        val wroteAt=intent.getStringExtra("wroteAt")
         //val date = intent.getStringExtra("date")
 
         showFeeling(feeling)
