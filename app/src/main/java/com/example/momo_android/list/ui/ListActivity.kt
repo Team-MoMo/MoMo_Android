@@ -316,6 +316,7 @@ class ListActivity : AppCompatActivity() {
 
         // 검색 결과가 없을 때 (데이터가 0개)
         if (data.isEmpty()) {
+            disableScroll()
             binding.rcvList.visibility = View.GONE
             binding.constraintlayoutListNone.visibility = View.GONE
             binding.constraintlayoutListFilterdNone.visibility = View.VISIBLE
@@ -323,6 +324,7 @@ class ListActivity : AppCompatActivity() {
 
         // 현재 월에 아무 일기도 쓰지 않았을 때
         if (data.isEmpty() && selectCurrentDate && filter_emotion == null && filter_depth == null) {
+            disableScroll()
             binding.rcvList.visibility = View.GONE
             binding.constraintlayoutListFilterdNone.visibility = View.GONE
             binding.constraintlayoutListNone.visibility = View.VISIBLE
