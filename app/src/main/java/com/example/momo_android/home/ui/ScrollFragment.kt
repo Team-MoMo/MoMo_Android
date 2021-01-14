@@ -24,6 +24,7 @@ import com.example.momo_android.databinding.FragmentScrollBinding
 import com.example.momo_android.list.ui.ListActivity
 import com.example.momo_android.home.ui.HomeActivity.Companion.IS_FROM_SCROLL
 import com.example.momo_android.home.ui.HomeFragment.Companion.DIARY_STATUS
+import com.example.momo_android.setting.SettingActivity
 import com.example.momo_android.upload.ui.UploadFeelingActivity
 import com.example.momo_android.util.ScrollDatePickerListener
 import java.util.*
@@ -234,13 +235,18 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
     private val fragmentOnClickListener = View.OnClickListener {
         viewBinding.apply {
             when (it.id) {
-                imageButtonMy.id -> Log.d("TAG", "clicked: ")
+                imageButtonMy.id -> setIntentToSettingActivity()
                 imageButtonCalendar.id -> setIntentToDatePicker()
                 imageButtonHome.id -> scrollToTop()
                 imageButtonUpload.id -> setIntentToUploadActivity()
                 imageButtonList.id -> setIntentToListActivity()
             }
         }
+    }
+
+    private fun setIntentToSettingActivity() {
+        val intent = Intent(requireContext(), SettingActivity::class.java)
+        startActivity(intent)
     }
 
     private fun setIntentToDatePicker() {

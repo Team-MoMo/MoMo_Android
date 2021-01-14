@@ -21,6 +21,7 @@ import com.example.momo_android.home.data.ResponseDiaryList
 import com.example.momo_android.home.ui.ScrollFragment.Companion.IS_EDITED
 import com.example.momo_android.list.ui.ListActivity
 import com.example.momo_android.network.RequestToServer
+import com.example.momo_android.setting.SettingActivity
 import com.example.momo_android.upload.ui.UploadFeelingActivity
 import com.example.momo_android.util.SharedPreferenceController
 import retrofit2.Call
@@ -363,13 +364,18 @@ class HomeFragment : Fragment() {
     private val fragmentOnClickListener = View.OnClickListener {
         viewBinding.apply {
             when (it.id) {
-                imageButtonMy.id -> Log.d("TAG", "clicked: ")
+                imageButtonMy.id -> setIntentToSettingActivity()
                 buttonShowFull.id -> setIntentToDiaryActivity()
                 buttonUpload.id -> setIntentToUploadActivity()
                 imageButtonUpload.id -> setIntentToUploadActivity()
                 imageButtonList.id -> setIntentToListActivity()
             }
         }
+    }
+
+    private fun setIntentToSettingActivity() {
+        val intent = Intent(requireContext(), SettingActivity::class.java)
+        startActivity(intent)
     }
 
     private fun setIntentToDiaryActivity() {
