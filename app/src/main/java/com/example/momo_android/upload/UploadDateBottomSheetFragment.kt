@@ -72,6 +72,8 @@ class UploadDateBottomSheetFragment (val itemClick: (IntArray) -> Unit) : Bottom
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Binding.btnDiaryDateEdit.isEnabled=true
+
         val year = Binding.includeYmdPicker.year
         val month = Binding.includeYmdPicker.month
         val date = Binding.includeYmdPicker.date

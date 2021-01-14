@@ -60,19 +60,21 @@ class UploadFeelingActivity : AppCompatActivity() {
             var value=intent.getBooleanExtra("diaryStatus",true)
             when(value){
                 true->{//오늘일기가 있으면 모달이 바로 뜬다
-
+                    Log.d("intent","$value")
                     //일기 안쓴 가장 최근 일자 가져오기. Picker용과 tvDate용 설정
                     loadRecentData()
                     //받아온 최근 날짜를 기준으로 모달이 뜬다.
                 }
                 false->{ //오늘 일기가 없으면 오늘 날짜로 설정한다.
                     setToday()
+                    Log.d("intent","$value")
                 }
             }
 
         }
         else{ //그 외 모든 경우 오늘 일기가 없는 것이므로 오늘 날짜로 설정한다.
             setToday()
+            Log.d("intent","else")
         }
 
         //모달 연결
