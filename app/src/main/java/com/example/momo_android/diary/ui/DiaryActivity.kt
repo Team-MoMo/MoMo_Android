@@ -165,8 +165,11 @@ class DiaryActivity : AppCompatActivity() {
                 when {
                     response.code() == 200 -> {
 
+
                         val body = response.body()!!
                         responseData = listOf(response.body()!!.data)
+
+                        setLoadingViewBackground(body.data.depth)
 
                         tv_diary_date.text = getFormedDate(body.data.wroteAt) // 날짜
                         setPickerDate(body.data.wroteAt) // 피커 날짜
@@ -182,8 +185,6 @@ class DiaryActivity : AppCompatActivity() {
                         tv_publisher.text = "(${body.data.Sentence.publisher})" // 출판사
                         tv_diary_content.text = body.data.contents // 일기
 
-                        setLoadingViewBackground(body.data.depth)
-                        fadeOutLoadingView()
                     }
                     response.code() == 400 -> {
                         Log.d("getDiary 400", response.message())
@@ -192,6 +193,8 @@ class DiaryActivity : AppCompatActivity() {
                         Log.d("getDiary 500", response.message())
                     }
                 }
+
+                fadeOutLoadingView()
             }
 
             override fun onFailure(call: Call<ResponseDiaryData>, t: Throwable) {
