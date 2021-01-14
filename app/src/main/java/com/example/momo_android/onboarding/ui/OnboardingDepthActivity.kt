@@ -49,6 +49,7 @@ class OnboardingDepthActivity : AppCompatActivity() {
             Log.d("btn","clicked")
             intent.putExtra("deep",mainSeekbar.progress)
             startActivity(intent)
+            finishAffinity()
         }
         /*뒤로가기
         btn_back.setOnClickListener {
