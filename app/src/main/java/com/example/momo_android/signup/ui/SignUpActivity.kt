@@ -118,13 +118,15 @@ class SignUpActivity : AppCompatActivity() {
 
     private val checkboxOnClickListener = View.OnClickListener {
         if(binding.checkboxPrivacy.isChecked) {
-            binding.tvCbPrivacyError1.setTextColor(ContextCompat.getColor(applicationContext, R.color.blue_2))
-            binding.tvCbPrivacyError2.setTextColor(ContextCompat.getColor(applicationContext, R.color.blue_2))
+            binding.tvCbPrivacyError1.setTextColor(ContextCompat.getColor(applicationContext, R.color.black_2_nav))
+            binding.tvCbPrivacyError2.setTextColor(ContextCompat.getColor(applicationContext, R.color.black_2_nav))
+            binding.imgChPrivacyError.setImageResource(R.drawable.btn_arrow_right_black)
         }
 
         if(binding.checkboxService.isChecked) {
-            binding.tvCbServiceError1.setTextColor(ContextCompat.getColor(applicationContext, R.color.blue_2))
-            binding.tvCbServiceError2.setTextColor(ContextCompat.getColor(applicationContext, R.color.blue_2))
+            binding.tvCbServiceError1.setTextColor(ContextCompat.getColor(applicationContext, R.color.black_2_nav))
+            binding.tvCbServiceError2.setTextColor(ContextCompat.getColor(applicationContext, R.color.black_2_nav))
+            binding.imgChServiceError.setImageResource(R.drawable.btn_arrow_right_black)
         }
 
     }
@@ -201,11 +203,13 @@ class SignUpActivity : AppCompatActivity() {
         if(!binding.checkboxPrivacy.isChecked) {
             binding.tvCbPrivacyError1.setTextColor(ContextCompat.getColor(applicationContext, R.color.red_2_error))
             binding.tvCbPrivacyError2.setTextColor(ContextCompat.getColor(applicationContext, R.color.red_2_error))
+            binding.imgChPrivacyError.setImageResource(R.drawable.btn_arrow_right_red)
         }
 
         if(!binding.checkboxService.isChecked) {
             binding.tvCbServiceError1.setTextColor(ContextCompat.getColor(applicationContext, R.color.red_2_error))
             binding.tvCbServiceError2.setTextColor(ContextCompat.getColor(applicationContext, R.color.red_2_error))
+            binding.imgChServiceError.setImageResource(R.drawable.btn_arrow_right_red)
         }
 
         if(binding.checkboxPrivacy.isChecked && binding.checkboxService.isChecked) {
