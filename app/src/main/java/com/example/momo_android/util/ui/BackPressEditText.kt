@@ -1,9 +1,8 @@
-package com.example.momo_android.util
+package com.example.momo_android.util.ui
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.KeyEvent
-import android.widget.EditText
 
 class BackPressEditText : androidx.appcompat.widget.AppCompatEditText {
     private var _listener: OnBackPressListener? = null
