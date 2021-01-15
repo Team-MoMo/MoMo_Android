@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
-        app:layout_constraintBottom_toBottomOf="@+id/realtimeBlurView"
+        app:layout_constraintBottom_toBottomOf="@+id/realtimeBlurView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -134,7 +134,7 @@
         android:id="@+id/constraintLayout8"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/realtimeBlurView"
+        app:layout_constraintBottom_toTopOf="@+id/realtimeBlurView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout6"
@@ -179,7 +179,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_deep_date"
-            app:layout_constraintEnd_toStartOf="@+id/tv_diary_emotion"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@+id/tv_deep_date"
             app:layout_constraintTop_toTopOf="@+id/tv_deep_date"
@@ -197,7 +196,6 @@
             android:textColor="@color/blue_7"
             android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="@+id/img_deep_emotion"
-            app:layout_constraintEnd_toStartOf="@+id/img_diary_deep"
             app:layout_constraintStart_toEndOf="@+id/img_deep_emotion"
             app:layout_constraintTop_toTopOf="@+id/img_deep_emotion" />
     </androidx.constraintlayout.widget.ConstraintLayout>
