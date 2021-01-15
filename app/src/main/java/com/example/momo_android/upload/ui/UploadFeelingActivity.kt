@@ -6,7 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings.Global.getString
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityUploadFeelingBinding
 import com.example.momo_android.diary.data.Diary
 import com.example.momo_android.diary.ui.DiaryActivity
@@ -21,11 +25,13 @@ import com.example.momo_android.util.SharedPreferenceController
 import com.example.momo_android.util.getDate
 import com.example.momo_android.util.getMonth
 import com.example.momo_android.util.showToast
+import kotlinx.android.synthetic.main.activity_upload_feeling.*
 import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Header
+import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.security.auth.callback.Callback
@@ -54,6 +60,8 @@ class UploadFeelingActivity : AppCompatActivity() {
         //Sentence Activity에서 Feeling 이전의 창으로 넘어가기 위함
         activity = this
 
+        //툴바
+        initToolbar()
 
         //HomeActivity에서 오늘일기가 있을때 없을 때 + ListView 오늘일기 없을때(else)
         if(intent.hasExtra("diaryStatus")){
@@ -82,10 +90,10 @@ class UploadFeelingActivity : AppCompatActivity() {
             openDateModal()
         }
 
-        //X 버튼
-        binding.imgClose.setOnClickListener {
-            finish()
-        }
+//        //X 버튼
+//        binding.imgClose.setOnClickListener {
+//            finish()
+//        }
 
         //감정버튼 클릭
         binding.btnLove.click()
@@ -232,4 +240,23 @@ class UploadFeelingActivity : AppCompatActivity() {
     }
 
 
+    //툴바 설정
+    private fun initToolbar() {
+        //툴바 사용 설정
+        setSupportActionBar(binding.toolbar)
+
+        //toolbar 왼쪽 버튼&제목 안 사용
+        supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+        supportActionBar!!.setDisplayShowTitleEnabled(false)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_feeling, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        finish()
+        return super.onOptionsItemSelected(item)
+    }
 }

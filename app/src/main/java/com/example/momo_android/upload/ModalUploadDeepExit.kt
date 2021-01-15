@@ -26,7 +26,7 @@ class ModalUploadDeepExit(context : Context) {
             dlg.dismiss()
         }
 
-        btn_yes = dlg.findViewById(R.id.btn_exit)
+        btn_yes = dlg.findViewById(R.id.btn_yes)
         btn_yes.setOnClickListener {
             listener.onOKClicked("닫기")
             dlg.dismiss()

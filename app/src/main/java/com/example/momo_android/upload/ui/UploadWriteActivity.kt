@@ -59,6 +59,8 @@ class UploadWriteActivity : AppCompatActivity() {
         binding.etDiary.setOnClickListener {
             binding.togglebtn.rotation=180.0f
             binding.tvSentence.setGone()
+            binding.etDiary.requestFocus()
+            binding.etDiary.hint=""
         }
         //EditText외 부분 터치시 키보드 안뜨게. 그 외 부분에 다 터치 인식
         binding.constraintlayout.toggle_visible()
@@ -122,7 +124,7 @@ class UploadWriteActivity : AppCompatActivity() {
     private fun checkEditDiary() {
         // 일기를 1자라도 수정했을 경우 팝업
         // 일기를 수정하지 않은 경우 팝업 없이 finish()
-        if(binding.etDiary.text.toString() == "") {
+        if(binding.etDiary.text.toString().equals("")) {
             finish()
         } else {
             val backModal = ModalUploadWriteBack(this)
