@@ -56,9 +56,6 @@ class UploadDateBottomSheetFragment (val itemClick: (IntArray) -> Unit) : Bottom
     ): View? {
         _Binding = BottomsheetDiaryEditDateBinding.inflate(layoutInflater)
 
-        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        (activity as AppCompatActivity).supportActionBar?.hide()
-
         Binding.tvChangeDate.text="날짜 변경"
         return Binding.root
     }
