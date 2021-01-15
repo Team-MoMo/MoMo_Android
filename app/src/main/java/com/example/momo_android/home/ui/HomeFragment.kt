@@ -37,6 +37,7 @@ class HomeFragment : Fragment() {
 
     private var isDay = true
     private var diaryId = 0
+    private var diaryDepth = 0
     private val currentYear = Calendar.getInstance().get(Calendar.YEAR)
     private val currentMonth = (Calendar.getInstance().get(Calendar.MONTH) + 1)
     private val currentDate = Calendar.getInstance().get(Calendar.DATE)
@@ -381,6 +382,7 @@ class HomeFragment : Fragment() {
     private fun setIntentToDiaryActivity() {
         val intent = Intent(requireContext(), DiaryActivity::class.java)
         intent.putExtra("diaryId", diaryId)
+        intent.putExtra("diaryDepth", diaryDepth)
         startActivity(intent)
     }
 

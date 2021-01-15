@@ -33,6 +33,7 @@ class DiaryActivity : AppCompatActivity() {
         var diary_month = 0
         var diary_date = 0
         lateinit var responseData : List<Diary>
+        const val REQUEST_EDIT_DEPTH = 1000
     }
 
     private lateinit var binding: ActivityDiaryBinding
@@ -117,7 +118,7 @@ class DiaryActivity : AppCompatActivity() {
             menu_edit.setGone()
             val intent = Intent(this, DiaryEditDeepActivity::class.java)
             intent.putExtra("diary_day", tv_diary_date.text.toString())
-            startActivity(intent)
+            startActivityForResult(intent, REQUEST_EDIT_DEPTH)
         }
 
         // 일기 삭제
@@ -354,6 +355,4 @@ class DiaryActivity : AppCompatActivity() {
             }
         }
     }
-
-
 }

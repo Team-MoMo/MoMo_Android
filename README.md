@@ -1,5 +1,8 @@
 # 💙 MoMo Android 💙
-* SOPT 27th APPJAM - TEAM MOMO
+
+<img src="https://user-images.githubusercontent.com/38918396/104698570-e40f2800-5754-11eb-8548-7bad4b78f68d.png" width="250" height="250">
+
+* SOPT 27th APPJAM - **TEAM MOMO**
 * PROJECT : 2020.12.28 ~ 2021.01.16
 
 <br>
@@ -9,12 +12,16 @@
 * [Rule Setting](#-rule-setting)
 * [회의록](#-%ED%9A%8C%EC%9D%98%EB%A1%9D)
 * [역할 분담](#-%EC%97%AD%ED%95%A0-%EB%B6%84%EB%8B%B4)
+* [프로그램 구조](#-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EA%B5%AC%EC%A1%B0)
+* [사용된 라이브러리](#-%EC%82%AC%EC%9A%A9%EB%90%9C-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC)
+* [사용한 기술 스택 작성](#-%EC%82%AC%EC%9A%A9%ED%95%9C-%EA%B8%B0%EC%88%A0-%EC%8A%A4%ED%83%9D-%EC%9E%91%EC%84%B1)
+* [핵심 기능 구현 코드 및 방법](#-%ED%95%B5%EC%8B%AC-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84-%EC%BD%94%EB%93%9C-%EB%B0%8F-%EB%B0%A9%EB%B2%95)
 * [MoMoroid Developer](#-momoroid-developer)
 
 <br>
 
 ## 🎁 프로젝트 설명
-![momo_title](https://user-images.githubusercontent.com/38918396/103638254-03a59400-4f90-11eb-9fbf-bc7a19c01b43.png)
+![Git_Main](https://user-images.githubusercontent.com/38918396/104698429-b1fdc600-5754-11eb-8103-b8cb583c36d3.png)
 * * *
 MOMO, 책 속의 문장을 제공함으로써, 보다 깊이 있는 감정 기록을 도와주는 일기 앱 서비스.
 
@@ -83,6 +90,28 @@ ex) SignInActivity, ChangeFragment
 
 <br>
 
+### 🗂 프로그램 구조
+package 분류 이미지
+
+<br>
+
+### 🎄 사용된 라이브러리
+
+<br>
+
+### 🎅 사용한 기술 스택 작성
+
+<br>
+
+### 💻 핵심 기능 구현 코드 및 방법
+
+<br>
+
+### 필요 시 A - 2의 5번 6번
+5. 별도의 다른 Layout을 사용할 경우 사용 이유와  xml 파일 링크 README에 작성    (사용한 이유가 타당해야 인정)  
+
+<br>
+
 ## 👩‍👩‍👧‍👧 MoMoroid Developer
 <table style="text-align: center;">
   <tr>
@@ -105,25 +134,3 @@ ex) SignInActivity, ChangeFragment
 <br>
 
 [UP⏫](#-momo-android-)
-
------------------------------------------------------------------------------------
-
-(수정중)
-
-### 🎄 사용된 라이브러리
-
-
-### 🎅 사용한 기술 스택 작성 ( ex. AAC - DataBinding, ViewModel.. ,  비동기 작업 - Coroutine , DI - Dagger2 .. ,디자인 패턴 - MVP, MVVM , Factory Pattern 등등 자유롭게 작성)
-
-### 🗂 프로그램 구조
-package 분류 이미지
-    
-### 💻 핵심 기능 구현 코드 및 방법 정리 ( 실제 구현 화면 포함 )
-
-### 필요 시 A - 2의 5번 6번
-5. 별도의 다른 Layout을 사용할 경우 사용 이유와  xml 파일 링크 README에 작성    (사용한 이유가 타당해야 인정)  
-6. 단순한 도형 및 상태변환 Drawable은 ShapeDrawable과 StateListDrawable를 사용할 것.  
-- 다음과 같은 경우 사용한 이유를 README에 작성  
-- 단순 도형을 에셋 받아 사용했을 경우  
-- 상태 변화가 나타나야하는 뷰에 StateListDrawable을 사용하지 않았을 경우
-

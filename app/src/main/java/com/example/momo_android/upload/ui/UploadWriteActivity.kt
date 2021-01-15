@@ -3,6 +3,7 @@ package com.example.momo_android.upload.ui
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,7 @@ class UploadWriteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUploadWriteBinding
 
     companion object {
+        var depth=0
         var activity : Activity? = null
     }
 
@@ -42,6 +44,8 @@ class UploadWriteActivity : AppCompatActivity() {
         binding.tvBook.text=intent.getStringExtra("book")
         binding.tvPublisher.text=intent.getStringExtra("publisher")
         binding.tvSentence.text=intent.getStringExtra("sentence")
+
+        //Log.d("depth_write","${UploadWriteActivity.depth}")
 
 
         //토글 기능
@@ -88,6 +92,10 @@ class UploadWriteActivity : AppCompatActivity() {
                 intent.putExtra("book",binding.tvBook.text.toString())
                 intent.putExtra("publisher",binding.tvPublisher.text.toString())
                 intent.putExtra("sentence",binding.tvSentence.text.toString())
+                intent.putExtra("depth",depth)
+
+                //Log.d("depth_write","${UploadWriteActivity.depth}")
+
                 startActivity(intent)
             }
             else{

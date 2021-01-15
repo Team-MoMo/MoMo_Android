@@ -55,6 +55,7 @@ class UploadDeepActivity : AppCompatActivity() {
         val sentenceId = intent.getIntExtra("sentenceId", 0)
         val contents = intent.getStringExtra("contents")
         val wroteAt : String = intent.getStringExtra("wroteAt").toString()
+        val depth=intent.getIntExtra("depth",0)
 
         // 총 3개의 시크바 사용
         val mainSeekbar = binding.mainSeekBar
@@ -77,6 +78,8 @@ class UploadDeepActivity : AppCompatActivity() {
 
         // 뒤로가기
         btn_back.setOnClickListener {
+            UploadWriteActivity.depth=mainSeekbar.progress
+            //Log.d("depth_deep","${UploadWriteActivity.depth}")
             finish()
         }
 
@@ -103,7 +106,7 @@ class UploadDeepActivity : AppCompatActivity() {
         )
 
         // default = 2m
-        mainSeekbar.progress = 0
+        mainSeekbar.progress = depth
 
         // 처음 실행될 때 - line과 text 시크바를 main과 동일한 단계로 설정
         lineSeekbar.progress = mainSeekbar.progress
