@@ -13,14 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoMo_Android"
         android:usesCleartextTraffic="true">
+        <activity android:name=".setting.TeamInfoActivity" />
         <activity android:name=".onboarding.ui.OnboardingWriteSecondActivity" />
         <activity android:name=".onboarding.ui.OnboardingWriteFirstActivity" />
         <activity android:name=".onboarding.ui.OnboardingDepthActivity" />
         <activity android:name=".onboarding.ui.OnboardingSentenceActivity" />
         <activity android:name=".onboarding.ui.OnboardingFeelingActivity" />
         <activity android:name=".onboarding.ui.OnboardingStartActivity" />
-        <activity android:name=".login.ui.FindPasswordActivity"
-            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".login.ui.FindPasswordActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".login.ui.MainLoginActivity" />
         <activity
             android:name=".diary.ui.DiaryEditWriteActivity"
@@ -50,7 +52,7 @@
         <activity
             android:name=".list.ui.ListActivity"
             android:theme="@style/Theme.listTheme" />
-        <activity android:name=".setting.SettingActivity"/>
+        <activity android:name=".setting.SettingActivity" />
     </application>
 
 </manifest>

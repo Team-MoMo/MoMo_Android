@@ -71,4 +71,7 @@
     <color name="switch_thumb_off">#99000000</color>
     <color name="switch_thumb_on">#6200ee</color>
     <color name="switch_track_padding">#00ffffff</color>
+
+    <!-- team info color -->
+    <color name="background_team_info">#eef9ff</color>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.momo_android.setting
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -19,6 +20,8 @@ class SettingActivity : AppCompatActivity() {
         initBackButton()
 
         isSwitchOn()
+
+        initTeamInfoClickListener()
     }
 
     private fun isSwitchOn() {
@@ -37,6 +40,13 @@ class SettingActivity : AppCompatActivity() {
     private fun initBackButton() {
         binding.imagebuttonSettingBack.setOnClickListener {
             finish()
+        }
+    }
+
+    private fun initTeamInfoClickListener() {
+        binding.constraintlayoutTouchboxMomoInfo.setOnClickListener {
+            val intent = Intent(this, TeamInfoActivity::class.java)
+            startActivity(intent)
         }
     }
 }
