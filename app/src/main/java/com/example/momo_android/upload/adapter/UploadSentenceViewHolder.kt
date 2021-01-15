@@ -1,4 +1,4 @@
-package com.example.momo_android.upload
+package com.example.momo_android.upload.adapter
 
 import android.view.View
 import android.widget.TextView

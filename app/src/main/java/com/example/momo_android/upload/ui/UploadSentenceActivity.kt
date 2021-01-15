@@ -8,11 +8,9 @@ import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.momo_android.R
-import com.example.momo_android.upload.UploadSentenceAdapter
+import com.example.momo_android.upload.adapter.UploadSentenceAdapter
 import com.example.momo_android.databinding.ActivityUploadSentenceBinding
-import com.example.momo_android.list.ui.ListActivity
 import com.example.momo_android.network.RequestToServer
-import com.example.momo_android.onboarding.ui.OnboardingStartActivity
 import com.example.momo_android.upload.data.Data
 import com.example.momo_android.upload.data.ResponseSentenceData
 import com.example.momo_android.upload.data.UploadSentenceData

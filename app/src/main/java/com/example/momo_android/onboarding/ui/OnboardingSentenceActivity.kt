@@ -10,11 +10,8 @@ import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityOnboardingSentenceBinding
 import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.onboarding.ui.OnboardingFeelingActivity.Companion.ONBOARDING_FEELING
-import com.example.momo_android.upload.UploadSentenceAdapter
-import com.example.momo_android.upload.data.Data
-import com.example.momo_android.upload.data.ResponseSentenceData
+import com.example.momo_android.upload.adapter.UploadSentenceAdapter
 import com.example.momo_android.upload.data.UploadSentenceData
-import com.example.momo_android.upload.ui.UploadWriteActivity
 import com.example.momo_android.util.ItemClickListener
 import com.example.momo_android.util.SharedPreferenceController
 import com.example.momo_android.util.showToast

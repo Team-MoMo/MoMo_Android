@@ -3,13 +3,11 @@ package com.example.momo_android.upload.ui
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityUploadWriteBinding
-import com.example.momo_android.upload.ModalUploadWriteBack
 import com.example.momo_android.util.*
 import com.example.momo_android.util.ui.BackPressEditText
 
