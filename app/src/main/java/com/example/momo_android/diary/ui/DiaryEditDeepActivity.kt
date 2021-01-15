@@ -23,6 +23,7 @@ import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityDiaryEditDeepBinding
 import com.example.momo_android.diary.data.RequestEditDiaryData
 import com.example.momo_android.diary.data.ResponseDiaryData
+import com.example.momo_android.home.ui.ScrollFragment.Companion.EDITED_DEPTH
 import com.example.momo_android.home.ui.ScrollFragment.Companion.IS_EDITED
 import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.util.SharedPreferenceController
@@ -163,7 +164,7 @@ class DiaryEditDeepActivity : AppCompatActivity() {
                 when {
                     response.code() == 200 -> {
                         IS_EDITED = true
-//                        EDITED_DEPTH = response.body()!!.data.depth
+                        EDITED_DEPTH = response.body()!!.data.depth
                         val intent = Intent(applicationContext, DiaryActivity::class.java)
                         intent.putExtra("diaryDepth", response.body()!!.data.depth)
                         setResult(1000, intent)
