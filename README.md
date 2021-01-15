@@ -13,8 +13,7 @@
 * [회의록](#-%ED%9A%8C%EC%9D%98%EB%A1%9D)
 * [역할 분담](#-%EC%97%AD%ED%95%A0-%EB%B6%84%EB%8B%B4)
 * [프로그램 구조](#-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EA%B5%AC%EC%A1%B0)
-* [사용된 라이브러리](#-%EC%82%AC%EC%9A%A9%EB%90%9C-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC)
-* [사용한 기술 스택 작성](#-%EC%82%AC%EC%9A%A9%ED%95%9C-%EA%B8%B0%EC%88%A0-%EC%8A%A4%ED%83%9D-%EC%9E%91%EC%84%B1)
+* [사용된 라이브러리, 사용한 기술 스택](#-%EC%82%AC%EC%9A%A9%EB%90%9C-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EC%82%AC%EC%9A%A9%ED%95%9C-%EA%B8%B0%EC%88%A0-%EC%8A%A4%ED%83%9D)
 * [핵심 기능 구현 코드 및 방법](#-%ED%95%B5%EC%8B%AC-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84-%EC%BD%94%EB%93%9C-%EB%B0%8F-%EB%B0%A9%EB%B2%95)
 * [MoMoroid Developer](#-momoroid-developer)
 
@@ -59,7 +58,6 @@ ex) SignInActivity, ChangeFragment
 - body : 구현한 기능 설명
     
 ### 4️⃣ Package
-- ui - activity
 - network - interface 등 통신에 필요한 기초 파일
 - util - 커스텀 파일, 확장 함수 등
 - 그 외 기능 별로 분류
@@ -90,51 +88,47 @@ ex) SignInActivity, ChangeFragment
 
 <br>
 
-### 🗂 프로그램 구조
-package 분류 이미지
+## 🗂 프로그램 구조
+<img src="https://user-images.githubusercontent.com/38918396/104733695-6feb7900-5782-11eb-8419-1df9e866f65b.png" width="300">
 
 <br>
 
-### 🎄 사용된 라이브러리
+## 🎄 사용된 라이브러리, 사용한 기술 스택
+* **ViewBinding**
+    * 뷰와 상호 작용하는 코드를보다 쉽게 작성하기 위해 사용
+* **Retrofit2**
+    * REST API를 통해 서버와 통신하기 위해 사용
+* **gson/gson converter**
+    * Retrofit2 라이브러리를 통해 서버로부터 받은 데이터를 파싱된 형태로 이용하기 위해 사용
+* **real time blur view**
+    * 로그인 및 깊이선택 뷰에서 배경 오브제의 블러 처리를 위해 사용
+* **vertical seekbar**
+    * 깊이선택 뷰 및 스크롤뷰의 깊이를 세로 형태의 시크바로 나타내기 위해 사용
+* **Lottie**
+    * 온보딩 및 스플래시 뷰에 애니메이션 효과를 주기 위해 사용
+* **neumorphism**
+    * 감정선택 뷰에서 커스텀 그림자가 적용된 버튼을 나타내기 위해 사용
 
 <br>
 
-### 🎅 사용한 기술 스택 작성
+## 💻 핵심 기능 구현 코드 및 방법
+[Wiki에서 확인할 수 있어요! Click ✔](https://github.com/Team-MoMo/MoMo_Android/wiki)
 
-<br>
-
-### 💻 핵심 기능 구현 코드 및 방법
-* 스플래시
-
-* 온보딩
-
-* 로그인
-
-* 회원가입
-
-* 메인화면 (홈, 스크롤)
-
-* 업로드 - 감정선택
-
-* 업로드 - 문장선택
-
-* 업로드 - 일기작성, 다이어리 - 일기수정
-
-* 업로드 - 깊이선택, 다이어리 - 깊이수정
-
-* 날짜 선택 Bottom Sheet
-
-* 다이어리 (일기 상세보기)
-
-* 일기 리스트, 필터
-
-* 환경설정
-
-
-<br>
-
-### 필요 시 A - 2의 5번 6번
-5. 별도의 다른 Layout을 사용할 경우 사용 이유와  xml 파일 링크 README에 작성    (사용한 이유가 타당해야 인정)  
+* [Splash](https://github.com/Team-MoMo/MoMo_Android/wiki/Splash)
+* [Onboarding](https://github.com/Team-MoMo/MoMo_Android/wiki/Onboarding)
+* [Sign 로그인, 회원가입](https://github.com/Team-MoMo/MoMo_Android/wiki/Sign-%EB%A1%9C%EA%B7%B8%EC%9D%B8,-%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85)
+* [Main 홈, 스크롤](https://github.com/Team-MoMo/MoMo_Android/wiki/Main-%ED%99%88,-%EC%8A%A4%ED%81%AC%EB%A1%A4)
+* [Upload 감정선택](https://github.com/Team-MoMo/MoMo_Android/wiki/Upload-%EA%B0%90%EC%A0%95%EC%84%A0%ED%83%9D)
+* [Upload 문장선택](https://github.com/Team-MoMo/MoMo_Android/wiki/Upload-%EB%AC%B8%EC%9E%A5%EC%84%A0%ED%83%9D)
+* [Upload 일기작성, Diary 일기수정](https://github.com/Team-MoMo/MoMo_Android/wiki/Upload-%EC%9D%BC%EA%B8%B0%EC%9E%91%EC%84%B1,-Diary-%EC%9D%BC%EA%B8%B0%EC%88%98%EC%A0%95)
+* [Upload 깊이선택, Diary 깊이수정](https://github.com/Team-MoMo/MoMo_Android/wiki/Upload-%EA%B9%8A%EC%9D%B4%EC%84%A0%ED%83%9D,-Diary-%EA%B9%8A%EC%9D%B4%EC%88%98%EC%A0%95)
+* [List 일기 리스트, 필터](https://github.com/Team-MoMo/MoMo_Android/wiki/List-%EC%9D%BC%EA%B8%B0-%EB%A6%AC%EC%8A%A4%ED%8A%B8,-%ED%95%84%ED%84%B0)
+* [Diary 일기 상세보기](https://github.com/Team-MoMo/MoMo_Android/wiki/Diary-%EC%9D%BC%EA%B8%B0-%EC%83%81%EC%84%B8%EB%B3%B4%EA%B8%B0)
+* [날짜 변환 Date format](https://github.com/Team-MoMo/MoMo_Android/wiki/%EB%82%A0%EC%A7%9C-%EB%B3%80%ED%99%98-Date-format)
+* [날짜 선택 Bottom Sheet](https://github.com/Team-MoMo/MoMo_Android/wiki/%EB%82%A0%EC%A7%9C-%EC%84%A0%ED%83%9D-Bottom-Sheet)
+* [환경설정](https://github.com/Team-MoMo/MoMo_Android/wiki/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95)
+* [확장함수](https://github.com/Team-MoMo/MoMo_Android/wiki/%ED%99%95%EC%9E%A5%ED%95%A8%EC%88%98)
+* [CoordinatorLayout & CollapsingToolbarLayout](https://github.com/Team-MoMo/MoMo_Android/wiki/CoordinatorLayout-&-CollapsingToolbarLayout)
 
 <br>
 
