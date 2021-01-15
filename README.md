@@ -59,7 +59,6 @@ ex) SignInActivity, ChangeFragment
 - body : 구현한 기능 설명
     
 ### 4️⃣ Package
-- ui - activity
 - network - interface 등 통신에 필요한 기초 파일
 - util - 커스텀 파일, 확장 함수 등
 - 그 외 기능 별로 분류
@@ -91,12 +90,23 @@ ex) SignInActivity, ChangeFragment
 <br>
 
 ### 🗂 프로그램 구조
-package 분류 이미지
+<img src="https://user-images.githubusercontent.com/38918396/104733695-6feb7900-5782-11eb-8419-1df9e866f65b.png" width="300">
 
 <br>
 
 ### 🎄 사용된 라이브러리
-
+* **Retrofit2**
+    * REST API를 통해 서버와 통신하기 위해 사용
+* **gson/gson converter**
+    * Retrofit2 라이브러리를 통해 서버로부터 받은 데이터를 파싱된 형태로 이용하기 위해 사용
+* **real time blur view**
+    * 로그인 및 깊이선택 뷰에서 배경 오브제의 블러 처리를 위해 사용
+* **vertical seekbar**
+    * 깊이선택 뷰 및 스크롤뷰의 깊이를 세로 형태의 시크바로 나타내기 위해 사용
+* **Lottie**
+    * 온보딩 및 스플래시 뷰에 애니메이션 효과를 주기 위해 사용
+* **neumorphism**
+    * 감정선택 뷰에서 커스텀 그림자가 적용된 버튼을 나타내기 위해 사용
 <br>
 
 ### 🎅 사용한 기술 스택 작성
@@ -104,37 +114,7 @@ package 분류 이미지
 <br>
 
 ### 💻 핵심 기능 구현 코드 및 방법
-* 스플래시
-
-* 온보딩
-
-* 로그인
-
-* 회원가입
-
-* 메인화면 (홈, 스크롤)
-
-* 업로드 - 감정선택
-
-* 업로드 - 문장선택
-
-* 업로드 - 일기작성, 다이어리 - 일기수정
-
-* 업로드 - 깊이선택, 다이어리 - 깊이수정
-
-* 날짜 선택 Bottom Sheet
-
-* 다이어리 (일기 상세보기)
-
-* 일기 리스트, 필터
-
-* 환경설정
-
-
-<br>
-
-### 필요 시 A - 2의 5번 6번
-5. 별도의 다른 Layout을 사용할 경우 사용 이유와  xml 파일 링크 README에 작성    (사용한 이유가 타당해야 인정)  
+[Wiki에서 확인할 수 있어요! Click ✔](https://github.com/Team-MoMo/MoMo_Android/wiki)
 
 <br>
 
