@@ -13,6 +13,10 @@
 * [회의록](#-%ED%9A%8C%EC%9D%98%EB%A1%9D)
 * [역할 분담](#-%EC%97%AD%ED%95%A0-%EB%B6%84%EB%8B%B4)
 * [MoMoroid Developer](#-momoroid-developer)
+* [사용된 라이브러리](#-%EC%82%AC%EC%9A%A9%EB%90%9C-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC)
+* [사용한 기술 스택 작성]()
+* [프로그램 구조](#-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EA%B5%AC%EC%A1%B0)
+* [핵심 기능 구현 코드 및 방법]()
 
 <br>
 
@@ -114,12 +118,12 @@ ex) SignInActivity, ChangeFragment
 ### 🎄 사용된 라이브러리
 
 
-### 🎅 사용한 기술 스택 작성 ( ex. AAC - DataBinding, ViewModel.. ,  비동기 작업 - Coroutine , DI - Dagger2 .. ,디자인 패턴 - MVP, MVVM , Factory Pattern 등등 자유롭게 작성)
+### 🎅 사용한 기술 스택 작성
 
 ### 🗂 프로그램 구조
 package 분류 이미지
     
-### 💻 핵심 기능 구현 코드 및 방법 정리 ( 실제 구현 화면 포함 )
+### 💻 핵심 기능 구현 코드 및 방법
 
 ### 필요 시 A - 2의 5번 6번
 5. 별도의 다른 Layout을 사용할 경우 사용 이유와  xml 파일 링크 README에 작성    (사용한 이유가 타당해야 인정)  
