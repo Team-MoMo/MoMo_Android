@@ -33,10 +33,10 @@
         android:id="@+id/constraintLayout12"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="58dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
         <!--
         app:layout_constraintTop_toBottomOf="@+id/img_close">
         -->

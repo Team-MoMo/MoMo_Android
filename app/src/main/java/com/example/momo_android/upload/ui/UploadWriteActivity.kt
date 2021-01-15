@@ -97,6 +97,7 @@ class UploadWriteActivity : AppCompatActivity() {
                 //Log.d("depth_write","${UploadWriteActivity.depth}")
 
                 startActivity(intent)
+                overridePendingTransition(R.anim.horizontal_left_in, R.anim.horizontal_right_out)
             }
             else{
                 showToast("일기를 작성해 주세요!")
@@ -132,14 +133,16 @@ class UploadWriteActivity : AppCompatActivity() {
     private fun checkEditDiary() {
         // 일기를 1자라도 수정했을 경우 팝업
         // 일기를 수정하지 않은 경우 팝업 없이 finish()
-        if(binding.etDiary.text.toString().equals("")) {
+        if(binding.etDiary.text.toString() == "") {
             finish()
+            overridePendingTransition(R.anim.horizontal_right_in, R.anim.horizontal_left_out)
         } else {
             val backModal = ModalUploadWriteBack(this)
             backModal.start()
             backModal.setOnClickListener {
                 if(it == "확인") {
                     finish()
+                    overridePendingTransition(R.anim.horizontal_right_in, R.anim.horizontal_left_out)
                 }
             }
         }
@@ -189,6 +192,12 @@ class UploadWriteActivity : AppCompatActivity() {
                 binding.imgFeeling.setImageResource(R.drawable.ic_daily_14_black)
             }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+        overridePendingTransition(R.anim.horizontal_right_in, R.anim.horizontal_left_out)
     }
 
 }

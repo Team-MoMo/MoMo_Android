@@ -332,4 +332,10 @@ class UploadDeepActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+        overridePendingTransition(R.anim.horizontal_right_in, R.anim.horizontal_left_out)
+    }
+
 }
