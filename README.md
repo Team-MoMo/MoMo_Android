@@ -88,12 +88,12 @@ ex) SignInActivity, ChangeFragment
 
 <br>
 
-### 🗂 프로그램 구조
+## 🗂 프로그램 구조
 <img src="https://user-images.githubusercontent.com/38918396/104733695-6feb7900-5782-11eb-8419-1df9e866f65b.png" width="300">
 
 <br>
 
-### 🎄 사용된 라이브러리, 사용한 기술 스택
+## 🎄 사용된 라이브러리, 사용한 기술 스택
 * **ViewBinding**
     * 뷰와 상호 작용하는 코드를보다 쉽게 작성하기 위해 사용
 * **Retrofit2**
@@ -108,11 +108,10 @@ ex) SignInActivity, ChangeFragment
     * 온보딩 및 스플래시 뷰에 애니메이션 효과를 주기 위해 사용
 * **neumorphism**
     * 감정선택 뷰에서 커스텀 그림자가 적용된 버튼을 나타내기 위해 사용
-<br>
 
 <br>
 
-### 💻 핵심 기능 구현 코드 및 방법
+## 💻 핵심 기능 구현 코드 및 방법
 [Wiki에서 확인할 수 있어요! Click ✔](https://github.com/Team-MoMo/MoMo_Android/wiki)
 
 * [Splash](https://github.com/Team-MoMo/MoMo_Android/wiki/Splash)
