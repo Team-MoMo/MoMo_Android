@@ -33,7 +33,6 @@ class LoginActivity : AppCompatActivity() {
         val btn_login = binding.btnLogin
         val et_email = binding.etEmail
         val et_passwd = binding.etPasswd
-        val tv_login_alert = binding.tvLoginAlert
 
         btn_login.setOnClickListener {
             postLogin()
@@ -83,11 +82,9 @@ class LoginActivity : AppCompatActivity() {
                 when {
                     response.code() == 200 -> {
                         // 토큰 저장
-                        SharedPreferenceController.setAccessToken(applicationContext,
-                            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc")
+                        SharedPreferenceController.setAccessToken(applicationContext, response.body()!!.data.token)
                         // 유저 아이디 저장
-                        //SharedPreferenceController.setUserId(applicationContext, response.body()!!.data.user.id)
-                        SharedPreferenceController.setUserId(applicationContext, 2)
+                        SharedPreferenceController.setUserId(applicationContext, response.body()!!.data.user.id)
 
                         // 홈으로 이동
                         val intent = Intent(applicationContext, HomeActivity::class.java)

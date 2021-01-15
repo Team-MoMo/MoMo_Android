@@ -12,6 +12,7 @@ import com.example.momo_android.upload.UploadSentenceAdapter
 import com.example.momo_android.databinding.ActivityUploadSentenceBinding
 import com.example.momo_android.list.ui.ListActivity
 import com.example.momo_android.network.RequestToServer
+import com.example.momo_android.onboarding.ui.OnboardingStartActivity
 import com.example.momo_android.upload.data.Data
 import com.example.momo_android.upload.data.ResponseSentenceData
 import com.example.momo_android.upload.data.UploadSentenceData
@@ -128,6 +129,7 @@ class UploadSentenceActivity : AppCompatActivity() {
                 intent.putExtra("wroteAt",wroteAt)
                 //Toast.makeText(this@UploadSentenceActivity,uploadSentenceAdapter.data[0].author,Toast.LENGTH_SHORT).show()
                 startActivity(intent)
+                overridePendingTransition(R.anim.horizontal_left_in, R.anim.horizontal_right_out)
             }
         })
 
@@ -191,6 +193,12 @@ class UploadSentenceActivity : AppCompatActivity() {
             )
         }
         uploadSentenceAdapter.notifyDataSetChanged()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+        overridePendingTransition(R.anim.horizontal_right_in, R.anim.horizontal_left_out)
     }
 
 }

@@ -5,8 +5,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityOnboardingWriteFirstBinding
+import com.example.momo_android.onboarding.ui.OnboardingFeelingActivity.Companion.ONBOARDING_FEELING
 
 
 class OnboardingWriteFirstActivity : AppCompatActivity() {
@@ -61,23 +63,19 @@ class OnboardingWriteFirstActivity : AppCompatActivity() {
     }
 
     private fun startActivityIntent() {
-        val feeling = intent.getIntExtra("feeling", 0)
         val intent = Intent(this, OnboardingWriteSecondActivity::class.java)
         intent.putExtra("author", viewBinding.tvAuthor.text)
         intent.putExtra("book", viewBinding.tvBook.text)
         intent.putExtra("publisher", viewBinding.tvPublisher.text)
         intent.putExtra("sentence", viewBinding.tvSentence.text)
-        intent.putExtra("feeling", feeling)
+        intent.putExtra("feeling", ONBOARDING_FEELING)
         startActivity(intent)
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
-        val feeling = intent.getIntExtra("feeling", 0)
-        val intent = Intent(this, OnboardingSentenceActivity::class.java)
-        intent.putExtra("feeling", feeling)
-        startActivity(intent)
+        finish()
         overridePendingTransition(R.anim.horizontal_right_in, R.anim.horizontal_left_out)
     }
 }
