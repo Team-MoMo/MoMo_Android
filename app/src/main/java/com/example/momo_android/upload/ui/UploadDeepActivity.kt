@@ -23,7 +23,6 @@ import com.example.momo_android.databinding.ActivityUploadDeepBinding
 import com.example.momo_android.diary.ui.DiaryActivity
 import com.example.momo_android.home.ui.ScrollFragment.Companion.IS_EDITED
 import com.example.momo_android.network.RequestToServer
-import com.example.momo_android.upload.ModalUploadDeepExit
 import com.example.momo_android.upload.data.RequestUploadDiaryData
 import com.example.momo_android.upload.data.ResponseUploadDiaryData
 import com.example.momo_android.util.SharedPreferenceController

@@ -1,4 +1,4 @@
-package com.example.momo_android.upload
+package com.example.momo_android.upload.ui
 
 import android.app.Dialog
 import android.content.res.Resources
@@ -17,7 +17,6 @@ import com.example.momo_android.R
 import com.example.momo_android.databinding.BottomsheetDiaryEditDateBinding
 import com.example.momo_android.home.data.ResponseDiaryList
 import com.example.momo_android.network.RequestToServer
-import com.example.momo_android.upload.ui.UploadFeelingActivity
 import com.example.momo_android.util.SharedPreferenceController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
