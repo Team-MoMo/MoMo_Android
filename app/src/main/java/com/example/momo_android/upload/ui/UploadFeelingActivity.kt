@@ -1,41 +1,26 @@
 package com.example.momo_android.upload.ui
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.Settings.Global.getString
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityUploadFeelingBinding
-import com.example.momo_android.diary.data.Diary
-import com.example.momo_android.diary.ui.DiaryActivity
-import com.example.momo_android.diary.ui.EditDateBottomSheetFragment
-import com.example.momo_android.home.ui.HomeActivity
-import com.example.momo_android.home.ui.ScrollFragment
-import com.example.momo_android.list.ui.ListActivity
 import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.upload.UploadDateBottomSheetFragment
 import com.example.momo_android.upload.data.ResponseRecentWriteData
 import com.example.momo_android.util.SharedPreferenceController
 import com.example.momo_android.util.getDate
 import com.example.momo_android.util.getMonth
-import com.example.momo_android.util.showToast
 import kotlinx.android.synthetic.main.activity_upload_feeling.*
-import okhttp3.ResponseBody
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
-import retrofit2.http.Header
-import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 import java.util.*
-import javax.security.auth.callback.Callback
 
 class UploadFeelingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUploadFeelingBinding//뷰바인딩
@@ -49,8 +34,6 @@ class UploadFeelingActivity : AppCompatActivity() {
         var upload_wroteAt = ""
 
         var activity : Activity? = null
-
-        lateinit var mContext : Context
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,8 +42,6 @@ class UploadFeelingActivity : AppCompatActivity() {
         binding = ActivityUploadFeelingBinding.inflate(layoutInflater) // 2
         val view = binding.root // 3
         setContentView(view) //3
-
-        mContext = this
 
         //Sentence Activity에서 Feeling 이전의 창으로 넘어가기 위함
         activity = this
@@ -264,9 +245,5 @@ class UploadFeelingActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         finish()
         return super.onOptionsItemSelected(item)
-    }
-
-    fun showToolbar() {
-        supportActionBar!!.show()
     }
 }

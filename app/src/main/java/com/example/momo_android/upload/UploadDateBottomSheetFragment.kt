@@ -15,17 +15,10 @@ import android.widget.NumberPicker
 import androidx.appcompat.app.AppCompatActivity
 import com.example.momo_android.R
 import com.example.momo_android.databinding.BottomsheetDiaryEditDateBinding
-import com.example.momo_android.diary.data.RequestEditDiaryData
-import com.example.momo_android.diary.data.ResponseDiaryData
-import com.example.momo_android.diary.ui.DiaryActivity
 import com.example.momo_android.home.data.ResponseDiaryList
-import com.example.momo_android.home.ui.ScrollFragment
-import com.example.momo_android.list.ui.ListActivity
 import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.upload.ui.UploadFeelingActivity
-import com.example.momo_android.upload.ui.UploadFeelingActivity.Companion.mContext
 import com.example.momo_android.util.SharedPreferenceController
-import com.example.momo_android.util.showToast
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -66,9 +59,6 @@ class UploadDateBottomSheetFragment (val itemClick: (IntArray) -> Unit) : Bottom
 
         activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         (activity as AppCompatActivity).supportActionBar?.hide()
-
-        val aContext : UploadFeelingActivity = mContext as UploadFeelingActivity
-        aContext.showToolbar()
 
         Binding.tvChangeDate.text="날짜 변경"
         return Binding.root
