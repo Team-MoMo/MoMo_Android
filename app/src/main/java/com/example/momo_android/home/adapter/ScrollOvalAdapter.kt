@@ -34,7 +34,7 @@ class ScrollOvalAdapter(
         if (position < itemCount) {
             holder.onBind(diaryList[position])
             holder.itemView.imageButton_oval.setOnClickListener {
-                clickListener.onClickOvalItem(it, diaryList[position].id)
+                clickListener.onClickOvalItem(it, diaryList[position].id, diaryList[position].depth)
             }
         } else {
             holder.onEmptyBind()
