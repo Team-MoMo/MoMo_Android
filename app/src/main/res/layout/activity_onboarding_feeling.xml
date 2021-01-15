@@ -7,28 +7,20 @@
     android:background="@color/white"
     tools:context=".onboarding.ui.OnboardingFeelingActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout12"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/tv_today_feeling"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="58dp"
+        android:fontFamily="@font/notosanskrlight"
+        android:includeFontPadding="false"
+        android:letterSpacing="-0.05"
+        android:text="먼저 오늘의\n감정을 선택해주세요"
+        android:textColor="@color/black_1"
+        android:textSize="22dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/tv_today_feeling"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:fontFamily="@font/notosanskrlight"
-            android:includeFontPadding="false"
-            android:letterSpacing="-0.05"
-            android:text="먼저 오늘의\n감정을 선택해주세요"
-            android:textColor="@color/black_1"
-            android:textSize="22dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_date"
@@ -46,17 +38,15 @@
             app:layout_constraintStart_toStartOf="@+id/tv_today_feeling"
             app:layout_constraintTop_toBottomOf="@+id/tv_today_feeling" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout11"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout12">
+        app:layout_constraintTop_toBottomOf="@+id/tv_date">
 
         <soup.neumorphism.NeumorphCardView
             android:id="@+id/neumorphCardView"

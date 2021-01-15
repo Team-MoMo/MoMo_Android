@@ -1,6 +1,7 @@
 package com.example.momo_android.upload.ui
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -48,6 +49,8 @@ class UploadFeelingActivity : AppCompatActivity() {
         var upload_wroteAt = ""
 
         var activity : Activity? = null
+
+        lateinit var mContext : Context
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +59,8 @@ class UploadFeelingActivity : AppCompatActivity() {
         binding = ActivityUploadFeelingBinding.inflate(layoutInflater) // 2
         val view = binding.root // 3
         setContentView(view) //3
+
+        mContext = this
 
         //Sentence Activity에서 Feeling 이전의 창으로 넘어가기 위함
         activity = this
@@ -258,5 +263,9 @@ class UploadFeelingActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         finish()
         return super.onOptionsItemSelected(item)
+    }
+
+    fun showToolbar() {
+        supportActionBar!!.show()
     }
 }
