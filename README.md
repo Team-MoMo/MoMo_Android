@@ -1,5 +1,8 @@
 # 💙 MoMo Android 💙
-* SOPT 27th APPJAM - TEAM MOMO
+
+<img src="https://user-images.githubusercontent.com/38918396/104698570-e40f2800-5754-11eb-8548-7bad4b78f68d.png" width="250" height="250">
+
+* SOPT 27th APPJAM - **TEAM MOMO**
 * PROJECT : 2020.12.28 ~ 2021.01.16
 
 <br>
