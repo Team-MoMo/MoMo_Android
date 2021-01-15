@@ -131,6 +131,7 @@ class UploadFeelingActivity : AppCompatActivity() {
             intent.putExtra("date",binding.tvDate.text.toString())
             intent.putExtra("wroteAt", upload_wroteAt)
             startActivity(intent)
+            overridePendingTransition(R.anim.horizontal_left_in, R.anim.horizontal_right_out)
         }
     }
 
