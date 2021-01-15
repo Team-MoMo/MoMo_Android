@@ -94,7 +94,9 @@ ex) SignInActivity, ChangeFragment
 
 <br>
 
-### 🎄 사용된 라이브러리
+### 🎄 사용된 라이브러리, 사용한 기술 스택
+* **ViewBinding**
+    * 뷰와 상호 작용하는 코드를보다 쉽게 작성하기 위해 사용
 * **Retrofit2**
     * REST API를 통해 서버와 통신하기 위해 사용
 * **gson/gson converter**
@@ -109,12 +111,26 @@ ex) SignInActivity, ChangeFragment
     * 감정선택 뷰에서 커스텀 그림자가 적용된 버튼을 나타내기 위해 사용
 <br>
 
-### 🎅 사용한 기술 스택 작성
-
 <br>
 
 ### 💻 핵심 기능 구현 코드 및 방법
 [Wiki에서 확인할 수 있어요! Click ✔](https://github.com/Team-MoMo/MoMo_Android/wiki)
+
+* [Splash](https://github.com/Team-MoMo/MoMo_Android/wiki/Splash)
+* [Onboarding](https://github.com/Team-MoMo/MoMo_Android/wiki/Onboarding)
+* [Sign 로그인, 회원가입](https://github.com/Team-MoMo/MoMo_Android/wiki/Sign-%EB%A1%9C%EA%B7%B8%EC%9D%B8,-%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85)
+* [Main 홈, 스크롤](https://github.com/Team-MoMo/MoMo_Android/wiki/Main-%ED%99%88,-%EC%8A%A4%ED%81%AC%EB%A1%A4)
+* [Upload 감정선택](https://github.com/Team-MoMo/MoMo_Android/wiki/Upload-%EA%B0%90%EC%A0%95%EC%84%A0%ED%83%9D)
+* [Upload 문장선택](https://github.com/Team-MoMo/MoMo_Android/wiki/Upload-%EB%AC%B8%EC%9E%A5%EC%84%A0%ED%83%9D)
+* [Upload 일기작성, Diary 일기수정](https://github.com/Team-MoMo/MoMo_Android/wiki/Upload-%EC%9D%BC%EA%B8%B0%EC%9E%91%EC%84%B1,-Diary-%EC%9D%BC%EA%B8%B0%EC%88%98%EC%A0%95)
+* [Upload 깊이선택, Diary 깊이수정](https://github.com/Team-MoMo/MoMo_Android/wiki/Upload-%EA%B9%8A%EC%9D%B4%EC%84%A0%ED%83%9D,-Diary-%EA%B9%8A%EC%9D%B4%EC%88%98%EC%A0%95)
+* [List 일기 리스트, 필터](https://github.com/Team-MoMo/MoMo_Android/wiki/List-%EC%9D%BC%EA%B8%B0-%EB%A6%AC%EC%8A%A4%ED%8A%B8,-%ED%95%84%ED%84%B0)
+* [Diary 일기 상세보기](https://github.com/Team-MoMo/MoMo_Android/wiki/Diary-%EC%9D%BC%EA%B8%B0-%EC%83%81%EC%84%B8%EB%B3%B4%EA%B8%B0)
+* [날짜 변환 Date format](https://github.com/Team-MoMo/MoMo_Android/wiki/%EB%82%A0%EC%A7%9C-%EB%B3%80%ED%99%98-Date-format)
+* [날짜 선택 Bottom Sheet](https://github.com/Team-MoMo/MoMo_Android/wiki/%EB%82%A0%EC%A7%9C-%EC%84%A0%ED%83%9D-Bottom-Sheet)
+* [환경설정](https://github.com/Team-MoMo/MoMo_Android/wiki/%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95)
+* [확장함수](https://github.com/Team-MoMo/MoMo_Android/wiki/%ED%99%95%EC%9E%A5%ED%95%A8%EC%88%98)
+* [CoordinatorLayout & CollapsingToolbarLayout](https://github.com/Team-MoMo/MoMo_Android/wiki/CoordinatorLayout-&-CollapsingToolbarLayout)
 
 <br>
 
