@@ -9,6 +9,7 @@ import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -106,6 +107,7 @@ class UploadDeepActivity : AppCompatActivity() {
 
         // default = 2m
         mainSeekbar.progress = depth
+        scrollToDepth()
 
         // 처음 실행될 때 - line과 text 시크바를 main과 동일한 단계로 설정
         lineSeekbar.progress = mainSeekbar.progress
@@ -164,6 +166,19 @@ class UploadDeepActivity : AppCompatActivity() {
 
     }
 
+
+    private fun getDepth(progress: Int): String {
+        return when(progress) {
+            0 -> "2m"
+            1 -> "30m"
+            2 -> "100m"
+            3 -> "300m"
+            4 -> "700m"
+            5 -> "1,005m"
+            else -> "심해"
+        }
+    }
+
     // 깊이에 따른 배경색 매치
     private fun depthImg() : ImageView {
         return when (binding.mainSeekBar.progress) {
@@ -177,16 +192,13 @@ class UploadDeepActivity : AppCompatActivity() {
         }
     }
 
-    private fun getDepth(progress: Int): String {
-        return when(progress) {
-            0 -> "2m"
-            1 -> "30m"
-            2 -> "100m"
-            3 -> "300m"
-            4 -> "700m"
-            5 -> "1,005m"
-            else -> "심해"
-        }
+    // 맨 처음에 수정 전 깊이로 세팅
+    private fun scrollToDepth() {
+        val h = Handler()
+        h.postDelayed(
+            { binding.svUploadDeep.scrollTo(0, depthImg().top) }
+            , 100
+        )
     }
 
     private fun View.getThumb(): BitmapDrawable {
@@ -333,8 +345,10 @@ class UploadDeepActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        UploadWriteActivity.depth=binding.mainSeekBar.progress
         finish()
         overridePendingTransition(R.anim.horizontal_right_in, R.anim.horizontal_left_out)
     }
+
 
 }
