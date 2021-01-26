@@ -333,7 +333,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_diary"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp">
 
             <ImageView
                 android:id="@+id/imageView8"
@@ -436,11 +437,10 @@
                 android:includeFontPadding="false"
                 android:letterSpacing="-0.07"
                 android:lineSpacingExtra="8sp"
-                android:text="오늘 새벽엔 눈이 내렸다. 창문을 열어 창문을 열어 흰 눈이 내린다. 그럼에도 어김없이 오피스로 출근을 했다.
-벌써 연말이 다가왔다는 것을 느낀다.\n\n집에 들어와서 물을 한 잔 마시고 다시 침대에 누워서 왓챠를 틀고 보던 미드를 이어서 보기 시작했다. 오늘은 계속 크리스마스란 참 좋다 오늘 새벽엔 눈이 내렸다. 창문을 열어 창문을 열어 흰 눈이 내린다. 그럼에도 어김없이 오피스로 출근을 했다.
-벌써 연말이 다가왔다는 것을 느낀다."
+                android:text="contents"
                 android:textColor="@color/blue_6"
                 android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view7" />
