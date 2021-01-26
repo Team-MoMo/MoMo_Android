@@ -13,8 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoMo_Android"
         android:usesCleartextTraffic="true">
-        <activity android:name=".setting.MyInfoActivity"></activity>
-        <activity android:name=".setting.TeamInfoActivity" />
+        <activity android:name=".setting.ui.MyInfoActivity"></activity>
+        <activity android:name=".setting.ui.TeamInfoActivity" />
         <activity android:name=".onboarding.ui.OnboardingWriteSecondActivity" />
         <activity android:name=".onboarding.ui.OnboardingWriteFirstActivity" />
         <activity android:name=".onboarding.ui.OnboardingDepthActivity" />
@@ -53,7 +53,7 @@
         <activity
             android:name=".list.ui.ListActivity"
             android:theme="@style/Theme.listTheme" />
-        <activity android:name=".setting.SettingActivity" />
+        <activity android:name=".setting.ui.SettingActivity" />
     </application>
 
 </manifest>
