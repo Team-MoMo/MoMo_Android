@@ -1,10 +1,9 @@
-package com.example.momo_android.setting
+package com.example.momo_android.setting.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import com.example.momo_android.databinding.ActivityListBinding
 import com.example.momo_android.databinding.ActivitySettingBinding
 
 class SettingActivity : AppCompatActivity() {
@@ -54,7 +53,7 @@ class SettingActivity : AppCompatActivity() {
 
     private fun initMyInfoClickListener(){
         binding.constraintlayoutTouchboxInfo.setOnClickListener {
-            val intent=Intent(this,MyInfoActivity::class.java)
+            val intent=Intent(this, MyInfoActivity::class.java)
             startActivity(intent)
         }
     }
