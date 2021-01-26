@@ -22,6 +22,8 @@ class SettingActivity : AppCompatActivity() {
         isSwitchOn()
 
         initTeamInfoClickListener()
+
+        initMyInfoClickListener()
     }
 
     private fun isSwitchOn() {
@@ -46,6 +48,13 @@ class SettingActivity : AppCompatActivity() {
     private fun initTeamInfoClickListener() {
         binding.constraintlayoutTouchboxMomoInfo.setOnClickListener {
             val intent = Intent(this, TeamInfoActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun initMyInfoClickListener(){
+        binding.constraintlayoutTouchboxInfo.setOnClickListener {
+            val intent=Intent(this,MyInfoActivity::class.java)
             startActivity(intent)
         }
     }
