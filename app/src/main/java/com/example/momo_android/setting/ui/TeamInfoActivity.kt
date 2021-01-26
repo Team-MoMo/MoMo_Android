@@ -1,4 +1,4 @@
-package com.example.momo_android.setting
+package com.example.momo_android.setting.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

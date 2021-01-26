@@ -6,7 +6,6 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,7 +23,7 @@ import com.example.momo_android.databinding.FragmentScrollBinding
 import com.example.momo_android.list.ui.ListActivity
 import com.example.momo_android.home.ui.HomeActivity.Companion.IS_FROM_SCROLL
 import com.example.momo_android.home.ui.HomeFragment.Companion.DIARY_STATUS
-import com.example.momo_android.setting.SettingActivity
+import com.example.momo_android.setting.ui.SettingActivity
 import com.example.momo_android.upload.ui.UploadFeelingActivity
 import com.example.momo_android.util.ScrollDatePickerListener
 import java.util.*

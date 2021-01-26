@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_team_info"
-    tools:context=".setting.TeamInfoActivity">
+    tools:context=".setting.ui.TeamInfoActivity">
 
     <ImageButton
         android:id="@+id/imagebutton_back"
