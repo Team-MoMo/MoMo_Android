@@ -48,15 +48,15 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
         android:layout_marginTop="21dp"
         android:fontFamily="@font/notosanskrregular"
         android:gravity="center_horizontal"
         android:includeFontPadding="false"
-        android:text="소중한 일기가 삭제됩니다.\n
-정말 삭제하시겠어요?"
+        android:letterSpacing="-0.07"
+        android:text="소중한 일기가 삭제됩니다. \n 정말 삭제하시겠어요? "
         android:textColor="@color/black"
         android:textSize="14dp"
-        android:letterSpacing="-0.07"
         app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
