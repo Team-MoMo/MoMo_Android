@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imageView_wave"
+        android:layout_width="290dp"
+        android:layout_height="80dp"
+        android:src="@drawable/modal_img_wave_290"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView_warning"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="28dp"
+        android:src="@drawable/modal_ic_warning"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/notosanskrbold"
+        android:includeFontPadding="false"
+        android:text="잠시만요!"
+        android:textColor="@color/blue_1"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_warning" />
+
+    <TextView
+        android:id="@+id/textView_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/notosanskrregular"
+        android:includeFontPadding="false"
+        android:letterSpacing="-0.06"
+        android:lineSpacingExtra="2dp"
+        android:text="정말 로그아웃 하시겠어요?\n일기를 다시 쓰려면 로그인해 주세요!"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_title" />
+
+    <View
+        android:id="@+id/view_horizontalSeparator"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/very_light_pink"
+        android:layout_marginTop="26dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_description" />
+
+    <TextView
+        android:id="@+id/textView_confirm"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:fontFamily="@font/notosanskrregular"
+        android:includeFontPadding="false"
+        android:letterSpacing="-0.06"
+        android:lineSpacingExtra="6dp"
+        android:text="확인"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/textView_cancel"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_horizontalSeparator" />
+
+    <View
+        android:id="@+id/view_verticalSeparator"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="@color/very_light_pink"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView_cancel"
+        app:layout_constraintStart_toEndOf="@+id/textView_confirm"
+        app:layout_constraintTop_toTopOf="@+id/view_horizontalSeparator" />
+
+    <TextView
+        android:id="@+id/textView_cancel"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:fontFamily="@font/notosanskrmedium"
+        android:includeFontPadding="false"
+        android:letterSpacing="-0.06"
+        android:lineSpacingExtra="6dp"
+        android:text="취소"
+        android:gravity="center"
+        android:textColor="@color/brownish_grey"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_confirm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView_confirm"
+        app:layout_constraintTop_toTopOf="@+id/textView_confirm" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

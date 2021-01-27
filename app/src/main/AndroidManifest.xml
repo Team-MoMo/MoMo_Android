@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoMo_Android"
         android:usesCleartextTraffic="true">
-        <activity android:name=".setting.ui.MyInfoActivity"></activity>
+        <activity android:name=".setting.ui.MyInfoActivity" />
         <activity android:name=".setting.ui.TeamInfoActivity" />
         <activity android:name=".onboarding.ui.OnboardingWriteSecondActivity" />
         <activity android:name=".onboarding.ui.OnboardingWriteFirstActivity" />
