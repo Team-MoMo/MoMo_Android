@@ -58,7 +58,10 @@ class MyInfoActivity : AppCompatActivity() {
     }
     //박스 4_로그아웃
     private fun logoutClickListener(){
-        binding.constraintlayoutBox4.setOnClickListener {}
+        binding.constraintlayoutBox4.setOnClickListener {
+            val logoutDialog = LogoutDialogFragment.CustomDialogBuilder().create()
+            logoutDialog.show(supportFragmentManager, logoutDialog.tag)
+        }
     }
 
     //회원탈퇴
