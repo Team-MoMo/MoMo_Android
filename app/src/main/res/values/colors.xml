@@ -74,4 +74,8 @@
 
     <!-- team info color -->
     <color name="background_team_info">#eef9ff</color>
+
+    <!-- setting dialog color -->
+    <color name="very_light_pink">#d1d1d1</color>
+    <color name="brownish_grey">#656565</color>
 </resources>
