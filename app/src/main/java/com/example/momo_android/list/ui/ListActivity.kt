@@ -59,7 +59,8 @@ class ListActivity : AppCompatActivity() {
     private lateinit var selectDepth : String
 
     private var fromDiaryFlag = false
-    
+
+    private var isCurrentDate = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -305,6 +306,12 @@ class ListActivity : AppCompatActivity() {
         }
     }
 
+    private fun isCurrentDate() {
+        // if 현재 날짜가 filter_current_year, month와 같다면 isCurrentDate = true -> isCurrentDate는 ListActivity의 전역변수(상수x) / 아니면 false
+        // 스크롤뷰에서 넘어온 날짜와 필터에서 선택한 년/월이 같으면 true, 아니면 false
+        isCurrentDate = filter_year == filter_current_year && filter_month == filter_current_month
+    }
+
     private fun loadListData(data: List<ListData>) {
 
         // 리사이클러뷰의 최상단으로 이동
@@ -316,24 +323,27 @@ class ListActivity : AppCompatActivity() {
 
         // 검색 결과가 없을 때 (데이터가 0개)
         if (data.isEmpty()) {
-            disableScroll()
-            binding.rcvList.visibility = View.GONE
-            binding.constraintlayoutListNone.visibility = View.GONE
-            binding.constraintlayoutListFilterdNone.visibility = View.VISIBLE
-        }
+            // 현재 월에 아무 일기도 쓰지 않았을 때
+            // 처음 진입화면에서는 bottomsheet에서 선택한 년/월이 아니라 접속해 있는 현재 날짜와 같은지 비교해야 함
+            isCurrentDate()
+            if (data.isEmpty() && isCurrentDate && filter_emotion == null && filter_depth == null) {
+                disableScroll()
+                binding.rcvList.visibility = View.GONE
+                binding.constraintlayoutListFilterdNone.visibility = View.GONE
+                binding.constraintlayoutListNone.visibility = View.VISIBLE
 
-        // 현재 월에 아무 일기도 쓰지 않았을 때
-        if (data.isEmpty() && selectCurrentDate && filter_emotion == null && filter_depth == null) {
-            disableScroll()
-            binding.rcvList.visibility = View.GONE
-            binding.constraintlayoutListFilterdNone.visibility = View.GONE
-            binding.constraintlayoutListNone.visibility = View.VISIBLE
-
-            // + 버튼 클릭 시 upload 뷰로 이동
-            binding.imagebuttonListCreateDiary.setOnClickListener {
-                val intent = Intent(this, UploadFeelingActivity::class.java)
-                intent.putExtra("intentFrom", "List -> Upload")
-                startActivity(intent)
+                // + 버튼 클릭 시 upload 뷰로 이동
+                binding.imagebuttonListCreateDiary.setOnClickListener {
+                    val intent = Intent(this, UploadFeelingActivity::class.java)
+                    intent.putExtra("intentFrom", "List -> Upload")
+                    startActivity(intent)
+                }
+            }
+            else {
+                disableScroll()
+                binding.rcvList.visibility = View.GONE
+                binding.constraintlayoutListNone.visibility = View.GONE
+                binding.constraintlayoutListFilterdNone.visibility = View.VISIBLE
             }
         }
 
