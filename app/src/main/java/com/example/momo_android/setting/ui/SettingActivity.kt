@@ -1,9 +1,10 @@
 package com.example.momo_android.setting.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.example.momo_android.databinding.ActivitySettingBinding
 
 class SettingActivity : AppCompatActivity() {
@@ -54,6 +55,10 @@ class SettingActivity : AppCompatActivity() {
     private fun initMyInfoClickListener(){
         binding.constraintlayoutTouchboxInfo.setOnClickListener {
             val intent=Intent(this, MyInfoActivity::class.java)
+            startActivity(intent)
+        }
+        binding.constraintlayoutTouchboxInsta.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://instagram.com/momo_is_diary?igshid=1wacgm5uuz7ia"))
             startActivity(intent)
         }
     }
