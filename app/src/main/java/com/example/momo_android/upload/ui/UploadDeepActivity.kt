@@ -89,6 +89,9 @@ class UploadDeepActivity : AppCompatActivity() {
             exitModal.start()
             exitModal.setOnClickListener {
                 if(it == "닫기") {
+                    UploadFeelingActivity.activity?.finish()
+                    UploadSentenceActivity.activity?.finish()
+                    UploadWriteActivity.activity?.finish()
                     finish()
                 }
             }

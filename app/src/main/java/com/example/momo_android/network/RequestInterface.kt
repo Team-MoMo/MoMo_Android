@@ -5,6 +5,7 @@ import com.example.momo_android.diary.data.ResponseDiaryData
 import com.example.momo_android.home.data.ResponseDiaryList
 import com.example.momo_android.list.data.ResponseFilterData
 import com.example.momo_android.onboarding.ui.ResponseOnboardingData
+import com.example.momo_android.setting.ResponseWithdrawalData
 import com.example.momo_android.signup.data.RequestUserData
 import com.example.momo_android.signup.data.ResponseUserData
 import com.example.momo_android.upload.data.RequestUploadDiaryData
@@ -130,4 +131,12 @@ interface RequestInterface {
         @Header("Authorization") Authorization: String?,
         @Query("userId") userId:Int
     ):Call<ResponseRecentWriteData>
+
+    //회원 탈퇴
+    @Headers("Content-Type: application/json")
+    @DELETE("/users/{id}")
+    fun getWithdrawal(
+        @Header("Authorization") Authorization:String?,
+        @Path("id") params:Int
+    ):Call<ResponseWithdrawalData>
 }

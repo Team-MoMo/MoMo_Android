@@ -21,7 +21,7 @@ import com.example.momo_android.home.data.ResponseDiaryList
 import com.example.momo_android.home.ui.ScrollFragment.Companion.IS_EDITED
 import com.example.momo_android.list.ui.ListActivity
 import com.example.momo_android.network.RequestToServer
-import com.example.momo_android.setting.SettingActivity
+import com.example.momo_android.setting.ui.SettingActivity
 import com.example.momo_android.upload.ui.UploadFeelingActivity
 import com.example.momo_android.util.SharedPreferenceController
 import retrofit2.Call
