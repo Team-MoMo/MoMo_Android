@@ -9,10 +9,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import com.example.momo_android.R
 import com.example.momo_android.databinding.FragmentHomeBinding
@@ -61,7 +59,6 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         if(IS_EDITED) {
-            Log.d("TAG", "onResume: ")
             updateByServerData()
             IS_EDITED = false
         }
@@ -166,7 +163,7 @@ class HomeFragment : Fragment() {
         var serverDiaryList = listOf<ResponseDiaryList.Data>()
         RequestToServer.service.getHomeDiaryList(
             SharedPreferenceController.getAccessToken(requireContext()),
-            SharedPreferenceController.getUserId(requireContext())!!,
+            SharedPreferenceController.getUserId(requireContext()),
             "filter",
             currentYear,
             currentMonth,
@@ -233,7 +230,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setEmptyView() { // visible invisible 처리
+    private fun setEmptyView() {
         viewBinding.apply {
             textViewDiaryEmpty.visibility = TextView.VISIBLE
             buttonUpload.visibility = Button.VISIBLE
@@ -388,7 +385,6 @@ class HomeFragment : Fragment() {
 
     private fun setIntentToUploadActivity() {
         val intent = Intent(requireContext(), UploadFeelingActivity::class.java)
-        intent.putExtra("intentFrom", "Home -> Upload")
         intent.putExtra("diaryStatus", DIARY_STATUS)
         startActivity(intent)
     }

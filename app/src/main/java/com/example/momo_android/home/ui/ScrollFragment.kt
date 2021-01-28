@@ -3,6 +3,7 @@ package com.example.momo_android.home.ui
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
+import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -11,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView.OnScrollListener.SCROLL_STATE_IDLE
 import android.widget.ImageView
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -21,7 +23,6 @@ import com.example.momo_android.R
 import com.example.momo_android.home.adapter.ScrollGradientAdapter
 import com.example.momo_android.databinding.FragmentScrollBinding
 import com.example.momo_android.list.ui.ListActivity
-import com.example.momo_android.home.ui.HomeActivity.Companion.IS_FROM_SCROLL
 import com.example.momo_android.home.ui.HomeFragment.Companion.DIARY_STATUS
 import com.example.momo_android.setting.ui.SettingActivity
 import com.example.momo_android.upload.ui.UploadFeelingActivity
@@ -54,6 +55,7 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
         initQueryDate()
         setGradientRecyclerView(QUERY_YEAR, QUERY_MONTH)
         fadeOutLoadingView()
+        setOnBackPressedCallBack()
     }
 
     override fun onResume() {
@@ -162,8 +164,7 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
 
     private fun checkHomeButtonStatus(visibleItemPosition: Int) {
         if (visibleItemPosition == 0 && isHomeButtonClicked) {
-            IS_FROM_SCROLL = true
-            requireActivity().onBackPressed()
+            (activity as HomeActivity).replaceToHomeFragment()
             isHomeButtonClicked = false
         }
     }
@@ -230,6 +231,13 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
         }
     }
 
+    private fun setOnBackPressedCallBack() {
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() { scrollToTop() }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    }
+
     private val fragmentOnTouchListener = View.OnTouchListener { _, _ -> true }
     private val fragmentOnClickListener = View.OnClickListener {
         viewBinding.apply {
@@ -260,16 +268,13 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
     }
 
     private fun scrollToTop() {
-        if (getVisibleItemPosition() == 0) {
-            requireActivity().onBackPressed()
-        }
+        if (getVisibleItemPosition() == 0) { (activity as HomeActivity).replaceToHomeFragment() }
         viewBinding.recyclerViewGradient.smoothScrollToPosition(0)
         isHomeButtonClicked = true
     }
 
     private fun setIntentToUploadActivity() {
         val intent = Intent(requireContext(), UploadFeelingActivity::class.java)
-        intent.putExtra("intentFrom", "Scroll -> Upload")
         intent.putExtra("diaryStatus", DIARY_STATUS)
         startActivity(intent)
     }
