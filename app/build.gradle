@@ -63,8 +63,13 @@ dependencies {
     // vertical seekbar
     implementation 'com.h6ah4i.android.widget.verticalseekbar:verticalseekbar:1.0.0'
 
-    //Lottie
+    // Lottie
     implementation "com.airbnb.android:lottie:3.6.0"
-    //shadow
+    // shadow
     implementation 'com.github.fornewid:neumorphism:0.3.0'
+
+    // google login
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    // kakao login
+    implementation group: 'com.kakao.sdk', name: 'usermgmt', version: '1.30.4'
 }

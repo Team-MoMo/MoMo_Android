@@ -4,6 +4,7 @@ import com.example.momo_android.diary.data.RequestEditDiaryData
 import com.example.momo_android.diary.data.ResponseDiaryData
 import com.example.momo_android.home.data.ResponseDiaryList
 import com.example.momo_android.list.data.ResponseFilterData
+import com.example.momo_android.login.data.RequestSocialLoginData
 import com.example.momo_android.onboarding.ui.ResponseOnboardingData
 import com.example.momo_android.setting.ResponseWithdrawalData
 import com.example.momo_android.signup.data.RequestUserData
@@ -115,6 +116,13 @@ interface RequestInterface {
     @POST("/users/signin")
     fun postLogin(
         @Body body: RequestUserData
+    ) : Call<ResponseUserData>
+
+    // 소셜 로그인
+    @Headers("Content-Type: application/json")
+    @POST("/users/signin/social")
+    fun postSocialLogin(
+        @Body body: RequestSocialLoginData
     ) : Call<ResponseUserData>
 
     // 이메일 중복확인
