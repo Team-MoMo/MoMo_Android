@@ -135,9 +135,10 @@ class ScrollGradientViewHolder(
         }
     }
 
-    override fun onClickOvalItem(view: View, diaryId: Int) {
+    override fun onClickOvalItem(view: View, diaryId: Int, diaryDepth: Int) {
         val intent = Intent(view.context, DiaryActivity::class.java)
         intent.putExtra("diaryId", diaryId)
+        intent.putExtra("diaryDepth", diaryDepth)
         view.context.startActivity(intent)
     }
 }

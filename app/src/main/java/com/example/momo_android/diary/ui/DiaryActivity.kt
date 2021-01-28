@@ -33,6 +33,7 @@ class DiaryActivity : AppCompatActivity() {
         var diary_month = 0
         var diary_date = 0
         lateinit var responseData : List<Diary>
+        const val REQUEST_EDIT_DEPTH = 1000
     }
 
     private lateinit var binding: ActivityDiaryBinding
@@ -117,7 +118,7 @@ class DiaryActivity : AppCompatActivity() {
             menu_edit.setGone()
             val intent = Intent(this, DiaryEditDeepActivity::class.java)
             intent.putExtra("diary_day", tv_diary_date.text.toString())
-            startActivity(intent)
+            startActivityForResult(intent, REQUEST_EDIT_DEPTH)
         }
 
         // 일기 삭제
@@ -165,8 +166,11 @@ class DiaryActivity : AppCompatActivity() {
                 when {
                     response.code() == 200 -> {
 
+
                         val body = response.body()!!
                         responseData = listOf(response.body()!!.data)
+
+                        setLoadingViewBackground(body.data.depth)
 
                         tv_diary_date.text = getFormedDate(body.data.wroteAt) // 날짜
                         setPickerDate(body.data.wroteAt) // 피커 날짜
@@ -182,8 +186,6 @@ class DiaryActivity : AppCompatActivity() {
                         tv_publisher.text = "(${body.data.Sentence.publisher})" // 출판사
                         tv_diary_content.text = body.data.contents // 일기
 
-                        setLoadingViewBackground(body.data.depth)
-                        fadeOutLoadingView()
                     }
                     response.code() == 400 -> {
                         Log.d("getDiary 400", response.message())
@@ -192,6 +194,8 @@ class DiaryActivity : AppCompatActivity() {
                         Log.d("getDiary 500", response.message())
                     }
                 }
+
+                fadeOutLoadingView()
             }
 
             override fun onFailure(call: Call<ResponseDiaryData>, t: Throwable) {
@@ -340,17 +344,15 @@ class DiaryActivity : AppCompatActivity() {
 
     private fun setLoadingViewBackground(depth : Int) {
         binding.viewDiaryLoading.apply {
-            when(depth) {
-                0 -> background = resources.getDrawable(R.drawable.bg_deep1, null)
-                1 -> background = resources.getDrawable(R.drawable.bg_deep2, null)
-                2 -> background = resources.getDrawable(R.drawable.bg_deep3, null)
-                3 -> background = resources.getDrawable(R.drawable.bg_deep4, null)
-                4 -> background = resources.getDrawable(R.drawable.bg_deep5, null)
-                5 -> background = resources.getDrawable(R.drawable.bg_deep6, null)
-                else -> background = resources.getDrawable(R.drawable.bg_deep7, null)
+            background = when(depth) {
+                0 -> resources.getDrawable(R.drawable.bg_deep1, null)
+                1 -> resources.getDrawable(R.drawable.bg_deep2, null)
+                2 -> resources.getDrawable(R.drawable.bg_deep3, null)
+                3 -> resources.getDrawable(R.drawable.bg_deep4, null)
+                4 -> resources.getDrawable(R.drawable.bg_deep5, null)
+                5 -> resources.getDrawable(R.drawable.bg_deep6, null)
+                else -> resources.getDrawable(R.drawable.bg_deep7, null)
             }
         }
     }
-
-
 }

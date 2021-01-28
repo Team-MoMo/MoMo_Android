@@ -9,12 +9,11 @@ import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityDiaryEditWriteBinding
 import com.example.momo_android.diary.data.RequestEditDiaryData
 import com.example.momo_android.diary.data.ResponseDiaryData
-import com.example.momo_android.home.ui.ScrollFragment
 import com.example.momo_android.home.ui.ScrollFragment.Companion.EDITED_DEPTH
 import com.example.momo_android.home.ui.ScrollFragment.Companion.IS_EDITED
 import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.util.*
-import com.example.momo_android.util.BackPressEditText.OnBackPressListener
+import com.example.momo_android.util.ui.BackPressEditText.OnBackPressListener
 import retrofit2.Call
 import retrofit2.Response
 

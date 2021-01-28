@@ -8,9 +8,8 @@ import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.momo_android.R
-import com.example.momo_android.upload.UploadSentenceAdapter
+import com.example.momo_android.upload.adapter.UploadSentenceAdapter
 import com.example.momo_android.databinding.ActivityUploadSentenceBinding
-import com.example.momo_android.list.ui.ListActivity
 import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.upload.data.Data
 import com.example.momo_android.upload.data.ResponseSentenceData
@@ -33,6 +32,10 @@ class UploadSentenceActivity : AppCompatActivity() {
     private var sentence2 = 0
     private var sentence3 = 0
 
+    companion object {
+        var activity : Activity? = null
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +43,11 @@ class UploadSentenceActivity : AppCompatActivity() {
         val view = binding.root // 3
         setContentView(view)
 
+        activity = this
+
         val date=intent.getStringExtra("date")
         binding.tvDate.text=date.toString()
-        var wroteAt=intent.getStringExtra("wroteAt")
+        val wroteAt=intent.getStringExtra("wroteAt")
 
         val feeling = intent.getIntExtra("feeling", 0)
         when (feeling) {
@@ -122,6 +127,7 @@ class UploadSentenceActivity : AppCompatActivity() {
                 intent.putExtra("wroteAt",wroteAt)
                 //Toast.makeText(this@UploadSentenceActivity,uploadSentenceAdapter.data[0].author,Toast.LENGTH_SHORT).show()
                 startActivity(intent)
+                overridePendingTransition(R.anim.horizontal_left_in, R.anim.horizontal_right_out)
             }
         })
 
@@ -185,6 +191,12 @@ class UploadSentenceActivity : AppCompatActivity() {
             )
         }
         uploadSentenceAdapter.notifyDataSetChanged()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+        overridePendingTransition(R.anim.horizontal_right_in, R.anim.horizontal_left_out)
     }
 
 }

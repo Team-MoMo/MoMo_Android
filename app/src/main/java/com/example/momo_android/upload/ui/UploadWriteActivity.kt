@@ -1,5 +1,6 @@
 package com.example.momo_android.upload.ui
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
@@ -7,11 +8,16 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityUploadWriteBinding
-import com.example.momo_android.upload.ModalUploadWriteBack
 import com.example.momo_android.util.*
+import com.example.momo_android.util.ui.BackPressEditText
 
 class UploadWriteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUploadWriteBinding
+
+    companion object {
+        var depth=0
+        var activity : Activity? = null
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,11 +25,13 @@ class UploadWriteActivity : AppCompatActivity() {
         val view = binding.root // 3
         setContentView(view)
 
+        activity = this
+
         val feeling=intent.getIntExtra("feeling",0)
         val sentenceId = intent.getIntExtra("sentenceId", 0)
         val emotionId = intent.getIntExtra("emotionId", 0)
         var contents = ""
-        var wroteAt=intent.getStringExtra("wroteAt")
+        val wroteAt=intent.getStringExtra("wroteAt")
         //val date = intent.getStringExtra("date")
 
         showFeeling(feeling)
@@ -34,6 +42,8 @@ class UploadWriteActivity : AppCompatActivity() {
         binding.tvBook.text=intent.getStringExtra("book")
         binding.tvPublisher.text=intent.getStringExtra("publisher")
         binding.tvSentence.text=intent.getStringExtra("sentence")
+
+        //Log.d("depth_write","${UploadWriteActivity.depth}")
 
 
         //토글 기능
@@ -51,6 +61,8 @@ class UploadWriteActivity : AppCompatActivity() {
         binding.etDiary.setOnClickListener {
             binding.togglebtn.rotation=180.0f
             binding.tvSentence.setGone()
+            binding.etDiary.requestFocus()
+            binding.etDiary.hint=""
         }
         //EditText외 부분 터치시 키보드 안뜨게. 그 외 부분에 다 터치 인식
         binding.constraintlayout.toggle_visible()
@@ -78,7 +90,12 @@ class UploadWriteActivity : AppCompatActivity() {
                 intent.putExtra("book",binding.tvBook.text.toString())
                 intent.putExtra("publisher",binding.tvPublisher.text.toString())
                 intent.putExtra("sentence",binding.tvSentence.text.toString())
+                intent.putExtra("depth",depth)
+
+                //Log.d("depth_write","${UploadWriteActivity.depth}")
+
                 startActivity(intent)
+                overridePendingTransition(R.anim.horizontal_left_in, R.anim.horizontal_right_out)
             }
             else{
                 showToast("일기를 작성해 주세요!")
@@ -116,12 +133,14 @@ class UploadWriteActivity : AppCompatActivity() {
         // 일기를 수정하지 않은 경우 팝업 없이 finish()
         if(binding.etDiary.text.toString() == "") {
             finish()
+            overridePendingTransition(R.anim.horizontal_right_in, R.anim.horizontal_left_out)
         } else {
             val backModal = ModalUploadWriteBack(this)
             backModal.start()
             backModal.setOnClickListener {
                 if(it == "확인") {
                     finish()
+                    overridePendingTransition(R.anim.horizontal_right_in, R.anim.horizontal_left_out)
                 }
             }
         }
@@ -171,6 +190,12 @@ class UploadWriteActivity : AppCompatActivity() {
                 binding.imgFeeling.setImageResource(R.drawable.ic_daily_14_black)
             }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+        overridePendingTransition(R.anim.horizontal_right_in, R.anim.horizontal_left_out)
     }
 
 }

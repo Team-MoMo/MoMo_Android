@@ -1,12 +1,12 @@
 package com.example.momo_android.diary.ui
 
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -17,6 +17,7 @@ import android.widget.ImageView
 import android.widget.ScrollView
 import android.widget.SeekBar
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.animation.doOnEnd
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityDiaryEditDeepBinding
@@ -30,6 +31,7 @@ import com.example.momo_android.util.showToast
 import retrofit2.Call
 import retrofit2.Response
 import kotlin.math.abs
+
 
 class DiaryEditDeepActivity : AppCompatActivity() {
 
@@ -163,8 +165,12 @@ class DiaryEditDeepActivity : AppCompatActivity() {
                     response.code() == 200 -> {
                         IS_EDITED = true
                         EDITED_DEPTH = response.body()!!.data.depth
-                        Log.d("깊이 수정 성공", response.body().toString())
+                        val intent = Intent(applicationContext, DiaryActivity::class.java)
+                        intent.putExtra("diaryDepth", response.body()!!.data.depth)
+                        setResult(1000, intent)
                         finish()
+
+                        Log.d("깊이 수정 성공", response.body().toString())
                         applicationContext.showToast("깊이가 수정되었습니다.")
                     }
                     response.code() == 400 -> {

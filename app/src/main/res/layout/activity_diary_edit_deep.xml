@@ -19,11 +19,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:layout_conversion_absoluteHeight="0dp"
-            tools:layout_conversion_absoluteWidth="411dp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp">
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/bg_deep1"
@@ -126,9 +122,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout8"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/realtimeBlurView"
-        app:layout_constraintDimensionRatio="1:0.4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout6"
@@ -139,10 +134,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
             android:fontFamily="@font/notosanskrlight"
             android:includeFontPadding="false"
             android:letterSpacing="-0.05"
-            android:lineHeight="32sp"
             android:text="감정이 얼마나 깊은가요?\n나만의 바다에 기록해보세요"
             android:textColor="@color/blue_7"
             android:textSize="22dp"
@@ -156,6 +151,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:layout_marginBottom="46dp"
             android:fontFamily="@font/notosanskrregular"
             android:includeFontPadding="false"
             android:letterSpacing="-0.07"
@@ -172,8 +168,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_deep_date"
-            app:layout_constraintEnd_toStartOf="@+id/tv_diary_emotion"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@+id/tv_deep_date"
             app:layout_constraintTop_toTopOf="@+id/tv_deep_date"
@@ -191,8 +185,6 @@
             android:textColor="@color/blue_7"
             android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="@+id/img_deep_emotion"
-            app:layout_constraintEnd_toStartOf="@+id/img_diary_deep"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/img_deep_emotion"
             app:layout_constraintTop_toTopOf="@+id/img_deep_emotion" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -235,8 +227,8 @@
         android:background="@color/diary_bg"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout10"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.62"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout8">
 
         <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
             android:id="@+id/verticalSeekBarWrapper"

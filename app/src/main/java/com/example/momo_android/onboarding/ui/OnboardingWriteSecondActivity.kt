@@ -10,6 +10,7 @@ import android.view.animation.Animation
 import androidx.appcompat.app.AppCompatActivity
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityOnboardingWriteSecondBinding
+import com.example.momo_android.onboarding.ui.OnboardingFeelingActivity.Companion.ONBOARDING_FEELING
 
 
 class OnboardingWriteSecondActivity : AppCompatActivity() {
@@ -26,10 +27,10 @@ class OnboardingWriteSecondActivity : AppCompatActivity() {
         startActivityIntent()
     }
 
-//    override fun onPause() {
-//        super.onPause()
-//        handler.removeCallbacksAndMessages(null)
-//    }
+    override fun onPause() {
+        super.onPause()
+        handler.removeCallbacksAndMessages(null)
+    }
 
     private fun setViewBinding() {
         viewBinding = ActivityOnboardingWriteSecondBinding.inflate(layoutInflater)
@@ -50,7 +51,7 @@ class OnboardingWriteSecondActivity : AppCompatActivity() {
             viewBinding.tvCursor.blink()
             viewBinding.tvCursor.visibility = View.VISIBLE
             viewBinding.tvWrite.setCharacterDelay(150)
-            when (intent.getIntExtra("feeling", 0)) {
+            when (ONBOARDING_FEELING) {
                 1 -> viewBinding.tvWrite.animateText("새로운 인연이 기대되는 하루였다.")
                 2 -> viewBinding.tvWrite.animateText("삶의 소중함을 느낀 하루였다.")
                 3 -> viewBinding.tvWrite.animateText("나를 위한 진한 위로가 필요한 하루였다.")
@@ -81,14 +82,16 @@ class OnboardingWriteSecondActivity : AppCompatActivity() {
     }
 
     private fun startActivityIntent() {
-        val feeling = intent.getIntExtra("feeling", 0)
         val intent = Intent(this, OnboardingDepthActivity::class.java)
-        intent.putExtra("feeling", feeling)
         handler.postDelayed({
             startActivity(intent)
             overridePendingTransition(R.anim.horizontal_left_in, R.anim.horizontal_right_out)
-        }, 6000L)
+        }, 6500L)
     }
 
-    override fun onBackPressed() {}
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+        overridePendingTransition(R.anim.horizontal_right_in, R.anim.horizontal_left_out)
+    }
 }

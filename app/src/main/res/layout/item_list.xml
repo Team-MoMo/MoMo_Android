@@ -130,7 +130,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_list_book_info">
 
-        <com.example.momo_android.util.UnderlineTextView
+        <com.example.momo_android.util.ui.UnderlineTextView
             android:id="@+id/tv_list_diary"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

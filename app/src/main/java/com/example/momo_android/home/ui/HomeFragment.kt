@@ -21,7 +21,7 @@ import com.example.momo_android.home.data.ResponseDiaryList
 import com.example.momo_android.home.ui.ScrollFragment.Companion.IS_EDITED
 import com.example.momo_android.list.ui.ListActivity
 import com.example.momo_android.network.RequestToServer
-import com.example.momo_android.setting.SettingActivity
+import com.example.momo_android.setting.ui.SettingActivity
 import com.example.momo_android.upload.ui.UploadFeelingActivity
 import com.example.momo_android.util.SharedPreferenceController
 import retrofit2.Call
@@ -37,6 +37,7 @@ class HomeFragment : Fragment() {
 
     private var isDay = true
     private var diaryId = 0
+    private var diaryDepth = 0
     private val currentYear = Calendar.getInstance().get(Calendar.YEAR)
     private val currentMonth = (Calendar.getInstance().get(Calendar.MONTH) + 1)
     private val currentDate = Calendar.getInstance().get(Calendar.DATE)
@@ -77,7 +78,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun updateByServerData() {
-//        setLoadingViewBackground()
         setCurrentDate()
         setDayNightStatus()
         getServerDiaryData()
@@ -199,6 +199,7 @@ class HomeFragment : Fragment() {
             }
             else -> {
                 setDiaryView()
+                DIARY_STATUS = true
                 diaryId = diaryList[0].id
                 setEmotionData(diaryList[0].emotionId, isDay)
                 setDepthData(diaryList[0].depth)
@@ -381,6 +382,7 @@ class HomeFragment : Fragment() {
     private fun setIntentToDiaryActivity() {
         val intent = Intent(requireContext(), DiaryActivity::class.java)
         intent.putExtra("diaryId", diaryId)
+        intent.putExtra("diaryDepth", diaryDepth)
         startActivity(intent)
     }
 

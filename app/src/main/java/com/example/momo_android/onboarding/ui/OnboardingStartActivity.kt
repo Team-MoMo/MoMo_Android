@@ -26,6 +26,7 @@ class OnboardingStartActivity : AppCompatActivity() {
             /********************** Login으로 가게 바꾸기************/
             val intent = Intent(this@OnboardingStartActivity, MainLoginActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 }

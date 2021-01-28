@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
@@ -48,12 +49,13 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
         android:layout_marginTop="21dp"
         android:fontFamily="@font/notosanskrregular"
         android:gravity="center_horizontal"
         android:includeFontPadding="false"
         android:letterSpacing="-0.07"
-        android:text="작성한 일기가 저장되지 않습니다\n정말 뒤로 가시겠어요?"
+        android:text="작성한 일기가 저장되지 않습니다. \n정말 뒤로 가시겠어요? "
         android:textColor="@color/black"
         android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="@+id/textView"
@@ -99,7 +101,7 @@
         app:layout_constraintTop_toTopOf="@+id/view3" />
 
     <TextView
-        android:id="@+id/btn_exit"
+        android:id="@+id/btn_yes"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fontFamily="@font/notosanskrregular"

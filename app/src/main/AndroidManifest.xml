@@ -13,13 +13,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoMo_Android"
         android:usesCleartextTraffic="true">
+        <activity android:name=".setting.ui.MyInfoActivity" />
+        <activity android:name=".setting.ui.TeamInfoActivity" />
         <activity android:name=".onboarding.ui.OnboardingWriteSecondActivity" />
         <activity android:name=".onboarding.ui.OnboardingWriteFirstActivity" />
         <activity android:name=".onboarding.ui.OnboardingDepthActivity" />
         <activity android:name=".onboarding.ui.OnboardingSentenceActivity" />
         <activity android:name=".onboarding.ui.OnboardingFeelingActivity" />
         <activity android:name=".onboarding.ui.OnboardingStartActivity" />
-        <activity android:name=".login.ui.FindPasswordActivity" />
+        <activity
+            android:name=".login.ui.FindPasswordActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".login.ui.MainLoginActivity" />
         <activity
             android:name=".diary.ui.DiaryEditWriteActivity"
@@ -42,14 +46,14 @@
         <activity android:name=".diary.ui.DiaryEditDeepActivity" />
         <activity
             android:name=".upload.ui.UploadWriteActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".upload.ui.UploadSentenceActivity" />
         <activity android:name=".upload.ui.UploadFeelingActivity" />
         <activity android:name=".upload.ui.UploadDeepActivity" />
         <activity
             android:name=".list.ui.ListActivity"
             android:theme="@style/Theme.listTheme" />
-        <activity android:name=".setting.SettingActivity"/>
+        <activity android:name=".setting.ui.SettingActivity" />
     </application>
 
 </manifest>

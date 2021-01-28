@@ -9,6 +9,7 @@ import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -21,8 +22,8 @@ import androidx.core.animation.doOnEnd
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityUploadDeepBinding
 import com.example.momo_android.diary.ui.DiaryActivity
+import com.example.momo_android.home.ui.ScrollFragment.Companion.IS_EDITED
 import com.example.momo_android.network.RequestToServer
-import com.example.momo_android.upload.ModalUploadDeepExit
 import com.example.momo_android.upload.data.RequestUploadDiaryData
 import com.example.momo_android.upload.data.ResponseUploadDiaryData
 import com.example.momo_android.util.SharedPreferenceController
@@ -53,8 +54,8 @@ class UploadDeepActivity : AppCompatActivity() {
         val emotionId = intent.getIntExtra("emotionId", 0)
         val sentenceId = intent.getIntExtra("sentenceId", 0)
         val contents = intent.getStringExtra("contents")
-        var wroteAt=intent.getStringExtra("wroteAt")
-        var depth = 0
+        val wroteAt : String = intent.getStringExtra("wroteAt").toString()
+        val depth=intent.getIntExtra("depth",0)
 
         // 총 3개의 시크바 사용
         val mainSeekbar = binding.mainSeekBar
@@ -77,6 +78,8 @@ class UploadDeepActivity : AppCompatActivity() {
 
         // 뒤로가기
         btn_back.setOnClickListener {
+            UploadWriteActivity.depth=mainSeekbar.progress
+            //Log.d("depth_deep","${UploadWriteActivity.depth}")
             finish()
         }
 
@@ -86,6 +89,9 @@ class UploadDeepActivity : AppCompatActivity() {
             exitModal.start()
             exitModal.setOnClickListener {
                 if(it == "닫기") {
+                    UploadFeelingActivity.activity?.finish()
+                    UploadSentenceActivity.activity?.finish()
+                    UploadWriteActivity.activity?.finish()
                     finish()
                 }
             }
@@ -103,7 +109,8 @@ class UploadDeepActivity : AppCompatActivity() {
         )
 
         // default = 2m
-        mainSeekbar.progress = 0
+        mainSeekbar.progress = depth
+        scrollToDepth()
 
         // 처음 실행될 때 - line과 text 시크바를 main과 동일한 단계로 설정
         lineSeekbar.progress = mainSeekbar.progress
@@ -112,9 +119,6 @@ class UploadDeepActivity : AppCompatActivity() {
 
         textSeekbar.progress = mainSeekbar.progress
         (textThumb.findViewById(R.id.tv_seekbar_depth) as TextView).text = getDepth(textSeekbar.progress)
-
-        // 깊이 설정
-        depth = textSeekbar.progress
 
         textSeekbar.thumb = textThumb.getThumb()
         textSeekbar.setOnTouchListener { _, _ -> true }
@@ -159,12 +163,23 @@ class UploadDeepActivity : AppCompatActivity() {
         // 기록하기 버튼
         btn_edit_deep.setOnClickListener {
             // 기록하기 통신
-            //uploadDiary(contents!!, sentenceId, emotionId, depth)
-            uploadDiary(contents!!, sentenceId, emotionId, depth, wroteAt!!)
-
+            uploadDiary(contents!!, sentenceId, emotionId, mainSeekbar.progress, wroteAt)
         }
 
 
+    }
+
+
+    private fun getDepth(progress: Int): String {
+        return when(progress) {
+            0 -> "2m"
+            1 -> "30m"
+            2 -> "100m"
+            3 -> "300m"
+            4 -> "700m"
+            5 -> "1,005m"
+            else -> "심해"
+        }
     }
 
     // 깊이에 따른 배경색 매치
@@ -180,16 +195,13 @@ class UploadDeepActivity : AppCompatActivity() {
         }
     }
 
-    private fun getDepth(progress: Int): String {
-        return when(progress) {
-            0 -> "2m"
-            1 -> "30m"
-            2 -> "100m"
-            3 -> "300m"
-            4 -> "700m"
-            5 -> "1,005m"
-            else -> "심해"
-        }
+    // 맨 처음에 수정 전 깊이로 세팅
+    private fun scrollToDepth() {
+        val h = Handler()
+        h.postDelayed(
+            { binding.svUploadDeep.scrollTo(0, depthImg().top) }
+            , 100
+        )
     }
 
     private fun View.getThumb(): BitmapDrawable {
@@ -249,7 +261,7 @@ class UploadDeepActivity : AppCompatActivity() {
     private fun uploadDiary(contents: String, sentenceId: Int, emotionId: Int, depth: Int, wroteAt:String) {
         RequestToServer.service.uploadDiary(
             Authorization = SharedPreferenceController.getAccessToken(this),
-            RequestUploadDiaryData(
+            body = RequestUploadDiaryData(
                 contents = contents,
                 depth = depth,
                 userId=SharedPreferenceController.getUserId(this),
@@ -268,9 +280,16 @@ class UploadDeepActivity : AppCompatActivity() {
                         Log.d("uploadDiary-server", "success : ${response.body()!!.data}, message : ${response.message()}")
 
                         // 다이어리 뷰로 이동
+                        IS_EDITED = true
                         val intent= Intent(this@UploadDeepActivity,DiaryActivity::class.java)
                         intent.putExtra("diaryId",response.body()!!.data.id)
                         startActivity(intent)
+
+                        // 업로드 플로우 액티비티 모두 종료
+                        UploadWriteActivity.activity?.finish()
+                        UploadSentenceActivity.activity?.finish()
+                        UploadFeelingActivity.activity?.finish()
+                        finish()
 
                     } ?: showError(response.errorBody())
             }
@@ -326,5 +345,13 @@ class UploadDeepActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        UploadWriteActivity.depth=binding.mainSeekBar.progress
+        finish()
+        overridePendingTransition(R.anim.horizontal_right_in, R.anim.horizontal_left_out)
+    }
+
 
 }

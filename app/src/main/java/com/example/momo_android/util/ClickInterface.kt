@@ -15,7 +15,7 @@ interface ModalClickListener {
 
 /* ScrollFragment.kt 리사이클러뷰 물방울 클릭 인터페이스 */
 interface OvalClickListeners {
-    fun onClickOvalItem(view: View, diaryId: Int)
+    fun onClickOvalItem(view: View, diaryId: Int, diaryDepth: Int)
 }
 
 /* DatePickerBottomSheetFragment.kt 적용 버튼 클릭 인터페이스 */

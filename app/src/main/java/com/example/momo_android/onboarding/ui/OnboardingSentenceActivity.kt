@@ -9,11 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityOnboardingSentenceBinding
 import com.example.momo_android.network.RequestToServer
-import com.example.momo_android.upload.UploadSentenceAdapter
-import com.example.momo_android.upload.data.Data
-import com.example.momo_android.upload.data.ResponseSentenceData
+import com.example.momo_android.onboarding.ui.OnboardingFeelingActivity.Companion.ONBOARDING_FEELING
+import com.example.momo_android.upload.adapter.UploadSentenceAdapter
 import com.example.momo_android.upload.data.UploadSentenceData
-import com.example.momo_android.upload.ui.UploadWriteActivity
 import com.example.momo_android.util.ItemClickListener
 import com.example.momo_android.util.SharedPreferenceController
 import com.example.momo_android.util.showToast
@@ -22,6 +20,7 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class OnboardingSentenceActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOnboardingSentenceBinding
@@ -35,13 +34,12 @@ class OnboardingSentenceActivity : AppCompatActivity() {
         val view = binding.root // 3
         setContentView(view)
 
-        val feeling = intent.getIntExtra("feeling", 0)
-        binding.tvDate.text = intent.getStringExtra("date")
         //감정, 감정이미지 설정
-        showFeeling(feeling)
+        showFeeling(ONBOARDING_FEELING)
+        binding.tvDate.text= timeGenerator()
 
         //서버에서 3문장 받아오기
-        getOnboardingSentence(feeling)
+        getOnboardingSentence(ONBOARDING_FEELING)
 
 
         //RecylerView 이용한 버튼
@@ -60,6 +58,7 @@ class OnboardingSentenceActivity : AppCompatActivity() {
                 intent.putExtra("book", uploadSentenceAdapter.data[position].book)
                 intent.putExtra("publisher", uploadSentenceAdapter.data[position].publisher)
                 intent.putExtra("sentence", uploadSentenceAdapter.data[position].sentence)
+                intent.putExtra("feeling", feeling)
                 //Toast.makeText(this@UploadSentenceActivity,uploadSentenceAdapter.data[0].author,Toast.LENGTH_SHORT).show()
                 startActivity(intent)
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
@@ -173,10 +172,42 @@ class OnboardingSentenceActivity : AppCompatActivity() {
         }
     }
 
+    fun timeGenerator() :String{
+        // 현재 날짜 가져오기
+        val currentDate = Calendar.getInstance()
+        val year=currentDate.get(Calendar.YEAR).toString()
+        val month=(currentDate.get(Calendar.MONTH)+1).toString()
+        val day=currentDate.get(Calendar.DATE).toString()
+        val week=currentDate.get(Calendar.DAY_OF_WEEK)
+
+        var strDay=""
+        var strMonth=""
+        if (month.toInt() < 10) {
+            strMonth="0$month"
+        }else{strMonth=month}
+
+        if (day.toInt() < 10) {
+            strDay="0$day"
+        }else{strDay=day}
+
+        var strWeek=""
+
+        when(week){
+            1->strWeek="일요일"
+            2->strWeek="월요일"
+            3->strWeek="화요일"
+            4->strWeek="수요일"
+            5->strWeek="목요일"
+            6->strWeek="금요일"
+            7->strWeek="토요일"
+        }
+
+        return year+". "+strMonth+". "+strDay+". "+strWeek
+    }
+
     override fun onBackPressed() {
         super.onBackPressed()
-        val intent = Intent(this, OnboardingFeelingActivity::class.java)
-        startActivity(intent)
+        finish()
         overridePendingTransition(R.anim.horizontal_right_in, R.anim.horizontal_left_out)
     }
 

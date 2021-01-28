@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
@@ -31,13 +32,16 @@ class OnboardingDepthActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        window?.decorView?.systemUiVisibility =
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        window.statusBarColor = Color.TRANSPARENT
+
         // 총 3개의 시크바 사용
         val mainSeekbar = binding.mainSeekBar
         val lineSeekbar = binding.lineSeekBar
         val textSeekbar = binding.textSeekBar
         val svDeep = binding.svUploadDeep
-        //val btn_back = binding.btnBack
-        val tv_deep_date = binding.tvDeepDate
         val btn_edit_deep = binding.btnUploadDeep
 
 
@@ -49,25 +53,8 @@ class OnboardingDepthActivity : AppCompatActivity() {
             Log.d("btn","clicked")
             intent.putExtra("deep",mainSeekbar.progress)
             startActivity(intent)
+            finishAffinity()
         }
-        /*뒤로가기
-        btn_back.setOnClickListener {
-            finish()
-        }*/
-
-        /*닫기
-        btn_close.setOnClickListener {
-            val exitModal = ModalUploadDeepExit(this)
-            exitModal.start()
-            exitModal.setOnClickListener {
-                if(it == "닫기") {
-                    finish()
-                }
-            }
-        }*/
-
-        // 앞에서 받아온 일기쓰는 날짜
-        // tv_deep_date.text = intent.getStringExtra("diary_day")
 
         val lineThumb = LayoutInflater.from(this).inflate(
             R.layout.seekbar_line_thumb, null, false
@@ -216,10 +203,7 @@ class OnboardingDepthActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        val feeling = intent.getIntExtra("feeling", 0)
-        val intent = Intent(this, OnboardingSentenceActivity::class.java)
-        intent.putExtra("feeling", feeling)
-        startActivity(intent)
+        finish()
         overridePendingTransition(R.anim.horizontal_right_in, R.anim.horizontal_left_out)
     }
 }
