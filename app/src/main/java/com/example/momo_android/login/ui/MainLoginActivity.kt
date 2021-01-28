@@ -41,8 +41,7 @@ import java.security.MessageDigest
 class MainLoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainLoginBinding
 
-    private val KAKAO_LOGIN = 1111
-    private val GOOGLE_LOGIN = 2222
+    private val GOOGLE_LOGIN = 1111
 
     private var googleSignInClient: GoogleSignInClient? = null
     private lateinit var callback: SessionCallback
@@ -66,6 +65,7 @@ class MainLoginActivity : AppCompatActivity() {
             callback = SessionCallback()
             Session.getCurrentSession().addCallback(callback)
             Session.getCurrentSession().open(AuthType.KAKAO_TALK, this)
+            Session.getCurrentSession().checkAndImplicitOpen()
         }
 
         btn_google.setOnClickListener {
@@ -78,7 +78,7 @@ class MainLoginActivity : AppCompatActivity() {
             googleSignInClient = GoogleSignIn.getClient(this, gso)
 
             val signInIntent = googleSignInClient?.signInIntent
-            startActivityForResult(signInIntent, KAKAO_LOGIN)
+            startActivityForResult(signInIntent, GOOGLE_LOGIN)
 
         }
 
@@ -125,7 +125,7 @@ class MainLoginActivity : AppCompatActivity() {
             return
         }
 
-        if (requestCode == KAKAO_LOGIN) {
+        if (requestCode == GOOGLE_LOGIN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             handleSignInResult(task)
         }
