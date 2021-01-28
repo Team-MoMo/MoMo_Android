@@ -58,7 +58,7 @@ class SettingActivity : AppCompatActivity() {
             startActivity(intent)
         }
         binding.constraintlayoutTouchboxInsta.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://instagram.com/momo_is_diary?igshid=1wacgm5uuz7ia"))
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://instagram.com/momo.__.diary?igshid=1slzufxe233m"))
             startActivity(intent)
         }
     }
