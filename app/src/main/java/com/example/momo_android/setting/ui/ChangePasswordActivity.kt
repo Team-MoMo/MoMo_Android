@@ -1,8 +1,10 @@
 package com.example.momo_android.setting.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -10,8 +12,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityChangePasswordBinding
+import com.example.momo_android.home.ui.HomeActivity
+import com.example.momo_android.network.RequestToServer
+import com.example.momo_android.setting.ResponseWithdrawalData
+import com.example.momo_android.setting.data.RequestChangePasswordData
 import com.example.momo_android.util.*
 import kotlinx.android.synthetic.main.activity_change_password.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.regex.Pattern
 
 class ChangePasswordActivity : AppCompatActivity() {
@@ -24,8 +33,6 @@ class ChangePasswordActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-
-        SharedPreferenceController.setPassword(this, "aaa111")
         binding.btnClose.setOnClickListener {
             finish()
         }
@@ -102,7 +109,7 @@ class ChangePasswordActivity : AppCompatActivity() {
             et_check_passwd.background = resources.getDrawable(R.drawable.et_area_default, null)
             tv_check_error.setInVisible()
             // 변경 통신
-            this.showToast("완료 !!!")
+            putChangePassword()
         }
     }
 
@@ -149,6 +156,43 @@ class ChangePasswordActivity : AppCompatActivity() {
         button.setOnClickListener {
             this.setText("")
         }
+    }
+
+    // 변경 통신
+    private fun putChangePassword() {
+        RequestToServer.service.putChangePassword(
+            Authorization = SharedPreferenceController.getAccessToken(this),
+            userId = SharedPreferenceController.getUserId(this),
+            RequestChangePasswordData(newPassword = binding.etNewPasswd.text.toString())
+        ).enqueue(object : Callback<ResponseWithdrawalData> {
+            override fun onResponse(
+                call: Call<ResponseWithdrawalData>,
+                response: Response<ResponseWithdrawalData>
+            ) {
+                when {
+                    response.code() == 200 -> {
+                        // 새 패스워드 저장
+                        SharedPreferenceController.setPassword(
+                            applicationContext,
+                            binding.etNewPasswd.toString()
+                        )
+                        finish()
+                        applicationContext.showToast("비밀번호가 변경되었습니다.")
+                    }
+                    response.code() == 400 -> {
+                        Log.d("putChangePassword 400", response.body()!!.message)
+                    }
+                    else -> {
+                        Log.d("putChangePassword 500", response.message())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseWithdrawalData>, t: Throwable) {
+                Log.d("putChangePassword ERROR", "$t")
+            }
+
+        })
     }
 
 

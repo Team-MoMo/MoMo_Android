@@ -46,7 +46,10 @@ class MyInfoActivity : AppCompatActivity() {
     }
     //박스 1_ 비밀번호 변경
     private fun changePasswordClickListener(){
-        binding.constraintlayoutBox1.setOnClickListener {}
+        binding.constraintlayoutBox1.setOnClickListener {
+            val intent = Intent(this, ChangePasswordActivity::class.java)
+            startActivity(intent)
+        }
     }
     //박스 2_ 개인정보처리방침
     private fun privacyPolicyClickListener(){
