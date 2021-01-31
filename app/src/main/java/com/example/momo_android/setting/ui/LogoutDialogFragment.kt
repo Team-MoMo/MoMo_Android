@@ -66,6 +66,7 @@ class LogoutDialogFragment : DialogFragment() {
     private fun clearSharedPreferences() {
         SharedPreferenceController.clearAccessToken(requireContext())
         SharedPreferenceController.clearUserId(requireContext())
+        SharedPreferenceController.clearPassword(requireContext())
     }
 
     private fun setIntentToLoginActivity() {
