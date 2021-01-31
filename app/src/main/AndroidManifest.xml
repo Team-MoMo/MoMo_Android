@@ -18,6 +18,8 @@
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />
 
+        <activity android:name=".setting.ui.ChangePasswordActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".setting.ui.MyInfoActivity" />
         <activity android:name=".setting.ui.TeamInfoActivity" />
         <activity android:name=".onboarding.ui.OnboardingWriteSecondActivity" />

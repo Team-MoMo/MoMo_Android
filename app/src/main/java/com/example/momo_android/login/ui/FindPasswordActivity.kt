@@ -38,7 +38,7 @@ class FindPasswordActivity : AppCompatActivity() {
             } else if(et_findpw_email.text.isNotEmpty() &&
                 !android.util.Patterns.EMAIL_ADDRESS.matcher(et_findpw_email.text.toString()).matches()) {
                 tv_findpw_email.setTextColor(ContextCompat.getColor(applicationContext, R.color.red_2_error))
-                et_findpw_email.background = resources.getDrawable(R.drawable.signup_et_area_error, null)
+                et_findpw_email.background = resources.getDrawable(R.drawable.et_area_error, null)
                 tv_email_error.setVisible()
                 tv_email_error.text = "올바른 이메일 형식이 아닙니다"
             } else {
@@ -60,7 +60,7 @@ class FindPasswordActivity : AppCompatActivity() {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 tv_findpw_email.setTextColor(ContextCompat.getColor(applicationContext, R.color.blue_2))
-                et_findpw_email.background = resources.getDrawable(R.drawable.signup_et_area, null)
+                et_findpw_email.background = resources.getDrawable(R.drawable.et_area_default, null)
                 tv_email_error.setInVisible()
 
                 if(et_findpw_email.text.isNotEmpty()) {
@@ -81,7 +81,7 @@ class FindPasswordActivity : AppCompatActivity() {
 
         et_findpw_email.setOnFocusChangeListener { _, _ ->
             tv_findpw_email.setTextColor(ContextCompat.getColor(applicationContext, R.color.blue_2))
-            et_findpw_email.background = resources.getDrawable(R.drawable.signup_et_area, null)
+            et_findpw_email.background = resources.getDrawable(R.drawable.et_area_default, null)
             tv_email_error.setInVisible()
         }
 
