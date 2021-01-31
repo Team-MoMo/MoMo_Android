@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityMyInfoBinding
 import com.example.momo_android.login.ui.MainLoginActivity
@@ -101,9 +102,8 @@ class MyInfoActivity : AppCompatActivity() {
                             "success : ${response.body()!!.data}, message : ${response.message()}"
                         )
 
-                        val withdrawal_intent=Intent(this@MyInfoActivity,MainLoginActivity::class.java)
-                        startActivity(withdrawal_intent)
-                        finishAffinity() // 전체 Activity 종료
+                        clearSharedPreferences()
+                        setIntentToLoginActivity()
 
                     } ?: showError(response.errorBody())
             }
@@ -122,6 +122,18 @@ class MyInfoActivity : AppCompatActivity() {
         Log.d("Withdrawal", ob.getString("message"))
     }
 
+    private fun clearSharedPreferences() {
+        SharedPreferenceController.clearAccessToken(this)
+        SharedPreferenceController.clearUserId(this)
+    }
+
+    private fun setIntentToLoginActivity() {
+        val intent = Intent(this, MainLoginActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        finishAffinity() // 전체 Activity 종료
+    }
 
 
 }
