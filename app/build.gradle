@@ -72,4 +72,5 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
     // kakao login
     implementation group: 'com.kakao.sdk', name: 'usermgmt', version: '1.30.4'
+
 }

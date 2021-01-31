@@ -2,9 +2,11 @@ package com.example.momo_android.setting.ui
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.renderscript.ScriptGroup
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +14,9 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.TextView
 import com.example.momo_android.R
+import com.example.momo_android.login.ui.MainLoginActivity
 import com.example.momo_android.util.ModalClickListener
+import com.example.momo_android.util.SharedPreferenceController
 
 
 class ModalWithdrawal(context : Context){
