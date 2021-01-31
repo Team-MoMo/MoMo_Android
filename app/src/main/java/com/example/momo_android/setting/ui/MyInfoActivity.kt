@@ -11,6 +11,7 @@ import com.example.momo_android.login.ui.MainLoginActivity
 import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.setting.ResponseWithdrawalData
 import com.example.momo_android.util.SharedPreferenceController
+import com.example.momo_android.util.setGone
 import com.example.momo_android.util.showToast
 import okhttp3.ResponseBody
 import org.json.JSONObject
@@ -37,6 +38,17 @@ class MyInfoActivity : AppCompatActivity() {
 
         //회원탈퇴
         withdrawalClickListener()
+
+        // 소셜로그인으로 들어온 경우 비밀번호 변경 메뉴 안보임
+        hideChangePasswordMenu()
+
+    }
+
+    private fun hideChangePasswordMenu() {
+        if(SharedPreferenceController.getSocialLogin(this) == "true") {
+            binding.constraintlayoutBox1.setGone()
+            binding.view18.setGone()
+        }
     }
 
     //뒤로가기 버튼
@@ -45,6 +57,7 @@ class MyInfoActivity : AppCompatActivity() {
             finish()
         }
     }
+
     //박스 1_ 비밀번호 변경
     private fun changePasswordClickListener(){
         binding.constraintlayoutBox1.setOnClickListener {
@@ -125,6 +138,8 @@ class MyInfoActivity : AppCompatActivity() {
     private fun clearSharedPreferences() {
         SharedPreferenceController.clearAccessToken(this)
         SharedPreferenceController.clearUserId(this)
+        SharedPreferenceController.clearPassword(this)
+        SharedPreferenceController.clearSocialLogin(this)
     }
 
     private fun setIntentToLoginActivity() {

@@ -8,6 +8,7 @@ object SharedPreferenceController {
     private val ON_BOARDING = "ON_BOARDING"
     private val USER_ID = "USER_ID"
     private val PASSWORD = "PASSWORD"
+    private val SOCIAL = "SOCIAL"
 
 
     // 토큰
@@ -76,5 +77,23 @@ object SharedPreferenceController {
     fun getOnBoarding(context: Context) : String? {
         val prefs = context.getSharedPreferences(ON_BOARDING, Context.MODE_PRIVATE)
         return prefs.getString("ON_BOARDING", "")
+    }
+
+    // 소셜로그인으로 들어온 계정 체크
+    fun setSocialLogin(context: Context, input: String) {
+        val prefs = context.getSharedPreferences(SOCIAL, Context.MODE_PRIVATE)
+        val editor = prefs.edit()
+        editor.putString("SOCIAL", input)
+        editor.apply()
+    }
+
+    fun getSocialLogin(context: Context) : String? {
+        val prefs = context.getSharedPreferences(SOCIAL, Context.MODE_PRIVATE)
+        return prefs.getString("SOCIAL", "")
+    }
+
+    fun clearSocialLogin(context: Context) {
+        val pref = context.getSharedPreferences(SOCIAL, Context.MODE_PRIVATE)
+        pref.edit().clear().apply()
     }
 }
