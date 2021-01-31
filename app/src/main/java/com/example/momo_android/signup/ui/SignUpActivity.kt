@@ -200,7 +200,7 @@ class SignUpActivity : AppCompatActivity() {
                         // 유저 아이디 저장
                         SharedPreferenceController.setUserId(applicationContext, response.body()!!.data.user.id)
                         // 패스워드 저장
-                        SharedPreferenceController.setPassword(applicationContext, binding.etSignupPasswd.toString())
+                        SharedPreferenceController.setPassword(applicationContext, response.body()!!.data.user.password)
                         // 홈으로 이동
                         val intent = Intent(applicationContext, HomeActivity::class.java)
                         startActivity(intent)
