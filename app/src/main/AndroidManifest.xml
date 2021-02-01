@@ -14,12 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoMo_Android"
         android:usesCleartextTraffic="true">
+
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />
 
         <activity android:name=".setting.ui.ChangePasswordActivity"
             android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".lock.ui.LockOnActivity" />
         <activity android:name=".setting.ui.MyInfoActivity" />
         <activity android:name=".setting.ui.TeamInfoActivity" />
         <activity android:name=".onboarding.ui.OnboardingWriteSecondActivity" />
