@@ -22,6 +22,7 @@
         <activity android:name=".setting.ui.ChangePasswordActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".lock.ui.LockOnActivity" />
+        <activity android:name=".lock.ui.LockOffActivity" />
         <activity android:name=".setting.ui.MyInfoActivity" />
         <activity android:name=".setting.ui.TeamInfoActivity" />
         <activity android:name=".onboarding.ui.OnboardingWriteSecondActivity" />

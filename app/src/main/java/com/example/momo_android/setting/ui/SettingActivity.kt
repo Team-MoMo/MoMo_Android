@@ -1,5 +1,6 @@
 package com.example.momo_android.setting.ui
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.momo_android.lock.ui.LockOnActivity
 import com.example.momo_android.databinding.ActivitySettingBinding
+import com.example.momo_android.lock.ui.LockOffActivity
 import com.example.momo_android.util.SharedPreferenceController
 
 class SettingActivity : AppCompatActivity() {
@@ -49,14 +51,8 @@ class SettingActivity : AppCompatActivity() {
                 }
                 false -> {
                     binding.imagebuttonResetting.visibility = View.INVISIBLE
-                    SharedPreferenceController.setLockStatus(this, false)
-//                    val intent = Intent(this, LockOnActivity::class.java)
-//                    startActivityForResult(intent)
-//                    if(true) {
-//                        SharedPreferenceController.setLockStatus(this, false)
-//                    } else {
-//                        SharedPreferenceController.setLockStatus(this, true)
-//                    }
+                    val intent = Intent(this, LockOffActivity::class.java)
+                    startActivityForResult(intent, LOCK_OFF)
                 }
             }
         }
@@ -78,5 +74,18 @@ class SettingActivity : AppCompatActivity() {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://instagram.com/momo.__.diary?igshid=1slzufxe233m"))
             startActivity(intent)
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == LOCK_OFF) {
+            val isLocked = data!!.getBooleanExtra("isLocked", false)
+            binding.switchLock.isChecked = isLocked
+            SharedPreferenceController.setLockStatus(this, isLocked)
+        }
+    }
+
+    companion object {
+        const val LOCK_OFF = 1000
     }
 }
