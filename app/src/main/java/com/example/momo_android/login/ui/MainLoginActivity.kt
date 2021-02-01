@@ -199,6 +199,8 @@ class MainLoginActivity : AppCompatActivity() {
                         SharedPreferenceController.setAccessToken(applicationContext, response.body()!!.data.token)
                         // 유저 아이디 저장
                         SharedPreferenceController.setUserId(applicationContext, response.body()!!.data.user.id)
+                        // 소셜 로그인 체크 저장
+                        SharedPreferenceController.setSocialLogin(applicationContext, "true")
 
                         // 홈으로 이동
                         val intent = Intent(applicationContext, HomeActivity::class.java)
