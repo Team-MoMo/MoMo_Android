@@ -4,8 +4,10 @@ import com.example.momo_android.diary.data.RequestEditDiaryData
 import com.example.momo_android.diary.data.ResponseDiaryData
 import com.example.momo_android.home.data.ResponseDiaryList
 import com.example.momo_android.list.data.ResponseFilterData
+import com.example.momo_android.login.data.RequestSocialLoginData
 import com.example.momo_android.onboarding.ui.ResponseOnboardingData
 import com.example.momo_android.setting.ResponseWithdrawalData
+import com.example.momo_android.setting.data.RequestChangePasswordData
 import com.example.momo_android.signup.data.RequestUserData
 import com.example.momo_android.signup.data.ResponseUserData
 import com.example.momo_android.upload.data.RequestUploadDiaryData
@@ -117,6 +119,13 @@ interface RequestInterface {
         @Body body: RequestUserData
     ) : Call<ResponseUserData>
 
+    // 소셜 로그인
+    @Headers("Content-Type: application/json")
+    @POST("/users/signin/social")
+    fun postSocialLogin(
+        @Body body: RequestSocialLoginData
+    ) : Call<ResponseUserData>
+
     // 이메일 중복확인
     @Headers("Content-Type: application/json")
     @GET("/users/signup")
@@ -138,5 +147,14 @@ interface RequestInterface {
     fun getWithdrawal(
         @Header("Authorization") Authorization:String?,
         @Path("id") params:Int
+    ):Call<ResponseWithdrawalData>
+
+    // 비밀번호 변경
+    @Headers("Content-Type: application/json")
+    @PUT("/users/{id}/password")
+    fun putChangePassword(
+        @Header("Authorization") Authorization : String?,
+        @Path("id") userId : Int,
+        @Body body: RequestChangePasswordData
     ):Call<ResponseWithdrawalData>
 }

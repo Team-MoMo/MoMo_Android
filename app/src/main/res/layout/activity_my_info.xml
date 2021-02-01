@@ -45,28 +45,35 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+    <View
+        android:id="@+id/view22"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintlayout_top" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintlayout_box_1"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
         app:layout_constraintDimensionRatio="1:0.2051"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintlayout_top"
+        app:layout_constraintTop_toBottomOf="@+id/view22"
         app:layout_constraintWidth_percent="0.8666">
 
         <ImageView
             android:id="@+id/imageView47"
-            android:src="@drawable/ic_pw_change"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="13dp"
+            android:src="@drawable/ic_pw_change"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.0769"/>
+            app:layout_constraintWidth_percent="0.0769" />
 
         <TextView
             android:id="@+id/textView21"
@@ -79,8 +86,8 @@
             android:textColor="@color/black"
             android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView47"/>
+            app:layout_constraintStart_toEndOf="@+id/imageView47"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
