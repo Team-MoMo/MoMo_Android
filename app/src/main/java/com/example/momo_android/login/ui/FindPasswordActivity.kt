@@ -4,13 +4,22 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityFindPasswordBinding
+import com.example.momo_android.login.data.RequestTempPasswordData
+import com.example.momo_android.login.data.ResponseTempPasswordData
+import com.example.momo_android.network.RequestToServer
+import com.example.momo_android.signup.data.ResponseUserData
+import com.example.momo_android.util.SharedPreferenceController
 import com.example.momo_android.util.setInVisible
 import com.example.momo_android.util.setVisible
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class FindPasswordActivity : AppCompatActivity() {
 
@@ -43,13 +52,7 @@ class FindPasswordActivity : AppCompatActivity() {
                 tv_email_error.text = "올바른 이메일 형식이 아닙니다"
             } else {
                 // 서버 통신
-//                tv_findpw_email.setTextColor(ContextCompat.getColor(applicationContext, R.color.red_2_error))
-//                et_findpw_email.background = resources.getDrawable(R.drawable.signup_et_area_error, null)
-//                tv_email_error.setVisible()
-//                tv_email_error.text = "가입된 이메일이 없습니다"
-
-                val findModal = ModalFindpwCount(this)
-                findModal.start()
+                postTempPassword()
             }
         }
 
@@ -87,6 +90,79 @@ class FindPasswordActivity : AppCompatActivity() {
 
 
 
+    }
+
+//    private fun checkSignedEmail() {
+//        RequestToServer.service.checkDuplicate(
+//            email = binding.etFindpwEmail.text.toString()
+//        ).enqueue(object : Callback<ResponseUserData> {
+//            override fun onResponse(
+//                call: Call<ResponseUserData>,
+//                response: Response<ResponseUserData>
+//            ) {
+//                when(response.code()) {
+//                    200 -> {
+//                        // 없는 이메일 (에러메시지)
+//                        binding.tvFindpwEmail.setTextColor(ContextCompat.getColor(applicationContext, R.color.red_2_error))
+//                        binding.etFindpwEmail.background = resources.getDrawable(R.drawable.et_area_error, null)
+//                        binding.tvEmailError.setVisible()
+//                        binding.tvEmailError.text = "가입된 이메일이 없습니다"
+//                    }
+//                    400 -> {
+//                        // 중복 이메일 (가능)
+//                        postTempPassword()
+//                    }
+//                    else -> Log.d("checkDuplicate 500", response.message())
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<ResponseUserData>, t: Throwable) {
+//                Log.d("checkDuplicate ERROR", "$t")
+//            }
+//
+//        })
+//    }
+
+    private fun postTempPassword() {
+        RequestToServer.service.postTempPassword(
+            Authorization = SharedPreferenceController.getAccessToken(applicationContext),
+            RequestTempPasswordData(
+                email = binding.etFindpwEmail.text.toString()
+            )
+        ).enqueue(object : Callback<ResponseTempPasswordData> {
+            override fun onResponse(
+                call: Call<ResponseTempPasswordData>,
+                response: Response<ResponseTempPasswordData>
+            ) {
+                Log.d("로그", response.body().toString())
+                when(response.code()) {
+                    200 -> {
+                        val findModal = ModalFindpwCount(this@FindPasswordActivity)
+                        findModal.start(response.body()!!.data.tempPasswordIssueCount)
+                    }
+                    400 -> {
+//                        when(response.message()) {
+//                            "존재하지 않는 회원" -> {
+//                                binding.tvFindpwEmail.setTextColor(ContextCompat.getColor(applicationContext, R.color.red_2_error))
+//                                binding.etFindpwEmail.background = resources.getDrawable(R.drawable.et_area_error, null)
+//                                binding.tvEmailError.setVisible()
+//                                binding.tvEmailError.text = "가입된 이메일이 없습니다"
+//                            }
+//                            "임시비밀번호 발급 횟수 초과" -> {
+//                                val countOverModal = ModalFindpwCountOver(this@FindPasswordActivity)
+//                                countOverModal.start()
+//                            }
+//                        }
+                    }
+                    else -> Log.d("postTempPassword 500", response.message())
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseTempPasswordData>, t: Throwable) {
+                Log.d("postTempPassword ERROR", "$t")
+            }
+
+        })
     }
 
     // edittext 지우는 x버튼
