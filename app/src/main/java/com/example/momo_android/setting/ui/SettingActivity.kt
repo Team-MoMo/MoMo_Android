@@ -24,6 +24,8 @@ class SettingActivity : AppCompatActivity() {
         initTeamInfoClickListener()
 
         initMyInfoClickListener()
+
+        initOpensourceClickListener()
     }
 
     private fun isSwitchOn() {
@@ -59,6 +61,13 @@ class SettingActivity : AppCompatActivity() {
         }
         binding.constraintlayoutTouchboxInsta.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://instagram.com/momo.__.diary?igshid=1slzufxe233m"))
+            startActivity(intent)
+        }
+    }
+
+    private fun initOpensourceClickListener(){
+        binding.constraintlayoutTouchboxLicense.setOnClickListener {
+            val intent = Intent(this, OpenSourceActivity::class.java)
             startActivity(intent)
         }
     }

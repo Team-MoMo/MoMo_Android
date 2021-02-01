@@ -51,11 +51,17 @@ class MyInfoActivity : AppCompatActivity() {
     }
     //박스 2_ 개인정보처리방침
     private fun privacyPolicyClickListener(){
-        binding.constraintlayoutBox2.setOnClickListener {}
+        binding.constraintlayoutBox2.setOnClickListener {
+            val intent = Intent(this, PrivacyPolicyActivity::class.java)
+            startActivity(intent)
+        }
     }
     //박스 3_서비스이용약관
     private fun termsOfServiceClickListener(){
-        binding.constraintlayoutBox3.setOnClickListener {}
+        binding.constraintlayoutBox3.setOnClickListener {
+            val intent = Intent(this, TermsOfServiceActivity::class.java)
+            startActivity(intent)
+        }
     }
     //박스 4_로그아웃
     private fun logoutClickListener(){
