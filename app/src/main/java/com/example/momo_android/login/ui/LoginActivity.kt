@@ -62,7 +62,7 @@ class LoginActivity : AppCompatActivity() {
         binding.etPasswd.isCursorVisible = true
     }
 
-    private val editTextFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+    private val editTextFocusChangeListener = View.OnFocusChangeListener { _, _ ->
         binding.tvLoginAlert.setGone()
         binding.etEmail.isCursorVisible = true
         binding.etPasswd.isCursorVisible = true

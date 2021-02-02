@@ -126,15 +126,15 @@ class UploadFeelingActivity : AppCompatActivity() {
         val month= getMonth(upload_month)
         val date= getDate(upload_date)
 
-        var week=""
-        when (int_week) {
-            1 -> week="일"
-            2 -> week="월"
-            3 -> week="화"
-            4 -> week="수"
-            5 -> week="목"
-            6 -> week="금"
-            7 -> week="토"
+        val week: String
+        week = when (int_week) {
+            1 -> "일"
+            2 -> "월"
+            3 -> "화"
+            4 -> "수"
+            5 -> "목"
+            6 -> "금"
+            7 -> "토"
             else -> ""
         }
 
@@ -149,7 +149,7 @@ class UploadFeelingActivity : AppCompatActivity() {
 
             // picker 에서 가져온 날짜를 다이어리에 띄워준다
             val pickerDate = "${it[0]}${getMonth(it[1])}${getDate(it[2])}"
-            val dayFormat = SimpleDateFormat("yyyyMMdd", Locale.KOREA).parse(pickerDate)
+            val dayFormat = SimpleDateFormat("yyyyMMdd", Locale.KOREA).parse(pickerDate)!!
             val pickerDay = SimpleDateFormat("EEEE", Locale.KOREA).format(dayFormat)
 
             binding.tvDate.text = "${it[0]}. ${getMonth(it[1])}. ${getDate(it[2])}. $pickerDay"
@@ -208,8 +208,7 @@ class UploadFeelingActivity : AppCompatActivity() {
     private fun setDate(no_data_day: String) {
         //"2021-01-13T00:00:00+00:00"
         //val dateformat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss.sss'Z'", Locale.KOREAN).parse(wroteAt)
-        val dateformat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX").parse(no_data_day)
-        val diary_day = SimpleDateFormat("yyyy. MM. dd. EEEE", Locale.KOREA).format(dateformat)
+        val dateformat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX").parse(no_data_day)!!
 
         upload_year = SimpleDateFormat("yyyy", Locale.KOREA).format(dateformat).toInt()
         upload_month = SimpleDateFormat("MM", Locale.KOREA).format(dateformat).toInt()

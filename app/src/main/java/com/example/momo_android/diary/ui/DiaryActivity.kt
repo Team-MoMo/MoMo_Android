@@ -2,6 +2,7 @@ package com.example.momo_android.diary.ui
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -44,6 +45,7 @@ class DiaryActivity : AppCompatActivity() {
         requestGetDiary()
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDiaryBinding.inflate(layoutInflater)
@@ -89,7 +91,7 @@ class DiaryActivity : AppCompatActivity() {
 
                 // picker 에서 가져온 날짜를 다이어리에 띄워준다
                 val pickerDate = "${it[0]}${getMonth(it[1])}${getDate(it[2])}"
-                val dayFormat = SimpleDateFormat("yyyyMMdd", Locale.KOREA).parse(pickerDate)
+                val dayFormat = SimpleDateFormat("yyyyMMdd", Locale.KOREA).parse(pickerDate)!!
                 val pickerDay = SimpleDateFormat("EEEE", Locale.KOREA).format(dayFormat)
 
                 tv_diary_date.text = "${it[0]}. ${getMonth(it[1])}. ${getDate(it[2])}. $pickerDay"
@@ -238,13 +240,13 @@ class DiaryActivity : AppCompatActivity() {
     }
 
     private fun getFormedDate(wroteAt: String) : String {
-        val dateformat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss.sss'Z'", Locale.KOREAN).parse(wroteAt)
+        val dateformat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss.sss'Z'", Locale.KOREAN).parse(wroteAt)!!
         val diary_day = SimpleDateFormat("yyyy. MM. dd. EEEE", Locale.KOREA).format(dateformat)
         return diary_day
     }
 
     private fun setPickerDate(wroteAt: String) {
-        val dateformat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss.sss'Z'", Locale.KOREAN).parse(wroteAt)
+        val dateformat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss.sss'Z'", Locale.KOREAN).parse(wroteAt)!!
         diary_year = SimpleDateFormat("yyyy", Locale.KOREA).format(dateformat).toInt()
         diary_month = SimpleDateFormat("MM", Locale.KOREA).format(dateformat).toInt()
         diary_date = SimpleDateFormat("dd", Locale.KOREA).format(dateformat).toInt()

@@ -276,7 +276,7 @@ class UploadDeepActivity : AppCompatActivity() {
             ) {
                 response.takeIf { it.isSuccessful}
                     ?.body()
-                    ?.let { it ->
+                    ?.let { _ ->
                         Log.d("uploadDiary-server", "success : ${response.body()!!.data}, message : ${response.message()}")
 
                         // 다이어리 뷰로 이동

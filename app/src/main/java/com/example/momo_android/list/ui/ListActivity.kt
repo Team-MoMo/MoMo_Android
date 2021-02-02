@@ -397,7 +397,7 @@ class ListActivity : AppCompatActivity() {
     fun loadFilteredData() {
         RequestToServer.service.getFilterdDiary(
             Authorization = SharedPreferenceController.getAccessToken(this),
-            userId = SharedPreferenceController.getUserId(this)!!,
+            userId = SharedPreferenceController.getUserId(this),
             year = filter_year,
             month = filter_month,
             order = "filter",
@@ -410,7 +410,7 @@ class ListActivity : AppCompatActivity() {
             ) {
                 response.takeIf { it.isSuccessful}
                     ?.body()
-                    ?.let { it ->
+                    ?.let { _ ->
                         Log.d("ListActivity-server", "success : ${response.body()!!.data}, message : ${response.message()}")
 
                         loadListData(response.body()!!.data)
