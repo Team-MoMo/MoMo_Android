@@ -1,9 +1,13 @@
-package com.example.momo_android.login
+package com.example.momo_android.util
 
 import android.app.Application
+import androidx.lifecycle.ProcessLifecycleOwner
+import com.example.momo_android.lock.util.AppLifecycleObserver
 import com.kakao.auth.*
 
+
 class GlobalApplication : Application() {
+
 
     private object KakaoSDKAdapter : KakaoAdapter() {
         /*
@@ -67,7 +71,7 @@ class GlobalApplication : Application() {
     companion object {
         var instance: GlobalApplication? = null
 
-        fun getGlobalApplicationContext() : GlobalApplication? {
+        fun getGlobalApplicationContext(): GlobalApplication? {
             checkNotNull(this) { "this application does not inherit com.kakao.GlobalApplication" }
             return instance
         }
@@ -77,6 +81,7 @@ class GlobalApplication : Application() {
         super.onCreate()
         instance = this
         KakaoSDK.init(KakaoSDKAdapter)
+        ProcessLifecycleOwner.get().lifecycle.addObserver(AppLifecycleObserver(applicationContext))
     }
 
     override fun onTerminate() {

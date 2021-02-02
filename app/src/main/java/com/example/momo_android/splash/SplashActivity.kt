@@ -21,6 +21,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(view)
 
         initSplashAnimation()
+        FROM_SPLASH = true
     }
 
     private fun initSplashAnimation() {
@@ -65,5 +66,9 @@ class SplashActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    companion object {
+        var FROM_SPLASH = true
     }
 }
