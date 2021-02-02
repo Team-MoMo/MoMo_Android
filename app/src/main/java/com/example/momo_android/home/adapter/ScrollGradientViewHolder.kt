@@ -79,7 +79,7 @@ class ScrollGradientViewHolder(
     private fun getServerDiaryData(depth: Int) {
         RequestToServer.service.getScrollDiaryList(
             SharedPreferenceController.getAccessToken(viewBinding.root.context),
-            SharedPreferenceController.getUserId(viewBinding.root.context)!!,
+            SharedPreferenceController.getUserId(viewBinding.root.context),
             "depth",
             queryYear,
             queryMonth

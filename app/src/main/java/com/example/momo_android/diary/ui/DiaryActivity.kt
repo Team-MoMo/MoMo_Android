@@ -2,6 +2,7 @@ package com.example.momo_android.diary.ui
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -44,6 +45,7 @@ class DiaryActivity : AppCompatActivity() {
         requestGetDiary()
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDiaryBinding.inflate(layoutInflater)
@@ -89,7 +91,7 @@ class DiaryActivity : AppCompatActivity() {
 
                 // picker 에서 가져온 날짜를 다이어리에 띄워준다
                 val pickerDate = "${it[0]}${getMonth(it[1])}${getDate(it[2])}"
-                val dayFormat = SimpleDateFormat("yyyyMMdd", Locale.KOREA).parse(pickerDate)
+                val dayFormat = SimpleDateFormat("yyyyMMdd", Locale.KOREA).parse(pickerDate)!!
                 val pickerDay = SimpleDateFormat("EEEE", Locale.KOREA).format(dayFormat)
 
                 tv_diary_date.text = "${it[0]}. ${getMonth(it[1])}. ${getDate(it[2])}. $pickerDay"
@@ -238,13 +240,13 @@ class DiaryActivity : AppCompatActivity() {
     }
 
     private fun getFormedDate(wroteAt: String) : String {
-        val dateformat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss.sss'Z'", Locale.KOREAN).parse(wroteAt)
+        val dateformat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss.sss'Z'", Locale.KOREAN).parse(wroteAt)!!
         val diary_day = SimpleDateFormat("yyyy. MM. dd. EEEE", Locale.KOREA).format(dateformat)
         return diary_day
     }
 
     private fun setPickerDate(wroteAt: String) {
-        val dateformat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss.sss'Z'", Locale.KOREAN).parse(wroteAt)
+        val dateformat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss.sss'Z'", Locale.KOREAN).parse(wroteAt)!!
         diary_year = SimpleDateFormat("yyyy", Locale.KOREA).format(dateformat).toInt()
         diary_month = SimpleDateFormat("MM", Locale.KOREA).format(dateformat).toInt()
         diary_date = SimpleDateFormat("dd", Locale.KOREA).format(dateformat).toInt()
@@ -260,27 +262,27 @@ class DiaryActivity : AppCompatActivity() {
         when (depth) {
             0 -> {
                 binding.root.background = resources.getDrawable(R.drawable.bg_deep1, null)
-                object_deep1.setVisible()
+                binding.objectDeep1.setVisible()
             }
             1 -> {
                 binding.root.background = resources.getDrawable(R.drawable.bg_deep2, null)
-                object_deep2.setVisible()
+                binding.objectDeep2.setVisible()
             }
             2 -> {
                 binding.root.background = resources.getDrawable(R.drawable.bg_deep3, null)
-                object_deep3.setVisible()
+                binding.objectDeep3.setVisible()
             }
             3 -> {
                 binding.root.background = resources.getDrawable(R.drawable.bg_deep4, null)
-                object_deep4.setVisible()
+                binding.objectDeep4.setVisible()
             }
             4 -> {
                 binding.root.background = resources.getDrawable(R.drawable.bg_deep5, null)
-                object_deep5.setVisible()
+                binding.objectDeep5.setVisible()
             }
             5 -> {
                 binding.root.background = resources.getDrawable(R.drawable.bg_deep6, null)
-                object_deep6.setVisible()
+                binding.objectDeep6.setVisible()
             }
             6 -> {
                 binding.root.background = resources.getDrawable(R.drawable.bg_deep7, null)
