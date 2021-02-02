@@ -58,10 +58,11 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout_report_toolbar" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/imageButton_date"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
+        android:rotation="90"
         android:background="@drawable/btn_arrow_right_14"
         app:layout_constraintBottom_toBottomOf="@+id/tv_report_date"
         app:layout_constraintDimensionRatio="1:1"
