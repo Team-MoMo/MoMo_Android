@@ -162,7 +162,8 @@ class ListActivity : AppCompatActivity() {
             }
             R.id.graph -> {
                 //graph 버튼 클릭 시 발생하는 이벤트 설정
-                this.showToast("아직 준비 중인 기능입니다.")
+                val intent = Intent(this, ReportActivity::class.java)
+                startActivity(intent)
             }
             android.R.id.home -> {
                 // back 버튼 클릭 시 발생하는 이벤트 설정 -> home 화면으로 다시 이동

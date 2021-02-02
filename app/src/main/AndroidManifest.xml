@@ -69,6 +69,7 @@
         <activity
             android:name=".list.ui.ListActivity"
             android:theme="@style/Theme.listTheme" />
+        <activity android:name=".list.ui.ReportActivity" />
         <activity android:name=".setting.ui.SettingActivity" />
     </application>
 
