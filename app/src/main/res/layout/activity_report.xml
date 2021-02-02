@@ -1,0 +1,1038 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".list.ui.ReportActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout_report_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.0694"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/imagebutton_setting_back"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/btn_back_black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.0666" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="이달의 통계"
+            android:textColor="@color/black_2_nav"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_report_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/notosanskrlight"
+        android:includeFontPadding="false"
+        android:letterSpacing="-0.05"
+        android:text="2021년 1월"
+        android:textColor="@color/black_1"
+        android:textSize="22dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout_report_toolbar" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/btn_arrow_right_14"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_report_date"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toEndOf="@+id/tv_report_date"
+        app:layout_constraintTop_toTopOf="@+id/tv_report_date"
+        app:layout_constraintWidth_percent="0.03888" />
+
+    <TextView
+        android:id="@+id/tv_diary_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/notosanskrregular"
+        android:includeFontPadding="false"
+        android:text="28개의 일기"
+        android:textColor="@color/blue_2"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout_report_toolbar" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tablayout_report"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_report_date"
+        app:tabIndicatorColor="@color/blue_1"
+        app:tabIndicatorFullWidth="false"
+        app:tabIndicatorHeight="3dp"
+        app:tabRippleColor="@null"
+        app:tabPaddingStart="4dp"
+        app:tabPaddingEnd="4dp"
+        app:tabPaddingTop="0dp"
+        app:tabPaddingBottom="-13dp"
+        app:tabSelectedTextColor="@color/blue_1"
+        app:tabTextAppearance="@style/TabText"
+        app:tabTextColor="@color/black_3_list">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="감정" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="깊이" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintlayout_emotion_graph"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/graph_love"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="10dp"
+            app:cardBackgroundColor="#265389"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/img_love"
+            app:layout_constraintEnd_toStartOf="@+id/graph_happy"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.06111" />
+
+        <TextView
+            android:id="@+id/tv_count_love"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="6"
+            android:textColor="@color/blue_1"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/graph_love"
+            app:layout_constraintEnd_toEndOf="@+id/graph_love"
+            app:layout_constraintStart_toStartOf="@+id/graph_love" />
+
+        <ImageView
+            android:id="@+id/img_love"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="3dp"
+            android:src="@drawable/ic_love_14_black"
+            app:layout_constraintBottom_toTopOf="@+id/textView20"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@+id/graph_love"
+            app:layout_constraintStart_toStartOf="@+id/graph_love"
+            app:layout_constraintWidth_percent="0.0388" />
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="사랑"
+            android:textColor="@color/black_3_list"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView46"
+            app:layout_constraintEnd_toEndOf="@+id/img_love"
+            app:layout_constraintStart_toStartOf="@+id/img_love" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/graph_happy"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="10dp"
+            app:cardBackgroundColor="@color/blue_1"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/img_happy"
+            app:layout_constraintEnd_toStartOf="@+id/graph_console"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/graph_love"
+            app:layout_constraintWidth_percent="0.06111" />
+
+        <TextView
+            android:id="@+id/tv_count_happy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="6"
+            android:textColor="@color/blue_1"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/graph_happy"
+            app:layout_constraintEnd_toEndOf="@+id/graph_happy"
+            app:layout_constraintStart_toStartOf="@+id/graph_happy" />
+
+        <ImageView
+            android:id="@+id/img_happy"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="3dp"
+            android:src="@drawable/ic_happy_14_black"
+            app:layout_constraintBottom_toTopOf="@+id/textView28"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@+id/graph_happy"
+            app:layout_constraintStart_toStartOf="@+id/graph_happy"
+            app:layout_constraintWidth_percent="0.0388" />
+
+        <TextView
+            android:id="@+id/textView28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="행복"
+            android:textColor="@color/black_3_list"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView46"
+            app:layout_constraintEnd_toEndOf="@+id/img_happy"
+            app:layout_constraintStart_toStartOf="@+id/img_happy" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/graph_console"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="10dp"
+            app:cardBackgroundColor="@color/blue_2"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/img_console"
+            app:layout_constraintEnd_toStartOf="@+id/graph_angry"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/graph_happy"
+            app:layout_constraintWidth_percent="0.06111" />
+
+        <TextView
+            android:id="@+id/tv_count_console"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="6"
+            android:textColor="@color/blue_1"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/graph_console"
+            app:layout_constraintEnd_toEndOf="@+id/graph_console"
+            app:layout_constraintStart_toStartOf="@+id/graph_console" />
+
+        <ImageView
+            android:id="@+id/img_console"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="3dp"
+            android:src="@drawable/ic_console_14_black"
+            app:layout_constraintBottom_toTopOf="@+id/textView29"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@+id/graph_console"
+            app:layout_constraintStart_toStartOf="@+id/graph_console"
+            app:layout_constraintWidth_percent="0.0388" />
+
+        <TextView
+            android:id="@+id/textView29"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="위로"
+            android:textColor="@color/black_3_list"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView46"
+            app:layout_constraintEnd_toEndOf="@+id/img_console"
+            app:layout_constraintStart_toStartOf="@+id/img_console" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/graph_angry"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="10dp"
+            app:cardBackgroundColor="@color/blue_3"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/img_angry"
+            app:layout_constraintEnd_toStartOf="@+id/graph_sad"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/graph_console"
+            app:layout_constraintWidth_percent="0.06111" />
+
+        <TextView
+            android:id="@+id/tv_count_angry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="6"
+            android:textColor="@color/blue_1"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/graph_angry"
+            app:layout_constraintEnd_toEndOf="@+id/graph_angry"
+            app:layout_constraintStart_toStartOf="@+id/graph_angry" />
+
+        <ImageView
+            android:id="@+id/img_angry"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="3dp"
+            android:src="@drawable/ic_angry_14_black"
+            app:layout_constraintBottom_toTopOf="@+id/textView25"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@+id/graph_angry"
+            app:layout_constraintStart_toStartOf="@+id/graph_angry"
+            app:layout_constraintWidth_percent="0.0388" />
+
+        <TextView
+            android:id="@+id/textView25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="화남"
+            android:textColor="@color/black_3_list"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView46"
+            app:layout_constraintEnd_toEndOf="@+id/img_angry"
+            app:layout_constraintStart_toStartOf="@+id/img_angry" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/graph_sad"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="10dp"
+            app:cardBackgroundColor="@color/blue_4"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/img_sad"
+            app:layout_constraintEnd_toStartOf="@+id/graph_bored"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/graph_angry"
+            app:layout_constraintWidth_percent="0.06111" />
+
+        <TextView
+            android:id="@+id/tv_count_sad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="6"
+            android:textColor="@color/blue_1"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/graph_sad"
+            app:layout_constraintEnd_toEndOf="@+id/graph_sad"
+            app:layout_constraintStart_toStartOf="@+id/graph_sad" />
+
+        <ImageView
+            android:id="@+id/img_sad"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="3dp"
+            android:src="@drawable/ic_sad_14_black"
+            app:layout_constraintBottom_toTopOf="@+id/textView30"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@+id/graph_sad"
+            app:layout_constraintStart_toStartOf="@+id/graph_sad"
+            app:layout_constraintWidth_percent="0.0388" />
+
+        <TextView
+            android:id="@+id/textView30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="슬픔"
+            android:textColor="@color/black_3_list"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView46"
+            app:layout_constraintEnd_toEndOf="@+id/img_sad"
+            app:layout_constraintStart_toStartOf="@+id/img_sad" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/graph_bored"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="10dp"
+            app:cardBackgroundColor="@color/blue_5"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/img_bored"
+            app:layout_constraintEnd_toStartOf="@+id/graph_memory"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/graph_sad"
+            app:layout_constraintWidth_percent="0.06111" />
+
+        <TextView
+            android:id="@+id/tv_count_bored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="6"
+            android:textColor="@color/blue_1"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/graph_bored"
+            app:layout_constraintEnd_toEndOf="@+id/graph_bored"
+            app:layout_constraintStart_toStartOf="@+id/graph_bored" />
+
+        <ImageView
+            android:id="@+id/img_bored"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="3dp"
+            android:src="@drawable/ic_bored_14_black"
+            app:layout_constraintBottom_toTopOf="@+id/textView31"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@+id/graph_bored"
+            app:layout_constraintStart_toStartOf="@+id/graph_bored"
+            app:layout_constraintWidth_percent="0.0388" />
+
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="우울"
+            android:textColor="@color/black_3_list"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView46"
+            app:layout_constraintEnd_toEndOf="@+id/img_bored"
+            app:layout_constraintStart_toStartOf="@+id/img_bored" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/graph_memory"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="10dp"
+            app:cardBackgroundColor="@color/blue_6"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/img_memory"
+            app:layout_constraintEnd_toStartOf="@+id/graph_daily"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/graph_bored"
+            app:layout_constraintWidth_percent="0.06111" />
+
+        <TextView
+            android:id="@+id/tv_count_memory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="6"
+            android:textColor="@color/blue_1"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/graph_memory"
+            app:layout_constraintEnd_toEndOf="@+id/graph_memory"
+            app:layout_constraintStart_toStartOf="@+id/graph_memory" />
+
+        <ImageView
+            android:id="@+id/img_memory"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="3dp"
+            android:src="@drawable/ic_memory_14_black"
+            app:layout_constraintBottom_toTopOf="@+id/textView32"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@+id/graph_memory"
+            app:layout_constraintStart_toStartOf="@+id/graph_memory"
+            app:layout_constraintWidth_percent="0.0388" />
+
+        <TextView
+            android:id="@+id/textView32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="추억"
+            android:textColor="@color/black_3_list"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView46"
+            app:layout_constraintEnd_toEndOf="@+id/img_memory"
+            app:layout_constraintStart_toStartOf="@+id/img_memory" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/graph_daily"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
+            app:cardBackgroundColor="@color/blue_7"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/img_daily"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/graph_memory"
+            app:layout_constraintWidth_percent="0.06111" />
+
+        <TextView
+            android:id="@+id/tv_count_daily"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="6"
+            android:textColor="@color/blue_1"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/graph_daily"
+            app:layout_constraintEnd_toEndOf="@+id/graph_daily"
+            app:layout_constraintStart_toStartOf="@+id/graph_daily" />
+
+        <ImageView
+            android:id="@+id/img_daily"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="3dp"
+            android:src="@drawable/ic_daily_14_black"
+            app:layout_constraintBottom_toTopOf="@+id/textView33"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@+id/graph_daily"
+            app:layout_constraintStart_toStartOf="@+id/graph_daily"
+            app:layout_constraintWidth_percent="0.0388" />
+
+        <TextView
+            android:id="@+id/textView33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="일상"
+            android:textColor="@color/black_3_list"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView46"
+            app:layout_constraintEnd_toEndOf="@+id/img_daily"
+            app:layout_constraintStart_toStartOf="@+id/img_daily" />
+
+        <ImageView
+            android:id="@+id/imageView46"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:src="@drawable/img_graph_bottom_boat"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:0.2694"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintlayout_depth_graph"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/graph_2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView34"
+            app:layout_constraintEnd_toStartOf="@+id/graph_30"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.06111">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_deep1">
+
+                <ImageView
+                    android:id="@+id/img_depth_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="23dp"
+                    android:src="@drawable/graph_2_m"
+                    app:layout_constraintDimensionRatio="0.5641:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/textView34"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="44dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.08"
+            android:text="2m"
+            android:textColor="@color/black_3_list"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView51"
+            app:layout_constraintEnd_toEndOf="@+id/graph_2"
+            app:layout_constraintStart_toStartOf="@+id/graph_2" />
+
+        <TextView
+            android:id="@+id/tv_count_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="6"
+            android:textColor="@color/blue_1"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/graph_2"
+            app:layout_constraintEnd_toEndOf="@+id/graph_2"
+            app:layout_constraintStart_toStartOf="@+id/graph_2" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/graph_30"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView35"
+            app:layout_constraintEnd_toStartOf="@+id/graph_100"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/graph_2"
+            app:layout_constraintWidth_percent="0.06111">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_deep2">
+
+                <ImageView
+                    android:id="@+id/img_depth_30"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="28dp"
+                    android:src="@drawable/graph_30_m"
+                    app:layout_constraintDimensionRatio="0.3384:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/textView35"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="44dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.08"
+            android:text="30m"
+            android:textColor="@color/black_3_list"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView51"
+            app:layout_constraintEnd_toEndOf="@+id/graph_30"
+            app:layout_constraintStart_toStartOf="@+id/graph_30" />
+
+        <TextView
+            android:id="@+id/tv_count_30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="6"
+            android:textColor="@color/blue_1"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/graph_30"
+            app:layout_constraintEnd_toEndOf="@+id/graph_30"
+            app:layout_constraintStart_toStartOf="@+id/graph_30" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/graph_100"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView36"
+            app:layout_constraintEnd_toStartOf="@+id/graph_300"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/graph_30"
+            app:layout_constraintWidth_percent="0.06111">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_deep3">
+
+                <ImageView
+                    android:id="@+id/img_depth_100"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="15dp"
+                    android:src="@drawable/graph_100_m"
+                    app:layout_constraintDimensionRatio="0.4313:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/textView36"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="44dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.08"
+            android:text="100m"
+            android:textColor="@color/black_3_list"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView51"
+            app:layout_constraintEnd_toEndOf="@+id/graph_100"
+            app:layout_constraintStart_toStartOf="@+id/graph_100" />
+
+        <TextView
+            android:id="@+id/tv_count_100"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="6"
+            android:textColor="@color/blue_1"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/graph_100"
+            app:layout_constraintEnd_toEndOf="@+id/graph_100"
+            app:layout_constraintStart_toStartOf="@+id/graph_100" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/graph_300"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView27"
+            app:layout_constraintEnd_toStartOf="@+id/graph_700"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/graph_100"
+            app:layout_constraintWidth_percent="0.06111">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_deep4">
+
+                <ImageView
+                    android:id="@+id/img_depth_300"
+                    android:layout_width="25dp"
+                    android:layout_height="51dp"
+                    android:layout_marginTop="18dp"
+                    android:src="@drawable/graph_300_m"
+                    app:layout_constraintDimensionRatio="0.5116:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/textView27"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="44dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.08"
+            android:text="300m"
+            android:textColor="@color/black_3_list"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView51"
+            app:layout_constraintEnd_toEndOf="@+id/graph_300"
+            app:layout_constraintStart_toStartOf="@+id/graph_300" />
+
+        <TextView
+            android:id="@+id/tv_count_300"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="6"
+            android:textColor="@color/blue_1"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/graph_300"
+            app:layout_constraintEnd_toEndOf="@+id/graph_300"
+            app:layout_constraintStart_toStartOf="@+id/graph_300" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/graph_700"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView26"
+            app:layout_constraintEnd_toStartOf="@+id/graph_1005"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/graph_300"
+            app:layout_constraintWidth_percent="0.06111">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_deep5">
+
+                <ImageView
+                    android:id="@+id/img_depth_700"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="12dp"
+                    android:src="@drawable/graph_700_m"
+                    app:layout_constraintDimensionRatio="0.7333:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/textView26"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="44dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.08"
+            android:text="700m"
+            android:textColor="@color/black_3_list"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView51"
+            app:layout_constraintEnd_toEndOf="@+id/graph_700"
+            app:layout_constraintStart_toStartOf="@+id/graph_700" />
+
+        <TextView
+            android:id="@+id/tv_count_700"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="6"
+            android:textColor="@color/blue_1"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/graph_700"
+            app:layout_constraintEnd_toEndOf="@+id/graph_700"
+            app:layout_constraintStart_toStartOf="@+id/graph_700" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/graph_1005"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView37"
+            app:layout_constraintEnd_toStartOf="@+id/graph_under"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/graph_700"
+            app:layout_constraintWidth_percent="0.06111">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_deep6">
+
+                <ImageView
+                    android:id="@+id/img_depth_1005"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/graph_1005_m"
+                    app:layout_constraintDimensionRatio="0.4782:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/textView37"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="44dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.08"
+            android:text="1,005m"
+            android:textColor="@color/black_3_list"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView51"
+            app:layout_constraintEnd_toEndOf="@+id/graph_1005"
+            app:layout_constraintStart_toStartOf="@+id/graph_1005" />
+
+        <TextView
+            android:id="@+id/tv_count_1005"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="6"
+            android:textColor="@color/blue_1"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/graph_1005"
+            app:layout_constraintEnd_toEndOf="@+id/graph_1005"
+            app:layout_constraintStart_toStartOf="@+id/graph_1005" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/graph_under"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView38"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/graph_1005"
+            app:layout_constraintWidth_percent="0.06111">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_deep7">
+
+                <ImageView
+                    android:id="@+id/img_depth_under"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/graph_under"
+                    app:layout_constraintDimensionRatio="0.6875:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/textView38"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="44dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.08"
+            android:text="심해"
+            android:textColor="@color/black_3_list"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView51"
+            app:layout_constraintEnd_toEndOf="@+id/graph_under"
+            app:layout_constraintStart_toStartOf="@+id/graph_under" />
+
+        <TextView
+            android:id="@+id/tv_count_under"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/notosanskrregular"
+            android:includeFontPadding="false"
+            android:text="6"
+            android:textColor="@color/blue_1"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/graph_under"
+            app:layout_constraintEnd_toEndOf="@+id/graph_under"
+            app:layout_constraintStart_toStartOf="@+id/graph_under" />
+
+        <ImageView
+            android:id="@+id/imageView51"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:src="@drawable/img_graph_bottom_360"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:0.2694" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

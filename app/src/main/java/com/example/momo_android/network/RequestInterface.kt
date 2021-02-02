@@ -4,6 +4,7 @@ import com.example.momo_android.diary.data.RequestEditDiaryData
 import com.example.momo_android.diary.data.ResponseDiaryData
 import com.example.momo_android.home.data.ResponseDiaryList
 import com.example.momo_android.list.data.ResponseFilterData
+import com.example.momo_android.list.data.ResponseReportData
 import com.example.momo_android.login.data.RequestSocialLoginData
 import com.example.momo_android.onboarding.ui.ResponseOnboardingData
 import com.example.momo_android.setting.ResponseWithdrawalData
@@ -157,4 +158,14 @@ interface RequestInterface {
         @Path("id") userId : Int,
         @Body body: RequestChangePasswordData
     ):Call<ResponseWithdrawalData>
+
+    // 통계
+    @Headers("Content-Type: application/json")
+    @GET("/diaries/statistics")
+    fun getStatistics(
+        @Header("Authorization") Authorization: String?,
+        @Query("userId") userId: Int,
+        @Query("year") year: Int,
+        @Query("month") month: Int
+    ) : Call<ResponseReportData>
 }

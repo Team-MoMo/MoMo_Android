@@ -73,4 +73,6 @@ dependencies {
     // kakao login
     implementation group: 'com.kakao.sdk', name: 'usermgmt', version: '1.30.4'
 
+    //CardView
+    implementation 'androidx.cardview:cardview:1.0.0'
 }
