@@ -78,4 +78,6 @@
     <!-- setting dialog color -->
     <color name="very_light_pink">#d1d1d1</color>
     <color name="brownish_grey">#656565</color>
+    <color name="coral">#fc5151</color>
+
 </resources>

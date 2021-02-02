@@ -1,9 +1,13 @@
-package com.example.momo_android.login
+package com.example.momo_android.util
 
 import android.app.Application
+import androidx.lifecycle.ProcessLifecycleOwner
+import com.example.momo_android.lock.ui.AppLifecycleObserver
 import com.kakao.auth.*
 
+
 class GlobalApplication : Application() {
+
 
     private object KakaoSDKAdapter : KakaoAdapter() {
         /*
@@ -77,6 +81,9 @@ class GlobalApplication : Application() {
         super.onCreate()
         instance = this
         KakaoSDK.init(KakaoSDKAdapter)
+
+        ProcessLifecycleOwner.get().lifecycle
+            .addObserver(AppLifecycleObserver(applicationContext))
     }
 
     override fun onTerminate() {
