@@ -27,7 +27,7 @@ class OnboardingWriteActivity : AppCompatActivity() {
 
         //온보딩 Lottie 설정
         initOnboardingAnimation()
-        // setSentenceData()
+        setSentenceData()
 
         //문장 가운데 정렬-> 왼쪽 정렬 용도
         val handler = Handler(mainLooper)

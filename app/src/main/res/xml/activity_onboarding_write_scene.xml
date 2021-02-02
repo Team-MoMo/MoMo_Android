@@ -10,7 +10,7 @@
         <KeyFrameSet>
             <KeyAttribute
                 motion:motionTarget="@+id/tv_sentence"
-                motion:framePosition="3" >
+                motion:framePosition="2" >
                 <CustomAttribute
                     motion:attributeName="gravity"
                     motion:customIntegerValue="3" />
@@ -135,7 +135,7 @@
                 motion:customColorValue="@color/black_4" />
             <CustomAttribute
                 motion:attributeName="textSize"
-                motion:customFloatValue="15.0" />
+                motion:customFloatValue="13.0" />
             <CustomAttribute
                 motion:attributeName="gravity"
                 motion:customIntegerValue="3" />
