@@ -15,6 +15,11 @@
         android:theme="@style/Theme.MoMo_Android"
         android:usesCleartextTraffic="true">
 
+        <activity android:name=".setting.ui.OpenSourceDetailActivity"></activity>
+        <activity android:name=".setting.ui.OpenSourceActivity" />
+        <activity android:name=".setting.ui.TermsOfServiceActivity" />
+        <activity android:name=".setting.ui.PrivacyPolicyActivity" />
+
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />
