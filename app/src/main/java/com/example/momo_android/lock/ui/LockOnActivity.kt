@@ -97,10 +97,7 @@ class LockOnActivity : AppCompatActivity() {
     private fun checkFinalPassCodeLength() {
         updatePassCodeOvalColor(finalPassCode.length)
         when (finalPassCode.length) {
-            4 -> Handler().postDelayed({
-                checkPassCodeValidation()
-                this.showToast("암호 설정이 완료되었습니다.")
-            }, 500)
+            4 -> Handler().postDelayed({ checkPassCodeValidation() }, 500)
         }
     }
 
@@ -108,6 +105,7 @@ class LockOnActivity : AppCompatActivity() {
         if (finalPassCode == firstPassCode) {
             SharedPreferenceController.setLockStatus(this, true)
             SharedPreferenceController.setPassCode(this@LockOnActivity, finalPassCode)
+            this.showToast("암호 설정이 완료되었습니다.")
             finish()
         } else {
             setWrongPassCodeView()
