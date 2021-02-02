@@ -1,11 +1,15 @@
 package com.example.momo_android.setting.ui
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.momo_android.lock.ui.LockOnActivity
 import com.example.momo_android.databinding.ActivitySettingBinding
+import com.example.momo_android.lock.ui.LockOffActivity
+import com.example.momo_android.util.SharedPreferenceController
 
 class SettingActivity : AppCompatActivity() {
 
@@ -19,7 +23,7 @@ class SettingActivity : AppCompatActivity() {
 
         initBackButton()
 
-        isSwitchOn()
+        initSwitchLockClickListener()
 
         initTeamInfoClickListener()
 
@@ -28,22 +32,31 @@ class SettingActivity : AppCompatActivity() {
         initOpensourceClickListener()
     }
 
-    private fun isSwitchOn() {
-        binding.switchLock.setOnCheckedChangeListener { _, onSwitch ->
-            // 스위치가 켜지면
-            if (onSwitch) {
-                binding.imagebuttonResetting.visibility = View.VISIBLE
-            }
-            // 스위치가 꺼지면
-            else {
-                binding.imagebuttonResetting.visibility = View.INVISIBLE
-            }
-        }
+    override fun onResume() {
+        super.onResume()
+        binding.switchLock.isChecked = SharedPreferenceController.getLockStatus(this)
     }
 
     private fun initBackButton() {
         binding.imagebuttonSettingBack.setOnClickListener {
             finish()
+        }
+    }
+
+    private fun initSwitchLockClickListener() {
+        binding.switchLock.setOnClickListener {
+            when(binding.switchLock.isChecked) {
+                true -> {
+                    binding.imagebuttonResetting.visibility = View.VISIBLE
+                    val intent = Intent(this, LockOnActivity::class.java)
+                    startActivity(intent)
+                }
+                false -> {
+                    binding.imagebuttonResetting.visibility = View.INVISIBLE
+                    val intent = Intent(this, LockOffActivity::class.java)
+                    startActivityForResult(intent, LOCK_OFF)
+                }
+            }
         }
     }
 
@@ -70,5 +83,18 @@ class SettingActivity : AppCompatActivity() {
             val intent = Intent(this, OpenSourceActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == LOCK_OFF) {
+            val isLocked = data!!.getBooleanExtra("isLocked", false)
+            binding.switchLock.isChecked = isLocked
+            SharedPreferenceController.setLockStatus(this, isLocked)
+        }
+    }
+
+    companion object {
+        const val LOCK_OFF = 1000
     }
 }
