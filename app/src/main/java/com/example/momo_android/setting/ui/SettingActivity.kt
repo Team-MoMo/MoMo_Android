@@ -49,7 +49,7 @@ class SettingActivity : AppCompatActivity() {
                 true -> {
                     binding.imagebuttonResetting.visibility = View.VISIBLE
                     val intent = Intent(this, LockOnActivity::class.java)
-                    startActivity(intent)
+                    startActivityForResult(intent, LOCK_ON)
                 }
                 false -> {
                     binding.imagebuttonResetting.visibility = View.INVISIBLE
@@ -87,15 +87,27 @@ class SettingActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == LOCK_OFF) {
+        if (resultCode == Activity.RESULT_OK) {
             val isLocked = data!!.getBooleanExtra("isLocked", false)
-            binding.switchLock.isChecked = isLocked
-            SharedPreferenceController.clearPassCode(this)
+            when(requestCode) {
+                LOCK_ON -> {
+                    finish()
+                    startActivity(intent)
+                    SharedPreferenceController.setLockStatus(this, isLocked)
+
+                }
+                LOCK_OFF -> {
+                    binding.switchLock.isChecked = isLocked
+                    SharedPreferenceController.clearPassCode(this)
+                    SharedPreferenceController.setLockStatus(this, isLocked)
+                }
+            }
             SharedPreferenceController.setLockStatus(this, isLocked)
         }
     }
 
     companion object {
-        const val LOCK_OFF = 1000
+        const val LOCK_ON = 1111
+        const val LOCK_OFF = 2222
     }
 }
