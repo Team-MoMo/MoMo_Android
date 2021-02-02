@@ -15,6 +15,13 @@
                     motion:attributeName="gravity"
                     motion:customIntegerValue="3" />
             </KeyAttribute>
+            <KeyAttribute
+                motion:motionTarget="@+id/tv_sentence"
+                motion:framePosition="4" >
+                <CustomAttribute
+                    motion:attributeName="textSize"
+                    motion:customFloatValue="13.0" />
+            </KeyAttribute>
         </KeyFrameSet>
         <OnClick motion:targetId="@id/img_feather"
             motion:clickAction="transitionToEnd"/>
