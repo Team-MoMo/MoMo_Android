@@ -1,5 +1,7 @@
 package com.example.momo_android.lock.ui
 
+import android.app.Activity
+import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
 import android.os.Handler
@@ -7,6 +9,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ProcessLifecycleOwner
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityLockOnBinding
 import com.example.momo_android.util.SharedPreferenceController
@@ -103,13 +106,19 @@ class LockOnActivity : AppCompatActivity() {
 
     private fun checkPassCodeValidation() {
         if (finalPassCode == firstPassCode) {
-            SharedPreferenceController.setLockStatus(this, true)
             SharedPreferenceController.setPassCode(this@LockOnActivity, finalPassCode)
-            this.showToast("암호 설정이 완료되었습니다.")
-            finish()
+            finishActivityWithLockStatus()
+            showToast("암호 설정이 완료되었습니다.")
         } else {
             setWrongPassCodeView()
         }
+    }
+
+    private fun finishActivityWithLockStatus() {
+        val intent = Intent()
+        intent.putExtra("isLocked", true)
+        setResult(Activity.RESULT_OK, intent)
+        finish()
     }
 
     private fun deletePassCode() {
