@@ -30,6 +30,9 @@ class SettingActivity : AppCompatActivity() {
         initMyInfoClickListener()
 
         initOpensourceClickListener()
+
+        initVersionName()
+
     }
 
     override fun onResume() {
@@ -83,6 +86,11 @@ class SettingActivity : AppCompatActivity() {
             val intent = Intent(this, OpenSourceActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun initVersionName() {
+        val pi = packageManager.getPackageInfo(packageName, 0)
+        binding.tvSettingVersionInfo.text = "Ver. " + pi.versionName
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
