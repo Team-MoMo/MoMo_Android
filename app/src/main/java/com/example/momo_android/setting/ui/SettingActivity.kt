@@ -90,6 +90,7 @@ class SettingActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK && requestCode == LOCK_OFF) {
             val isLocked = data!!.getBooleanExtra("isLocked", false)
             binding.switchLock.isChecked = isLocked
+            SharedPreferenceController.clearPassCode(this)
             SharedPreferenceController.setLockStatus(this, isLocked)
         }
     }
