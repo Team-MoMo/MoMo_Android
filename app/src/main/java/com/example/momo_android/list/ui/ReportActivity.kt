@@ -16,6 +16,7 @@ import com.example.momo_android.databinding.ActivityReportBinding
 import com.example.momo_android.list.data.Data
 import com.example.momo_android.list.data.ResponseReportData
 import com.example.momo_android.network.RequestToServer
+import com.example.momo_android.util.SharedPreferenceController
 import com.example.momo_android.util.showToast
 import com.google.android.material.tabs.TabLayout
 import okhttp3.ResponseBody
@@ -24,6 +25,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.lang.StringBuilder
+import java.util.*
 
 class ReportActivity : AppCompatActivity() {
 
@@ -35,6 +37,13 @@ class ReportActivity : AppCompatActivity() {
     private var maxGraphHeight = 0F
     private var graphUnit = 0F
 
+    private lateinit var currentDate: Calendar
+
+    companion object {
+        var report_year = 0
+        var report_month = 0
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityReportBinding.inflate(layoutInflater)
@@ -43,14 +52,35 @@ class ReportActivity : AppCompatActivity() {
 
         selectEmotionTab()
 
+        setCurrentDate()
+
         getGraphMaxHeight()
 
         initTabLayout()
 
         initBackButton()
 
+        initBottomSheet()
+
         loadData()
 
+    }
+
+    private fun setCurrentDate() {
+        currentDate = Calendar.getInstance()
+        report_year = currentDate.get(Calendar.YEAR)
+        report_month = currentDate.get(Calendar.MONTH) + 1
+
+        setDateText()
+    }
+
+    private fun setDateText() {
+        val dateText = StringBuilder(report_year.toString())
+        dateText.append("년 ")
+            .append(report_month.toString())
+            .append("월")
+
+        binding.tvReportDate.text = dateText
     }
 
     private fun selectEmotionTab() {
@@ -62,6 +92,20 @@ class ReportActivity : AppCompatActivity() {
         tabTextView.typeface = typeFace
 
         setEmotionGraphVisible()
+    }
+
+    private fun initBottomSheet() {
+        binding.imageButtonDate.setOnClickListener {
+            val frag = ReportBottomSheetFragment {
+                report_year = it[0]
+                report_month = it[1]
+
+                setDateText()
+
+                loadData()
+            }
+            frag.show(supportFragmentManager, frag.tag)
+        }
     }
 
     private fun initTabLayout() {
@@ -127,10 +171,10 @@ class ReportActivity : AppCompatActivity() {
 
     private fun loadData() {
         RequestToServer.service.getStatistics(
-            Authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTYxMDI4NTcxOCwiZXhwIjoxNjE4MDYxNzE4LCJpc3MiOiJtb21vIn0.BudOmb4xI78sbtgw81wWY8nfBD2A6Wn4vS4bvlzSZYc",
-            userId = 2,
-            year = 2020,
-            month = 8
+            Authorization = SharedPreferenceController.getAccessToken(this),
+            userId = SharedPreferenceController.getUserId(this),
+            year = report_year,
+            month = report_month
         ).enqueue(object : Callback<ResponseReportData> {
             override fun onResponse(
                 call: Call<ResponseReportData>,
@@ -175,30 +219,27 @@ class ReportActivity : AppCompatActivity() {
 
     // 감정 그래프 설정
     private fun loadEmotionData(data: Data) {
-        if (data.emotionCounts.isNotEmpty()) {
+        calEmotionMax(data)
+        graphUnit = maxGraphHeight / emotionMax
 
-            calEmotionMax(data)
-            graphUnit = maxGraphHeight / emotionMax
-
-            var num = 0
-            for (i in 1..8) {
-                if (num <= data.emotionCounts.size-1) {
-                    if (data.emotionCounts[num].id == i) {
-                        Log.d("[statis]", "$i : ${data.emotionCounts[num].count}")
-                        setEmotionGraph(i, data.emotionCounts[num].count)
-                        num += 1
-                    }
-                    else {
-                        Log.d("[statis]", "$i : 0")
-                        setEmotionGraph(i, 0)
-                    }
-                    continue
+        var num = 0
+        for (i in 1..8) {
+            if (num <= data.emotionCounts.size-1) {
+                if (data.emotionCounts[num].id == i) {
+                    Log.d("[statis]", "$i : ${data.emotionCounts[num].count}")
+                    setEmotionGraph(i, data.emotionCounts[num].count)
+                    num += 1
                 }
                 else {
                     Log.d("[statis]", "$i : 0")
                     setEmotionGraph(i, 0)
-                    continue
                 }
+                continue
+            }
+            else {
+                Log.d("[statis]", "$i : 0")
+                setEmotionGraph(i, 0)
+                continue
             }
         }
     }
@@ -279,27 +320,24 @@ class ReportActivity : AppCompatActivity() {
 
     // 깊이 그래프 설정
     private fun loadDepthData(data: Data) {
-        if (data.depthCounts.isNotEmpty()) {
+        calDepthMax(data)
+        graphUnit = maxGraphHeight / depthMax
 
-            calDepthMax(data)
-            graphUnit = maxGraphHeight / depthMax
-
-            var num = 0
-            for (i in 0..6) {
-                if (num <= data.depthCounts.size-1) {
-                    if (data.depthCounts[num].depth == i) {
-                        setDepthGraph(i, data.depthCounts[num].count)
-                        num += 1
-                    }
-                    else {
-                        setDepthGraph(i, 0)
-                    }
-                    continue
+        var num = 0
+        for (i in 0..6) {
+            if (num <= data.depthCounts.size-1) {
+                if (data.depthCounts[num].depth == i) {
+                    setDepthGraph(i, data.depthCounts[num].count)
+                    num += 1
                 }
                 else {
                     setDepthGraph(i, 0)
-                    continue
                 }
+                continue
+            }
+            else {
+                setDepthGraph(i, 0)
+                continue
             }
         }
     }

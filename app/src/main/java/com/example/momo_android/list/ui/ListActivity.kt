@@ -162,6 +162,8 @@ class ListActivity : AppCompatActivity() {
             }
             R.id.graph -> {
                 //graph 버튼 클릭 시 발생하는 이벤트 설정
+                fromDiaryFlag = true
+
                 val intent = Intent(this, ReportActivity::class.java)
                 startActivity(intent)
             }
