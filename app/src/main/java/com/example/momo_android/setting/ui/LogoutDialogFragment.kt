@@ -51,7 +51,7 @@ class LogoutDialogFragment : DialogFragment() {
         dialogLogoutViewBinding.apply {
             when (it.id) {
                 textViewConfirm.id -> {
-                    clearSharedPreferences()
+                    SharedPreferenceController.clearAll(requireContext())
                     setIntentToLoginActivity()
                     dialog!!.dismiss()
 
@@ -61,13 +61,6 @@ class LogoutDialogFragment : DialogFragment() {
                 }
             }
         }
-    }
-
-    private fun clearSharedPreferences() {
-        SharedPreferenceController.clearAccessToken(requireContext())
-        SharedPreferenceController.clearUserId(requireContext())
-        SharedPreferenceController.clearPassword(requireContext())
-        SharedPreferenceController.clearSocialLogin(requireContext())
     }
 
     private fun setIntentToLoginActivity() {
