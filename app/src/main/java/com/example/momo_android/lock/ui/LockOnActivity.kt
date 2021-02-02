@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityLockOnBinding
 import com.example.momo_android.util.SharedPreferenceController
+import com.example.momo_android.util.showToast
 
 
 class LockOnActivity : AppCompatActivity() {
@@ -96,7 +97,10 @@ class LockOnActivity : AppCompatActivity() {
     private fun checkFinalPassCodeLength() {
         updatePassCodeOvalColor(finalPassCode.length)
         when (finalPassCode.length) {
-            4 -> Handler().postDelayed({ checkPassCodeValidation() }, 500)
+            4 -> Handler().postDelayed({
+                checkPassCodeValidation()
+                this.showToast("암호 설정이 완료되었습니다.")
+            }, 500)
         }
     }
 
