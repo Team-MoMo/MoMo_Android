@@ -109,7 +109,7 @@ object SharedPreferenceController {
         editor.apply()
     }
 
-    fun getOnBoarding(context: Context) : String? {
+    fun getOnBoarding(context: Context): String? {
         val prefs = context.getSharedPreferences(ON_BOARDING, Context.MODE_PRIVATE)
         return prefs.getString("ON_BOARDING", "")
     }
@@ -123,7 +123,7 @@ object SharedPreferenceController {
         editor.apply()
     }
 
-    fun getSocialLogin(context: Context) : String? {
+    fun getSocialLogin(context: Context): String? {
         val prefs = context.getSharedPreferences(SOCIAL, Context.MODE_PRIVATE)
         return prefs.getString("SOCIAL", "")
     }
@@ -131,5 +131,15 @@ object SharedPreferenceController {
     fun clearSocialLogin(context: Context) {
         val pref = context.getSharedPreferences(SOCIAL, Context.MODE_PRIVATE)
         pref.edit().clear().apply()
+    }
+
+    // 전체 삭제
+    fun clearAll(context: Context) {
+        clearAccessToken(context)
+        clearUserId(context)
+        clearPassword(context)
+        clearSocialLogin(context)
+        clearPassCode(context)
+        setLockStatus(context, false)
     }
 }
