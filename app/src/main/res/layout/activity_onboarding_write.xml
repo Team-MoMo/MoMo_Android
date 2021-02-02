@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layoutDescription="@xml/activity_onboarding_write_scene"
+    tools:context=".onboarding.ui.OnboardingWriteActivity">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="OnboardingCircle.json"
+        app:lottie_loop="false" />
+
+    <TextView
+        android:id="@+id/tv_explain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="58dp"
+        android:fontFamily="@font/notosanskrlight"
+        android:includeFontPadding="false"
+        android:letterSpacing="-0.05"
+        android:text="문장이 감정을 자극하고\n깊이있는 기록을 도와줄 거예요"
+        android:textColor="@color/black_1"
+        android:textFontWeight="300"
+        android:textSize="22dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/img_feather"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="131dp"
+        app:layout_constraintDimensionRatio="1:1.13"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_explain"
+        app:layout_constraintWidth_percent="0.042"
+        app:srcCompat="@drawable/ic_feather_black" />
+
+    <TextView
+        android:id="@+id/tv_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/notosans"
+        android:includeFontPadding="false"
+        android:letterSpacing="-0.09"
+        android:lineSpacingExtra="0sp"
+        android:text="작가"
+        android:textColor="@color/black_4"
+        android:textFontWeight="500"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_book"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_feather"
+        tools:layout_conversion_absoluteHeight="16dp"
+        tools:layout_conversion_absoluteWidth="18dp" />
+
+    <TextView
+        android:id="@+id/tv_book"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:fontFamily="@font/notosans"
+        android:includeFontPadding="false"
+        android:letterSpacing="-0.09"
+        android:lineSpacingExtra="0sp"
+        android:text="책"
+        android:textColor="@color/black_4"
+        android:textFontWeight="500"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_publisher"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tv_author"
+        app:layout_constraintTop_toTopOf="@+id/tv_author"
+        tools:layout_conversion_absoluteHeight="16dp"
+        tools:layout_conversion_absoluteWidth="9dp" />
+
+    <TextView
+        android:id="@+id/tv_publisher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:fontFamily="@font/notosans"
+        android:includeFontPadding="false"
+        android:letterSpacing="-0.09"
+        android:lineSpacingExtra="0sp"
+        android:text="(출판사)"
+        android:textColor="@color/black_5_publish"
+        android:textFontWeight="400"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tv_book"
+        app:layout_constraintTop_toTopOf="@+id/tv_book"
+        tools:layout_conversion_absoluteHeight="16dp"
+        tools:layout_conversion_absoluteWidth="32dp" />
+
+    <TextView
+        android:id="@+id/tv_sentence"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="42dp"
+        android:fontFamily="@font/notosans"
+        android:foregroundGravity="center"
+        android:gravity="center_horizontal"
+        android:includeFontPadding="false"
+        android:letterSpacing="-0.07"
+        android:lineSpacingExtra="11sp"
+        android:text="문장"
+        android:textColor="@color/black_1"
+        android:textFontWeight="400"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraint_information"
+        tools:layout_conversion_absoluteHeight="19dp"
+        tools:layout_conversion_absoluteWidth="297dp" />
+
+    <com.example.momo_android.util.ui.TypeWriter
+        android:id="@+id/tv_write"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="85dp"
+        android:fontFamily="@font/notosanskrmedium"
+        android:includeFontPadding="false"
+        android:letterSpacing="-0.06"
+        android:lineSpacingExtra="4sp"
+        android:text=""
+        android:textColor="@color/blue_2"
+        android:textFontWeight="500"
+        android:textSize="16dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_sentence" />
+
+
+    <TextView
+        android:id="@+id/tv_cursor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/notosanskrbold"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:letterSpacing="-0.06"
+        android:lineSpacingExtra="4sp"
+        android:text=""
+        android:textColor="@color/blue_3"
+        android:textFontWeight="500"
+        android:textSize="20dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_write"
+        app:layout_constraintStart_toEndOf="@+id/tv_write"
+        app:layout_constraintTop_toTopOf="@+id/tv_write" />
+
+
+</androidx.constraintlayout.motion.widget.MotionLayout>

@@ -121,8 +121,8 @@ class MyInfoActivity : AppCompatActivity() {
                             "success : ${response.body()!!.data}, message : ${response.message()}"
                         )
 
-                        clearSharedPreferences()
                         setIntentToLoginActivity()
+                        SharedPreferenceController.clearAll(this@MyInfoActivity)
 
                     } ?: showError(response.errorBody())
             }
@@ -139,13 +139,6 @@ class MyInfoActivity : AppCompatActivity() {
         val ob = JSONObject(e.string())
         this.showToast(ob.getString("message"))
         Log.d("Withdrawal", ob.getString("message"))
-    }
-
-    private fun clearSharedPreferences() {
-        SharedPreferenceController.clearAccessToken(this)
-        SharedPreferenceController.clearUserId(this)
-        SharedPreferenceController.clearPassword(this)
-        SharedPreferenceController.clearSocialLogin(this)
     }
 
     private fun setIntentToLoginActivity() {

@@ -51,7 +51,7 @@ class OnboardingSentenceActivity : AppCompatActivity() {
 
                 val intent = Intent(
                     this@OnboardingSentenceActivity,
-                    OnboardingWriteFirstActivity::class.java
+                    OnboardingWriteActivity::class.java
                 )
 
                 intent.putExtra("author", uploadSentenceAdapter.data[position].author)
