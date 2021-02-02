@@ -252,8 +252,8 @@ You may add Your own copyright statement to Your modifications and may provide a
 
 END OF TERMS AND CONDITIONS
     </string>
-    
-    
+
+
     <string name="retrofit">
         Copyright 2013 Square, Inc.
 
@@ -269,7 +269,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
     </string>
-    
+
     <string name="gson">
         Copyright 2008 Google Inc.
 
@@ -285,7 +285,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
     </string>
-    
+
     <string name="image_part_blur">
          Copyright 2016 Tu Yimin (http://github.com/mmin18)
 
@@ -368,7 +368,7 @@ the License.
    See the License for the specific language governing permissions and
    limitations under the License.
     </string>
-    
+
     <string name="glide">
         License for everything not in third_party and not otherwise marked:
 
