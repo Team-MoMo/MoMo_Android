@@ -260,27 +260,27 @@ class DiaryActivity : AppCompatActivity() {
         when (depth) {
             0 -> {
                 binding.root.background = resources.getDrawable(R.drawable.bg_deep1, null)
-                object_deep1.setVisible()
+                binding.objectDeep1.setVisible()
             }
             1 -> {
                 binding.root.background = resources.getDrawable(R.drawable.bg_deep2, null)
-                object_deep2.setVisible()
+                binding.objectDeep2.setVisible()
             }
             2 -> {
                 binding.root.background = resources.getDrawable(R.drawable.bg_deep3, null)
-                object_deep3.setVisible()
+                binding.objectDeep3.setVisible()
             }
             3 -> {
                 binding.root.background = resources.getDrawable(R.drawable.bg_deep4, null)
-                object_deep4.setVisible()
+                binding.objectDeep4.setVisible()
             }
             4 -> {
                 binding.root.background = resources.getDrawable(R.drawable.bg_deep5, null)
-                object_deep5.setVisible()
+                binding.objectDeep5.setVisible()
             }
             5 -> {
                 binding.root.background = resources.getDrawable(R.drawable.bg_deep6, null)
-                object_deep6.setVisible()
+                binding.objectDeep6.setVisible()
             }
             6 -> {
                 binding.root.background = resources.getDrawable(R.drawable.bg_deep7, null)

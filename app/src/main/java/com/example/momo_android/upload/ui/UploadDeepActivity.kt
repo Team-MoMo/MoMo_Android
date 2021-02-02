@@ -84,7 +84,7 @@ class UploadDeepActivity : AppCompatActivity() {
         }
 
         // 닫기
-        btn_close.setOnClickListener {
+        binding.btnClose.setOnClickListener {
             val exitModal = ModalUploadDeepExit(this)
             exitModal.start()
             exitModal.setOnClickListener {
