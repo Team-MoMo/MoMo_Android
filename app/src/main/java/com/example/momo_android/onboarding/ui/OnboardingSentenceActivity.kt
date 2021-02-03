@@ -36,7 +36,7 @@ class OnboardingSentenceActivity : AppCompatActivity() {
 
         //감정, 감정이미지 설정
         showFeeling(ONBOARDING_FEELING)
-        binding.tvDate.text= timeGenerator()
+        binding.tvDate.text= intent.getStringExtra("date")
 
         //서버에서 3문장 받아오기
         getOnboardingSentence(ONBOARDING_FEELING)
@@ -172,38 +172,6 @@ class OnboardingSentenceActivity : AppCompatActivity() {
         }
     }
 
-    fun timeGenerator() :String{
-        // 현재 날짜 가져오기
-        val currentDate = Calendar.getInstance()
-        val year=currentDate.get(Calendar.YEAR).toString()
-        val month=(currentDate.get(Calendar.MONTH)+1).toString()
-        val day=currentDate.get(Calendar.DATE).toString()
-        val week=currentDate.get(Calendar.DAY_OF_WEEK)
-
-        var strDay=""
-        var strMonth=""
-        if (month.toInt() < 10) {
-            strMonth="0$month"
-        }else{strMonth=month}
-
-        if (day.toInt() < 10) {
-            strDay="0$day"
-        }else{strDay=day}
-
-        var strWeek=""
-
-        when(week){
-            1->strWeek="일요일"
-            2->strWeek="월요일"
-            3->strWeek="화요일"
-            4->strWeek="수요일"
-            5->strWeek="목요일"
-            6->strWeek="금요일"
-            7->strWeek="토요일"
-        }
-
-        return year+". "+strMonth+". "+strDay+". "+strWeek
-    }
 
     override fun onBackPressed() {
         super.onBackPressed()

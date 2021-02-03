@@ -11,7 +11,6 @@ import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityOnboardingWriteBinding
-import com.example.momo_android.databinding.ActivityOnboardingWriteFirstBinding
 import com.example.momo_android.onboarding.ui.OnboardingFeelingActivity.Companion.ONBOARDING_FEELING
 
 class OnboardingWriteActivity : AppCompatActivity() {
