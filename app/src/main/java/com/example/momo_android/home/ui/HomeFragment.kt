@@ -22,6 +22,7 @@ import com.example.momo_android.network.RequestToServer
 import com.example.momo_android.setting.ui.SettingActivity
 import com.example.momo_android.upload.ui.UploadFeelingActivity
 import com.example.momo_android.util.SharedPreferenceController
+import com.example.momo_android.util.showToast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,6 +33,7 @@ class HomeFragment : Fragment() {
 
     private var _viewBinding: FragmentHomeBinding? = null
     private val viewBinding get() = _viewBinding!!
+    private lateinit var onBackPressedCallback: OnBackPressedCallback
 
     private var isDay = true
     private var diaryId = 0
@@ -54,14 +56,20 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setListeners()
         updateByServerData()
+        setOnBackPressedCallBack()
     }
 
     override fun onResume() {
         super.onResume()
-        if(IS_EDITED) {
-            updateByServerData()
-            IS_EDITED = false
+        updateEditedData()
+        if(!onBackPressedCallback.isEnabled) {
+            onBackPressedCallback.isEnabled = true
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        onBackPressedCallback.isEnabled = false
     }
 
     private fun setListeners() {
@@ -78,6 +86,20 @@ class HomeFragment : Fragment() {
         setCurrentDate()
         setDayNightStatus()
         getServerDiaryData()
+    }
+
+    private fun setOnBackPressedCallBack() {
+        onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() { (activity as HomeActivity).showFinishToast() }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    }
+
+    private fun updateEditedData() {
+        if(IS_EDITED) {
+            updateByServerData()
+            IS_EDITED = false
+        }
     }
 
     private fun setCurrentDate() {
@@ -399,6 +421,7 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _viewBinding = null
+        onBackPressedCallback.remove()
     }
 
     companion object {

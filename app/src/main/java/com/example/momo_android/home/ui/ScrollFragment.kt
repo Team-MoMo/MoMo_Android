@@ -34,6 +34,7 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
 
     private var _viewBinding: FragmentScrollBinding? = null
     private val viewBinding get() = _viewBinding!!
+    private lateinit var onBackPressedCallback: OnBackPressedCallback
 
     private var isHomeButtonClicked: Boolean = false
     private var selectedYear = QUERY_YEAR
@@ -60,13 +61,15 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
 
     override fun onResume() {
         super.onResume()
-        if(IS_EDITED) {
-            setLoadingViewBackground()
-            viewBinding.recyclerViewGradient.adapter!!.notifyDataSetChanged()
-            viewBinding.recyclerViewGradient.scrollToPosition(EDITED_DEPTH + 1)
-            fadeOutLoadingView()
-            IS_EDITED = false
+        updateEditedData()
+        if(!onBackPressedCallback.isEnabled) {
+            onBackPressedCallback.isEnabled = true
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        onBackPressedCallback.isEnabled = false
     }
 
     private fun setListeners() {
@@ -232,10 +235,20 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
     }
 
     private fun setOnBackPressedCallBack() {
-        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() { scrollToTop() }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    }
+
+    private fun updateEditedData() {
+        if(IS_EDITED) {
+            setLoadingViewBackground()
+            viewBinding.recyclerViewGradient.adapter!!.notifyDataSetChanged()
+            viewBinding.recyclerViewGradient.scrollToPosition(EDITED_DEPTH + 1)
+            fadeOutLoadingView()
+            IS_EDITED = false
+        }
     }
 
     private val fragmentOnTouchListener = View.OnTouchListener { _, _ -> true }
@@ -289,6 +302,7 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
     override fun onDestroyView() {
         super.onDestroyView()
         _viewBinding = null
+        onBackPressedCallback.remove()
     }
 
     companion object {

@@ -51,14 +51,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        when(viewBinding.viewPager2.currentItem) {
-            0 -> showFinishToast()
-        }
-    }
-
-    private fun showFinishToast() {
+    fun showFinishToast() {
         if (System.currentTimeMillis() - backPressedTime < 2000) {
             finish()
             return
