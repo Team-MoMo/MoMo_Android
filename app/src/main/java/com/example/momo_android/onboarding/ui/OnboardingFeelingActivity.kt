@@ -6,6 +6,8 @@ import android.os.Bundle
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityOnboardingFeelingBinding
+import com.example.momo_android.util.getDate
+import com.example.momo_android.util.getMonth
 import java.util.*
 
 class OnboardingFeelingActivity : AppCompatActivity() {
@@ -62,6 +64,7 @@ class OnboardingFeelingActivity : AppCompatActivity() {
 
             val intent =
                 Intent(this@OnboardingFeelingActivity, OnboardingSentenceActivity::class.java)
+            intent.putExtra("date",binding.tvDate.text)
             startActivity(intent)
             overridePendingTransition(R.anim.horizontal_left_in, R.anim.horizontal_right_out)
         }
@@ -72,23 +75,9 @@ class OnboardingFeelingActivity : AppCompatActivity() {
         // 현재 날짜 가져오기
         val currentDate = Calendar.getInstance()
         val year = currentDate.get(Calendar.YEAR).toString()
-        val month = (currentDate.get(Calendar.MONTH) + 1).toString()
-        val day = currentDate.get(Calendar.DATE).toString()
+        val month = (currentDate.get(Calendar.MONTH) + 1)
+        val day = currentDate.get(Calendar.DATE)
         val week = currentDate.get(Calendar.DAY_OF_WEEK)
-
-        var strDay = ""
-        var strMonth = ""
-        if (month.toInt() < 10) {
-            strMonth = "0$month"
-        } else {
-            strMonth = month
-        }
-
-        if (day.toInt() < 10) {
-            strDay = "0$day"
-        } else {
-            strDay = day
-        }
 
         var strWeek = ""
 
@@ -102,7 +91,7 @@ class OnboardingFeelingActivity : AppCompatActivity() {
             7 -> strWeek = "토요일"
         }
 
-        return year + ". " + strMonth + ". " + strDay + ". " + strWeek
+        return year + ". " +getMonth(month)+ ". " + getDate(day) + ". " + strWeek
     }
 
     override fun onBackPressed() {
