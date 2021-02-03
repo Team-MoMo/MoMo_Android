@@ -84,7 +84,7 @@ class UploadDeepActivity : AppCompatActivity() {
         }
 
         // 닫기
-        btn_close.setOnClickListener {
+        binding.btnClose.setOnClickListener {
             val exitModal = ModalUploadDeepExit(this)
             exitModal.start()
             exitModal.setOnClickListener {
@@ -276,7 +276,7 @@ class UploadDeepActivity : AppCompatActivity() {
             ) {
                 response.takeIf { it.isSuccessful}
                     ?.body()
-                    ?.let { it ->
+                    ?.let { _ ->
                         Log.d("uploadDiary-server", "success : ${response.body()!!.data}, message : ${response.message()}")
 
                         // 다이어리 뷰로 이동

@@ -92,4 +92,11 @@
     <style name="CustomEditTextTheme" parent="TextAppearance.AppCompat">
         <item name="colorAccent">@color/blue_splash</item>
     </style>
+
+    <!-- TabLayout -->
+    <style name="TabText" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:fontFamily">@font/notosanskrlight</item>
+        <item name="android:textSize">24dp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
 </resources>
