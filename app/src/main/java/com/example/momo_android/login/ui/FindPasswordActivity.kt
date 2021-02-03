@@ -1,23 +1,21 @@
 package com.example.momo_android.login.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.momo_android.R
 import com.example.momo_android.databinding.ActivityFindPasswordBinding
 import com.example.momo_android.login.data.RequestTempPasswordData
 import com.example.momo_android.login.data.ResponseTempPasswordData
 import com.example.momo_android.network.RequestToServer
-import com.example.momo_android.signup.data.ResponseUserData
-import com.example.momo_android.util.SharedPreferenceController
-import com.example.momo_android.util.setGone
-import com.example.momo_android.util.setInVisible
-import com.example.momo_android.util.setVisible
+import com.example.momo_android.util.*
+import okhttp3.ResponseBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -47,7 +45,12 @@ class FindPasswordActivity : AppCompatActivity() {
                 btn_find_passwd.isEnabled = false
             } else if(et_findpw_email.text.isNotEmpty() &&
                 !android.util.Patterns.EMAIL_ADDRESS.matcher(et_findpw_email.text.toString()).matches()) {
-                tv_findpw_email.setTextColor(ContextCompat.getColor(applicationContext, R.color.red_2_error))
+                tv_findpw_email.setTextColor(
+                    ContextCompat.getColor(
+                        applicationContext,
+                        R.color.red_2_error
+                    )
+                )
                 et_findpw_email.background = resources.getDrawable(R.drawable.et_area_error, null)
                 tv_email_error.setVisible()
                 tv_email_error.text = "올바른 이메일 형식이 아닙니다"
@@ -64,16 +67,24 @@ class FindPasswordActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                tv_findpw_email.setTextColor(ContextCompat.getColor(applicationContext, R.color.blue_2))
+                tv_findpw_email.setTextColor(
+                    ContextCompat.getColor(
+                        applicationContext,
+                        R.color.blue_2
+                    )
+                )
                 et_findpw_email.background = resources.getDrawable(R.drawable.et_area_default, null)
                 tv_email_error.setInVisible()
 
-                if(et_findpw_email.text.isNotEmpty()) {
+                if (et_findpw_email.text.isNotEmpty()) {
                     et_findpw_email.clearText(btn_email_erase)
                     btn_find_passwd.background = resources.getDrawable(R.drawable.btn_active, null)
                     btn_find_passwd.isEnabled = true
                 } else {
-                    btn_find_passwd.background = resources.getDrawable(R.drawable.btn_inactive, null)
+                    btn_find_passwd.background = resources.getDrawable(
+                        R.drawable.btn_inactive,
+                        null
+                    )
                     btn_find_passwd.isEnabled = false
                 }
             }
@@ -106,27 +117,13 @@ class FindPasswordActivity : AppCompatActivity() {
                 response: Response<ResponseTempPasswordData>
             ) {
                 binding.progressBar.setGone()
-                when(response.code()) {
-                    200 -> {
+                response.takeIf { it.isSuccessful }
+                    ?.body()
+                    ?.let {
                         val findModal = ModalFindpwCount(this@FindPasswordActivity)
                         findModal.start(response.body()!!.data.tempPasswordIssueCount)
-                    }
-                    400 -> {
-//                        when(response.message()) {
-//                            "존재하지 않는 회원" -> {
-//                                binding.tvFindpwEmail.setTextColor(ContextCompat.getColor(applicationContext, R.color.red_2_error))
-//                                binding.etFindpwEmail.background = resources.getDrawable(R.drawable.et_area_error, null)
-//                                binding.tvEmailError.setVisible()
-//                                binding.tvEmailError.text = "가입된 이메일이 없습니다"
-//                            }
-//                            "임시비밀번호 발급 횟수 초과" -> {
-//                                val countOverModal = ModalFindpwCountOver(this@FindPasswordActivity)
-//                                countOverModal.start()
-//                            }
-//                        }
-                    }
-                    else -> Log.d("postTempPassword 500", response.message())
-                }
+                    } ?: showError(response.errorBody())
+
             }
 
             override fun onFailure(call: Call<ResponseTempPasswordData>, t: Throwable) {
@@ -137,10 +134,31 @@ class FindPasswordActivity : AppCompatActivity() {
     }
 
     // edittext 지우는 x버튼
-    private fun EditText.clearText(button : ImageView) {
+    private fun EditText.clearText(button: ImageView) {
         button.setVisible()
         button.setOnClickListener {
             this.setText("")
+        }
+    }
+
+    private fun showError(error: ResponseBody?) {
+        val e = error ?: return
+        val ob = JSONObject(e.string())
+
+        when(ob.getString("message")) {
+            "존재하지 않는 회원" -> {
+                binding.tvFindpwEmail.setTextColor(ContextCompat.getColor(applicationContext, R.color.red_2_error))
+                binding.etFindpwEmail.background = resources.getDrawable(
+                    R.drawable.et_area_error,
+                    null
+                )
+                binding.tvEmailError.setVisible()
+                binding.tvEmailError.text = "가입된 이메일이 없습니다"
+            }
+            else -> {
+                val countOverModal = ModalFindpwCountOver(this@FindPasswordActivity)
+                countOverModal.start()
+            }
         }
     }
 }
