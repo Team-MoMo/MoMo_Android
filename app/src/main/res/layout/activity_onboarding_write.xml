@@ -137,7 +137,7 @@
         tools:layout_conversion_absoluteHeight="19dp"
         tools:layout_conversion_absoluteWidth="297dp" />
 
-    <com.example.momo_android.util.ui.TypeWriter
+    <com.momo.momo_android.util.ui.TypeWriter
         android:id="@+id/tv_write"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

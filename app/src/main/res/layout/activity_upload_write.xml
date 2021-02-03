@@ -223,7 +223,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardview" />
 
-            <com.example.momo_android.util.ui.BackPressEditText
+            <com.momo.momo_android.util.ui.BackPressEditText
                 android:id="@+id/et_diary"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
