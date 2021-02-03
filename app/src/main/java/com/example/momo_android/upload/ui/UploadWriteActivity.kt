@@ -30,7 +30,7 @@ class UploadWriteActivity : AppCompatActivity() {
         val feeling=intent.getIntExtra("feeling",0)
         val sentenceId = intent.getIntExtra("sentenceId", 0)
         val emotionId = intent.getIntExtra("emotionId", 0)
-        var contents = ""
+        var contents: String
         val wroteAt=intent.getStringExtra("wroteAt")
         //val date = intent.getStringExtra("date")
 

@@ -39,17 +39,6 @@ fun View.setGone() {
     this.visibility = View.GONE
 }
 
-/* custom Toast */
-/* 사용할 떄는 customToast(layoutInflater, R.layout.toast_ready, this) 이렇게 사용하면 돼요! */
-fun customToast(layoutInflater: LayoutInflater, toastLayout: XmlPullParser, context: Context) {
-    val customToast = layoutInflater.inflate(toastLayout, null)
-    val toast = Toast(context)
-    toast.duration = Toast.LENGTH_SHORT
-    toast.setGravity(Gravity.BOTTOM or Gravity.FILL_HORIZONTAL, 0, 0)
-    toast.view = customToast
-    toast.show()
-}
-
 /*키보드 숨기기*/
 fun EditText.showKeyboard() {
     if (requestFocus()) {
@@ -68,12 +57,6 @@ fun EditText.unshowKeyboard() {
         setSelection(text.length)
     }
 }
-
-fun View.hideKeyboard() {
-    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    imm.hideSoftInputFromWindow(windowToken, 0)
-}
-
 
 /* 월을 2자리수로 변환해주는 함수 (6 -> 06)*/
 fun getMonth(month: Int): String {

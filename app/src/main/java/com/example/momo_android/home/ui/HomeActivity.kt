@@ -1,11 +1,16 @@
 package com.example.momo_android.home.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.momo_android.databinding.ActivityHomeBinding
 import com.example.momo_android.home.adapter.HomeViewPager2Adapter
+import com.example.momo_android.lock.ui.LockOffActivity
+import com.example.momo_android.splash.SplashActivity.Companion.FROM_SPLASH
+import com.example.momo_android.util.SharedPreferenceController
+import com.example.momo_android.util.showToast
 
 
 class HomeActivity : AppCompatActivity() {
@@ -20,6 +25,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setViewBinding()
         setViewPager2()
+        showLockOffActivity()
     }
 
     private fun setViewBinding() {
@@ -34,19 +40,23 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        when(viewBinding.viewPager2.currentItem) {
-            0 -> showFinishToast()
+    private fun showLockOffActivity() {
+        val isLocked = SharedPreferenceController.getLockStatus(this)
+        if (isLocked && FROM_SPLASH) {
+            val intent = Intent(this, LockOffActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            startActivity(intent)
+            FROM_SPLASH = false
         }
     }
 
-    private fun showFinishToast() {
+    fun showFinishToast() {
         if (System.currentTimeMillis() - backPressedTime < 2000) {
             finish()
             return
         }
-        Toast.makeText(this, "'뒤로' 버튼을 한번 더 누르시면 앱이 종료됩니다.", Toast.LENGTH_SHORT).show()
+        showToast("'뒤로' 버튼을 한번 더 누르시면 앱이 종료됩니다.")
         backPressedTime = System.currentTimeMillis()
     }
 

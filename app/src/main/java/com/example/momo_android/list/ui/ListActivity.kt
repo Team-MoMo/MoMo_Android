@@ -162,7 +162,10 @@ class ListActivity : AppCompatActivity() {
             }
             R.id.graph -> {
                 //graph 버튼 클릭 시 발생하는 이벤트 설정
-                this.showToast("아직 준비 중인 기능입니다.")
+                fromDiaryFlag = true
+
+                val intent = Intent(this, ReportActivity::class.java)
+                startActivity(intent)
             }
             android.R.id.home -> {
                 // back 버튼 클릭 시 발생하는 이벤트 설정 -> home 화면으로 다시 이동
@@ -397,7 +400,7 @@ class ListActivity : AppCompatActivity() {
     fun loadFilteredData() {
         RequestToServer.service.getFilterdDiary(
             Authorization = SharedPreferenceController.getAccessToken(this),
-            userId = SharedPreferenceController.getUserId(this)!!,
+            userId = SharedPreferenceController.getUserId(this),
             year = filter_year,
             month = filter_month,
             order = "filter",
@@ -410,7 +413,7 @@ class ListActivity : AppCompatActivity() {
             ) {
                 response.takeIf { it.isSuccessful}
                     ?.body()
-                    ?.let { it ->
+                    ?.let { _ ->
                         Log.d("ListActivity-server", "success : ${response.body()!!.data}, message : ${response.message()}")
 
                         loadListData(response.body()!!.data)

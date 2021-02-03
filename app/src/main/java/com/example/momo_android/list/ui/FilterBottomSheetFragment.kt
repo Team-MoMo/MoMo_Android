@@ -185,12 +185,12 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int?,
             // 토글이 접힌 상태에서 버튼을 눌렀을 때 -> v 이렇게 바껴야함
             if (toggleIdx == 1) {
                 binding.includeFilterNumberPicker.constraintlayoutNumberPicker.visibility = View.VISIBLE
-                binding.imgbtnFilterDateArrow.rotation = 0F
+                binding.imgbtnFilterDateArrow.rotation = 90F
             }
             // 토글이 펼쳐진 상태에서 다시 버튼을 눌렀을 때 -> > 이렇게 바껴야함
             else {
                 binding.includeFilterNumberPicker.constraintlayoutNumberPicker.visibility = View.GONE
-                binding.imgbtnFilterDateArrow.rotation = 270F
+                binding.imgbtnFilterDateArrow.rotation = 0F
             }
         }
     }

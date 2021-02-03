@@ -102,7 +102,7 @@ class ChangePasswordActivity : AppCompatActivity() {
 
         if(et_check_passwd.text.isEmpty()) {
             tv_check_error.text = "비밀번호를 다시 입력해 주세요"
-        } else if(et_new_passwd.text.toString() != et_check_passwd.text.toString()) {
+        } else if(binding.etNewPasswd.text.toString() != et_check_passwd.text.toString()) {
             tv_check_error.text = "비밀번호가 일치하지 않습니다"
         } else {
             tv_check_passwd.setTextColor(ContextCompat.getColor(applicationContext, R.color.blue_2))
