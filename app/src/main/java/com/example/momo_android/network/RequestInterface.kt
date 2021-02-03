@@ -85,7 +85,7 @@ interface RequestInterface {
 
     // UploadSentenceActivity.kt 문장 3개 조회
     @Headers("Content-Type: application/json")
-    @GET("/sentences/recommend")
+    @GET("/sentences")
     fun getSentence(
         @Header("Authorization") Authorization: String?,
         @Query("emotionId") emotionId: Int,
