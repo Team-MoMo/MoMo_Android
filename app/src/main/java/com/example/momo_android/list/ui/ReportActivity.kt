@@ -143,12 +143,12 @@ class ReportActivity : AppCompatActivity() {
 
     private fun setEmotionGraphVisible() {
         binding.constraintlayoutEmotionGraph.visibility = View.VISIBLE
-        binding.constraintlayoutDepthGraph.visibility = View.GONE
+        binding.constraintlayoutDepthGraph.visibility = View.INVISIBLE
     }
 
     private fun setDepthGraphVisible() {
         binding.constraintlayoutDepthGraph.visibility = View.VISIBLE
-        binding.constraintlayoutEmotionGraph.visibility = View.GONE
+        binding.constraintlayoutEmotionGraph.visibility = View.INVISIBLE
     }
 
     private fun getGraphMaxHeight() {
