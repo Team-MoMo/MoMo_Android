@@ -36,6 +36,7 @@ class ReportActivity : AppCompatActivity() {
     private var maxGraphWidth = 0F
     private var maxGraphHeight = 0F
     private var graphUnit = 0F
+    private var heightLimit = 0F
 
     private lateinit var currentDate: Calendar
 
@@ -165,6 +166,8 @@ class ReportActivity : AppCompatActivity() {
 
         maxGraphWidth = graphWidth
         maxGraphHeight = graphHeight
+
+        heightLimit = (maxGraphHeight * 0.3576).toFloat()
 
         Log.d("maxGraphHeight", maxGraphHeight.toString())
     }
@@ -361,7 +364,7 @@ class ReportActivity : AppCompatActivity() {
                 binding.graph2.requestLayout()
                 binding.tvCount2.text = count.toString()
 
-                if (count > 0)
+                if (height >= heightLimit)
                     binding.imgDepth2.visibility = View.VISIBLE
                 else
                     binding.imgDepth2.visibility = View.GONE
@@ -374,7 +377,7 @@ class ReportActivity : AppCompatActivity() {
                 binding.tvCount30.text = count.toString()
                 binding.imgDepth30.visibility = View.GONE
 
-                if (count > 0)
+                if (height >= heightLimit)
                     binding.imgDepth30.visibility = View.VISIBLE
                 else
                     binding.imgDepth30.visibility = View.GONE
@@ -387,7 +390,7 @@ class ReportActivity : AppCompatActivity() {
                 binding.tvCount100.text = count.toString()
                 binding.imgDepth100.visibility = View.GONE
 
-                if (count > 0)
+                if (height >= heightLimit)
                     binding.imgDepth100.visibility = View.VISIBLE
                 else
                     binding.imgDepth100.visibility = View.GONE
@@ -400,7 +403,7 @@ class ReportActivity : AppCompatActivity() {
                 binding.tvCount300.text = count.toString()
                 binding.imgDepth300.visibility = View.GONE
 
-                if (count > 0)
+                if (height >= heightLimit)
                     binding.imgDepth300.visibility = View.VISIBLE
                 else
                     binding.imgDepth300.visibility = View.GONE
@@ -413,7 +416,7 @@ class ReportActivity : AppCompatActivity() {
                 binding.tvCount700.text = count.toString()
                 binding.imgDepth700.visibility = View.GONE
 
-                if (count > 0)
+                if (height >= heightLimit)
                     binding.imgDepth700.visibility = View.VISIBLE
                 else
                     binding.imgDepth700.visibility = View.GONE
@@ -426,7 +429,7 @@ class ReportActivity : AppCompatActivity() {
                 binding.tvCount1005.text = count.toString()
                 binding.imgDepth1005.visibility = View.GONE
 
-                if (count > 0)
+                if (height >= heightLimit)
                     binding.imgDepth1005.visibility = View.VISIBLE
                 else
                     binding.imgDepth1005.visibility = View.GONE
@@ -439,7 +442,7 @@ class ReportActivity : AppCompatActivity() {
                 binding.tvCountUnder.text = count.toString()
                 binding.imgDepthUnder.visibility = View.GONE
 
-                if (count > 0)
+                if (height >= heightLimit)
                     binding.imgDepthUnder.visibility = View.VISIBLE
                 else
                     binding.imgDepthUnder.visibility = View.GONE
