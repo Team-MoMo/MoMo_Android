@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 체크박스 해제 상태 -->
+    <item android:state_checked="false"
+        android:drawable="@drawable/filter_bored_unselected"/>
+    <!-- 체크박스 선택 상태 -->
+    <item android:state_checked="true"
+        android:drawable="@drawable/filter_bored_selected"/>
+</selector>

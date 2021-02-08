@@ -1,0 +1,102 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.MoMo_Android" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/gray_status_bar</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <!-- Customize your theme here. -->
+        <item name="android:textCursorDrawable">@color/blue_splash</item>
+    </style>
+
+    <!-- Splash Activity -->
+    <style name="Theme.splashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/blue_splash</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <!-- List Activity -->
+    <style name="Theme.listTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@color/gray_status_bar</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <!-- TextView underline -->
+    <declare-styleable name="UnderlineTextView">
+        <attr name="underlineHeight" format="dimension"/>
+        <attr name="underlineOffset" format="dimension"/>
+        <attr name="underlineColor" format="color"/>
+        <attr name="underLinePosition" format="enum">
+            <enum name="baseline" value="0"/>
+            <enum name="below" value="1"/>
+        </attr>
+    </declare-styleable>
+
+    <!-- CollapsingToolbar -->
+    <style name="TextAppearance.App.CollapsingToolbar.Expanded" parent="Theme.MaterialComponents">
+        <item name="android:textColor">@color/black_1</item>
+        <item name="android:textSize">22dp</item>
+        <item name="android:fontFamily">@font/notosanskrlight</item>
+    </style>
+
+    <style name="TextAppearance.App.CollapsingToolbar.Collapsed" parent="Theme.MaterialComponents">
+        <item name="android:textColor">@color/black_2_nav</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:fontFamily">@font/notosanskrregular</item>
+    </style>
+
+    <!-- BottomSheet theme -->
+    <style name="RoundBottomSheet" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bottomsheet_top_round</item>
+    </style>
+
+    <style name="RoundBottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/RoundBottomSheet</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <!-- NumberPicker theme -->
+    <style name="NumberPickerTheme">
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">@color/black_3_list</item>
+        <item name="android:fontFamily">@font/notosanskrmedium</item>
+        <item name="colorControlNormal">@android:color/transparent</item>
+    </style>
+
+    <!--shadow-->
+    <style name="CustomShapeAppearance">
+        <item name="neumorph_cornerFamily">rounded</item>
+        <item name="neumorph_cornerSize">12dp</item>
+
+        <!-- Or if wants different radii depending on the corner. -->
+        <item name="neumorph_cornerSizeTopLeft">12dp</item>
+        <item name="neumorph_cornerSizeTopRight">12dp</item>
+        <item name="neumorph_cornerSizeBottomLeft">12dp</item>
+        <item name="neumorph_cornerSizeBottomRight">12dp</item>
+    </style>
+
+    <!-- editText theme -->
+    <style name="CustomEditTextTheme" parent="TextAppearance.AppCompat">
+        <item name="colorAccent">@color/blue_splash</item>
+    </style>
+
+    <!-- TabLayout -->
+    <style name="TabText" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:fontFamily">@font/notosanskrlight</item>
+        <item name="android:textSize">24dp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+</resources>

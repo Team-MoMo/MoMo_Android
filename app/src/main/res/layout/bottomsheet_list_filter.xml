@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_filter_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="22dp"
+        android:fontFamily="@font/notosans"
+        android:includeFontPadding="false"
+        android:text="필터"
+        android:textColor="@color/black_2_nav"
+        android:textFontWeight="500"
+        android:textSize="18dp"
+        android:letterSpacing="-0.06"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imgbtn_filter_close"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/btn_close_black"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.06" />
+
+    <TextView
+        android:id="@+id/tv_filter_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/notosans"
+        android:includeFontPadding="false"
+        android:text="날짜"
+        android:textColor="@color/blue_3"
+        android:textFontWeight="500"
+        android:textSize="14dp"
+        android:letterSpacing="-0.07"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_filter_title" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintlayout_filter_date_touchbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:paddingStart="7dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_filter_date"
+        app:layout_constraintStart_toEndOf="@+id/tv_filter_date"
+        app:layout_constraintTop_toTopOf="@+id/tv_filter_date">
+
+        <TextView
+            android:id="@+id/tv_filter_selected_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/notosans"
+            android:includeFontPadding="false"
+            android:text="2021년 2월"
+            android:textColor="@color/blue_2"
+            android:textFontWeight="500"
+            android:textSize="16dp"
+            android:letterSpacing="-0.06"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imgbtn_filter_date_arrow"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/imgbtn_filter_date_arrow"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginVertical="15dp"
+            android:background="@drawable/btn_arrow_right_14"
+            android:rotation="0"
+            android:clickable="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.318"
+            app:layout_constraintStart_toEndOf="@+id/tv_filter_selected_date"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- date picker include -->
+
+    <include
+        android:id="@+id/include_filter_number_picker"
+        layout="@layout/include_ym_picker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/constraintlayout_filter_date_touchbox" />
+
+    <View
+        android:id="@+id/view_list_date"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/line_filter_gray"
+        app:layout_constraintTop_toBottomOf="@+id/include_filter_number_picker"
+        tools:layout_editor_absoluteX="20dp" />
+
+    <TextView
+        android:id="@+id/tv_filter_emotion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/notosans"
+        android:includeFontPadding="false"
+        android:text="감정"
+        android:textColor="@color/blue_3"
+        android:textFontWeight="500"
+        android:textSize="14dp"
+        android:letterSpacing="-0.07"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_list_date" />
+
+    <CheckBox
+        android:id="@+id/imgbtn_filter_love"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/checkbox_filter_love"
+        android:button="@null"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/imgbtn_filter_happy"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_filter_emotion"
+        app:layout_constraintWidth_percent="0.194" />
+
+    <CheckBox
+        android:id="@+id/imgbtn_filter_happy"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/checkbox_filter_happy"
+        android:button="@null"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/imgbtn_filter_console"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imgbtn_filter_love"
+        app:layout_constraintTop_toTopOf="@+id/imgbtn_filter_love"
+        app:layout_constraintWidth_percent="0.194" />
+
+    <CheckBox
+        android:id="@+id/imgbtn_filter_console"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/checkbox_filter_console"
+        android:button="@null"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/imgbtn_filter_angry"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imgbtn_filter_happy"
+        app:layout_constraintTop_toTopOf="@+id/imgbtn_filter_happy"
+        app:layout_constraintWidth_percent="0.194" />
+
+    <CheckBox
+        android:id="@+id/imgbtn_filter_angry"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/checkbox_filter_angry"
+        android:button="@null"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgbtn_filter_console"
+        app:layout_constraintTop_toTopOf="@+id/imgbtn_filter_console"
+        app:layout_constraintWidth_percent="0.194" />
+
+    <CheckBox
+        android:id="@+id/imgbtn_filter_sad"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/checkbox_filter_sad"
+        android:button="@null"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/imgbtn_filter_bored"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/imgbtn_filter_love"
+        app:layout_constraintTop_toBottomOf="@+id/imgbtn_filter_love"
+        app:layout_constraintWidth_percent="0.194" />
+
+    <CheckBox
+        android:id="@+id/imgbtn_filter_bored"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/checkbox_filter_bored"
+        android:button="@null"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/imgbtn_filter_memory"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imgbtn_filter_sad"
+        app:layout_constraintTop_toBottomOf="@+id/imgbtn_filter_happy"
+        app:layout_constraintWidth_percent="0.194" />
+
+    <CheckBox
+        android:id="@+id/imgbtn_filter_memory"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/checkbox_filter_memory"
+        android:button="@null"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/imgbtn_filter_daily"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imgbtn_filter_bored"
+        app:layout_constraintTop_toBottomOf="@+id/imgbtn_filter_console"
+        app:layout_constraintWidth_percent="0.194" />
+
+    <CheckBox
+        android:id="@+id/imgbtn_filter_daily"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/checkbox_filter_daily"
+        android:button="@null"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="@+id/imgbtn_filter_angry"
+        app:layout_constraintStart_toEndOf="@+id/imgbtn_filter_memory"
+        app:layout_constraintTop_toBottomOf="@+id/imgbtn_filter_angry"
+        app:layout_constraintWidth_percent="0.194" />
+
+    <View
+        android:id="@+id/view_list_emotion"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="19dp"
+        android:background="@color/line_filter_gray"
+        app:layout_constraintTop_toBottomOf="@+id/imgbtn_filter_sad" />
+
+    <TextView
+        android:id="@+id/tv_filter_depth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/notosans"
+        android:includeFontPadding="false"
+        android:text="깊이"
+        android:textColor="@color/blue_3"
+        android:textFontWeight="500"
+        android:textSize="14dp"
+        android:letterSpacing="-0.07"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_list_emotion" />
+
+    <CheckBox
+        android:id="@+id/imgbtn_filter_depth_2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/checkbox_filter_depth"
+        android:button="@null"
+        android:text="2m"
+        android:textSize="16dp"
+        android:textColor="@drawable/checkbox_filter_depth_text"
+        android:letterSpacing="-0.04"
+        android:fontFamily="@font/notosans"
+        android:textFontWeight="500"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        app:layout_constraintDimensionRatio="h, 1:0.6"
+        app:layout_constraintEnd_toStartOf="@+id/imgbtn_filter_depth_30"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_filter_depth"
+        app:layout_constraintWidth_percent="0.16" />
+
+    <CheckBox
+        android:id="@+id/imgbtn_filter_depth_30"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/checkbox_filter_depth"
+        android:button="@null"
+        android:text="30m"
+        android:textSize="16dp"
+        android:textColor="@drawable/checkbox_filter_depth_text"
+        android:letterSpacing="-0.04"
+        android:fontFamily="@font/notosans"
+        android:textFontWeight="500"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        app:layout_constraintDimensionRatio="h, 1:0.52"
+        app:layout_constraintEnd_toStartOf="@+id/imgbtn_filter_depth_100"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imgbtn_filter_depth_2"
+        app:layout_constraintTop_toTopOf="@+id/imgbtn_filter_depth_2"
+        app:layout_constraintWidth_percent="0.19" />
+
+    <CheckBox
+        android:id="@+id/imgbtn_filter_depth_100"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/checkbox_filter_depth"
+        android:button="@null"
+        android:text="100m"
+        android:textSize="16dp"
+        android:textColor="@drawable/checkbox_filter_depth_text"
+        android:letterSpacing="-0.04"
+        android:fontFamily="@font/notosans"
+        android:textFontWeight="500"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        app:layout_constraintDimensionRatio="h, 1:0.467"
+        app:layout_constraintEnd_toStartOf="@+id/imgbtn_filter_depth_300"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imgbtn_filter_depth_30"
+        app:layout_constraintTop_toTopOf="@+id/imgbtn_filter_depth_30"
+        app:layout_constraintWidth_percent="0.2138" />
+
+    <CheckBox
+        android:id="@+id/imgbtn_filter_depth_300"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/checkbox_filter_depth"
+        android:button="@null"
+        android:text="300m"
+        android:textSize="16dp"
+        android:textColor="@drawable/checkbox_filter_depth_text"
+        android:letterSpacing="-0.04"
+        android:fontFamily="@font/notosans"
+        android:textFontWeight="500"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        app:layout_constraintDimensionRatio="h, 1:0.467"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imgbtn_filter_depth_100"
+        app:layout_constraintTop_toTopOf="@+id/imgbtn_filter_depth_100"
+        app:layout_constraintWidth_percent="0.2138" />
+
+    <CheckBox
+        android:id="@+id/imgbtn_filter_depth_700"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/checkbox_filter_depth"
+        android:button="@null"
+        android:text="700m"
+        android:textSize="16dp"
+        android:textColor="@drawable/checkbox_filter_depth_text"
+        android:letterSpacing="-0.04"
+        android:fontFamily="@font/notosans"
+        android:textFontWeight="500"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        app:layout_constraintDimensionRatio="h, 1:0.467"
+        app:layout_constraintEnd_toStartOf="@+id/imgbtn_filter_depth_1005"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/imgbtn_filter_depth_2"
+        app:layout_constraintTop_toBottomOf="@+id/imgbtn_filter_depth_2"
+        app:layout_constraintWidth_percent="0.2138" />
+
+    <CheckBox
+        android:id="@+id/imgbtn_filter_depth_1005"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/checkbox_filter_depth"
+        android:button="@null"
+        android:text="1,005m"
+        android:textSize="16dp"
+        android:textColor="@drawable/checkbox_filter_depth_text"
+        android:letterSpacing="-0.04"
+        android:fontFamily="@font/notosans"
+        android:textFontWeight="500"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        app:layout_constraintDimensionRatio="h, 1:0.4"
+        app:layout_constraintEnd_toStartOf="@+id/imgbtn_filter_depth_under"
+        app:layout_constraintStart_toEndOf="@+id/imgbtn_filter_depth_700"
+        app:layout_constraintTop_toBottomOf="@+id/imgbtn_filter_depth_30"
+        app:layout_constraintWidth_percent="0.25" />
+
+    <CheckBox
+        android:id="@+id/imgbtn_filter_depth_under"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/checkbox_filter_depth"
+        android:button="@null"
+        android:text="심해"
+        android:textSize="16dp"
+        android:textColor="@drawable/checkbox_filter_depth_text"
+        android:letterSpacing="-0.04"
+        android:fontFamily="@font/notosans"
+        android:textFontWeight="500"
+        android:includeFontPadding="false"
+        android:gravity="center"
+        app:layout_constraintDimensionRatio="h, 1:0.55"
+        app:layout_constraintStart_toEndOf="@+id/imgbtn_filter_depth_1005"
+        app:layout_constraintTop_toBottomOf="@+id/imgbtn_filter_depth_100"
+        app:layout_constraintWidth_percent="0.18" />
+
+    <TextView
+        android:id="@+id/btn_filter_apply"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/filter_button_radius"
+        android:fontFamily="@font/notosans"
+        android:includeFontPadding="false"
+        android:text="적용"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textFontWeight="500"
+        android:textSize="17dp"
+        android:letterSpacing="-0.06"
+        android:enabled="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:0.23"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgbtn_filter_depth_700"
+        app:layout_constraintWidth_percent="0.5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

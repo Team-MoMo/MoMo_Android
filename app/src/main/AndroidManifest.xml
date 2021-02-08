@@ -1,24 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.momo_android">
+    package="com.momo.momo_android">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name="com.momo.momo_android.util.GlobalApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_momo_appicon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_momo_appicon_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MoMo_Android">
-        <activity android:name=".MainActivity">
+        android:theme="@style/Theme.MoMo_Android"
+        android:usesCleartextTraffic="true">
+        <activity android:name="com.momo.momo_android.onboarding.ui.OnboardingWriteActivity"></activity>
+
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="@string/kakao_app_key" />
+
+
+        <activity android:name="com.momo.momo_android.setting.ui.OpenSourceDetailActivity"/>
+        <activity android:name="com.momo.momo_android.setting.ui.OpenSourceActivity" />
+        <activity android:name="com.momo.momo_android.setting.ui.TermsOfServiceActivity" />
+        <activity android:name="com.momo.momo_android.setting.ui.PrivacyPolicyActivity" />
+        <activity android:name="com.momo.momo_android.setting.ui.ChangePasswordActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name="com.momo.momo_android.lock.ui.LockOnActivity" />
+        <activity android:name="com.momo.momo_android.lock.ui.LockOffActivity" />
+        <activity android:name="com.momo.momo_android.setting.ui.MyInfoActivity" />
+        <activity android:name="com.momo.momo_android.setting.ui.TeamInfoActivity" />
+        <activity android:name=".onboarding.ui.OnboardingWriteSecondActivity" />
+        <activity android:name=".onboarding.ui.OnboardingWriteFirstActivity" />
+        <activity android:name="com.momo.momo_android.onboarding.ui.OnboardingDepthActivity" />
+        <activity android:name="com.momo.momo_android.onboarding.ui.OnboardingSentenceActivity" />
+        <activity android:name="com.momo.momo_android.onboarding.ui.OnboardingFeelingActivity" />
+        <activity android:name="com.momo.momo_android.onboarding.ui.OnboardingStartActivity" />
+        <activity
+            android:name="com.momo.momo_android.login.ui.FindPasswordActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name="com.momo.momo_android.login.ui.MainLoginActivity" />
+        <activity
+            android:name="com.momo.momo_android.diary.ui.DiaryEditWriteActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity android:name="com.momo.momo_android.signup.ui.SignUpActivity" />
+        <activity
+            android:name="com.momo.momo_android.splash.SplashActivity"
+            android:theme="@style/Theme.splashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.momo.momo_android.login.ui.LoginActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name="com.momo.momo_android.home.ui.HomeActivity" />
+        <activity android:name="com.momo.momo_android.diary.ui.DiaryActivity" />
+        <activity android:name="com.momo.momo_android.diary.ui.DiaryEditDeepActivity" />
+        <activity
+            android:name="com.momo.momo_android.upload.ui.UploadWriteActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name="com.momo.momo_android.upload.ui.UploadSentenceActivity" />
+        <activity android:name="com.momo.momo_android.upload.ui.UploadFeelingActivity" />
+        <activity android:name="com.momo.momo_android.upload.ui.UploadDeepActivity" />
+        <activity
+            android:name="com.momo.momo_android.list.ui.ListActivity"
+            android:theme="@style/Theme.listTheme" />
+        <activity android:name="com.momo.momo_android.list.ui.ReportActivity" />
+        <activity android:name="com.momo.momo_android.setting.ui.SettingActivity" />
     </application>
 
 </manifest>
