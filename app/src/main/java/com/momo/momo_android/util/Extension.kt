@@ -5,6 +5,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
+import com.momo.momo_android.R
 
 /* 확장함수 */
 
@@ -60,6 +61,35 @@ fun getDate(date: Int): String {
         "0$date"
     } else {
         "$date"
+    }
+}
+
+fun getDepthString(depthIdx : Int, context: Context): String {
+    val res = context.resources
+    return when (depthIdx) {
+        0 -> res.getString(R.string.depth_2m)
+        1 -> res.getString(R.string.depth_30m)
+        2 -> res.getString(R.string.depth_100m)
+        3 -> res.getString(R.string.depth_300m)
+        4 -> res.getString(R.string.depth_700m)
+        5 -> res.getString(R.string.depth_1005m)
+        6 -> res.getString(R.string.depth_under)
+        else -> "error"
+    }
+}
+
+fun getEmotionString(emotionIdx: Int, context: Context): String {
+    val res = context.resources
+    return when (emotionIdx) {
+        1 -> res.getString(R.string.emotion_love)
+        2 -> res.getString(R.string.emotion_happy)
+        3 -> res.getString(R.string.emotion_console)
+        4 -> res.getString(R.string.emotion_angry)
+        5 -> res.getString(R.string.emotion_sad)
+        6 -> res.getString(R.string.emotion_bored)
+        7 -> res.getString(R.string.emotion_memory)
+        8 -> res.getString(R.string.emotion_daily)
+        else -> "error"
     }
 }
 
