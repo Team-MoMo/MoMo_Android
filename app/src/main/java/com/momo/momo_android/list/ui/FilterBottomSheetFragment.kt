@@ -28,10 +28,6 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int?,
     private var _binding: BottomsheetListFilterBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var currentDate : Calendar
-
-    private var toggleIdx = 0
-
     // ListActivity로 보낼 필터 정보
     private lateinit var selectDate : String
     private var selectYear = 0
@@ -43,13 +39,23 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int?,
     private var selectEmotion : Int? = null
     private var selectDepth : Int? = null
 
+    private lateinit var currentDate : Calendar
     private lateinit var year : NumberPicker
     private lateinit var month : NumberPicker
+
+    private var toggleIdx = 0
 
     override fun getTheme(): Int = R.style.RoundBottomSheetDialog
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val bottomSheetDialog = BottomSheetDialog(requireContext(), theme)
+
+        setListenerOnBottomSheet(bottomSheetDialog)
+
+        return bottomSheetDialog
+    }
+
+    private fun setListenerOnBottomSheet(bottomSheetDialog: BottomSheetDialog) {
         bottomSheetDialog.setOnShowListener { dialog ->
             val bottomSheet =
                 (dialog as BottomSheetDialog).findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)
@@ -61,7 +67,6 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int?,
         bottomSheetDialog.apply {
             setCanceledOnTouchOutside(true)
         }
-        return bottomSheetDialog
     }
 
     override fun onCreateView(
@@ -84,9 +89,34 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int?,
 
         initDepthCheckBox()
 
+        initDatePicker()
+    }
+
+    private fun initDatePicker() {
         year = binding.includeFilterNumberPicker.year
         month = binding.includeFilterNumberPicker.month
 
+        setDateRange()
+
+        // year.value와 month.value에 activity에서 가져온 값을 대입하는 부분을 year와 month의 maxValue값 설정하는 곳 사이로 옮김
+        year.value = filter_year
+        month.value = filter_month
+        printDate()
+
+        selectEmotion = filter_emotion
+        selectDepth = filter_depth
+        setSelectedFilter(selectEmotion, selectDepth)
+
+        setMaxMonth()
+
+        setPickerLimit()
+
+        setListenerOnDatePicker()
+
+        initApplyButton()
+    }
+
+    private fun setDateRange() {
         // 현재 날짜 가져오기
         currentDate = Calendar.getInstance()
 
@@ -103,24 +133,19 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int?,
         } else {
             month.maxValue = 12
         }
+    }
 
-        // year.value와 month.value에 activity에서 가져온 값을 대입하는 부분을 year와 month의 maxValue값 설정하는 곳 사이로 옮김
-        year.value = filter_year
-        month.value = filter_month
-        printDate()
-
-        selectEmotion = filter_emotion
-        selectDepth = filter_depth
-        setSelectedFilter(selectEmotion, selectDepth)
-
-        // month에 따라 month maxValue 변경
+    private fun setMaxMonth() {
+        // year에 따라 month maxValue 변경
         if(year.value == currentDate.get(Calendar.YEAR) && month.value == currentDate.get(
                 Calendar.MONTH) + 1) {
             month.maxValue = currentDate.get(Calendar.MONTH) + 1
         } else {
             month.maxValue = 12
         }
+    }
 
+    private fun setPickerLimit() {
         // 순환 안되게 막기
         year.wrapSelectorWheel = false
         month.wrapSelectorWheel = false
@@ -128,7 +153,9 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int?,
         // edittext 입력 방지
         year.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
         month.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+    }
 
+    private fun setListenerOnDatePicker() {
         // year picker change listener
         year.setOnValueChangedListener { _, _, _ ->
 
@@ -169,8 +196,6 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int?,
         this.selectDate = selectDate.toString()
 
         isCurrentDate()
-
-        activeApplyButton()
     }
 
     private fun isCurrentDate() {
@@ -239,14 +264,12 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int?,
     }
 
     private fun CheckBox.selectEmotion() {
-        // 이미 체크된 항목 다시 선택 취소 시 적용 버튼 비활성화
         this.setOnClickListener {
             if (this.isChecked) {
                 disableEmotionCheckBox()
                 this.isChecked = true
 
                 addEmotionId(this.id)
-                activeApplyButton()
             }
             else if (!this.isChecked) {
                 this.isChecked = false
@@ -293,14 +316,12 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int?,
     }
 
     private fun CheckBox.selectDepth() {
-        // 이미 체크된 항목 다시 선택 취소 시 적용 버튼 비활성화
         this.setOnClickListener {
             if (this.isChecked) {
                 disableDepthCheckBox()
                 this.isChecked = true
 
                 addDepthId(this.id)
-                activeApplyButton()
             }
             else if (!this.isChecked) {
                 this.isChecked = false
@@ -333,18 +354,11 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int?,
         binding.imgbtnFilterDepthUnder.isChecked = false
     }
 
-    private fun activeApplyButton() {
+    private fun initApplyButton() {
         binding.btnFilterApply.isEnabled = true
         binding.btnFilterApply.setOnClickListener {
 
             // 선택된 항목들 Activity로 전달
-            Log.d("applybutton-date", selectDate)
-            Log.d("applybutton-year", selectYear.toString())
-            Log.d("applybutton-month", selectMonth.toString())
-            Log.d("applybutton-date-flag", isCurrentDate.toString())
-            Log.d("applybutton-emotion", selectEmotion.toString())
-            Log.d("applybutton-depth", selectDepth.toString())
-
             val pickDate = intArrayOf(selectYear, selectMonth)
 
             itemClick(selectDate, pickDate, isCurrentDate, selectEmotion, selectDepth)
