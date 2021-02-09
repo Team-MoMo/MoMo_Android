@@ -45,9 +45,6 @@ class ListActivity : AppCompatActivity() {
         var filter_current_year = 0
         var filter_current_month = 0
 
-        // picker에서 선택한 날짜가 현재 날짜인 경우 true
-        var selectCurrentDate = false
-
         lateinit var mContext : Context
     }
 
@@ -57,6 +54,9 @@ class ListActivity : AppCompatActivity() {
 
     private lateinit var selectEmotion : String
     private lateinit var selectDepth : String
+
+    // picker에서 선택한 날짜가 현재 날짜인 경우 true
+    private var selectCurrentDate = false
 
     private var fromDiaryFlag = false
 
@@ -77,13 +77,9 @@ class ListActivity : AppCompatActivity() {
 
         initToolbar()
 
-        filterLabelAdapter = FilterLabelAdapter(this)
-        binding.rcvFilterLabel.adapter = filterLabelAdapter
-        binding.rcvFilterLabel.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        initFilterLabelRecycler()
 
-        listAdapter = ListAdapter(this)
-        binding.rcvList.adapter = listAdapter
-        binding.rcvList.layoutManager = LinearLayoutManager(this)
+        initListRecycler()
 
     }
 
@@ -93,13 +89,24 @@ class ListActivity : AppCompatActivity() {
         loadFilteredData()
     }
 
+    private fun initFilterLabelRecycler() {
+        filterLabelAdapter = FilterLabelAdapter(this)
+        binding.rcvFilterLabel.adapter = filterLabelAdapter
+        binding.rcvFilterLabel.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+    }
+
+    private fun initListRecycler() {
+        listAdapter = ListAdapter(this)
+        binding.rcvList.adapter = listAdapter
+        binding.rcvList.layoutManager = LinearLayoutManager(this)
+    }
+
     fun disableScroll() {
         binding.nestedscrollviewList.isNestedScrollingEnabled = false
     }
 
     fun enableScroll() {
         binding.nestedscrollviewList.isNestedScrollingEnabled = true
-
     }
 
     private fun scrollTop() {
@@ -132,40 +139,11 @@ class ListActivity : AppCompatActivity() {
         when(item.itemId) {
             R.id.filter -> {
                 //filter 버튼 클릭 시 발생하는 이벤트 설정
-                val frag = FilterBottomSheetFragment { date: String, pickDate : IntArray, isCurrentDate: Boolean, emotion: Int?, depth: Int? ->
-
-                    filter_year = pickDate[0]
-                    filter_month = pickDate[1]
-                    filter_emotion = emotion
-                    filter_depth = depth
-                    selectCurrentDate = isCurrentDate
-
-                    Log.d("filter0", filter_emotion.toString())
-                    Log.d("filter0", filter_depth.toString())
-                    Log.d("filter0", isCurrentDate.toString())
-                    Log.d("filter0", filter_year.toString())
-                    Log.d("filter0", filter_month.toString())
-
-                    // 필터 모달에서 선택한 날짜로 toolbar의 title도 변경
-                    binding.collapsingtoolbarlayoutList.title = date
-
-                    activeFilterButton()
-
-                    setLabelData()
-
-                    loadFilterLabelData()
-
-                    loadFilteredData()
-
-                }
-                frag.show(supportFragmentManager, frag.tag)
+                setFilterModalResultToList()
             }
             R.id.graph -> {
                 //graph 버튼 클릭 시 발생하는 이벤트 설정
-                fromDiaryFlag = true
-
-                val intent = Intent(this, ReportActivity::class.java)
-                startActivity(intent)
+                goToReportActivity()
             }
             android.R.id.home -> {
                 // back 버튼 클릭 시 발생하는 이벤트 설정 -> home 화면으로 다시 이동
@@ -174,6 +152,37 @@ class ListActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun setFilterModalResultToList() {
+        val frag = FilterBottomSheetFragment { date: String, pickDate : IntArray, isCurrentDate: Boolean, emotion: Int?, depth: Int? ->
+
+            filter_year = pickDate[0]
+            filter_month = pickDate[1]
+            filter_emotion = emotion
+            filter_depth = depth
+            selectCurrentDate = isCurrentDate
+
+            // 필터 모달에서 선택한 날짜로 toolbar의 title도 변경
+            binding.collapsingtoolbarlayoutList.title = date
+
+            activeFilterButton()
+
+            setLabelData()
+
+            loadFilterLabelData()
+
+            loadFilteredData()
+
+        }
+        frag.show(supportFragmentManager, frag.tag)
+    }
+
+    private fun goToReportActivity() {
+        fromDiaryFlag = true
+
+        val intent = Intent(this, ReportActivity::class.java)
+        startActivity(intent)
     }
 
     private fun setCurrentDate(year : Int, month : Int) {
@@ -196,58 +205,35 @@ class ListActivity : AppCompatActivity() {
         }
     }
 
-    /*
-    * 화면이 바뀌는 시점(선택한 필터에 따라 리스트가 업데이트 되는 시점)은 bottomsheet에서 적용버튼을 눌러 필터를 적용할 때 or 필터 라벨을 삭제할 때 뿐임
-    *
-    * ** 새로 일기를 작성하겠냐는 뷰는 리스트 뷰에 처음 들어갔을 때만 초기화면으로 뜸 (현재 년/월에 작성한 일기가 없을 경우) => 그 뒤로 날짜를 바꾸거나, 감정/깊이를 선택했을 때 그에 해당되는 일기가 없으면 검색된 결과가 없습니다가 뜸
-    *   => 툴바의 필터 버튼과 동일하게 작동하는 것
-    *
-    * 1. 현재 월과 일치 && 현재 월에 일기를 하나도 쓰지 않은 경우 -> 새로 일기를 작성하겠냐는 뷰가 뜸 (감정/깊이 필터는 적용하지 않은 상태, 날짜만 선택함 => 감정/깊이 선택시에는 검색된 결과가 없습니다가 뜸)
-    * 2. 현재 월과 일치 && 현재 월에 쓴 일기가 하나라도 있는 경우
-    *   2-1) 이번 달에 쓴 일기들이 리스트됨 (날짜만 선택한 경우, 감정/깊이 선택 x)
-    *   2-2) 이번 달에 쓴 일기의 감정/깊이 중 하나가 선택한 필터 항목에 걸릴 경우 -> 선택한 필터에 해당되는 이번달에 쓴 일기들이 리스트됨 (감정/깊이까지 선택한 경우)
-    *   2-3) 이번 달에 쓴 일기의 감정/깊이 중 어떤 것도 선택한 필터 항목에 걸리지 않는 경우 -> 검색된 결과가 없습니다 뷰가 뜸 (감정/깊이까지 선택한 경우)
-    *
-    * 1. 오늘 날짜가 아님 && 필터 적용 시 검색된 결과가 없는 경우 -> 검색된 결과가 없습니다 뷰가 뜸
-    * 2. 오늘 날짜가 아님 && 필터 적용 시 검색된 결과가 있는 경우 -> 해당되는 일기들이 리스트됨 */
-
     private fun setLabelData() {
-        when (filter_emotion) {
-            1 -> selectEmotion = "사랑"
-            2 -> selectEmotion = "행복"
-            3 -> selectEmotion = "위로"
-            4 -> selectEmotion = "화남"
-            5 -> selectEmotion = "슬픔"
-            6 -> selectEmotion = "우울"
-            7 -> selectEmotion = "추억"
-            8 -> selectEmotion = "일상"
-            else -> selectEmotion = "선택안함" //Log.d("setLabelData", "emotion: nothing selected") // filter_emotion == 0
+        selectEmotion = when (filter_emotion) {
+            1 -> "사랑"
+            2 -> "행복"
+            3 -> "위로"
+            4 -> "화남"
+            5 -> "슬픔"
+            6 -> "우울"
+            7 -> "추억"
+            8 -> "일상"
+            else -> "선택안함"
         }
-        Log.d("filter1", filter_emotion.toString())
-        Log.d("filter1", selectEmotion)
 
-        when (filter_depth) {
-            0 -> selectDepth = "2m"
-            1 -> selectDepth = "30m"
-            2 -> selectDepth = "100m"
-            3 -> selectDepth = "300m"
-            4 -> selectDepth = "700m"
-            5 -> selectDepth = "1,005m"
-            6 -> selectDepth = "심해"
-            else -> selectDepth = "선택안함" //Log.d("setLabelData", "depth: nothing selected") // filter_depth == 0
+        selectDepth = when (filter_depth) {
+            0 -> "2m"
+            1 -> "30m"
+            2 -> "100m"
+            3 -> "300m"
+            4 -> "700m"
+            5 -> "1,005m"
+            6 -> "심해"
+            else -> "선택안함"
         }
-        Log.d("filter2", filter_depth.toString())
-        Log.d("filter3", selectDepth)
     }
 
     private fun loadFilterLabelData() {
 
-        Log.d("filter3", filter_emotion.toString())
-        Log.d("filter3", filter_depth.toString())
-
         if (filter_emotion == null && filter_depth == null) {
             binding.rcvFilterLabel.visibility = View.GONE
-            Log.d("filter4", "0, 0")
         }
 
         else {
@@ -255,18 +241,15 @@ class ListActivity : AppCompatActivity() {
 
             if (filter_emotion == null && filter_depth != null) {
                 filterLabelAdapter.data = mutableListOf(FilterLabelData(selectDepth))
-                Log.d("filter4", "0, 1")
             }
 
             if (filter_emotion != null && filter_depth == null) {
                 filterLabelAdapter.data = mutableListOf(FilterLabelData(selectEmotion))
-                Log.d("filter4", "1, 0")
             }
 
             if (filter_emotion != null && filter_depth != null) {
                 filterLabelAdapter.data =
                     mutableListOf(FilterLabelData(selectEmotion), FilterLabelData(selectDepth))
-                Log.d("filter4", "1, 1")
             }
             filterLabelAdapter.notifyDataSetChanged()
         }
@@ -310,7 +293,6 @@ class ListActivity : AppCompatActivity() {
     }
 
     private fun isCurrentDate() {
-        // if 현재 날짜가 filter_current_year, month와 같다면 isCurrentDate = true -> isCurrentDate는 ListActivity의 전역변수(상수x) / 아니면 false
         // 스크롤뷰에서 넘어온 날짜와 필터에서 선택한 년/월이 같으면 true, 아니면 false
         isCurrentDate = filter_year == filter_current_year && filter_month == filter_current_month
     }
@@ -326,39 +308,31 @@ class ListActivity : AppCompatActivity() {
 
         // 검색 결과가 없을 때 (데이터가 0개)
         if (data.isEmpty()) {
-            // 현재 월에 아무 일기도 쓰지 않았을 때
+
             // 처음 진입화면에서는 bottomsheet에서 선택한 년/월이 아니라 접속해 있는 현재 날짜와 같은지 비교해야 함
             isCurrentDate()
+
+            disableScroll()
+
+            // 현재 월에 아무 일기도 쓰지 않았을 때
             if (data.isEmpty() && isCurrentDate && filter_emotion == null && filter_depth == null) {
-                disableScroll()
-                binding.rcvList.visibility = View.GONE
-                binding.constraintlayoutListFilterdNone.visibility = View.GONE
-                binding.constraintlayoutListNone.visibility = View.VISIBLE
+                visibleUploadView()
 
                 // + 버튼 클릭 시 upload 뷰로 이동
-                binding.imagebuttonListCreateDiary.setOnClickListener {
-                    val intent = Intent(this, UploadFeelingActivity::class.java)
-                    intent.putExtra("intentFrom", "List -> Upload")
-                    startActivity(intent)
-                }
+                goToUploadActivity()
             }
             else {
-                disableScroll()
-                binding.rcvList.visibility = View.GONE
-                binding.constraintlayoutListNone.visibility = View.GONE
-                binding.constraintlayoutListFilterdNone.visibility = View.VISIBLE
+                visibleFilteredNoneView()
             }
         }
 
         // 서버로부터 받아온 데이터가 empty가 아닐 때
         if (data.isNotEmpty()) {
-            binding.rcvList.visibility = View.VISIBLE
-            binding.constraintlayoutListFilterdNone.visibility = View.GONE
-            binding.constraintlayoutListNone.visibility = View.GONE
+            visibleRecyclerView()
 
             listAdapter.data = mutableListOf()
 
-            for (i in 0..data.size-1) {
+            for (i in data.indices) {
                 listAdapter.data.add(
                     com.momo.momo_android.list.adapter.ListData(
                         baseContext?.getDrawable(getEmotionImg(data[i].emotionId)),
@@ -378,6 +352,32 @@ class ListActivity : AppCompatActivity() {
         listAdapter.notifyDataSetChanged()
 
         initItemClickListener(data)
+    }
+
+    private fun visibleUploadView() {
+        binding.rcvList.visibility = View.GONE
+        binding.constraintlayoutListFilterdNone.visibility = View.GONE
+        binding.constraintlayoutListNone.visibility = View.VISIBLE
+    }
+
+    private fun visibleFilteredNoneView() {
+        binding.rcvList.visibility = View.GONE
+        binding.constraintlayoutListNone.visibility = View.GONE
+        binding.constraintlayoutListFilterdNone.visibility = View.VISIBLE
+    }
+
+    private fun visibleRecyclerView() {
+        binding.rcvList.visibility = View.VISIBLE
+        binding.constraintlayoutListFilterdNone.visibility = View.GONE
+        binding.constraintlayoutListNone.visibility = View.GONE
+    }
+
+    private fun goToUploadActivity() {
+        binding.imagebuttonListCreateDiary.setOnClickListener {
+            val intent = Intent(this, UploadFeelingActivity::class.java)
+            intent.putExtra("intentFrom", "List -> Upload")
+            startActivity(intent)
+        }
     }
 
     // DiaryActivity로 intent 보내는 부분
