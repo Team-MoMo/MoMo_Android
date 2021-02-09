@@ -1,6 +1,25 @@
 <resources>
     <string name="app_name">MOMO</string>
 
+    <!-- depth string -->
+    <string name="emotion_love">사랑</string>
+    <string name="emotion_happy">행복</string>
+    <string name="emotion_console">위로</string>
+    <string name="emotion_angry">화남</string>
+    <string name="emotion_sad">슬픔</string>
+    <string name="emotion_bored">우울</string>
+    <string name="emotion_memory">추억</string>
+    <string name="emotion_daily">일상</string>
+
+    <!-- emotion string -->
+    <string name="depth_2m">2m</string>
+    <string name="depth_30m">30m</string>
+    <string name="depth_100m">100m</string>
+    <string name="depth_300m">300m</string>
+    <string name="depth_700m">700m</string>
+    <string name="depth_1005m">1,005m</string>
+    <string name="depth_under">심해</string>
+
     <!--
     <string name="terms_of_service">서비스약관</string>
     <string name="privacy_policy">개인정보</string>
