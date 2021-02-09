@@ -55,7 +55,7 @@ class ReportActivity : AppCompatActivity() {
 
         setCurrentDate()
 
-        getGraphMaxHeight()
+        getGraphMaxSize()
 
         initTabLayout()
 
@@ -152,7 +152,7 @@ class ReportActivity : AppCompatActivity() {
         binding.constraintlayoutEmotionGraph.visibility = View.INVISIBLE
     }
 
-    private fun getGraphMaxHeight() {
+    private fun getGraphMaxSize() {
         val display : Display = windowManager.defaultDisplay
         val size = Point()
         var width = 0 //360
@@ -168,8 +168,6 @@ class ReportActivity : AppCompatActivity() {
         maxGraphHeight = graphHeight
 
         heightLimit = (maxGraphHeight * 0.3576).toFloat()
-
-        Log.d("maxGraphHeight", maxGraphHeight.toString())
     }
 
     private fun loadData() {
@@ -185,7 +183,7 @@ class ReportActivity : AppCompatActivity() {
             ) {
                 response.takeIf { it.isSuccessful}
                     ?.body()
-                    ?.let { it ->
+                    ?.let {
                         Log.d("StatActivity-server", "success : ${response.body()!!.data}, message : ${response.message()}")
 
                         calDiaryCount(response.body()!!.data)
@@ -229,18 +227,15 @@ class ReportActivity : AppCompatActivity() {
         for (i in 1..8) {
             if (num <= data.emotionCounts.size-1) {
                 if (data.emotionCounts[num].id == i) {
-                    Log.d("[statis]", "$i : ${data.emotionCounts[num].count}")
                     setEmotionGraph(i, data.emotionCounts[num].count)
                     num += 1
                 }
                 else {
-                    Log.d("[statis]", "$i : 0")
                     setEmotionGraph(i, 0)
                 }
                 continue
             }
             else {
-                Log.d("[statis]", "$i : 0")
                 setEmotionGraph(i, 0)
                 continue
             }
