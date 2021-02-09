@@ -93,3 +93,15 @@ fun getEmotionString(emotionIdx: Int, context: Context): String {
     }
 }
 
+fun getEmotionImage(emotionIdx: Int): Int {
+    return when (emotionIdx) {
+        1 -> R.drawable.ic_love_14_black
+        2 -> R.drawable.ic_happy_14_black
+        3 -> R.drawable.ic_console_14_black
+        4 -> R.drawable.ic_angry_14_black
+        5 -> R.drawable.ic_sad_14_black
+        6 -> R.drawable.ic_bored_14_black
+        7 -> R.drawable.ic_memory_14_black
+        else -> R.drawable.ic_daily_14_black
+    }
+}
