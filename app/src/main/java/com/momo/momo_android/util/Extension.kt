@@ -6,6 +6,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import com.momo.momo_android.R
+import java.util.*
 
 /* 확장함수 */
 
@@ -116,5 +117,31 @@ fun getEmotionWhite(emotionIdx: Int) : Int {
         6 -> R.drawable.ic_bored_14_white
         7 -> R.drawable.ic_memory_14_white
         else -> R.drawable.ic_daily_14_white
+    }
+}
+
+fun getCurrentDate(): Array<String>{
+    // 현재 날짜 가져오기
+    //year / month / date / day
+    val currentDate = Calendar.getInstance()
+    val year = currentDate.get(Calendar.YEAR).toString()
+    val month = (currentDate.get(Calendar.MONTH) + 1).toString()
+    val date = (currentDate.get(Calendar.DATE)).toString()
+    val dayInt= currentDate.get(Calendar.DAY_OF_WEEK)
+    val day=getCurrentDay(dayInt)
+
+    return arrayOf(year,month,date,day)
+}
+
+private fun getCurrentDay(currentDay: Int): String {
+    return when (currentDay) {
+        1 -> "일요일"
+        2 -> "월요일"
+        3 -> "화요일"
+        4 -> "수요일"
+        5 -> "목요일"
+        6 -> "금요일"
+        7 -> "토요일"
+        else -> ""
     }
 }
