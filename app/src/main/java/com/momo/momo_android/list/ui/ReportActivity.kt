@@ -8,8 +8,10 @@ import android.util.Log
 import android.view.Display
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.core.content.res.ResourcesCompat
 import com.momo.momo_android.R
 import com.momo.momo_android.databinding.ActivityReportBinding
@@ -252,68 +254,50 @@ class ReportActivity : AppCompatActivity() {
     }
 
     private fun setEmotionGraph(emotionId: Int, count: Int) {
-        var height = 0
         when (emotionId) {
             1 -> {
-                height = (graphUnit * count).toInt()
-                binding.graphLove.layoutParams.height = height
-                binding.graphLove.layoutParams.width = maxGraphWidth.toInt()
-                binding.graphLove.requestLayout()
+                binding.graphLove.setEmotionGraphLayout(count)
                 binding.tvCountLove.text = count.toString()
             }
             2 -> {
-                height = (graphUnit * count).toInt()
-                binding.graphHappy.layoutParams.height = height
-                binding.graphHappy.layoutParams.width = maxGraphWidth.toInt()
-                binding.graphHappy.requestLayout()
+                binding.graphHappy.setEmotionGraphLayout(count)
                 binding.tvCountHappy.text = count.toString()
             }
             3 -> {
-                height = (graphUnit * count).toInt()
-                binding.graphConsole.layoutParams.height = height
-                binding.graphConsole.layoutParams.width = maxGraphWidth.toInt()
-                binding.graphConsole.requestLayout()
+                binding.graphConsole.setEmotionGraphLayout(count)
                 binding.tvCountConsole.text = count.toString()
             }
             4 -> {
-                height = (graphUnit * count).toInt()
-                binding.graphAngry.layoutParams.height = height
-                binding.graphAngry.layoutParams.width = maxGraphWidth.toInt()
-                binding.graphAngry.requestLayout()
+                binding.graphAngry.setEmotionGraphLayout(count)
                 binding.tvCountAngry.text = count.toString()
             }
             5 -> {
-                height = (graphUnit * count).toInt()
-                binding.graphSad.layoutParams.height = height
-                binding.graphSad.layoutParams.width = maxGraphWidth.toInt()
-                binding.graphSad.requestLayout()
+                binding.graphSad.setEmotionGraphLayout(count)
                 binding.tvCountSad.text = count.toString()
             }
             6 -> {
-                height = (graphUnit * count).toInt()
-                binding.graphBored.layoutParams.height = height
-                binding.graphBored.layoutParams.width = maxGraphWidth.toInt()
-                binding.graphBored.requestLayout()
+                binding.graphBored.setEmotionGraphLayout(count)
                 binding.tvCountBored.text = count.toString()
             }
             7 -> {
-                height = (graphUnit * count).toInt()
-                binding.graphMemory.layoutParams.height = height
-                binding.graphMemory.layoutParams.width = maxGraphWidth.toInt()
-                binding.graphMemory.requestLayout()
+                binding.graphMemory.setEmotionGraphLayout(count)
                 binding.tvCountMemory.text = count.toString()
             }
             8 -> {
-                height = (graphUnit * count).toInt()
-                binding.graphDaily.layoutParams.height = height
-                binding.graphDaily.layoutParams.width = maxGraphWidth.toInt()
-                binding.graphDaily.requestLayout()
+                binding.graphDaily.setEmotionGraphLayout(count)
                 binding.tvCountDaily.text = count.toString()
             }
             else -> {
                 Log.d("Stat-setEmotionGraph", "error")
             }
         }
+    }
+
+    private fun CardView.setEmotionGraphLayout(count: Int) {
+        val height = (graphUnit * count).toInt()
+        this.layoutParams.height = height
+        this.layoutParams.width = maxGraphWidth.toInt()
+        this.requestLayout()
     }
 
     // 깊이 그래프 설정
@@ -353,99 +337,67 @@ class ReportActivity : AppCompatActivity() {
         var height = 0
         when (depthId) {
             0 -> {
-                height = (graphUnit * count).toInt()
-                binding.graph2.layoutParams.height = height
-                binding.graph2.layoutParams.width = maxGraphWidth.toInt()
-                binding.graph2.requestLayout()
+                height = binding.graph2.setDepthGraphLayout(count)
                 binding.tvCount2.text = count.toString()
 
-                if (height >= heightLimit)
-                    binding.imgDepth2.visibility = View.VISIBLE
-                else
-                    binding.imgDepth2.visibility = View.GONE
+                binding.imgDepth2.setVisibleImg(height)
             }
             1 -> {
-                height = (graphUnit * count).toInt()
-                binding.graph30.layoutParams.height = height
-                binding.graph30.layoutParams.width = maxGraphWidth.toInt()
-                binding.graph30.requestLayout()
+                height = binding.graph30.setDepthGraphLayout(count)
                 binding.tvCount30.text = count.toString()
-                binding.imgDepth30.visibility = View.GONE
 
-                if (height >= heightLimit)
-                    binding.imgDepth30.visibility = View.VISIBLE
-                else
-                    binding.imgDepth30.visibility = View.GONE
+                binding.imgDepth30.setVisibleImg(height)
             }
             2 -> {
-                height = (graphUnit * count).toInt()
-                binding.graph100.layoutParams.height = height
-                binding.graph100.layoutParams.width = maxGraphWidth.toInt()
-                binding.graph100.requestLayout()
+                height = binding.graph100.setDepthGraphLayout(count)
                 binding.tvCount100.text = count.toString()
-                binding.imgDepth100.visibility = View.GONE
 
-                if (height >= heightLimit)
-                    binding.imgDepth100.visibility = View.VISIBLE
-                else
-                    binding.imgDepth100.visibility = View.GONE
+                binding.imgDepth100.setVisibleImg(height)
             }
             3 -> {
-                height = (graphUnit * count).toInt()
-                binding.graph300.layoutParams.height = height
-                binding.graph300.layoutParams.width = maxGraphWidth.toInt()
-                binding.graph300.requestLayout()
+                height = binding.graph300.setDepthGraphLayout(count)
                 binding.tvCount300.text = count.toString()
-                binding.imgDepth300.visibility = View.GONE
 
-                if (height >= heightLimit)
-                    binding.imgDepth300.visibility = View.VISIBLE
-                else
-                    binding.imgDepth300.visibility = View.GONE
+                binding.imgDepth300.setVisibleImg(height)
             }
             4 -> {
-                height = (graphUnit * count).toInt()
-                binding.graph700.layoutParams.height = height
-                binding.graph700.layoutParams.width = maxGraphWidth.toInt()
-                binding.graph700.requestLayout()
+                height = binding.graph700.setDepthGraphLayout(count)
                 binding.tvCount700.text = count.toString()
-                binding.imgDepth700.visibility = View.GONE
 
-                if (height >= heightLimit)
-                    binding.imgDepth700.visibility = View.VISIBLE
-                else
-                    binding.imgDepth700.visibility = View.GONE
+                binding.imgDepth700.setVisibleImg(height)
             }
             5 -> {
-                height = (graphUnit * count).toInt()
-                binding.graph1005.layoutParams.height = height
-                binding.graph1005.layoutParams.width = maxGraphWidth.toInt()
-                binding.graph1005.requestLayout()
+                height = binding.graph1005.setDepthGraphLayout(count)
                 binding.tvCount1005.text = count.toString()
-                binding.imgDepth1005.visibility = View.GONE
 
-                if (height >= heightLimit)
-                    binding.imgDepth1005.visibility = View.VISIBLE
-                else
-                    binding.imgDepth1005.visibility = View.GONE
+                binding.imgDepth1005.setVisibleImg(height)
             }
             6 -> {
-                height = (graphUnit * count).toInt()
-                binding.graphUnder.layoutParams.height = height
-                binding.graphUnder.layoutParams.width = maxGraphWidth.toInt()
-                binding.graphUnder.requestLayout()
+                height = binding.graphUnder.setDepthGraphLayout(count)
                 binding.tvCountUnder.text = count.toString()
-                binding.imgDepthUnder.visibility = View.GONE
 
-                if (height >= heightLimit)
-                    binding.imgDepthUnder.visibility = View.VISIBLE
-                else
-                    binding.imgDepthUnder.visibility = View.GONE
+                binding.imgDepthUnder.setVisibleImg(height)
             }
             else -> {
                 Log.d("Stat-setDepthGraph", "error")
             }
         }
+    }
+
+    private fun CardView.setDepthGraphLayout(count: Int) : Int {
+        val height = (graphUnit * count).toInt()
+        this.layoutParams.height = height
+        this.layoutParams.width = maxGraphWidth.toInt()
+        this.requestLayout()
+
+        return height
+    }
+
+    private fun ImageView.setVisibleImg(height: Int) {
+        if (height >= heightLimit)
+            this.visibility = View.VISIBLE
+        else
+            this.visibility = View.GONE
     }
 
     private fun initBackButton() {
