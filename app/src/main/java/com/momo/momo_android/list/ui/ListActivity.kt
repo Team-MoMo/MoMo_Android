@@ -20,9 +20,7 @@ import com.momo.momo_android.list.data.ListData
 import com.momo.momo_android.list.data.ResponseFilterData
 import com.momo.momo_android.network.RequestToServer
 import com.momo.momo_android.upload.ui.UploadFeelingActivity
-import com.momo.momo_android.util.ItemClickListener
-import com.momo.momo_android.util.SharedPreferenceController
-import com.momo.momo_android.util.showToast
+import com.momo.momo_android.util.*
 import kotlinx.android.synthetic.main.activity_list.*
 import okhttp3.ResponseBody
 import org.json.JSONObject
@@ -206,28 +204,11 @@ class ListActivity : AppCompatActivity() {
     }
 
     private fun setLabelData() {
-        selectEmotion = when (filter_emotion) {
-            1 -> "사랑"
-            2 -> "행복"
-            3 -> "위로"
-            4 -> "화남"
-            5 -> "슬픔"
-            6 -> "우울"
-            7 -> "추억"
-            8 -> "일상"
-            else -> "선택안함"
-        }
+        if (filter_emotion != null)
+            selectEmotion = getEmotionString(filter_emotion!!, this)
 
-        selectDepth = when (filter_depth) {
-            0 -> "2m"
-            1 -> "30m"
-            2 -> "100m"
-            3 -> "300m"
-            4 -> "700m"
-            5 -> "1,005m"
-            6 -> "심해"
-            else -> "선택안함"
-        }
+        if (filter_depth != null)
+            selectDepth = getDepthString(filter_depth!!, this)
     }
 
     private fun loadFilterLabelData() {
@@ -252,19 +233,6 @@ class ListActivity : AppCompatActivity() {
                     mutableListOf(FilterLabelData(selectEmotion), FilterLabelData(selectDepth))
             }
             filterLabelAdapter.notifyDataSetChanged()
-        }
-    }
-
-    private fun getDepthString(depth : Int) : String {
-        return when (depth) {
-            0 -> "2m"
-            1 -> "30m"
-            2 -> "100m"
-            3 -> "300m"
-            4 -> "700m"
-            5 -> "1,005m"
-            6 -> "심해"
-            else -> "error"
         }
     }
 
@@ -339,7 +307,7 @@ class ListActivity : AppCompatActivity() {
                         data[i].Emotion.name,
                         getFormedDate(data[i].wroteAt),
                         getFormedDay(data[i].wroteAt),
-                        getDepthString(data[i].depth),
+                        getDepthString(data[i].depth, this),
                         data[i].Sentence.contents,
                         data[i].Sentence.writer,
                         "<" + data[i].Sentence.bookName + ">",
