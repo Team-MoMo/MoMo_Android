@@ -227,40 +227,44 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int?,
     }
 
     private fun setSelectedFilter(emotionIdx : Int?, depthIdx : Int?) {
-        when (emotionIdx) {
-            1 -> binding.imgbtnFilterLove.isChecked = true
-            2 -> binding.imgbtnFilterHappy.isChecked = true
-            3 -> binding.imgbtnFilterConsole.isChecked = true
-            4 -> binding.imgbtnFilterAngry.isChecked = true
-            5 -> binding.imgbtnFilterSad.isChecked = true
-            6 -> binding.imgbtnFilterBored.isChecked = true
-            7 -> binding.imgbtnFilterMemory.isChecked = true
-            8 -> binding.imgbtnFilterDaily.isChecked = true
-            else -> Log.d("setSelectedFilter", "emotion: nothing selected")
-        }
+        binding.apply {
+            when (emotionIdx) {
+                1 -> imgbtnFilterLove.isChecked = true
+                2 -> imgbtnFilterHappy.isChecked = true
+                3 -> imgbtnFilterConsole.isChecked = true
+                4 -> imgbtnFilterAngry.isChecked = true
+                5 -> imgbtnFilterSad.isChecked = true
+                6 -> imgbtnFilterBored.isChecked = true
+                7 -> imgbtnFilterMemory.isChecked = true
+                8 -> imgbtnFilterDaily.isChecked = true
+                else -> Log.d("setSelectedFilter", "emotion: nothing selected")
+            }
 
-        when (depthIdx) {
-            0 -> binding.imgbtnFilterDepth2.isChecked = true
-            1 -> binding.imgbtnFilterDepth30.isChecked = true
-            2 -> binding.imgbtnFilterDepth100.isChecked = true
-            3 -> binding.imgbtnFilterDepth300.isChecked = true
-            4 -> binding.imgbtnFilterDepth700.isChecked = true
-            5 ->binding.imgbtnFilterDepth1005.isChecked = true
-            6 ->binding.imgbtnFilterDepthUnder.isChecked = true
-            else -> Log.d("setSelectedFilter", "depth: nothing selected")
+            when (depthIdx) {
+                0 -> imgbtnFilterDepth2.isChecked = true
+                1 -> imgbtnFilterDepth30.isChecked = true
+                2 -> imgbtnFilterDepth100.isChecked = true
+                3 -> imgbtnFilterDepth300.isChecked = true
+                4 -> imgbtnFilterDepth700.isChecked = true
+                5 -> imgbtnFilterDepth1005.isChecked = true
+                6 -> imgbtnFilterDepthUnder.isChecked = true
+                else -> Log.d("setSelectedFilter", "depth: nothing selected")
+            }
         }
     }
 
     // 감정 선택 체크박스 관련 함수
     private fun initEmotionCheckBox() {
-        binding.imgbtnFilterLove.selectEmotion()
-        binding.imgbtnFilterHappy.selectEmotion()
-        binding.imgbtnFilterConsole.selectEmotion()
-        binding.imgbtnFilterAngry.selectEmotion()
-        binding.imgbtnFilterSad.selectEmotion()
-        binding.imgbtnFilterBored.selectEmotion()
-        binding.imgbtnFilterMemory.selectEmotion()
-        binding.imgbtnFilterDaily.selectEmotion()
+        binding.apply {
+            imgbtnFilterLove.selectEmotion()
+            imgbtnFilterHappy.selectEmotion()
+            imgbtnFilterConsole.selectEmotion()
+            imgbtnFilterAngry.selectEmotion()
+            imgbtnFilterSad.selectEmotion()
+            imgbtnFilterBored.selectEmotion()
+            imgbtnFilterMemory.selectEmotion()
+            imgbtnFilterDaily.selectEmotion()
+        }
     }
 
     private fun CheckBox.selectEmotion() {
@@ -279,40 +283,46 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int?,
     }
 
     private fun addEmotionId(id : Int) {
-        when(id) {
-            binding.imgbtnFilterLove.id -> selectEmotion = 1
-            binding.imgbtnFilterHappy.id -> selectEmotion = 2
-            binding.imgbtnFilterConsole.id -> selectEmotion = 3
-            binding.imgbtnFilterAngry.id -> selectEmotion = 4
-            binding.imgbtnFilterSad.id -> selectEmotion = 5
-            binding.imgbtnFilterBored.id -> selectEmotion = 6
-            binding.imgbtnFilterMemory.id -> selectEmotion = 7
-            binding.imgbtnFilterDaily.id -> selectEmotion = 8
-            else -> Log.d("id", "error")
+        binding.apply {
+            when(id) {
+                imgbtnFilterLove.id -> selectEmotion = 1
+                imgbtnFilterHappy.id -> selectEmotion = 2
+                imgbtnFilterConsole.id -> selectEmotion = 3
+                imgbtnFilterAngry.id -> selectEmotion = 4
+                imgbtnFilterSad.id -> selectEmotion = 5
+                imgbtnFilterBored.id -> selectEmotion = 6
+                imgbtnFilterMemory.id -> selectEmotion = 7
+                imgbtnFilterDaily.id -> selectEmotion = 8
+                else -> Log.d("id", "error")
+            }
         }
     }
 
     // 모든 감정 체크박스 비활성화
     private fun disableEmotionCheckBox() {
-        binding.imgbtnFilterLove.isChecked = false
-        binding.imgbtnFilterHappy.isChecked = false
-        binding.imgbtnFilterConsole.isChecked = false
-        binding.imgbtnFilterAngry.isChecked = false
-        binding.imgbtnFilterSad.isChecked = false
-        binding.imgbtnFilterBored.isChecked = false
-        binding.imgbtnFilterMemory.isChecked = false
-        binding.imgbtnFilterDaily.isChecked = false
+        binding.apply {
+            imgbtnFilterLove.isChecked = false
+            imgbtnFilterHappy.isChecked = false
+            imgbtnFilterConsole.isChecked = false
+            imgbtnFilterAngry.isChecked = false
+            imgbtnFilterSad.isChecked = false
+            imgbtnFilterBored.isChecked = false
+            imgbtnFilterMemory.isChecked = false
+            imgbtnFilterDaily.isChecked = false
+        }
     }
 
     // 깊이 선택 체크박스 관련 함수
     private fun initDepthCheckBox() {
-        binding.imgbtnFilterDepth2.selectDepth()
-        binding.imgbtnFilterDepth30.selectDepth()
-        binding.imgbtnFilterDepth100.selectDepth()
-        binding.imgbtnFilterDepth300.selectDepth()
-        binding.imgbtnFilterDepth700.selectDepth()
-        binding.imgbtnFilterDepth1005.selectDepth()
-        binding.imgbtnFilterDepthUnder.selectDepth()
+        binding.apply {
+            imgbtnFilterDepth2.selectDepth()
+            imgbtnFilterDepth30.selectDepth()
+            imgbtnFilterDepth100.selectDepth()
+            imgbtnFilterDepth300.selectDepth()
+            imgbtnFilterDepth700.selectDepth()
+            imgbtnFilterDepth1005.selectDepth()
+            imgbtnFilterDepthUnder.selectDepth()
+        }
     }
 
     private fun CheckBox.selectDepth() {
@@ -331,27 +341,31 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int?,
     }
 
     private fun addDepthId(id : Int) {
-        when(id) {
-            binding.imgbtnFilterDepth2.id -> selectDepth = 0
-            binding.imgbtnFilterDepth30.id -> selectDepth = 1
-            binding.imgbtnFilterDepth100.id -> selectDepth = 2
-            binding.imgbtnFilterDepth300.id -> selectDepth = 3
-            binding.imgbtnFilterDepth700.id -> selectDepth = 4
-            binding.imgbtnFilterDepth1005.id -> selectDepth = 5
-            binding.imgbtnFilterDepthUnder.id -> selectDepth = 6
-            else -> Log.d("id", "error")
+        binding.apply {
+            when(id) {
+                imgbtnFilterDepth2.id -> selectDepth = 0
+                imgbtnFilterDepth30.id -> selectDepth = 1
+                imgbtnFilterDepth100.id -> selectDepth = 2
+                imgbtnFilterDepth300.id -> selectDepth = 3
+                imgbtnFilterDepth700.id -> selectDepth = 4
+                imgbtnFilterDepth1005.id -> selectDepth = 5
+                imgbtnFilterDepthUnder.id -> selectDepth = 6
+                else -> Log.d("id", "error")
+            }
         }
     }
 
     // 모든 깊이 체크박스 비활성화
     private fun disableDepthCheckBox() {
-        binding.imgbtnFilterDepth2.isChecked = false
-        binding.imgbtnFilterDepth30.isChecked = false
-        binding.imgbtnFilterDepth100.isChecked = false
-        binding.imgbtnFilterDepth300.isChecked = false
-        binding.imgbtnFilterDepth700.isChecked = false
-        binding.imgbtnFilterDepth1005.isChecked = false
-        binding.imgbtnFilterDepthUnder.isChecked = false
+        binding.apply {
+            imgbtnFilterDepth2.isChecked = false
+            imgbtnFilterDepth30.isChecked = false
+            imgbtnFilterDepth100.isChecked = false
+            imgbtnFilterDepth300.isChecked = false
+            imgbtnFilterDepth700.isChecked = false
+            imgbtnFilterDepth1005.isChecked = false
+            imgbtnFilterDepthUnder.isChecked = false
+        }
     }
 
     private fun initApplyButton() {

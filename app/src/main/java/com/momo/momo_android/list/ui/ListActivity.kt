@@ -89,14 +89,18 @@ class ListActivity : AppCompatActivity() {
 
     private fun initFilterLabelRecycler() {
         filterLabelAdapter = FilterLabelAdapter(this)
-        binding.rcvFilterLabel.adapter = filterLabelAdapter
-        binding.rcvFilterLabel.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.apply {
+            rcvFilterLabel.adapter = filterLabelAdapter
+            rcvFilterLabel.layoutManager = LinearLayoutManager(this@ListActivity, LinearLayoutManager.HORIZONTAL, false)
+        }
     }
 
     private fun initListRecycler() {
         listAdapter = ListAdapter(this)
-        binding.rcvList.adapter = listAdapter
-        binding.rcvList.layoutManager = LinearLayoutManager(this)
+        binding.apply {
+            rcvList.adapter = listAdapter
+            rcvList.layoutManager = LinearLayoutManager(this@ListActivity)
+        }
     }
 
     fun disableScroll() {
@@ -108,8 +112,10 @@ class ListActivity : AppCompatActivity() {
     }
 
     private fun scrollTop() {
-        binding.nestedscrollviewList.scrollTo(0, binding.rcvFilterLabel.top)
-        binding.appbarlayoutList.setExpanded(true)
+        binding.apply {
+            nestedscrollviewList.scrollTo(0, binding.rcvFilterLabel.top)
+            appbarlayoutList.setExpanded(true)
+        }
     }
 
     private fun initToolbar() {
@@ -323,21 +329,27 @@ class ListActivity : AppCompatActivity() {
     }
 
     private fun visibleUploadView() {
-        binding.rcvList.visibility = View.GONE
-        binding.constraintlayoutListFilterdNone.visibility = View.GONE
-        binding.constraintlayoutListNone.visibility = View.VISIBLE
+        binding.apply {
+            rcvList.visibility = View.GONE
+            constraintlayoutListFilterdNone.visibility = View.GONE
+            constraintlayoutListNone.visibility = View.VISIBLE
+        }
     }
 
     private fun visibleFilteredNoneView() {
-        binding.rcvList.visibility = View.GONE
-        binding.constraintlayoutListNone.visibility = View.GONE
-        binding.constraintlayoutListFilterdNone.visibility = View.VISIBLE
+        binding.apply {
+            rcvList.visibility = View.GONE
+            constraintlayoutListNone.visibility = View.GONE
+            constraintlayoutListFilterdNone.visibility = View.VISIBLE
+        }
     }
 
     private fun visibleRecyclerView() {
-        binding.rcvList.visibility = View.VISIBLE
-        binding.constraintlayoutListFilterdNone.visibility = View.GONE
-        binding.constraintlayoutListNone.visibility = View.GONE
+        binding.apply {
+            rcvList.visibility = View.VISIBLE
+            constraintlayoutListFilterdNone.visibility = View.GONE
+            constraintlayoutListNone.visibility = View.GONE
+        }
     }
 
     private fun goToUploadActivity() {
