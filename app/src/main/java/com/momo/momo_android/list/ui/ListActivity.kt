@@ -14,7 +14,6 @@ import com.momo.momo_android.databinding.ActivityListBinding
 import com.momo.momo_android.diary.ui.DiaryActivity
 import com.momo.momo_android.list.*
 import com.momo.momo_android.list.adapter.FilterLabelAdapter
-import com.momo.momo_android.list.adapter.FilterLabelData
 import com.momo.momo_android.list.adapter.ListAdapter
 import com.momo.momo_android.list.data.ListData
 import com.momo.momo_android.list.data.ResponseFilterData
@@ -227,16 +226,16 @@ class ListActivity : AppCompatActivity() {
             binding.rcvFilterLabel.visibility = View.VISIBLE
 
             if (filter_emotion == null && filter_depth != null) {
-                filterLabelAdapter.data = mutableListOf(FilterLabelData(selectDepth))
+                filterLabelAdapter.data = mutableListOf(selectDepth)
             }
 
             if (filter_emotion != null && filter_depth == null) {
-                filterLabelAdapter.data = mutableListOf(FilterLabelData(selectEmotion))
+                filterLabelAdapter.data = mutableListOf(selectEmotion)
             }
 
             if (filter_emotion != null && filter_depth != null) {
                 filterLabelAdapter.data =
-                    mutableListOf(FilterLabelData(selectEmotion), FilterLabelData(selectDepth))
+                    mutableListOf(selectEmotion, selectDepth)
             }
             filterLabelAdapter.notifyDataSetChanged()
         }
