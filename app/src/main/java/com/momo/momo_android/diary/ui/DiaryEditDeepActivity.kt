@@ -9,6 +9,7 @@ import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -58,6 +59,8 @@ class DiaryEditDeepActivity : AppCompatActivity() {
 
         initSeekBar()
 
+        initBackground()
+
         binding.btnEditDepth.setOnClickListener {
             requestEditDiary(binding.mainSeekBar.progress)
         }
@@ -76,8 +79,6 @@ class DiaryEditDeepActivity : AppCompatActivity() {
     }
 
     private fun initSeekBar() {
-        setBackgroundHeight()
-
         setMainSeekBar() // main SeekBar
         setSideSeekBar() // line & text SeekBar
 
@@ -85,12 +86,20 @@ class DiaryEditDeepActivity : AppCompatActivity() {
         binding.mainSeekBar.setOnSeekBarChangeListener(seekBarListener)
     }
 
+    private fun initBackground() {
+        setBackgroundHeight()
+
+        Handler(Looper.myLooper()!!).postDelayed(
+            { binding.svDiaryEditDepth.scrollTo(0, setScrollviewBackground().top) }, 100
+        )
+    }
+
     private fun setBackgroundHeight() {
         // 한 단계의 height = 디바이스 height
         val displayHeight = applicationContext.resources.displayMetrics.heightPixels
         for (i in 1..7) {
             val params = resources.getIdentifier(
-                "@id/bg_deep${i}",
+                "@id/bg_depth${i}",
                 "id",
                 this.packageName
             )
@@ -103,11 +112,6 @@ class DiaryEditDeepActivity : AppCompatActivity() {
     private fun setMainSeekBar() {
         // 맨 처음에 mainSeekBar를 수정 전 깊이로 세팅
         binding.mainSeekBar.progress = DiaryActivity.responseDiaryData[0].depth
-
-        val h = Handler(mainLooper)
-        h.postDelayed(
-            { binding.svDiaryEditDepth.scrollTo(0, setBackground(binding.mainSeekBar.progress).top) }, 100
-        )
     }
 
     private fun setSideSeekBar() {
@@ -137,7 +141,7 @@ class DiaryEditDeepActivity : AppCompatActivity() {
     private val seekBarListener = object : SeekBar.OnSeekBarChangeListener {
         override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
             setSideSeekBar()
-            binding.svDiaryEditDepth.smoothScrollToView(setBackground(binding.mainSeekBar.progress))
+            binding.svDiaryEditDepth.smoothScrollToView(setScrollviewBackground())
         }
 
         override fun onStartTrackingTouch(p0: SeekBar?) {}
@@ -192,16 +196,16 @@ class DiaryEditDeepActivity : AppCompatActivity() {
     }
 
     // 깊이에 따른 배경색 매치
-    private fun setBackground(progress : Int): ImageView {
+    private fun setScrollviewBackground(): ImageView {
         binding.apply {
-            return when (progress) {
-                0 -> bgDeep1
-                1 -> bgDeep2
-                2 -> bgDeep3
-                3 -> bgDeep4
-                4 -> bgDeep5
-                5 -> bgDeep6
-                else -> bgDeep7
+            return when (mainSeekBar.progress) {
+                0 -> bgDepth1
+                1 -> bgDepth2
+                2 -> bgDepth3
+                3 -> bgDepth4
+                4 -> bgDepth5
+                5 -> bgDepth6
+                else -> bgDepth7
             }
         }
     }
