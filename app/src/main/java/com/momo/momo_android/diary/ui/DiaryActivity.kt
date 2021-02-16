@@ -2,6 +2,7 @@ package com.momo.momo_android.diary.ui
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -99,6 +100,7 @@ class DiaryActivity : AppCompatActivity() {
     }
 
 
+    @SuppressLint("SetTextI18n")
     private fun updateDiaryDate() {
         binding.btnEditDate.setOnClickListener {
             binding.menuEdit.setGone()
@@ -165,6 +167,7 @@ class DiaryActivity : AppCompatActivity() {
             Authorization = SharedPreferenceController.getAccessToken(this),
             params = intent.getIntExtra("diaryId", 0)
         ).enqueue(object : Callback<ResponseDiaryData> {
+            @SuppressLint("SetTextI18n")
             override fun onResponse(
                 call: Call<ResponseDiaryData>,
                 response: Response<ResponseDiaryData>
@@ -248,6 +251,7 @@ class DiaryActivity : AppCompatActivity() {
         diary_date = SimpleDateFormat("dd", Locale.KOREA).format(dateFormat).toInt()
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun setDepthBackground(depth: Int) {
         binding.apply {
             objectDepth1.setGone()
@@ -256,34 +260,35 @@ class DiaryActivity : AppCompatActivity() {
             objectDepth4.setGone()
             objectDepth5.setGone()
             objectDepth6.setGone()
-        }
-        when (depth) {
-            0 -> {
-                binding.root.background = resources.getDrawable(R.drawable.bg_deep1, null)
-                binding.objectDepth1.setVisible()
-            }
-            1 -> {
-                binding.root.background = resources.getDrawable(R.drawable.bg_deep2, null)
-                binding.objectDepth2.setVisible()
-            }
-            2 -> {
-                binding.root.background = resources.getDrawable(R.drawable.bg_deep3, null)
-                binding.objectDepth3.setVisible()
-            }
-            3 -> {
-                binding.root.background = resources.getDrawable(R.drawable.bg_deep4, null)
-                binding.objectDepth4.setVisible()
-            }
-            4 -> {
-                binding.root.background = resources.getDrawable(R.drawable.bg_deep5, null)
-                binding.objectDepth5.setVisible()
-            }
-            5 -> {
-                binding.root.background = resources.getDrawable(R.drawable.bg_deep6, null)
-                binding.objectDepth6.setVisible()
-            }
-            6 -> {
-                binding.root.background = resources.getDrawable(R.drawable.bg_deep7, null)
+
+            when (depth) {
+                0 -> {
+                    root.background = resources.getDrawable(R.drawable.gradient_rectangle_depth1, null)
+                    objectDepth1.setVisible()
+                }
+                1 -> {
+                    root.background = resources.getDrawable(R.drawable.gradient_rectangle_depth2, null)
+                    objectDepth2.setVisible()
+                }
+                2 -> {
+                    root.background = resources.getDrawable(R.drawable.gradient_rectangle_depth3, null)
+                    objectDepth3.setVisible()
+                }
+                3 -> {
+                    root.background = resources.getDrawable(R.drawable.gradient_rectangle_depth4, null)
+                    objectDepth4.setVisible()
+                }
+                4 -> {
+                    root.background = resources.getDrawable(R.drawable.gradient_rectangle_depth5, null)
+                    objectDepth5.setVisible()
+                }
+                5 -> {
+                    root.background = resources.getDrawable(R.drawable.gradient_rectangle_depth6, null)
+                    objectDepth6.setVisible()
+                }
+                6 -> {
+                    root.background = resources.getDrawable(R.drawable.gradient_rectangle_depth7, null)
+                }
             }
         }
     }
@@ -303,16 +308,17 @@ class DiaryActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun setLoadingViewBackground(depth: Int) {
         binding.viewDiaryLoading.apply {
             background = when (depth) {
-                0 -> resources.getDrawable(R.drawable.bg_deep1, null)
-                1 -> resources.getDrawable(R.drawable.bg_deep2, null)
-                2 -> resources.getDrawable(R.drawable.bg_deep3, null)
-                3 -> resources.getDrawable(R.drawable.bg_deep4, null)
-                4 -> resources.getDrawable(R.drawable.bg_deep5, null)
-                5 -> resources.getDrawable(R.drawable.bg_deep6, null)
-                else -> resources.getDrawable(R.drawable.bg_deep7, null)
+                0 -> resources.getDrawable(R.drawable.gradient_rectangle_depth1, null)
+                1 -> resources.getDrawable(R.drawable.gradient_rectangle_depth2, null)
+                2 -> resources.getDrawable(R.drawable.gradient_rectangle_depth3, null)
+                3 -> resources.getDrawable(R.drawable.gradient_rectangle_depth4, null)
+                4 -> resources.getDrawable(R.drawable.gradient_rectangle_depth5, null)
+                5 -> resources.getDrawable(R.drawable.gradient_rectangle_depth6, null)
+                else -> resources.getDrawable(R.drawable.gradient_rectangle_depth7, null)
             }
         }
     }
