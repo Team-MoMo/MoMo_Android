@@ -294,15 +294,15 @@ class DiaryActivity : AppCompatActivity() {
     }
 
     private fun fadeOutLoadingView() {
-        binding.viewDiaryLoading.apply {
-            visibility = View.VISIBLE
-            alpha = 1f
-            animate()
+        binding.apply {
+            viewDiaryLoading.visibility = View.VISIBLE
+            viewDiaryLoading.alpha = 1f
+            viewDiaryLoading.animate()
                 .alpha(0f)
                 .setDuration(resources.getInteger(android.R.integer.config_longAnimTime).toLong())
                 .setListener(object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator) {
-                        binding.viewDiaryLoading.setGone()
+                        viewDiaryLoading.setGone()
                     }
                 })
         }
@@ -310,15 +310,16 @@ class DiaryActivity : AppCompatActivity() {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun setLoadingViewBackground(depth: Int) {
-        binding.viewDiaryLoading.apply {
-            background = when (depth) {
+        binding.apply {
+            viewDiaryLoading.background = when (depth) {
                 0 -> resources.getDrawable(R.drawable.gradient_rectangle_depth1, null)
                 1 -> resources.getDrawable(R.drawable.gradient_rectangle_depth2, null)
                 2 -> resources.getDrawable(R.drawable.gradient_rectangle_depth3, null)
                 3 -> resources.getDrawable(R.drawable.gradient_rectangle_depth4, null)
                 4 -> resources.getDrawable(R.drawable.gradient_rectangle_depth5, null)
                 5 -> resources.getDrawable(R.drawable.gradient_rectangle_depth6, null)
-                else -> resources.getDrawable(R.drawable.gradient_rectangle_depth7, null)
+                6 -> resources.getDrawable(R.drawable.gradient_rectangle_depth7, null)
+                else -> resources.getDrawable(R.drawable.gradient_rectangle_depth6, null)
             }
         }
     }
