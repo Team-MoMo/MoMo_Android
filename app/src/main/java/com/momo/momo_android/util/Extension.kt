@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import com.momo.momo_android.R
 import java.util.*
@@ -28,7 +29,7 @@ fun View.setGone() {
     this.visibility = View.GONE
 }
 
-/*키보드 숨기기*/
+/* 키보드 제어 */
 fun EditText.showKeyboard() {
     if (requestFocus()) {
         // edittext에 초점이 맞춰지면 키보드 올라옴
@@ -143,5 +144,13 @@ private fun getCurrentDay(currentDay: Int): String {
         6 -> "금요일"
         7 -> "토요일"
         else -> ""
+    }
+}
+
+/* edittext 지우는 x버튼 */
+fun EditText.clearText(button: ImageView) {
+    button.setVisible()
+    button.setOnClickListener {
+        this.setText("")
     }
 }
