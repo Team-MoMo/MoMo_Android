@@ -17,8 +17,8 @@ import com.momo.momo_android.util.showToast
 
 class LockOnActivity : AppCompatActivity() {
 
-    private var _viewBinding: ActivityLockOnBinding? = null
-    private val viewBinding get() = _viewBinding!!
+    private var _binding: ActivityLockOnBinding? = null
+    private val binding get() = _binding!!
 
     private var firstPassCode = ""
     private var finalPassCode = ""
@@ -32,12 +32,12 @@ class LockOnActivity : AppCompatActivity() {
     }
 
     private fun setViewBinding() {
-        _viewBinding = ActivityLockOnBinding.inflate(layoutInflater)
-        setContentView(viewBinding.root)
+        _binding = ActivityLockOnBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 
     private fun setListeners() {
-        viewBinding.apply {
+        binding.apply {
             activityOnClickListener.let {
                 button01.setOnClickListener(it)
                 button02.setOnClickListener(it)
@@ -57,7 +57,7 @@ class LockOnActivity : AppCompatActivity() {
     }
 
     private val activityOnClickListener = View.OnClickListener {
-        viewBinding.apply {
+        binding.apply {
             when (it.id) {
                 button01.id -> setPassCode("1")
                 button02.id -> setPassCode("2")
@@ -138,14 +138,14 @@ class LockOnActivity : AppCompatActivity() {
     }
 
     private fun setFirstPassCodeView() {
-        viewBinding.apply {
+        binding.apply {
             textViewDescription.text = "새 암호를 입력해 주세요."
             textViewWrongPassCode.text = ""
         }
     }
 
     private fun setFinalPassCodeView() {
-        viewBinding.apply {
+        binding.apply {
             textViewDescription.text = "다시 한 번 입력해 주세요."
             textViewWrongPassCode.text = ""
         }
@@ -153,7 +153,7 @@ class LockOnActivity : AppCompatActivity() {
     }
 
     private fun setWrongPassCodeView() {
-        viewBinding.apply {
+        binding.apply {
             setTextViewBottomMargin(textViewDescription)
             textViewDescription.text = "다시 한 번 입력해 주세요."
             textViewWrongPassCode.text = "입력한 암호와 달라요!"
@@ -170,7 +170,7 @@ class LockOnActivity : AppCompatActivity() {
     }
 
     private fun updatePassCodeOvalColor(length: Int) {
-        viewBinding.apply {
+        binding.apply {
             when (length) {
                 0 -> {
                     imageViewPassCodeOval01.backgroundTintList =
@@ -228,6 +228,6 @@ class LockOnActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        _viewBinding = null
+        _binding = null
     }
 }
