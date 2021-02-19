@@ -11,6 +11,7 @@ import com.momo.momo_android.home.data.ResponseDiaryList
 import com.momo.momo_android.network.RequestToServer
 import com.momo.momo_android.util.OvalClickListeners
 import com.momo.momo_android.util.SharedPreferenceController
+import com.momo.momo_android.util.getDepthString
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,35 +40,15 @@ class ScrollGradientViewHolder(
     private fun setDepthViews(position: Int) {
         binding.apply {
             constraintLayout.removeAllViews()
+            textViewDepth.text = getDepthString(position, binding.root.context)
             when (position) {
-                0 -> {
-                    textViewDepth.text = "2m"
-                    viewStubGradient.layoutResource = R.layout.view_stub_depth_1
-                }
-                1 -> {
-                    textViewDepth.text = "30m"
-                    viewStubGradient.layoutResource = R.layout.view_stub_depth_2
-                }
-                2 -> {
-                    textViewDepth.text = "100m"
-                    viewStubGradient.layoutResource = R.layout.view_stub_depth_3
-                }
-                3 -> {
-                    textViewDepth.text = "300m"
-                    viewStubGradient.layoutResource = R.layout.view_stub_depth_4
-                }
-                4 -> {
-                    textViewDepth.text = "700m"
-                    viewStubGradient.layoutResource = R.layout.view_stub_depth_5
-                }
-                5 -> {
-                    textViewDepth.text = "1,005m"
-                    viewStubGradient.layoutResource = R.layout.view_stub_depth_6
-                }
-                6 -> {
-                    textViewDepth.text = "심해"
-                    viewStubGradient.layoutResource = R.layout.view_stub_depth_7
-                }
+                0 -> viewStubGradient.layoutResource = R.layout.view_stub_depth_1
+                1 -> viewStubGradient.layoutResource = R.layout.view_stub_depth_2
+                2 -> viewStubGradient.layoutResource = R.layout.view_stub_depth_3
+                3 -> viewStubGradient.layoutResource = R.layout.view_stub_depth_4
+                4 -> viewStubGradient.layoutResource = R.layout.view_stub_depth_5
+                5 -> viewStubGradient.layoutResource = R.layout.view_stub_depth_6
+                6 -> viewStubGradient.layoutResource = R.layout.view_stub_depth_7
             }
             constraintLayout.addView(binding.viewStubGradient)
             constraintLayout.addView(binding.textViewDepth)
