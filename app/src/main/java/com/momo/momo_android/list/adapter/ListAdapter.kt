@@ -23,7 +23,7 @@ class ListAdapter (private val context : Context) : RecyclerView.Adapter<ListVie
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         holder.onBind(data[position])
 
-        val aContext: ListActivity = ListActivity.mContext as ListActivity
+        val aContext: ListActivity = ListActivity.mContext
 
         // 리사이클러뷰 아이템이 하나 혹은 0개일 때 스크롤 막기
         if (data.size == 0 || data.size == 1) {

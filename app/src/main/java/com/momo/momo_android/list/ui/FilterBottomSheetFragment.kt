@@ -128,7 +128,7 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int?,
         year.maxValue = currentDate.get(Calendar.YEAR)
 
         // year에 따라 month maxValue 변경
-        if(year.value == currentDate.get(Calendar.YEAR)) {
+        if (year.value == currentDate.get(Calendar.YEAR)) {
             month.maxValue = currentDate.get(Calendar.MONTH) + 1
         } else {
             month.maxValue = 12
@@ -137,7 +137,7 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int?,
 
     private fun setMaxMonth() {
         // year에 따라 month maxValue 변경
-        if(year.value == currentDate.get(Calendar.YEAR) && month.value == currentDate.get(
+        if (year.value == currentDate.get(Calendar.YEAR) && month.value == currentDate.get(
                 Calendar.MONTH) + 1) {
             month.maxValue = currentDate.get(Calendar.MONTH) + 1
         } else {
@@ -159,7 +159,7 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int?,
         // year picker change listener
         year.setOnValueChangedListener { _, _, _ ->
 
-            if(year.value == currentDate.get(Calendar.YEAR)) {
+            if (year.value == currentDate.get(Calendar.YEAR)) {
                 month.maxValue = currentDate.get(Calendar.MONTH) + 1
             } else {
                 month.maxValue = 12
@@ -170,7 +170,7 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int?,
         // month picker change listener
         month.setOnValueChangedListener { _, _, _ ->
 
-            if(year.value == currentDate.get(Calendar.YEAR) && month.value == currentDate.get(
+            if (year.value == currentDate.get(Calendar.YEAR) && month.value == currentDate.get(
                     Calendar.MONTH) + 1) {
                 month.maxValue = currentDate.get(Calendar.MONTH) + 1
             } else {
@@ -275,7 +275,7 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int?,
 
                 addEmotionId(this.id)
             }
-            else if (!this.isChecked) {
+            else {
                 this.isChecked = false
                 selectEmotion = null
             }
@@ -333,7 +333,7 @@ class FilterBottomSheetFragment(val itemClick: (String, IntArray, Boolean, Int?,
 
                 addDepthId(this.id)
             }
-            else if (!this.isChecked) {
+            else {
                 this.isChecked = false
                 selectDepth = null
             }

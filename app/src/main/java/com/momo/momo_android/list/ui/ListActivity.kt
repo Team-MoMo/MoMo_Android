@@ -1,6 +1,5 @@
 package com.momo.momo_android.list.ui
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -42,7 +41,8 @@ class ListActivity : AppCompatActivity() {
         var filter_current_year = 0
         var filter_current_month = 0
 
-        lateinit var mContext : Context
+        lateinit var mContext : ListActivity
+        private set
     }
 
     private lateinit var binding : ActivityListBinding
@@ -112,7 +112,7 @@ class ListActivity : AppCompatActivity() {
 
     private fun scrollTop() {
         binding.apply {
-            nestedscrollviewList.scrollTo(0, binding.rcvFilterLabel.top)
+            nestedscrollviewList.scrollTo(0, rcvFilterLabel.top)
             appbarlayoutList.setExpanded(true)
         }
     }
