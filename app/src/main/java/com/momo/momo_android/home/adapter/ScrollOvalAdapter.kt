@@ -16,12 +16,11 @@ class ScrollOvalAdapter(
 
     private var _binding: ItemScrollOvalBinding? = null
     private val binding get() = _binding!!
-    private val itemCount = diaryList.size
 
 
     override fun getItemCount(): Int {
-        return if (itemCount <= 4) 4
-        else itemCount
+        return if (diaryList.size <= 4) 4
+        else diaryList.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScrollOvalViewHolder {
@@ -31,7 +30,7 @@ class ScrollOvalAdapter(
     }
 
     override fun onBindViewHolder(holder: ScrollOvalViewHolder, position: Int) {
-        if (position < itemCount) {
+        if (position < diaryList.size) {
             holder.onBind(diaryList[position])
             holder.itemView.imageButton_oval.setOnClickListener {
                 clickListener.onClickOvalItem(it, diaryList[position].id, diaryList[position].depth)
