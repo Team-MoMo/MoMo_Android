@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object RequestToServer {
 
     private var retrofit = Retrofit.Builder()
-        .baseUrl("http://3.36.79.14:3000")
+        .baseUrl("https://momodiary.ga")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

@@ -19,7 +19,7 @@
         app:srcCompat="@drawable/object_seaweed" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/object_deep1"
+        android:id="@+id/object_depth1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
@@ -54,7 +54,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/object_deep2"
+        android:id="@+id/object_depth2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
@@ -86,7 +86,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/object_deep3"
+        android:id="@+id/object_depth3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone">
@@ -113,7 +113,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/object_deep4"
+        android:id="@+id/object_depth4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
@@ -136,7 +136,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/object_deep5"
+        android:id="@+id/object_depth5"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
@@ -155,7 +155,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/object_deep6"
+        android:id="@+id/object_depth6"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
@@ -279,14 +279,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             app:layout_constraintBottom_toBottomOf="@+id/img_diary_emotion"
-            app:layout_constraintEnd_toStartOf="@+id/tv_diary_deep"
+            app:layout_constraintEnd_toStartOf="@+id/tv_diary_depth"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tv_diary_emotion"
             app:layout_constraintTop_toTopOf="@+id/img_diary_emotion"
             app:srcCompat="@drawable/ios_ic_depth_white" />
 
         <TextView
-            android:id="@+id/tv_diary_deep"
+            android:id="@+id/tv_diary_depth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
