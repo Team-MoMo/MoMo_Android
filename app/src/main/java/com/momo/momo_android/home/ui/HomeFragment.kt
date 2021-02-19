@@ -55,7 +55,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setListeners()
-        updateByServerData()
+        setCurrentDate()
+        setDayNightStatus()
+        getServerDiaryData()
         setOnBackPressedCallBack()
     }
 
@@ -74,55 +76,54 @@ class HomeFragment : Fragment() {
 
     private fun setListeners() {
         binding.apply {
-            imageButtonMy.setOnClickListener(fragmentOnClickListener)
-            buttonUpload.setOnClickListener(fragmentOnClickListener)
-            buttonShowFull.setOnClickListener(fragmentOnClickListener)
-            imageButtonUpload.setOnClickListener(fragmentOnClickListener)
-            imageButtonList.setOnClickListener(fragmentOnClickListener)
+            fragmentOnClickListener.let {
+                imageButtonMy.setOnClickListener(it)
+                buttonUpload.setOnClickListener(it)
+                buttonShowFull.setOnClickListener(it)
+                imageButtonUpload.setOnClickListener(it)
+                imageButtonList.setOnClickListener(it)
+            }
         }
     }
 
-    private fun updateByServerData() {
-        setCurrentDate()
-        setDayNightStatus()
-        getServerDiaryData()
+    private fun setCurrentDate() {
+        getCurrentDate().apply {
+            currentYear = this[0]
+            currentMonth = this[1]
+            currentDate = this[2]
+            binding.textViewDate.text =
+                "${currentYear}년\n${currentMonth}월 ${currentDate}일 ${this[3]}"
+        }
     }
 
     private fun setOnBackPressedCallBack() {
         onBackPressedCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() { (activity as HomeActivity).showFinishToast() }
+            override fun handleOnBackPressed() {
+                (activity as HomeActivity).showFinishToast()
+            }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 
     private fun updateEditedData() {
         if (IS_EDITED) {
-            updateByServerData()
+            setCurrentDate()
+            setDayNightStatus()
+            getServerDiaryData()
             IS_EDITED = false
         }
     }
 
-    private fun setCurrentDate() {
-        currentYear = getCurrentDate()[0]
-        currentMonth = getCurrentDate()[1]
-        currentDate = getCurrentDate()[2]
-        val currentDay = getCurrentDate()[3]
-        binding.textViewDate.text = "${currentYear}년\n${currentMonth}월 ${currentDate}일 $currentDay"
-    }
-
     private fun setDayNightStatus() {
-        val currentHourDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) // 24시간 포맷
-        if (currentHourDay in 6..18) { // 06:00 ~ 18:59
-            setDayView()
-            isDay = true
-        } else {
-            setNightView()
-            isDay = false
+        when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
+            in 6..18 -> setDayView()
+            else -> setNightView()
         }
         setLoadingViewBackground()
     }
 
     private fun setDayView() {
+        isDay = true
         binding.apply {
             constraintLayout.setBackgroundResource(R.drawable.gradient_home_day)
             imageViewSky.setImageResource(R.drawable.day_cloud)
@@ -147,6 +148,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setNightView() {
+        isDay = false
         binding.apply {
             constraintLayout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_grey))
             imageViewSky.setImageResource(R.drawable.night_star)
@@ -171,50 +173,60 @@ class HomeFragment : Fragment() {
     }
 
     private fun getServerDiaryData() {
-        var serverDiaryList = listOf<ResponseDiaryList.Data>()
-        RequestToServer.service.getHomeDiaryList(
+        val call: Call<ResponseDiaryList> = RequestToServer.service.getHomeDiaryList(
             SharedPreferenceController.getAccessToken(requireContext()),
             SharedPreferenceController.getUserId(requireContext()),
             "filter",
             currentYear.toInt(),
             currentMonth.toInt(),
             currentDate.toInt()
-        ).enqueue(object : Callback<ResponseDiaryList> {
-            override fun onResponse(
-                call: Call<ResponseDiaryList>,
-                responseList: Response<ResponseDiaryList>
-            ) {
-                when (responseList.code()) {
-                    200 -> serverDiaryList = responseList.body()!!.data
-                    400 -> Log.d("TAG", "onResponse: ${responseList.code()} + 필요한 값이 없습니다.")
-                    500 -> Log.d("TAG", "onResponse: ${responseList.code()} + 일기 전체 조회 실패(서버 내부 에러)")
-                    else -> Log.d("TAG", "onResponse: ${responseList.code()} + 예외 상황")
-                }
-                setServerDiaryData(serverDiaryList)
-            }
-
+        )
+        call.enqueue(object : Callback<ResponseDiaryList> {
             override fun onFailure(call: Call<ResponseDiaryList>, t: Throwable) {
                 Log.d("TAG", "onFailure: ${t.localizedMessage}")
+            }
+
+            override fun onResponse(
+                call: Call<ResponseDiaryList>,
+                response: Response<ResponseDiaryList>
+            ) {
+                when (response.isSuccessful) {
+                    true -> setDiaryView(response.body()!!.data)
+                    false -> handleResponseStatusCode(response.code())
+                }
             }
         })
     }
 
-    private fun setServerDiaryData(diaryList: List<ResponseDiaryList.Data>) {
+    private fun setDiaryView(diaryList: List<ResponseDiaryList.Data>) {
         when (diaryList.size) {
             0 -> {
-                setEmptyView()
                 DIARY_STATUS = false
+                setEmptyVisibility()
             }
             else -> {
-                setDiaryView()
                 DIARY_STATUS = true
-                diaryId = diaryList[0].id
-                setEmotionData(diaryList[0].emotionId, isDay)
-                binding.textViewDepth.text = getDepthString(diaryList[0].depth, requireContext())
-                setBookDiaryData(diaryList[0])
+                setDiaryVisibility()
+                setDiaryViewData(diaryList[0])
             }
         }
         fadeOutLoadingView()
+    }
+
+    private fun setDiaryViewData(diaryData: ResponseDiaryList.Data) {
+        diaryId = diaryData.id
+        setBookDiaryData(diaryData)
+        setEmotionData(diaryData.emotionId, isDay)
+        binding.textViewDepth.text = getDepthString(diaryData.depth, requireContext())
+    }
+
+    private fun handleResponseStatusCode(responseCode: Int) {
+        when (responseCode) {
+            400 -> requireContext().showToast("일기 전체 조회 실패 - 필요한 값이 없습니다.")
+            500 -> requireContext().showToast("일기 전체 조회 실패 - 서버 내부 에러")
+            else -> requireContext().showToast("일기 전체 조회 실패 - 예외 상")
+        }
+        setEmptyVisibility()
     }
 
     private fun fadeOutLoadingView() {
@@ -241,7 +253,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setEmptyView() {
+    private fun setEmptyVisibility() {
         binding.apply {
             textViewDiaryEmpty.visibility = TextView.VISIBLE
             buttonUpload.visibility = Button.VISIBLE
@@ -261,7 +273,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setDiaryView() {
+    private fun setDiaryVisibility() {
         binding.apply {
             textViewDiaryEmpty.visibility = TextView.GONE
             buttonUpload.visibility = Button.GONE
