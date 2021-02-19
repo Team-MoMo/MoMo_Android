@@ -12,6 +12,7 @@ import com.momo.momo_android.network.RequestToServer
 import com.momo.momo_android.util.OvalClickListeners
 import com.momo.momo_android.util.SharedPreferenceController
 import com.momo.momo_android.util.getDepthString
+import com.momo.momo_android.util.showToast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,8 +23,6 @@ class ScrollGradientViewHolder(
     private val queryMonth: Int,
     private val binding: ItemScrollGradientBinding
 ) : RecyclerView.ViewHolder(binding.root), OvalClickListeners {
-
-    private var wholeDiaryList = listOf<ResponseDiaryList.Data>()
 
 
     fun onBind(position: Int) {
@@ -58,28 +57,26 @@ class ScrollGradientViewHolder(
     }
 
     private fun getServerDiaryData(depth: Int) {
-        RequestToServer.service.getScrollDiaryList(
+        val call: Call<ResponseDiaryList> = RequestToServer.service.getScrollDiaryList(
             SharedPreferenceController.getAccessToken(binding.root.context),
             SharedPreferenceController.getUserId(binding.root.context),
             "depth",
             queryYear,
             queryMonth
-        ).enqueue(object : Callback<ResponseDiaryList> {
-            override fun onResponse(
-                call: Call<ResponseDiaryList>,
-                responseList: Response<ResponseDiaryList>
-            ) {
-                when (responseList.code()) {
-                    200 -> wholeDiaryList = responseList.body()!!.data
-                    400 -> Log.d("TAG", "onResponse: ${responseList.code()} + 필요한 값이 없습니다.")
-                    500 -> Log.d("TAG", "onResponse: ${responseList.code()} + 일기 전체 조회 실패(서버 내부 에러)")
-                    else -> Log.d("TAG", "onResponse: ${responseList.code()} + 예외 상황")
-                }
-                setOvalRecyclerView(depth, wholeDiaryList)
-            }
-
+        )
+        call.enqueue(object : Callback<ResponseDiaryList> {
             override fun onFailure(call: Call<ResponseDiaryList>, t: Throwable) {
                 Log.d("TAG", "onFailure: ${t.localizedMessage}")
+            }
+
+            override fun onResponse(
+                call: Call<ResponseDiaryList>,
+                response: Response<ResponseDiaryList>
+            ) {
+                when (response.isSuccessful) {
+                    true -> setOvalRecyclerView(depth, response.body()!!.data)
+                    false -> handleResponseStatusCode(response.code())
+                }
             }
         })
     }
@@ -100,6 +97,14 @@ class ScrollGradientViewHolder(
             }
         }
         return sortedDiaryList
+    }
+
+    private fun handleResponseStatusCode(responseCode: Int) {
+        when (responseCode) {
+            400 -> binding.root.context.showToast("일기 전체 조회 실패 - 필요한 값이 없습니다.")
+            500 -> binding.root.context.showToast("일기 전체 조회 실패 - 서버 내부 에러")
+            else -> binding.root.context.showToast("일기 전체 조회 실패 - 예외 상황")
+        }
     }
 
     private fun setFirstItemView() {
