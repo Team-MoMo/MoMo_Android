@@ -26,7 +26,7 @@ import com.momo.momo_android.home.ui.HomeFragment.Companion.DIARY_STATUS
 import com.momo.momo_android.setting.ui.SettingActivity
 import com.momo.momo_android.upload.ui.UploadFeelingActivity
 import com.momo.momo_android.util.ScrollDatePickerListener
-import java.util.*
+import com.momo.momo_android.util.getCurrentDate
 
 
 class ScrollFragment : Fragment(), ScrollDatePickerListener {
@@ -83,8 +83,8 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
     }
 
     private fun initQueryDate() {
-        QUERY_MONTH = Calendar.getInstance().get(Calendar.YEAR)
-        QUERY_MONTH = Calendar.getInstance().get(Calendar.MONTH) + 1
+        QUERY_YEAR = getCurrentDate()[0].toInt()
+        QUERY_MONTH = getCurrentDate()[1].toInt()
     }
 
     private fun setGradientRecyclerView(year: Int, month: Int) {
@@ -305,8 +305,8 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
     }
 
     companion object {
-        var QUERY_YEAR = Calendar.getInstance().get(Calendar.YEAR)
-        var QUERY_MONTH = Calendar.getInstance().get(Calendar.MONTH) + 1
+        var QUERY_YEAR = getCurrentDate()[0].toInt()
+        var QUERY_MONTH = getCurrentDate()[1].toInt()
         var IS_EDITED = false
         var EDITED_DEPTH = 0
     }
