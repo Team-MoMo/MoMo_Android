@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import com.momo.momo_android.lock.ui.LockOnActivity
 import com.momo.momo_android.databinding.ActivitySettingBinding
@@ -38,6 +39,8 @@ class SettingActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         binding.switchLock.isChecked = SharedPreferenceController.getLockStatus(this)
+        setResettingButtonVisibility()
+        setResettingButtonClickListener()
     }
 
     private fun initBackButton() {
@@ -93,6 +96,20 @@ class SettingActivity : AppCompatActivity() {
         binding.tvSettingVersionInfo.text = "Ver. " + pi.versionName
     }
 
+    private fun setResettingButtonVisibility() {
+        when(SharedPreferenceController.getLockStatus(this)) {
+            true -> binding.imagebuttonResetting.visibility = ImageButton.VISIBLE
+            false -> binding.imagebuttonResetting.visibility = ImageButton.GONE
+        }
+    }
+
+    private fun setResettingButtonClickListener() {
+        binding.imagebuttonResetting.setOnClickListener {
+            val intent = Intent(this, LockOnActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
@@ -101,13 +118,11 @@ class SettingActivity : AppCompatActivity() {
                 LOCK_ON -> {
                     finish()
                     startActivity(intent)
-                    SharedPreferenceController.setLockStatus(this, isLocked)
 
                 }
                 LOCK_OFF -> {
                     binding.switchLock.isChecked = isLocked
                     SharedPreferenceController.clearPassCode(this)
-                    SharedPreferenceController.setLockStatus(this, isLocked)
                 }
             }
             SharedPreferenceController.setLockStatus(this, isLocked)
