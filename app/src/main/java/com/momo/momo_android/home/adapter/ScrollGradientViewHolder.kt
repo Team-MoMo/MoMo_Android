@@ -19,8 +19,8 @@ import retrofit2.Response
 class ScrollGradientViewHolder(
     private val queryYear: Int,
     private val queryMonth: Int,
-    private val viewBinding: ItemScrollGradientBinding
-) : RecyclerView.ViewHolder(viewBinding.root), OvalClickListeners {
+    private val binding: ItemScrollGradientBinding
+) : RecyclerView.ViewHolder(binding.root), OvalClickListeners {
 
     private var wholeDiaryList = listOf<ResponseDiaryList.Data>()
 
@@ -37,7 +37,7 @@ class ScrollGradientViewHolder(
     }
 
     private fun setDepthViews(position: Int) {
-        viewBinding.apply {
+        binding.apply {
             constraintLayout.removeAllViews()
             when (position) {
                 0 -> {
@@ -69,17 +69,17 @@ class ScrollGradientViewHolder(
                     viewStubGradient.layoutResource = R.layout.view_stub_depth_7
                 }
             }
-            constraintLayout.addView(viewBinding.viewStubGradient)
-            constraintLayout.addView(viewBinding.textViewDepth)
-            constraintLayout.addView(viewBinding.recyclerViewOval)
+            constraintLayout.addView(binding.viewStubGradient)
+            constraintLayout.addView(binding.textViewDepth)
+            constraintLayout.addView(binding.recyclerViewOval)
             viewStubGradient.inflate()
         }
     }
 
     private fun getServerDiaryData(depth: Int) {
         RequestToServer.service.getScrollDiaryList(
-            SharedPreferenceController.getAccessToken(viewBinding.root.context),
-            SharedPreferenceController.getUserId(viewBinding.root.context),
+            SharedPreferenceController.getAccessToken(binding.root.context),
+            SharedPreferenceController.getUserId(binding.root.context),
             "depth",
             queryYear,
             queryMonth
@@ -105,7 +105,7 @@ class ScrollGradientViewHolder(
 
     private fun setOvalRecyclerView(depth: Int, wholeDiaryList: List<ResponseDiaryList.Data>) {
         val depthDiaryList = sortServerDiaryData(depth, wholeDiaryList)
-        viewBinding.recyclerViewOval.adapter = ScrollOvalAdapter(this, depthDiaryList)
+        binding.recyclerViewOval.adapter = ScrollOvalAdapter(this, depthDiaryList)
     }
 
     private fun sortServerDiaryData(
@@ -122,14 +122,14 @@ class ScrollGradientViewHolder(
     }
 
     private fun setFirstItemView() {
-        viewBinding.apply {
+        binding.apply {
             constraintLayout.removeAllViews()
             constraintLayout.addView(this.viewLine)
         }
     }
 
     private fun setLastItemView() {
-        viewBinding.apply {
+        binding.apply {
             constraintLayout.removeAllViews()
             constraintLayout.addView(this.imageViewBottom)
         }
