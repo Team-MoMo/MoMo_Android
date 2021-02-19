@@ -31,7 +31,7 @@ fun View.setGone() {
     this.visibility = View.GONE
 }
 
-/*키보드 숨기기*/
+/* 키보드 제어 */
 fun EditText.showKeyboard() {
     if (requestFocus()) {
         // edittext에 초점이 맞춰지면 키보드 올라옴
@@ -123,7 +123,6 @@ fun getEmotionWhite(emotionIdx: Int) : Int {
     }
 }
 
-//현재날짜 Year,Month,Date,Day String 배열로 전달
 fun getCurrentDate(): Array<String>{
     val currentDate = Calendar.getInstance()
     val year = currentDate.get(Calendar.YEAR).toString()
