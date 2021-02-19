@@ -1,5 +1,6 @@
 package com.momo.momo_android.login.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -28,6 +29,10 @@ import com.kakao.usermgmt.UserManagement
 import com.kakao.usermgmt.callback.MeV2ResponseCallback
 import com.kakao.usermgmt.response.MeV2Response
 import com.kakao.util.exception.KakaoException
+import com.momo.momo_android.home.ui.ScrollFragment
+import com.momo.momo_android.util.showToast
+import okhttp3.ResponseBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -51,19 +56,27 @@ class MainLoginActivity : AppCompatActivity() {
                     View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         window.statusBarColor = Color.TRANSPARENT
 
-        val btn_kakao = binding.btnLoginKakao
-        val btn_google = binding.btnLoginGoogle
-        val btn_momo = binding.btnLoginMomo
+        initLoginKakao()
 
-        btn_kakao.setOnClickListener {
+        initLoginGoogle()
+
+        initLoginMomo()
+
+        initBackground()
+
+    }
+
+    private fun initLoginKakao() {
+        binding.btnLoginKakao.setOnClickListener {
             callback = SessionCallback()
             Session.getCurrentSession().addCallback(callback)
             Session.getCurrentSession().open(AuthType.KAKAO_TALK, this)
             Session.getCurrentSession().checkAndImplicitOpen()
         }
+    }
 
-        btn_google.setOnClickListener {
-            // 구글 로그인
+    private fun initLoginGoogle() {
+        binding.btnLoginGoogle.setOnClickListener {
             val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.google_client_id))
                 .requestEmail()
@@ -73,59 +86,36 @@ class MainLoginActivity : AppCompatActivity() {
 
             val signInIntent = googleSignInClient?.signInIntent
             startActivityForResult(signInIntent, GOOGLE_LOGIN)
-
         }
+    }
 
-        btn_momo.setOnClickListener {
+    private fun initLoginMomo() {
+        binding.btnLoginMomo.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
+    }
 
-        val depth = intent.getIntExtra("deep", 5)
+    private fun initBackground() {
+        val depth = intent.getIntExtra("depth", 5)
         setDepthBackground(depth)
-
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun setDepthBackground(depth: Int) {
-        when (depth) {
-            0 -> {
-                binding.loginMainBg.background = resources.getDrawable(R.drawable.bg_deep1, null)
-            }
-            1 -> {
-                binding.loginMainBg.background = resources.getDrawable(R.drawable.bg_deep2, null)
-            }
-            2 -> {
-                binding.loginMainBg.background = resources.getDrawable(R.drawable.bg_deep3, null)
-            }
-            3 -> {
-                binding.loginMainBg.background = resources.getDrawable(R.drawable.bg_deep4, null)
-            }
-            4 -> {
-                binding.loginMainBg.background = resources.getDrawable(R.drawable.bg_deep5, null)
-            }
-            5 -> {
-                binding.loginMainBg.background = resources.getDrawable(R.drawable.bg_deep6, null)
-            }
-            6 -> {
-                binding.loginMainBg.background = resources.getDrawable(R.drawable.bg_deep7, null)
+        binding.apply {
+            loginMainBg.background = when (depth) {
+                0 -> resources.getDrawable(R.drawable.gradient_rectangle_depth1, null)
+                1 -> resources.getDrawable(R.drawable.gradient_rectangle_depth2, null)
+                2 -> resources.getDrawable(R.drawable.gradient_rectangle_depth3, null)
+                3 -> resources.getDrawable(R.drawable.gradient_rectangle_depth4, null)
+                4 -> resources.getDrawable(R.drawable.gradient_rectangle_depth5, null)
+                5 -> resources.getDrawable(R.drawable.gradient_rectangle_depth6, null)
+                6 -> resources.getDrawable(R.drawable.gradient_rectangle_depth7, null)
+                else -> resources.getDrawable(R.drawable.gradient_rectangle_depth6, null)
             }
         }
     }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
-            return
-        }
-
-        if (requestCode == GOOGLE_LOGIN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            handleSignInResult(task)
-        }
-
-    }
-
 
     // 구글 로그인
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
@@ -154,10 +144,7 @@ class MainLoginActivity : AppCompatActivity() {
 
                 override fun onSessionClosed(errorResult: ErrorResult?) {
                     // 로그인 도중 세션이 비정상적인 이유로 닫혔을 때
-                    Toast.makeText(
-                        applicationContext,
-                        "다시 시도해주세요 : ${errorResult.toString()}",
-                        Toast.LENGTH_SHORT).show()
+                    applicationContext.showToast("로그인 도중 오류가 발생했습니다. 다시 시도해주세요.")
                 }
             })
         }
@@ -165,10 +152,7 @@ class MainLoginActivity : AppCompatActivity() {
             // 로그인 세션이 정상적으로 열리지 않았을 때
             if (exception != null) {
                 com.kakao.util.helper.log.Logger.e(exception)
-                Toast.makeText(
-                    applicationContext,
-                    "로그인 도중 오류가 발생했습니다. 인터넷 연결을 확인해주세요 : $exception",
-                    Toast.LENGTH_SHORT).show()
+                applicationContext.showToast("로그인 도중 오류가 발생했습니다.")
             }
         }
 
@@ -186,28 +170,19 @@ class MainLoginActivity : AppCompatActivity() {
                 call: Call<ResponseUserData>,
                 response: Response<ResponseUserData>
             ) {
-                Log.d("postSocialLogin", response.toString())
-                when {
-                    response.code() == 200 -> {
-                        // 토큰 저장
+                response.takeIf { it.isSuccessful }
+                    ?.body()
+                    ?.let {
+
                         SharedPreferenceController.setAccessToken(applicationContext, response.body()!!.data.token)
-                        // 유저 아이디 저장
                         SharedPreferenceController.setUserId(applicationContext, response.body()!!.data.user.id)
-                        // 소셜 로그인 체크 저장
                         SharedPreferenceController.setSocialLogin(applicationContext, "true")
 
-                        // 홈으로 이동
                         val intent = Intent(applicationContext, HomeActivity::class.java)
                         startActivity(intent)
                         finishAffinity()
-                    }
-                    response.code() == 400 -> {
-                        Log.d("postSocialLogin 400", response.message())
-                    }
-                    else -> {
-                        Log.d("postSocialLogin 500", response.message())
-                    }
-                }
+
+                    } ?: showError(response.errorBody())
             }
 
             override fun onFailure(call: Call<ResponseUserData>, t: Throwable) {
@@ -215,6 +190,27 @@ class MainLoginActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    private fun showError(error : ResponseBody?) {
+        val e = error ?: return
+        val ob = JSONObject(e.string())
+        this.showToast(ob.getString("message"))
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
+            return
+        }
+
+        if (requestCode == GOOGLE_LOGIN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            handleSignInResult(task)
+        }
+
     }
 
 }
