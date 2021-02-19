@@ -87,7 +87,7 @@ class LockOffActivity : AppCompatActivity() {
     private fun checkInputPassCodeLength() {
         updatePassCodeOvalColor(inputPassCode.length)
         when (inputPassCode.length) {
-            4 -> Handler().postDelayed({ checkPassCodeValidation() }, 500)
+            4 -> Handler(mainLooper).postDelayed({ checkPassCodeValidation() }, 500)
         }
     }
 
