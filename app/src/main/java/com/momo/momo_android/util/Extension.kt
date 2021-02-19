@@ -6,6 +6,7 @@ import android.view.View
 import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import com.momo.momo_android.R
 import java.util.*
@@ -30,7 +31,7 @@ fun View.setGone() {
     this.visibility = View.GONE
 }
 
-/*키보드 숨기기*/
+/* 키보드 제어 */
 fun EditText.showKeyboard() {
     if (requestFocus()) {
         // edittext에 초점이 맞춰지면 키보드 올라옴
@@ -96,7 +97,7 @@ fun getEmotionString(emotionIdx: Int, context: Context): String {
     }
 }
 
-fun getEmotionImage(emotionIdx: Int): Int {
+fun getEmotionBlack(emotionIdx: Int): Int {
     return when (emotionIdx) {
         1 -> R.drawable.ic_love_14_black
         2 -> R.drawable.ic_happy_14_black
@@ -106,6 +107,19 @@ fun getEmotionImage(emotionIdx: Int): Int {
         6 -> R.drawable.ic_bored_14_black
         7 -> R.drawable.ic_memory_14_black
         else -> R.drawable.ic_daily_14_black
+    }
+}
+
+fun getEmotionWhite(emotionIdx: Int) : Int {
+    return when (emotionIdx) {
+        1 -> R.drawable.ic_love_14_white
+        2 -> R.drawable.ic_happy_14_white
+        3 -> R.drawable.ic_console_14_white
+        4 -> R.drawable.ic_angry_14_white
+        5 -> R.drawable.ic_sad_14_white
+        6 -> R.drawable.ic_bored_14_white
+        7 -> R.drawable.ic_memory_14_white
+        else -> R.drawable.ic_daily_14_white
     }
 }
 
@@ -142,4 +156,12 @@ fun setStatusBarTransparent(window: Window) {
         View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
     window.statusBarColor = Color.TRANSPARENT
+}
+
+/* edittext 지우는 x버튼 */
+fun EditText.clearText(button: ImageView) {
+    button.setVisible()
+    button.setOnClickListener {
+        this.setText("")
+    }
 }
