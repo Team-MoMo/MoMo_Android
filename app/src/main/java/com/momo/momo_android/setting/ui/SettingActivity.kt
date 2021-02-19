@@ -105,8 +105,8 @@ class SettingActivity : AppCompatActivity() {
 
     private fun setResettingButtonClickListener() {
         binding.imagebuttonResetting.setOnClickListener {
-            val intent = Intent(this, LockOnActivity::class.java)
-            startActivity(intent)
+            val intent = Intent(this, LockOffActivity::class.java)
+            startActivityForResult(intent, LOCK_OFF_FOR_RESETTING)
         }
     }
 
@@ -115,14 +115,12 @@ class SettingActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK) {
             val isLocked = data!!.getBooleanExtra("isLocked", false)
             when(requestCode) {
-                LOCK_ON -> {
-                    finish()
-                    startActivity(intent)
-
-                }
-                LOCK_OFF -> {
-                    binding.switchLock.isChecked = isLocked
-                    SharedPreferenceController.clearPassCode(this)
+                LOCK_ON -> {}
+                LOCK_OFF -> SharedPreferenceController.clearPassCode(this)
+                LOCK_ON_FOR_RESETTING -> {}
+                LOCK_OFF_FOR_RESETTING -> {
+                    val intent = Intent(this, LockOnActivity::class.java)
+                    startActivityForResult(intent, LOCK_ON_FOR_RESETTING)
                 }
             }
             SharedPreferenceController.setLockStatus(this, isLocked)
@@ -132,5 +130,7 @@ class SettingActivity : AppCompatActivity() {
     companion object {
         const val LOCK_ON = 1111
         const val LOCK_OFF = 2222
+        const val LOCK_ON_FOR_RESETTING = 3333
+        const val LOCK_OFF_FOR_RESETTING = 4444
     }
 }
