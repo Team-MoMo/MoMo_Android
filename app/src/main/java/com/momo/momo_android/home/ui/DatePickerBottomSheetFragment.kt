@@ -11,6 +11,7 @@ import com.momo.momo_android.home.ui.ScrollFragment.Companion.QUERY_MONTH
 import com.momo.momo_android.home.ui.ScrollFragment.Companion.QUERY_YEAR
 import com.momo.momo_android.util.ScrollDatePickerListener
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.momo.momo_android.util.getCurrentDate
 import java.util.*
 
 
@@ -23,8 +24,8 @@ class DatePickerBottomSheetFragment(
 
     private var selectedYear = 0
     private var selectedMonth = 0
-    private val currentYear = Calendar.getInstance().get(Calendar.YEAR)
-    private val currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1
+    private val currentYear = getCurrentDate()[0].toInt()
+    private val currentMonth = getCurrentDate()[1].toInt()
 
 
     override fun getTheme(): Int = R.style.RoundBottomSheetDialog
