@@ -111,6 +111,8 @@
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -229,11 +231,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:background="@color/white"
-                android:clickable="true"
                 android:ems="10"
                 android:fontFamily="@font/notosanskrregular"
                 android:gravity="start|top"
-                android:hint="파동을  충분히 느낀 후, 감정을 기록해보세요."
+                android:hint="파동을 충분히 느낀 후, 감정을 기록해보세요.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
                 android:includeFontPadding="false"
                 android:inputType="textMultiLine"
                 android:letterSpacing="-0.08"

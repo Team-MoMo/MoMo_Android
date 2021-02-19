@@ -1,9 +1,11 @@
 package com.momo.momo_android.onboarding.ui
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.view.animation.AlphaAnimation
@@ -14,7 +16,7 @@ import com.momo.momo_android.onboarding.ui.OnboardingFeelingActivity.Companion.O
 
 class OnboardingWriteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOnboardingWriteBinding
-    private val entire_handler = Handler()
+    private val entire_handler =Handler(Looper.myLooper()!!)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //뷰바인딩
@@ -25,14 +27,15 @@ class OnboardingWriteActivity : AppCompatActivity() {
 
         //온보딩 Lottie 설정
         initOnboardingAnimation()
+        //선택 문장 정보 설정
         setSentenceData()
 
-        //문장 가운데 정렬-> 왼쪽 정렬 용도
-        val handler = Handler(mainLooper)
-
-        handler.postDelayed(Runnable {
+        //문장 가운데 정렬-> 왼쪽 정렬 자동이동
+        entire_handler.postDelayed(Runnable {
             run {
-                binding.imgFeather.callOnClick()
+                binding.apply {
+                    imgFeather.callOnClick()
+                }
             }
         },1000)
 
@@ -51,9 +54,11 @@ class OnboardingWriteActivity : AppCompatActivity() {
         }
     }
     override fun onPause() {
-        super.onPause()
-        binding.lottie.cancelAnimation()
-        entire_handler.removeCallbacksAndMessages(null)
+        binding.apply {
+            super.onPause()
+            lottie.cancelAnimation()
+            entire_handler.removeCallbacksAndMessages(null)
+        }
     }
 
     //OnboardingSentence 선택 문장 넘겨받은 것 설정
@@ -69,25 +74,34 @@ class OnboardingWriteActivity : AppCompatActivity() {
     //Typing 문장설정
     private fun setOnboardingFeeling() {
         entire_handler.postDelayed({
-            binding.tvCursor.text="ㅣ"
-            binding.tvCursor.blink()
-            binding.tvCursor.visibility = View.VISIBLE
-            binding.tvWrite.visibility= View.VISIBLE
-            binding.tvWrite.setCharacterDelay(150)
-            when (ONBOARDING_FEELING) {
-                1 -> binding.tvWrite.animateText("새로운 인연이 기대되는 하루였다.")
-                2 -> binding.tvWrite.animateText("삶의 소중함을 느낀 하루였다.")
-                3 -> binding.tvWrite.animateText("나를 위한 진한 위로가 필요한 하루였다.")
-                4 -> binding.tvWrite.animateText("끓어오르는 속을 진정시켜야 하는 하루였다.")
-                5 -> binding.tvWrite.animateText("마음이 찌릿하게 아픈 하루였다.")
-                6 -> binding.tvWrite.animateText("눈물이 왈칵 쏟아질 것 같은 하루였다.")
-                7 -> binding.tvWrite.animateText("오래된 기억이 되살아나는 하루였다.")
-                8 -> binding.tvWrite.animateText("평안한 하루가 감사한 날이었다.")
-                else -> Log.d("TAG", "setOnboardingFeeling: unknown feeling")
+            binding.apply {
+                tvCursor.text="ㅣ"
+                tvCursor.blink()
+                tvCursor.visibility = View.VISIBLE
+                tvWrite.visibility= View.VISIBLE
+                tvWrite.setCharacterDelay(150)
+
+                tvWrite.animateText(getTypingString(ONBOARDING_FEELING))
             }
         }, 2000)
     }
 
+    //Typing Animation 감정 별 문장
+    fun getTypingString(emotionIdx: Int): String {
+        return when (emotionIdx) {
+            1 -> getString(R.string.typing_love)
+            2 -> getString(R.string.typing_happy)
+            3 -> getString(R.string.typing_console)
+            4 -> getString(R.string.typing_angry)
+            5 -> getString(R.string.typing_sad)
+            6 -> getString(R.string.typing_bored)
+            7 -> getString(R.string.typing_memory)
+            8 -> getString(R.string.typing_daily)
+            else -> "error"
+        }
+    }
+
+    //Typing문장 뒤의 커서
     private fun View.blink(
         times: Int = Animation.INFINITE,
         duration: Long = 50L,

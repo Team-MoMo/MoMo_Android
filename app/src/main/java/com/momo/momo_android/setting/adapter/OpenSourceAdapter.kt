@@ -11,7 +11,6 @@ import com.momo.momo_android.util.ItemClickListener
 
 class OpenSourceAdapter (private val context: Context) : RecyclerView.Adapter<OpenSourceViewHolder>(){
     var data= mutableListOf<OpenSourceData>()
-    private lateinit var binding: ActivityOpenSourceBinding//뷰바인딩
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OpenSourceViewHolder {
         var view=
@@ -20,7 +19,7 @@ class OpenSourceAdapter (private val context: Context) : RecyclerView.Adapter<Op
     }
 
     override fun getItemCount(): Int {
-        return data.size //ppt에서 :Int =data.size랑 같은 의미. 줄일수 있음.
+        return data.size
     }
 
     override fun onBindViewHolder(holder:OpenSourceViewHolder, position: Int) {
