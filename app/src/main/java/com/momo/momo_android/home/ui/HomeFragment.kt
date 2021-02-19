@@ -30,8 +30,8 @@ import java.util.*
 
 class HomeFragment : Fragment() {
 
-    private var _viewBinding: FragmentHomeBinding? = null
-    private val viewBinding get() = _viewBinding!!
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
     private lateinit var onBackPressedCallback: OnBackPressedCallback
 
     private var isDay = true
@@ -46,8 +46,8 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _viewBinding = FragmentHomeBinding.inflate(layoutInflater)
-        return viewBinding.root
+        _binding = FragmentHomeBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     // UI 작업 수행
@@ -72,7 +72,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setListeners() {
-        viewBinding.apply {
+        binding.apply {
             imageButtonMy.setOnClickListener(fragmentOnClickListener)
             buttonUpload.setOnClickListener(fragmentOnClickListener)
             buttonShowFull.setOnClickListener(fragmentOnClickListener)
@@ -103,7 +103,7 @@ class HomeFragment : Fragment() {
 
     private fun setCurrentDate() {
         val currentDay = getCurrentDay(Calendar.getInstance().get(Calendar.DAY_OF_WEEK))
-        viewBinding.textViewDate.text =
+        binding.textViewDate.text =
             "${currentYear}년\n${currentMonth}월 ${currentDate}일 ${currentDay}요일"
     }
 
@@ -133,7 +133,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setDayView() {
-        viewBinding.apply {
+        binding.apply {
             constraintLayout.setBackgroundResource(R.drawable.gradient_home_day)
             imageViewSky.setImageResource(R.drawable.day_cloud)
             textViewDate.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue_3))
@@ -157,7 +157,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setNightView() {
-        viewBinding.apply {
+        binding.apply {
             constraintLayout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_grey))
             imageViewSky.setImageResource(R.drawable.night_star)
             textViewDate.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue_7))
@@ -228,21 +228,21 @@ class HomeFragment : Fragment() {
     }
 
     private fun fadeOutLoadingView() {
-        viewBinding.viewLoading.apply {
+        binding.viewLoading.apply {
             alpha = 1f
             animate()
                 .alpha(0f)
                 .setDuration(resources.getInteger(android.R.integer.config_longAnimTime).toLong())
                 .setListener(object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator) {
-                        viewBinding.viewLoading.visibility = View.GONE
+                        binding.viewLoading.visibility = View.GONE
                     }
                 })
         }
     }
 
     private fun setLoadingViewBackground() {
-        viewBinding.viewLoading.apply {
+        binding.viewLoading.apply {
             when(isDay) {
                 true -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
                 false -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_grey))
@@ -252,7 +252,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setEmptyView() {
-        viewBinding.apply {
+        binding.apply {
             textViewDiaryEmpty.visibility = TextView.VISIBLE
             buttonUpload.visibility = Button.VISIBLE
 
@@ -272,7 +272,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setDiaryView() {
-        viewBinding.apply {
+        binding.apply {
             textViewDiaryEmpty.visibility = TextView.GONE
             buttonUpload.visibility = Button.GONE
 
@@ -292,7 +292,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setEmotionData(emotionId: Int, isDay: Boolean) {
-        viewBinding.apply {
+        binding.apply {
             when (emotionId) {
                 1 -> {
                     when (isDay) {
@@ -356,7 +356,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setDepthData(depth: Int) {
-        viewBinding.apply {
+        binding.apply {
             when (depth) {
                 0 -> textViewDepth.text = "2m"
                 1 -> textViewDepth.text = "30m"
@@ -371,7 +371,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setBookDiaryData(data: ResponseDiaryList.Data) {
-        viewBinding.apply {
+        binding.apply {
             textViewQuotation.text = data.sentence.contents
             textViewAuthor.text = data.sentence.writer
             textViewTitle.text = "<${data.sentence.bookName}>"
@@ -381,7 +381,7 @@ class HomeFragment : Fragment() {
     }
 
     private val fragmentOnClickListener = View.OnClickListener {
-        viewBinding.apply {
+        binding.apply {
             when (it.id) {
                 imageButtonMy.id -> setIntentToSettingActivity()
                 buttonShowFull.id -> setIntentToDiaryActivity()
@@ -419,7 +419,7 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _viewBinding = null
+        _binding = null
         onBackPressedCallback.remove()
     }
 
