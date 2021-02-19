@@ -81,10 +81,9 @@ class DatePickerBottomSheetFragment(
     private fun setMonthPickerSetting(currentYear: Int, currentMonth: Int) {
         binding.includeYmPicker.apply {
             month.minValue = 1
-            if (year.value == currentYear) {
-                month.maxValue = currentMonth
-            } else {
-                month.maxValue = 12
+            month.maxValue = when (year.value) {
+                currentYear -> currentMonth
+                else -> 12
             }
         }
     }
@@ -107,9 +106,7 @@ class DatePickerBottomSheetFragment(
 
     private val fragmentOnClickListener = View.OnClickListener {
         when (it.id) {
-            binding.imageButtonClose.id -> {
-                this.dismiss()
-            }
+            binding.imageButtonClose.id -> this.dismiss()
             binding.buttonApply.id -> {
                 updateQueryData()
                 clickListener.onClickDatePickerApplyButton(selectedYear, selectedMonth)
@@ -122,7 +119,7 @@ class DatePickerBottomSheetFragment(
         setMonthPickerSetting(currentYear, currentMonth)
         selectedYear = binding.includeYmPicker.year.value
         selectedMonth = binding.includeYmPicker.month.value
-        updateApplyButtonStatus()
+        updateApplyButtonStatus(selectedYear, selectedMonth)
     }
 
     private fun updateQueryData() {
@@ -130,7 +127,7 @@ class DatePickerBottomSheetFragment(
         QUERY_MONTH = selectedMonth
     }
 
-    private fun updateApplyButtonStatus() {
+    private fun updateApplyButtonStatus(selectedYear: Int, selectedMonth: Int) {
         binding.buttonApply.isEnabled =
             !(selectedYear == QUERY_YEAR && selectedMonth == QUERY_MONTH)
     }
