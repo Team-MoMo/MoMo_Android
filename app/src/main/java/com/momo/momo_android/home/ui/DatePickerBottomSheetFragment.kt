@@ -18,8 +18,8 @@ class DatePickerBottomSheetFragment(
     private val clickListener: ScrollDatePickerListener
 ) : BottomSheetDialogFragment() {
 
-    private var _viewBinding: BottomsheetScrollDatePickerBinding? = null
-    private val viewBinding get() = _viewBinding!!
+    private var _binding: BottomsheetScrollDatePickerBinding? = null
+    private val binding get() = _binding!!
 
     private var selectedYear = 0
     private var selectedMonth = 0
@@ -33,8 +33,8 @@ class DatePickerBottomSheetFragment(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _viewBinding = BottomsheetScrollDatePickerBinding.inflate(layoutInflater)
-        return viewBinding.root
+        _binding = BottomsheetScrollDatePickerBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,7 +44,7 @@ class DatePickerBottomSheetFragment(
     }
 
     private fun setListeners() {
-        viewBinding.apply {
+        binding.apply {
             imageButtonClose.setOnClickListener(fragmentOnClickListener)
             buttonApply.setOnClickListener(fragmentOnClickListener)
             includeYmPicker.year.setOnValueChangedListener(datePickerChangedListener)
@@ -66,7 +66,7 @@ class DatePickerBottomSheetFragment(
     }
 
     private fun setYearPickerSetting(currentYear: Int) {
-        viewBinding.includeYmPicker.year.apply {
+        binding.includeYmPicker.year.apply {
             minValue = currentYear - 1
             maxValue = currentYear
         }
@@ -74,11 +74,11 @@ class DatePickerBottomSheetFragment(
 
     private fun initYearPickerValue() {
         selectedYear = QUERY_YEAR
-        viewBinding.includeYmPicker.year.value = selectedYear
+        binding.includeYmPicker.year.value = selectedYear
     }
 
     private fun setMonthPickerSetting(currentYear: Int, currentMonth: Int) {
-        viewBinding.includeYmPicker.apply {
+        binding.includeYmPicker.apply {
             month.minValue = 1
             if (year.value == currentYear) {
                 month.maxValue = currentMonth
@@ -90,11 +90,11 @@ class DatePickerBottomSheetFragment(
 
     private fun initMonthPickerValue() {
         selectedMonth = QUERY_MONTH
-        viewBinding.includeYmPicker.month.value = selectedMonth
+        binding.includeYmPicker.month.value = selectedMonth
     }
 
     private fun setDatePickerSetting() {
-        viewBinding.includeYmPicker.apply {
+        binding.includeYmPicker.apply {
             // 순환 안되게 막기
             year.wrapSelectorWheel = false
             month.wrapSelectorWheel = false
@@ -106,10 +106,10 @@ class DatePickerBottomSheetFragment(
 
     private val fragmentOnClickListener = View.OnClickListener {
         when (it.id) {
-            viewBinding.imageButtonClose.id -> {
+            binding.imageButtonClose.id -> {
                 this.dismiss()
             }
-            viewBinding.buttonApply.id -> {
+            binding.buttonApply.id -> {
                 updateQueryData()
                 clickListener.onClickDatePickerApplyButton(selectedYear, selectedMonth)
                 this.dismiss()
@@ -119,8 +119,8 @@ class DatePickerBottomSheetFragment(
 
     private val datePickerChangedListener = NumberPicker.OnValueChangeListener { _, _, _ ->
         setMonthPickerSetting(currentYear, currentMonth)
-        selectedYear = viewBinding.includeYmPicker.year.value
-        selectedMonth = viewBinding.includeYmPicker.month.value
+        selectedYear = binding.includeYmPicker.year.value
+        selectedMonth = binding.includeYmPicker.month.value
         updateApplyButtonStatus()
     }
 
@@ -130,12 +130,12 @@ class DatePickerBottomSheetFragment(
     }
 
     private fun updateApplyButtonStatus() {
-        viewBinding.buttonApply.isEnabled =
+        binding.buttonApply.isEnabled =
             !(selectedYear == QUERY_YEAR && selectedMonth == QUERY_MONTH)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _viewBinding = null
+        _binding = null
     }
 }
