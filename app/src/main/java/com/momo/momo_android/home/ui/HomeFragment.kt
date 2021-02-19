@@ -23,6 +23,7 @@ import com.momo.momo_android.setting.ui.SettingActivity
 import com.momo.momo_android.upload.ui.UploadFeelingActivity
 import com.momo.momo_android.util.SharedPreferenceController
 import com.momo.momo_android.util.getCurrentDate
+import com.momo.momo_android.util.getDepthString
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -211,7 +212,7 @@ class HomeFragment : Fragment() {
                 DIARY_STATUS = true
                 diaryId = diaryList[0].id
                 setEmotionData(diaryList[0].emotionId, isDay)
-                setDepthData(diaryList[0].depth)
+                binding.textViewDepth.text = getDepthString(diaryList[0].depth, requireContext())
                 setBookDiaryData(diaryList[0])
             }
         }
@@ -342,21 +343,6 @@ class HomeFragment : Fragment() {
                     textViewEmotion.text = "일상"
                 }
                 else -> Log.d("TAG", "setEmotionData: unknown emotion")
-            }
-        }
-    }
-
-    private fun setDepthData(depth: Int) {
-        binding.apply {
-            when (depth) {
-                0 -> textViewDepth.text = "2m"
-                1 -> textViewDepth.text = "30m"
-                2 -> textViewDepth.text = "100m"
-                3 -> textViewDepth.text = "300m"
-                4 -> textViewDepth.text = "700m"
-                5 -> textViewDepth.text = "1,005m"
-                6 -> textViewDepth.text = "심해"
-                else -> Log.d("TAG", "setEmotionData: unknown depth")
             }
         }
     }
