@@ -11,15 +11,15 @@ class ScrollGradientAdapter(
     private val queryMonth: Int
 ) : RecyclerView.Adapter<ScrollGradientViewHolder>() {
 
-    private var _viewBinding: ItemScrollGradientBinding? = null
-    private val viewBinding get() = _viewBinding!!
+    private var _binding: ItemScrollGradientBinding? = null
+    private val binding get() = _binding!!
 
 
     override fun getItemCount(): Int = 9
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScrollGradientViewHolder {
-        _viewBinding = ItemScrollGradientBinding.inflate(LayoutInflater.from(parent.context))
+        _binding = ItemScrollGradientBinding.inflate(LayoutInflater.from(parent.context))
         setMatchParentToItem()
-        return ScrollGradientViewHolder(queryYear, queryMonth, viewBinding)
+        return ScrollGradientViewHolder(queryYear, queryMonth, binding)
     }
 
     override fun onBindViewHolder(holder: ScrollGradientViewHolder, position: Int) {
@@ -31,6 +31,6 @@ class ScrollGradientAdapter(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        viewBinding.root.layoutParams = layoutParams
+        binding.root.layoutParams = layoutParams
     }
 }
