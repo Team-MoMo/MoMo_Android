@@ -1,25 +1,18 @@
 package com.momo.momo_android.diary.ui
 
-import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Rect
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
-import android.widget.ScrollView
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.animation.doOnEnd
 import com.momo.momo_android.R
 import com.momo.momo_android.databinding.ActivityDiaryEditDeepBinding
 import com.momo.momo_android.diary.data.RequestEditDiaryData
@@ -28,11 +21,12 @@ import com.momo.momo_android.home.ui.ScrollFragment.Companion.EDITED_DEPTH
 import com.momo.momo_android.home.ui.ScrollFragment.Companion.IS_EDITED
 import com.momo.momo_android.network.RequestToServer
 import com.momo.momo_android.util.*
+import com.momo.momo_android.util.ui.getThumb
+import com.momo.momo_android.util.ui.smoothScrollToView
 import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
-import kotlin.math.abs
 
 
 class DiaryEditDeepActivity : AppCompatActivity() {
@@ -50,27 +44,30 @@ class DiaryEditDeepActivity : AppCompatActivity() {
                     View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         window.statusBarColor = Color.TRANSPARENT
 
-
-        binding.btnBack.setOnClickListener {
-            finish()
-        }
-
         initDiaryData()
 
         initSeekBar()
 
         initBackground()
 
-        binding.btnEditDepth.setOnClickListener {
-            requestEditDiary(binding.mainSeekBar.progress)
+        applyButtons()
+
+    }
+
+    private fun applyButtons() {
+        binding.apply {
+            btnBack.setOnClickListener {
+                finish()
+            }
+
+            btnEditDepth.setOnClickListener {
+                requestEditDiary(mainSeekBar.progress)
+            }
         }
-
-
     }
 
     private fun initDiaryData() {
         binding.apply {
-            svDiaryEditDepth.setOnTouchListener { _, _ -> true } // 스크롤뷰 스크롤 막기
             tvDepthDate.text = intent.getStringExtra("diary_date")
             imgDepthEmotion.setImageResource(getEmotionWhite(DiaryActivity.responseDiaryData[0].emotionId))
             tvDepthEmotion.text =
@@ -81,12 +78,11 @@ class DiaryEditDeepActivity : AppCompatActivity() {
     private fun initSeekBar() {
         setMainSeekBar() // main SeekBar
         setSideSeekBar() // line & text SeekBar
-
-        // mainSeekbar listener
-        binding.mainSeekBar.setOnSeekBarChangeListener(seekBarListener)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun initBackground() {
+        binding.svDiaryEditDepth.setOnTouchListener { _, _ -> true } // 스크롤뷰 스크롤 막기
         setBackgroundHeight()
 
         Handler(Looper.myLooper()!!).postDelayed(
@@ -110,10 +106,16 @@ class DiaryEditDeepActivity : AppCompatActivity() {
     }
 
     private fun setMainSeekBar() {
-        // 맨 처음에 mainSeekBar를 수정 전 깊이로 세팅
-        binding.mainSeekBar.progress = DiaryActivity.responseDiaryData[0].depth
+        binding.apply {
+            // 맨 처음에 mainSeekBar를 수정 전 깊이로 세팅
+            mainSeekBar.progress = DiaryActivity.responseDiaryData[0].depth
+
+            // mainSeekbar listener
+            mainSeekBar.setOnSeekBarChangeListener(seekBarListener)
+        }
     }
 
+    @SuppressLint("ClickableViewAccessibility", "InflateParams")
     private fun setSideSeekBar() {
         // line & text SeekBar를 main과 동일한 단계로 설정
 
@@ -126,13 +128,13 @@ class DiaryEditDeepActivity : AppCompatActivity() {
         )
 
         binding.apply {
-            lineSeekBar.progress = binding.mainSeekBar.progress
+            lineSeekBar.progress = mainSeekBar.progress
             lineSeekBar.thumb = lineThumb.getThumb()
             lineSeekBar.setOnTouchListener { _, _ -> true }
 
-            textSeekBar.progress = binding.mainSeekBar.progress
+            textSeekBar.progress = mainSeekBar.progress
             (textThumb.findViewById(R.id.tv_seekbar_depth) as TextView).text =
-                getDepthString(binding.textSeekBar.progress, applicationContext)
+                getDepthString(textSeekBar.progress, applicationContext)
             textSeekBar.thumb = textThumb.getThumb()
             textSeekBar.setOnTouchListener { _, _ -> true }
         }
@@ -172,10 +174,10 @@ class DiaryEditDeepActivity : AppCompatActivity() {
                     ?.body()
                     ?.let {
                         IS_EDITED = true
-                        EDITED_DEPTH = response.body()!!.data.depth
+                        EDITED_DEPTH = it.data.depth
 
                         val intent = Intent(applicationContext, DiaryActivity::class.java)
-                        intent.putExtra("diaryDepth", response.body()!!.data.depth)
+                        intent.putExtra("diaryDepth", it.data.depth)
                         setResult(1000, intent)
                         finish()
                         applicationContext.showToast("깊이가 수정되었습니다.")
@@ -207,58 +209,6 @@ class DiaryEditDeepActivity : AppCompatActivity() {
                 5 -> bgDepth6
                 else -> bgDepth7
             }
-        }
-    }
-
-    private fun View.getThumb(): BitmapDrawable {
-
-        this.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-        val bitmap = Bitmap.createBitmap(
-            this.measuredWidth,
-            this.measuredHeight,
-            Bitmap.Config.ARGB_8888
-        )
-        val canvas = Canvas(bitmap)
-        this.layout(0, 0, this.measuredWidth, this.measuredHeight)
-        this.draw(canvas)
-
-        return BitmapDrawable(resources, bitmap)
-    }
-
-    private fun ScrollView.computeDistanceToView(view: View): Int {
-        return abs(calculateRectOnScreen(this).top - (this.scrollY + calculateRectOnScreen(view).top))
-    }
-
-    private fun calculateRectOnScreen(view: View): Rect {
-        val location = IntArray(2)
-        view.getLocationOnScreen(location)
-        return Rect(
-            location[0],
-            location[1],
-            location[0] + view.measuredWidth,
-            location[1] + view.measuredHeight
-        )
-    }
-
-    private fun ScrollView.smoothScrollToView(
-        view: View,
-        marginTop: Int = 0,
-        maxDuration: Long = 500L,
-        onEnd: () -> Unit = {}
-    ) {
-        if (this.getChildAt(0).height <= this.height) {
-            onEnd()
-            return
-        }
-        val y = computeDistanceToView(view) - marginTop
-        val ratio = abs(y - this.scrollY) / (this.getChildAt(0).height - this.height).toFloat()
-        ObjectAnimator.ofInt(this, "scrollY", y).apply {
-            duration = (maxDuration * ratio).toLong()
-            interpolator = AccelerateDecelerateInterpolator()
-            doOnEnd {
-                onEnd()
-            }
-            start()
         }
     }
 
