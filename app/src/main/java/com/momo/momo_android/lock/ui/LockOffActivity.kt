@@ -95,10 +95,9 @@ class LockOffActivity : AppCompatActivity() {
 
     private fun checkPassCodeValidation() {
         currentPassCode = SharedPreferenceController.getPassCode(this).toString()
-        if (inputPassCode == currentPassCode) {
-            finishActivityWithLockStatus()
-        } else {
-            setWrongPassCodeView()
+        when (inputPassCode) {
+            currentPassCode -> finishActivityWithLockStatus()
+            else -> setWrongPassCodeView()
         }
     }
 
