@@ -1,7 +1,9 @@
 package com.momo.momo_android.lock.ui
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.os.Bundle
 import android.os.Handler
@@ -141,58 +143,47 @@ class LockOffActivity : AppCompatActivity() {
 
     private fun updatePassCodeOvalColor(length: Int) {
         binding.apply {
-            when (length) {
-                0 -> {
-                    imageViewPassCodeOval01.backgroundTintList =
-                        ContextCompat.getColorStateList(this@LockOffActivity, R.color.blue_5)
-                    imageViewPassCodeOval02.backgroundTintList =
-                        ContextCompat.getColorStateList(this@LockOffActivity, R.color.blue_5)
-                    imageViewPassCodeOval03.backgroundTintList =
-                        ContextCompat.getColorStateList(this@LockOffActivity, R.color.blue_5)
-                    imageViewPassCodeOval04.backgroundTintList =
-                        ContextCompat.getColorStateList(this@LockOffActivity, R.color.blue_5)
-                }
-                1 -> {
-                    imageViewPassCodeOval01.backgroundTintList =
-                        ContextCompat.getColorStateList(this@LockOffActivity, R.color.blue_3)
-                    imageViewPassCodeOval02.backgroundTintList =
-                        ContextCompat.getColorStateList(this@LockOffActivity, R.color.blue_5)
-                    imageViewPassCodeOval03.backgroundTintList =
-                        ContextCompat.getColorStateList(this@LockOffActivity, R.color.blue_5)
-                    imageViewPassCodeOval04.backgroundTintList =
-                        ContextCompat.getColorStateList(this@LockOffActivity, R.color.blue_5)
-                }
-                2 -> {
-                    imageViewPassCodeOval01.backgroundTintList =
-                        ContextCompat.getColorStateList(this@LockOffActivity, R.color.blue_3)
-                    imageViewPassCodeOval02.backgroundTintList =
-                        ContextCompat.getColorStateList(this@LockOffActivity, R.color.blue_3)
-                    imageViewPassCodeOval03.backgroundTintList =
-                        ContextCompat.getColorStateList(this@LockOffActivity, R.color.blue_5)
-                    imageViewPassCodeOval04.backgroundTintList =
-                        ContextCompat.getColorStateList(this@LockOffActivity, R.color.blue_5)
-                }
-                3 -> {
-                    imageViewPassCodeOval01.backgroundTintList =
-                        ContextCompat.getColorStateList(this@LockOffActivity, R.color.blue_3)
-                    imageViewPassCodeOval02.backgroundTintList =
-                        ContextCompat.getColorStateList(this@LockOffActivity, R.color.blue_3)
-                    imageViewPassCodeOval03.backgroundTintList =
-                        ContextCompat.getColorStateList(this@LockOffActivity, R.color.blue_3)
-                    imageViewPassCodeOval04.backgroundTintList =
-                        ContextCompat.getColorStateList(this@LockOffActivity, R.color.blue_5)
-                }
-                4 -> {
-                    imageViewPassCodeOval01.backgroundTintList =
-                        ContextCompat.getColorStateList(this@LockOffActivity, R.color.blue_3)
-                    imageViewPassCodeOval02.backgroundTintList =
-                        ContextCompat.getColorStateList(this@LockOffActivity, R.color.blue_3)
-                    imageViewPassCodeOval03.backgroundTintList =
-                        ContextCompat.getColorStateList(this@LockOffActivity, R.color.blue_3)
-                    imageViewPassCodeOval04.backgroundTintList =
-                        ContextCompat.getColorStateList(this@LockOffActivity, R.color.blue_3)
+            this@LockOffActivity.let {
+                when (length) {
+                    0 -> {
+                        imageViewPassCodeOval01.backgroundTintList = setPassCodeOvalColor(it, false)
+                        imageViewPassCodeOval02.backgroundTintList = setPassCodeOvalColor(it, false)
+                        imageViewPassCodeOval03.backgroundTintList = setPassCodeOvalColor(it, false)
+                        imageViewPassCodeOval04.backgroundTintList = setPassCodeOvalColor(it, false)
+                    }
+                    1 -> {
+                        imageViewPassCodeOval01.backgroundTintList = setPassCodeOvalColor(it, true)
+                        imageViewPassCodeOval02.backgroundTintList = setPassCodeOvalColor(it, false)
+                        imageViewPassCodeOval03.backgroundTintList = setPassCodeOvalColor(it, false)
+                        imageViewPassCodeOval04.backgroundTintList = setPassCodeOvalColor(it, false)
+                    }
+                    2 -> {
+                        imageViewPassCodeOval01.backgroundTintList = setPassCodeOvalColor(it, true)
+                        imageViewPassCodeOval02.backgroundTintList = setPassCodeOvalColor(it, true)
+                        imageViewPassCodeOval03.backgroundTintList = setPassCodeOvalColor(it, false)
+                        imageViewPassCodeOval04.backgroundTintList = setPassCodeOvalColor(it, false)
+                    }
+                    3 -> {
+                        imageViewPassCodeOval01.backgroundTintList = setPassCodeOvalColor(it, true)
+                        imageViewPassCodeOval02.backgroundTintList = setPassCodeOvalColor(it, true)
+                        imageViewPassCodeOval03.backgroundTintList = setPassCodeOvalColor(it, true)
+                        imageViewPassCodeOval04.backgroundTintList = setPassCodeOvalColor(it, false)
+                    }
+                    4 -> {
+                        imageViewPassCodeOval01.backgroundTintList = setPassCodeOvalColor(it, true)
+                        imageViewPassCodeOval02.backgroundTintList = setPassCodeOvalColor(it, true)
+                        imageViewPassCodeOval03.backgroundTintList = setPassCodeOvalColor(it, true)
+                        imageViewPassCodeOval04.backgroundTintList = setPassCodeOvalColor(it, true)
+                    }
                 }
             }
+        }
+    }
+
+    private fun setPassCodeOvalColor(context: Context, isFilled: Boolean): ColorStateList {
+        return when (isFilled) {
+            true -> ContextCompat.getColorStateList(context, R.color.blue_3)!!
+            false -> ContextCompat.getColorStateList(context, R.color.blue_5)!!
         }
     }
 
