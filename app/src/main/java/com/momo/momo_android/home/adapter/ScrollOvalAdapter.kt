@@ -14,8 +14,8 @@ class ScrollOvalAdapter(
     private val diaryList: List<ResponseDiaryList.Data>
 ) : RecyclerView.Adapter<ScrollOvalViewHolder>() {
 
-    private var _viewBinding: ItemScrollOvalBinding? = null
-    private val viewBinding get() = _viewBinding!!
+    private var _binding: ItemScrollOvalBinding? = null
+    private val binding get() = _binding!!
     private val itemCount = diaryList.size
 
 
@@ -25,9 +25,9 @@ class ScrollOvalAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScrollOvalViewHolder {
-        _viewBinding = ItemScrollOvalBinding.inflate(LayoutInflater.from(parent.context))
+        _binding = ItemScrollOvalBinding.inflate(LayoutInflater.from(parent.context))
         setMatchParentToRecyclerView()
-        return ScrollOvalViewHolder(viewBinding)
+        return ScrollOvalViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ScrollOvalViewHolder, position: Int) {
@@ -46,6 +46,6 @@ class ScrollOvalAdapter(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        viewBinding.root.layoutParams = layoutParams
+        binding.root.layoutParams = layoutParams
     }
 }
