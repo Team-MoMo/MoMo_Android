@@ -31,20 +31,6 @@ import java.util.*
 
 class ListActivity : AppCompatActivity() {
 
-    companion object {
-
-        var filter_year = 0
-        var filter_month = 0
-        var filter_emotion : Int? = null
-        var filter_depth : Int? = null
-
-        var filter_current_year = 0
-        var filter_current_month = 0
-
-        lateinit var mContext : ListActivity
-        private set
-    }
-
     private lateinit var binding : ActivityListBinding
     private lateinit var listAdapter : ListAdapter
     private lateinit var filterLabelAdapter : FilterLabelAdapter
@@ -412,6 +398,20 @@ class ListActivity : AppCompatActivity() {
         val ob = JSONObject(e.string())
         this.showToast(ob.getString("message"))
         Log.d("ListActivity-server", ob.getString("message"))
+    }
+
+    companion object {
+
+        var filter_year = 0
+        var filter_month = 0
+        var filter_emotion : Int? = null
+        var filter_depth : Int? = null
+
+        var filter_current_year = 0
+        var filter_current_month = 0
+
+        lateinit var mContext : ListActivity
+            private set
     }
 
 }
