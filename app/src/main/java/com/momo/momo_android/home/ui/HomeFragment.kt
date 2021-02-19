@@ -22,6 +22,7 @@ import com.momo.momo_android.network.RequestToServer
 import com.momo.momo_android.setting.ui.SettingActivity
 import com.momo.momo_android.upload.ui.UploadFeelingActivity
 import com.momo.momo_android.util.SharedPreferenceController
+import com.momo.momo_android.util.getCurrentDate
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,9 +38,10 @@ class HomeFragment : Fragment() {
     private var isDay = true
     private var diaryId = 0
     private var diaryDepth = 0
-    private val currentYear = Calendar.getInstance().get(Calendar.YEAR)
-    private val currentMonth = (Calendar.getInstance().get(Calendar.MONTH) + 1)
-    private val currentDate = Calendar.getInstance().get(Calendar.DATE)
+
+    private lateinit var currentYear: String
+    private lateinit var currentMonth: String
+    private lateinit var currentDate: String
 
 
     override fun onCreateView(
@@ -61,7 +63,7 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         updateEditedData()
-        if(!onBackPressedCallback.isEnabled) {
+        if (!onBackPressedCallback.isEnabled) {
             onBackPressedCallback.isEnabled = true
         }
     }
@@ -95,29 +97,18 @@ class HomeFragment : Fragment() {
     }
 
     private fun updateEditedData() {
-        if(IS_EDITED) {
+        if (IS_EDITED) {
             updateByServerData()
             IS_EDITED = false
         }
     }
 
     private fun setCurrentDate() {
-        val currentDay = getCurrentDay(Calendar.getInstance().get(Calendar.DAY_OF_WEEK))
-        binding.textViewDate.text =
-            "${currentYear}년\n${currentMonth}월 ${currentDate}일 ${currentDay}요일"
-    }
-
-    private fun getCurrentDay(currentDay: Int): String {
-        return when (currentDay) {
-            1 -> "일"
-            2 -> "월"
-            3 -> "화"
-            4 -> "수"
-            5 -> "목"
-            6 -> "금"
-            7 -> "토"
-            else -> ""
-        }
+        currentYear = getCurrentDate()[0]
+        currentMonth = getCurrentDate()[1]
+        currentDate = getCurrentDate()[2]
+        val currentDay = getCurrentDate()[3]
+        binding.textViewDate.text = "${currentYear}년\n${currentMonth}월 ${currentDate}일 $currentDay"
     }
 
     private fun setDayNightStatus() {
@@ -186,9 +177,9 @@ class HomeFragment : Fragment() {
             SharedPreferenceController.getAccessToken(requireContext()),
             SharedPreferenceController.getUserId(requireContext()),
             "filter",
-            currentYear,
-            currentMonth,
-            currentDate
+            currentYear.toInt(),
+            currentMonth.toInt(),
+            currentDate.toInt()
         ).enqueue(object : Callback<ResponseDiaryList> {
             override fun onResponse(
                 call: Call<ResponseDiaryList>,
@@ -243,7 +234,7 @@ class HomeFragment : Fragment() {
 
     private fun setLoadingViewBackground() {
         binding.viewLoading.apply {
-            when(isDay) {
+            when (isDay) {
                 true -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
                 false -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_grey))
             }
