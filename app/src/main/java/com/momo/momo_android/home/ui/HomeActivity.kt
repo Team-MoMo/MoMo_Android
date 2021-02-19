@@ -14,8 +14,8 @@ import com.momo.momo_android.util.showToast
 
 class HomeActivity : AppCompatActivity() {
 
-    private var _viewBinding: ActivityHomeBinding? = null
-    private val viewBinding get() = _viewBinding!!
+    private var _binding: ActivityHomeBinding? = null
+    private val binding get() = _binding!!
 
     private var backPressedTime: Long = 0
 
@@ -28,12 +28,12 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setViewBinding() {
-        _viewBinding = ActivityHomeBinding.inflate(layoutInflater)
-        setContentView(viewBinding.root)
+        _binding = ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 
     private fun setViewPager2() {
-        viewBinding.viewPager2.apply {
+        binding.viewPager2.apply {
             adapter = HomeViewPager2Adapter(this@HomeActivity)
             (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
         }
@@ -60,6 +60,6 @@ class HomeActivity : AppCompatActivity() {
     }
 
     fun replaceToHomeFragment() {
-        viewBinding.viewPager2.setCurrentItem(0, true)
+        binding.viewPager2.setCurrentItem(0, true)
     }
 }
