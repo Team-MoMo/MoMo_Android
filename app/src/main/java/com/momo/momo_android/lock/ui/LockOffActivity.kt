@@ -16,8 +16,8 @@ import com.momo.momo_android.util.SharedPreferenceController
 
 class LockOffActivity : AppCompatActivity() {
 
-    private var _viewBinding: ActivityLockOnBinding? = null
-    private val viewBinding get() = _viewBinding!!
+    private var _binding: ActivityLockOnBinding? = null
+    private val binding get() = _binding!!
 
     private var inputPassCode = ""
     private var currentPassCode = ""
@@ -31,12 +31,12 @@ class LockOffActivity : AppCompatActivity() {
     }
 
     private fun setViewBinding() {
-        _viewBinding = ActivityLockOnBinding.inflate(layoutInflater)
-        setContentView(viewBinding.root)
+        _binding = ActivityLockOnBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 
     private fun setListeners() {
-        viewBinding.apply {
+        binding.apply {
             activityOnClickListener.let {
                 button01.setOnClickListener(it)
                 button02.setOnClickListener(it)
@@ -56,7 +56,7 @@ class LockOffActivity : AppCompatActivity() {
     }
 
     private val activityOnClickListener = View.OnClickListener {
-        viewBinding.apply {
+        binding.apply {
             when (it.id) {
                 button01.id -> setPassCode("1")
                 button02.id -> setPassCode("2")
@@ -117,14 +117,14 @@ class LockOffActivity : AppCompatActivity() {
     }
 
     private fun setCurrentPassCodeView() {
-        viewBinding.apply {
+        binding.apply {
             textViewDescription.text = "현재 암호를 입력해 주세요."
             textViewWrongPassCode.text = ""
         }
     }
 
     private fun setWrongPassCodeView() {
-        viewBinding.apply {
+        binding.apply {
             setTextViewBottomMargin(textViewDescription)
             textViewWrongPassCode.text = "현재 암호와 달라요!"
         }
@@ -140,7 +140,7 @@ class LockOffActivity : AppCompatActivity() {
     }
 
     private fun updatePassCodeOvalColor(length: Int) {
-        viewBinding.apply {
+        binding.apply {
             when (length) {
                 0 -> {
                     imageViewPassCodeOval01.backgroundTintList =
@@ -202,6 +202,6 @@ class LockOffActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        _viewBinding = null
+        _binding = null
     }
 }
