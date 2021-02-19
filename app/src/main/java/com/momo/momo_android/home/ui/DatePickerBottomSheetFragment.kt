@@ -11,6 +11,7 @@ import com.momo.momo_android.home.ui.ScrollFragment.Companion.QUERY_MONTH
 import com.momo.momo_android.home.ui.ScrollFragment.Companion.QUERY_YEAR
 import com.momo.momo_android.util.ScrollDatePickerListener
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.momo.momo_android.util.getCurrentDate
 import java.util.*
 
 
@@ -18,13 +19,13 @@ class DatePickerBottomSheetFragment(
     private val clickListener: ScrollDatePickerListener
 ) : BottomSheetDialogFragment() {
 
-    private var _viewBinding: BottomsheetScrollDatePickerBinding? = null
-    private val viewBinding get() = _viewBinding!!
+    private var _binding: BottomsheetScrollDatePickerBinding? = null
+    private val binding get() = _binding!!
 
     private var selectedYear = 0
     private var selectedMonth = 0
-    private val currentYear = Calendar.getInstance().get(Calendar.YEAR)
-    private val currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1
+    private val currentYear = getCurrentDate()[0].toInt()
+    private val currentMonth = getCurrentDate()[1].toInt()
 
 
     override fun getTheme(): Int = R.style.RoundBottomSheetDialog
@@ -33,8 +34,8 @@ class DatePickerBottomSheetFragment(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _viewBinding = BottomsheetScrollDatePickerBinding.inflate(layoutInflater)
-        return viewBinding.root
+        _binding = BottomsheetScrollDatePickerBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,7 +45,7 @@ class DatePickerBottomSheetFragment(
     }
 
     private fun setListeners() {
-        viewBinding.apply {
+        binding.apply {
             imageButtonClose.setOnClickListener(fragmentOnClickListener)
             buttonApply.setOnClickListener(fragmentOnClickListener)
             includeYmPicker.year.setOnValueChangedListener(datePickerChangedListener)
@@ -66,7 +67,7 @@ class DatePickerBottomSheetFragment(
     }
 
     private fun setYearPickerSetting(currentYear: Int) {
-        viewBinding.includeYmPicker.year.apply {
+        binding.includeYmPicker.year.apply {
             minValue = currentYear - 1
             maxValue = currentYear
         }
@@ -74,27 +75,26 @@ class DatePickerBottomSheetFragment(
 
     private fun initYearPickerValue() {
         selectedYear = QUERY_YEAR
-        viewBinding.includeYmPicker.year.value = selectedYear
+        binding.includeYmPicker.year.value = selectedYear
     }
 
     private fun setMonthPickerSetting(currentYear: Int, currentMonth: Int) {
-        viewBinding.includeYmPicker.apply {
+        binding.includeYmPicker.apply {
             month.minValue = 1
-            if (year.value == currentYear) {
-                month.maxValue = currentMonth
-            } else {
-                month.maxValue = 12
+            month.maxValue = when (year.value) {
+                currentYear -> currentMonth
+                else -> 12
             }
         }
     }
 
     private fun initMonthPickerValue() {
         selectedMonth = QUERY_MONTH
-        viewBinding.includeYmPicker.month.value = selectedMonth
+        binding.includeYmPicker.month.value = selectedMonth
     }
 
     private fun setDatePickerSetting() {
-        viewBinding.includeYmPicker.apply {
+        binding.includeYmPicker.apply {
             // 순환 안되게 막기
             year.wrapSelectorWheel = false
             month.wrapSelectorWheel = false
@@ -106,10 +106,8 @@ class DatePickerBottomSheetFragment(
 
     private val fragmentOnClickListener = View.OnClickListener {
         when (it.id) {
-            viewBinding.imageButtonClose.id -> {
-                this.dismiss()
-            }
-            viewBinding.buttonApply.id -> {
+            binding.imageButtonClose.id -> this.dismiss()
+            binding.buttonApply.id -> {
                 updateQueryData()
                 clickListener.onClickDatePickerApplyButton(selectedYear, selectedMonth)
                 this.dismiss()
@@ -119,9 +117,9 @@ class DatePickerBottomSheetFragment(
 
     private val datePickerChangedListener = NumberPicker.OnValueChangeListener { _, _, _ ->
         setMonthPickerSetting(currentYear, currentMonth)
-        selectedYear = viewBinding.includeYmPicker.year.value
-        selectedMonth = viewBinding.includeYmPicker.month.value
-        updateApplyButtonStatus()
+        selectedYear = binding.includeYmPicker.year.value
+        selectedMonth = binding.includeYmPicker.month.value
+        updateApplyButtonStatus(selectedYear, selectedMonth)
     }
 
     private fun updateQueryData() {
@@ -129,13 +127,13 @@ class DatePickerBottomSheetFragment(
         QUERY_MONTH = selectedMonth
     }
 
-    private fun updateApplyButtonStatus() {
-        viewBinding.buttonApply.isEnabled =
+    private fun updateApplyButtonStatus(selectedYear: Int, selectedMonth: Int) {
+        binding.buttonApply.isEnabled =
             !(selectedYear == QUERY_YEAR && selectedMonth == QUERY_MONTH)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _viewBinding = null
+        _binding = null
     }
 }
