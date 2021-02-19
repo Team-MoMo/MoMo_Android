@@ -74,11 +74,13 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
     private fun setListeners() {
         binding.apply {
             viewButtonContainer.setOnTouchListener(fragmentOnTouchListener)
-            imageButtonMy.setOnClickListener(fragmentOnClickListener)
-            imageButtonCalendar.setOnClickListener(fragmentOnClickListener)
-            imageButtonHome.setOnClickListener(fragmentOnClickListener)
-            imageButtonUpload.setOnClickListener(fragmentOnClickListener)
-            imageButtonList.setOnClickListener(fragmentOnClickListener)
+            fragmentOnClickListener.let {
+                imageButtonMy.setOnClickListener(it)
+                imageButtonCalendar.setOnClickListener(it)
+                imageButtonHome.setOnClickListener(it)
+                imageButtonUpload.setOnClickListener(it)
+                imageButtonList.setOnClickListener(it)
+            }
         }
     }
 
@@ -113,13 +115,13 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
     private fun setLoadingViewBackground() {
         binding.viewLoading.apply {
             when(EDITED_DEPTH + 1) {
+                1 -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_2m_start))
                 2 -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_30m_start))
                 3 -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_100m_start))
                 4 -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_300m_start))
                 5 -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_700m_start))
                 6 -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_1005m_start))
                 7 -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_deep_sea_start))
-                else -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_2m_start))
             }
         }
     }
@@ -128,9 +130,8 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
         @RequiresApi(Build.VERSION_CODES.N)
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
-            val visibleItemPosition = getVisibleItemPosition()
-            checkHomeButtonStatus(visibleItemPosition)
-            updateVerticalSeekBar(visibleItemPosition)
+            checkHomeButtonStatus(getVisibleItemPosition())
+            updateVerticalSeekBar(getVisibleItemPosition())
         }
 
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -255,7 +256,7 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
         binding.apply {
             when (it.id) {
                 imageButtonMy.id -> setIntentToSettingActivity()
-                imageButtonCalendar.id -> setIntentToDatePicker()
+                imageButtonCalendar.id -> showDatePicker()
                 imageButtonHome.id -> scrollToTop()
                 imageButtonUpload.id -> setIntentToUploadActivity()
                 imageButtonList.id -> setIntentToListActivity()
@@ -268,7 +269,7 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
         startActivity(intent)
     }
 
-    private fun setIntentToDatePicker() {
+    private fun showDatePicker() {
         DatePickerBottomSheetFragment(this).show(requireFragmentManager(), tag)
     }
 
