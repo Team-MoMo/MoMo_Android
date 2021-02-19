@@ -12,14 +12,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.momo.momo_android.R
-import com.momo.momo_android.databinding.ActivityLockOnBinding
+import com.momo.momo_android.databinding.ActivityLockBinding
 import com.momo.momo_android.util.SharedPreferenceController
 import com.momo.momo_android.util.showToast
 
 
 class LockOnActivity : AppCompatActivity() {
 
-    private var _binding: ActivityLockOnBinding? = null
+    private var _binding: ActivityLockBinding? = null
     private val binding get() = _binding!!
 
     private var firstPassCode = ""
@@ -34,7 +34,7 @@ class LockOnActivity : AppCompatActivity() {
     }
 
     private fun setViewBinding() {
-        _binding = ActivityLockOnBinding.inflate(layoutInflater)
+        _binding = ActivityLockBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
 
