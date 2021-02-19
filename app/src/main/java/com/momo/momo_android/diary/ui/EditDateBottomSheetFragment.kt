@@ -29,14 +29,22 @@ import com.momo.momo_android.util.showToast
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import okhttp3.ResponseBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
 import java.util.*
 
 class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomSheetDialogFragment() {
 
-    private var _Binding: BottomsheetDiaryEditDateBinding? = null
-    private val Binding get() = _Binding!!
+    private var _binding: BottomsheetDiaryEditDateBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var year : NumberPicker
+    private lateinit var month : NumberPicker
+    private lateinit var date : NumberPicker
+
+    private lateinit var currentDate: Calendar
 
     override fun getTheme(): Int = R.style.RoundBottomSheetDialog
 
@@ -61,49 +69,63 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        _Binding = BottomsheetDiaryEditDateBinding.inflate(layoutInflater)
+    ): View {
+        _binding = BottomsheetDiaryEditDateBinding.inflate(layoutInflater)
 
         activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         (activity as AppCompatActivity).supportActionBar?.hide()
 
-        return Binding.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val year = Binding.includeYmdPicker.year
-        val month = Binding.includeYmdPicker.month
-        val date = Binding.includeYmdPicker.date
+        initDatePicker()
 
-        // divider 색깔 투명으로 변경하는 함수
-        fun NumberPicker.removeDivider() {
-            val pickerFields = NumberPicker::class.java.declaredFields
-            for (pf in pickerFields) {
-                if (pf.name == "mSelectionDivider") {
-                    pf.isAccessible = true
-                    try {
-                        val colorDrawable = ColorDrawable(Color.TRANSPARENT)
-                        pf[this] = colorDrawable
-                    } catch (e: java.lang.IllegalArgumentException) {
-                        // log exception here
-                    } catch (e: Resources.NotFoundException) {
-                        // log exception here
-                    } catch (e: IllegalAccessException) {
-                        // log exception here
-                    }
-                    break
-                }
-            }
+        setPickerValueListener()
+
+        setPickerScrollListener()
+
+        binding.btnDiaryDateEdit.setOnClickListener {
+            val pickDate = intArrayOf(year.value, month.value, date.value)
+            itemClick(pickDate)
+
+            requestEditDiary()
         }
 
-        year.removeDivider()
-        month.removeDivider()
-        date.removeDivider()
+        binding.btnCloseDiaryEditDate.setOnClickListener {
+            dialog?.dismiss()
+        }
+
+    }
+
+    private fun initDatePicker() {
+        year = binding.includeYmdPicker.year
+        month = binding.includeYmdPicker.month
+        date = binding.includeYmdPicker.date
+
+        setDateRange()
+
+        year.value = diary_year
+        month.value = diary_month
+        date.value = diary_date
+
+        // 순환 안되게 막기
+        year.wrapSelectorWheel = false
+        month.wrapSelectorWheel = false
+        date.wrapSelectorWheel = false
+
+        // edittext 입력 방지
+        year.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+        month.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+        date.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+    }
+
+    private fun setDateRange() {
 
         // 현재 날짜 가져오기
-        val currentDate = Calendar.getInstance()
+        currentDate = Calendar.getInstance()
 
         // minValue = 최소 날짜 표시
         year.minValue = 2020
@@ -127,23 +149,9 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
         } else {
             setMonthMax()
         }
+    }
 
-
-        year.value = diary_year
-        month.value = diary_month
-        date.value = diary_date
-
-        // 순환 안되게 막기
-
-       year.wrapSelectorWheel = false
-        month.wrapSelectorWheel = false
-        date.wrapSelectorWheel = false
-
-        // edittext 입력 방지
-        year.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-        month.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-        date.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-
+    private fun setPickerValueListener() {
         // year picker change listener
         year.setOnValueChangedListener { _, _, _ ->
 
@@ -163,7 +171,7 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
         month.setOnValueChangedListener { _, _, _ ->
 
             if(year.value == currentDate.get(Calendar.YEAR) && month.value == currentDate.get(
-                            Calendar.MONTH) + 1) {
+                    Calendar.MONTH) + 1) {
                 // 현재 년도에 현재 날짜일 때
                 month.maxValue = currentDate.get(Calendar.MONTH) + 1
                 date.maxValue = currentDate.get(Calendar.DAY_OF_MONTH)
@@ -173,36 +181,35 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
             }
 
         }
+    }
 
-
+    private fun setPickerScrollListener() {
         // 스크롤 했을 때 해당 날짜에 일기가 있는지 체크
         year.setOnScrollListener(pickerScrollListener)
         month.setOnScrollListener(pickerScrollListener)
         date.setOnScrollListener(pickerScrollListener)
-
-
-        Binding.btnDiaryDateEdit.setOnClickListener {
-            val pick = intArrayOf(year.value, month.value, date.value)
-            itemClick(pick)
-
-            // 날짜수정 통신
-            requestEditDiary()
-        }
-
-        Binding.btnCloseDiaryEditDate.setOnClickListener {
-            dialog?.dismiss()
-        }
-
-
-
     }
 
     private val pickerScrollListener = NumberPicker.OnScrollListener { _, state ->
         if(state == SCROLL_STATE_IDLE) {
-            requestCheckDiary(
-                Binding.includeYmdPicker.year.value,
-                Binding.includeYmdPicker.month.value,
-                Binding.includeYmdPicker.date.value)
+            requestCheckDiary(year.value, month.value, date.value)
+        }
+    }
+
+    // 달 별로 일수 다른거 미리 세팅해둔 함수
+    private fun setMonthMax() {
+        binding.includeYmdPicker.apply {
+            when (month.value) {
+                2 -> {
+                    date.maxValue = 29
+                }
+                4, 6, 9, 11 -> {
+                    date.maxValue = 30
+                }
+                1, 3, 5, 7, 8, 10, 12 -> {
+                    date.maxValue = 31
+                }
+            }
         }
     }
 
@@ -215,31 +222,20 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
             year = year,
             month = month,
             day = date,
-            userId = DiaryActivity.responseData[0].userId
+            userId = DiaryActivity.responseDiaryData[0].userId
         ).enqueue(object : retrofit2.Callback<ResponseDiaryList> {
             override fun onResponse(
                 call: Call<ResponseDiaryList>,
                 response: Response<ResponseDiaryList>
             ) {
-                when {
-                    response.code() == 200 -> {
+                response.takeIf { it.isSuccessful }
+                    ?.body()
+                    ?.let {
 
-                        if(response.body()!!.data.isNullOrEmpty()) {
-                            Log.d("가능여부", "된다?")
-                            Binding.btnDiaryDateEdit.isEnabled = true
-                        } else {
-                            Log.d("가능여부", "놉")
-                            Binding.btnDiaryDateEdit.isEnabled = false
-                        }
+                        binding.btnDiaryDateEdit.isEnabled = response.body()!!.data.isNullOrEmpty()
 
-                    }
-                    response.code() == 400 -> {
-                        Log.d("checkDiary 400", response.message())
-                    }
-                    else -> {
-                        Log.d("checkDiary 500", response.message())
-                    }
-                }
+                    } ?: showError(response.errorBody())
+
             }
 
             override fun onFailure(call: Call<ResponseDiaryList>, t: Throwable) {
@@ -253,13 +249,13 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
 
         RequestToServer.service.editDiary(
             Authorization = context?.let { SharedPreferenceController.getAccessToken(it) },
-            params = DiaryActivity.responseData[0].id,
+            params = DiaryActivity.responseDiaryData[0].id,
             body = RequestEditDiaryData(
-                depth = DiaryActivity.responseData[0].depth,
-                contents = DiaryActivity.responseData[0].contents,
-                userId = DiaryActivity.responseData[0].userId,
-                sentenceId = DiaryActivity.responseData[0].sentenceId,
-                emotionId = DiaryActivity.responseData[0].emotionId,
+                depth = DiaryActivity.responseDiaryData[0].depth,
+                contents = DiaryActivity.responseDiaryData[0].contents,
+                userId = DiaryActivity.responseDiaryData[0].userId,
+                sentenceId = DiaryActivity.responseDiaryData[0].sentenceId,
+                emotionId = DiaryActivity.responseDiaryData[0].emotionId,
                 wroteAt = "$diary_year-$diary_month-$diary_date"
             )
         ).enqueue(object : retrofit2.Callback<ResponseDiaryData> {
@@ -267,21 +263,16 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
                 call: Call<ResponseDiaryData>,
                 response: Response<ResponseDiaryData>
             ) {
-                when {
-                    response.code() == 200 -> {
+                response.takeIf { it.isSuccessful }
+                    ?.body()
+                    ?.let {
+
                         ScrollFragment.IS_EDITED = true
                         ScrollFragment.EDITED_DEPTH = response.body()!!.data.depth
-                        Log.d("날짜 수정 성공", response.body().toString())
                         context!!.showToast("날짜가 수정되었습니다.")
                         dialog?.dismiss()
-                    }
-                    response.code() == 400 -> {
-                        Log.d("editDiary 400", response.message())
-                    }
-                    else -> {
-                        Log.d("editDiary 500", response.message())
-                    }
-                }
+
+                    } ?: showError(response.errorBody())
             }
 
             override fun onFailure(call: Call<ResponseDiaryData>, t: Throwable) {
@@ -291,22 +282,10 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
         })
     }
 
-    // 달 별로 일수 다른거 미리 세팅해둔 함수
-    private fun setMonthMax() {
-        val month = Binding.includeYmdPicker.month
-        val date = Binding.includeYmdPicker.date
-
-        when (month.value) {
-            2 -> {
-                date.maxValue = 29
-            }
-            4, 6, 9, 11 -> {
-                date.maxValue = 30
-            }
-            1, 3, 5, 7, 8, 10, 12 -> {
-                date.maxValue = 31
-            }
-        }
+    private fun showError(error: ResponseBody?) {
+        val e = error ?: return
+        val ob = JSONObject(e.string())
+        context?.showToast(ob.getString("message"))
     }
 
     override fun onDestroy() {

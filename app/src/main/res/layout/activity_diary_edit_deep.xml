@@ -7,7 +7,7 @@
     tools:context=".diary.ui.DiaryEditDeepActivity">
 
     <ScrollView
-        android:id="@+id/sv_diary_edit_deep"
+        android:id="@+id/sv_diary_edit_depth"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
@@ -22,7 +22,7 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/bg_deep1"
+                android:id="@+id/bg_depth1"
                 android:layout_width="0dp"
                 android:layout_height="800dp"
                 android:scaleType="fitXY"
@@ -30,68 +30,68 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/bg_deep1" />
+                app:srcCompat="@drawable/gradient_rectangle_depth1" />
 
             <ImageView
-                android:id="@+id/bg_deep2"
+                android:id="@+id/bg_depth2"
                 android:layout_width="0dp"
                 android:layout_height="800dp"
                 android:scaleType="fitXY"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bg_deep1"
-                app:srcCompat="@drawable/bg_deep2" />
+                app:layout_constraintTop_toBottomOf="@+id/bg_depth1"
+                app:srcCompat="@drawable/gradient_rectangle_depth2" />
 
             <ImageView
-                android:id="@+id/bg_deep3"
+                android:id="@+id/bg_depth3"
                 android:layout_width="0dp"
                 android:layout_height="800dp"
                 android:scaleType="fitXY"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bg_deep2"
-                app:srcCompat="@drawable/bg_deep3" />
+                app:layout_constraintTop_toBottomOf="@+id/bg_depth2"
+                app:srcCompat="@drawable/gradient_rectangle_depth3" />
 
             <ImageView
-                android:id="@+id/bg_deep4"
+                android:id="@+id/bg_depth4"
                 android:layout_width="0dp"
                 android:layout_height="800dp"
                 android:scaleType="fitXY"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bg_deep3"
-                app:srcCompat="@drawable/bg_deep4" />
+                app:layout_constraintTop_toBottomOf="@+id/bg_depth3"
+                app:srcCompat="@drawable/gradient_rectangle_depth4" />
 
             <ImageView
-                android:id="@+id/bg_deep5"
+                android:id="@+id/bg_depth5"
                 android:layout_width="0dp"
                 android:layout_height="800dp"
                 android:scaleType="fitXY"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bg_deep4"
-                app:srcCompat="@drawable/bg_deep5" />
+                app:layout_constraintTop_toBottomOf="@+id/bg_depth4"
+                app:srcCompat="@drawable/gradient_rectangle_depth5" />
 
             <ImageView
-                android:id="@+id/bg_deep6"
+                android:id="@+id/bg_depth6"
                 android:layout_width="0dp"
                 android:layout_height="800dp"
                 android:scaleType="fitXY"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bg_deep5"
-                app:srcCompat="@drawable/bg_deep6" />
+                app:layout_constraintTop_toBottomOf="@+id/bg_depth5"
+                app:srcCompat="@drawable/gradient_rectangle_depth6" />
 
             <ImageView
-                android:id="@+id/bg_deep7"
+                android:id="@+id/bg_depth7"
                 android:layout_width="0dp"
                 android:layout_height="800dp"
                 android:scaleType="fitXY"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bg_deep6"
-                app:srcCompat="@drawable/bg_deep7" />
+                app:layout_constraintTop_toBottomOf="@+id/bg_depth6"
+                app:srcCompat="@drawable/gradient_rectangle_depth7" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
@@ -141,13 +141,13 @@
             android:text="감정이 얼마나 깊은가요?\n나만의 바다에 기록해보세요"
             android:textColor="@color/blue_7"
             android:textSize="22dp"
-            app:layout_constraintBottom_toTopOf="@+id/tv_deep_date"
+            app:layout_constraintBottom_toTopOf="@+id/tv_depth_date"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
-            android:id="@+id/tv_deep_date"
+            android:id="@+id/tv_depth_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -163,18 +163,18 @@
             app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
         <ImageView
-            android:id="@+id/img_deep_emotion"
+            android:id="@+id/img_depth_emotion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_deep_date"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_depth_date"
             app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toEndOf="@+id/tv_deep_date"
-            app:layout_constraintTop_toTopOf="@+id/tv_deep_date"
+            app:layout_constraintStart_toEndOf="@+id/tv_depth_date"
+            app:layout_constraintTop_toTopOf="@+id/tv_depth_date"
             app:srcCompat="@drawable/ic_angry_14_white" />
 
         <TextView
-            android:id="@+id/tv_deep_emotion"
+            android:id="@+id/tv_depth_emotion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
@@ -184,9 +184,9 @@
             android:text="화남"
             android:textColor="@color/blue_7"
             android:textSize="14dp"
-            app:layout_constraintBottom_toBottomOf="@+id/img_deep_emotion"
-            app:layout_constraintStart_toEndOf="@+id/img_deep_emotion"
-            app:layout_constraintTop_toTopOf="@+id/img_deep_emotion" />
+            app:layout_constraintBottom_toBottomOf="@+id/img_depth_emotion"
+            app:layout_constraintStart_toEndOf="@+id/img_depth_emotion"
+            app:layout_constraintTop_toTopOf="@+id/img_depth_emotion" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
@@ -312,7 +312,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:id="@+id/btn_edit_deep"
+            android:id="@+id/btn_edit_depth"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="16dp"

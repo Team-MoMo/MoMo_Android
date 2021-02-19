@@ -94,7 +94,7 @@ fun getEmotionString(emotionIdx: Int, context: Context): String {
     }
 }
 
-fun getEmotionImage(emotionIdx: Int): Int {
+fun getEmotionBlack(emotionIdx: Int): Int {
     return when (emotionIdx) {
         1 -> R.drawable.ic_love_14_black
         2 -> R.drawable.ic_happy_14_black
@@ -106,6 +106,20 @@ fun getEmotionImage(emotionIdx: Int): Int {
         else -> R.drawable.ic_daily_14_black
     }
 }
+
+fun getEmotionWhite(emotionIdx: Int) : Int {
+    return when (emotionIdx) {
+        1 -> R.drawable.ic_love_14_white
+        2 -> R.drawable.ic_happy_14_white
+        3 -> R.drawable.ic_console_14_white
+        4 -> R.drawable.ic_angry_14_white
+        5 -> R.drawable.ic_sad_14_white
+        6 -> R.drawable.ic_bored_14_white
+        7 -> R.drawable.ic_memory_14_white
+        else -> R.drawable.ic_daily_14_white
+    }
+}
+
 
 //현재날짜 Year,Month,Date,Day String 배열로 전달
 fun getCurrentDate(): Array<String>{
