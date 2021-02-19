@@ -44,14 +44,14 @@ class OnboardingSentenceActivity : AppCompatActivity() {
     //날짜 설정_intent 넘김 받은 값으로
     private fun setDateData() {
         binding.apply {
-            tvDate.text= intent.getStringExtra("date")
+            tvDate.text = intent.getStringExtra("date")
         }
     }
 
     //감정,감정이미지 설정
     private fun showFeeling(feeling: Int) {
         binding.apply {
-            tvFeeling.text= getEmotionString(feeling,this@OnboardingSentenceActivity)
+            tvFeeling.text = getEmotionString(feeling, this@OnboardingSentenceActivity)
             imgFeeling.setImageResource(getEmotionImage(feeling))
         }
     }
@@ -113,6 +113,7 @@ class OnboardingSentenceActivity : AppCompatActivity() {
 
         })
     }
+
     private fun showError(error: ResponseBody?) {
         val e = error ?: return
         val ob = JSONObject(e.string())
@@ -122,7 +123,7 @@ class OnboardingSentenceActivity : AppCompatActivity() {
 
 
     //Recycler View를 이용한 버튼을 생성하기 위해 Adapter을 연결
-    fun setRecyclerAdapter(){
+    fun setRecyclerAdapter() {
         //RecyclerView 밖에 있는 것들도 이 방식을 사용해서 불러옴. Interface를 만들어서
         binding.apply {
             uploadSentenceAdapter = UploadSentenceAdapter(this@OnboardingSentenceActivity)
@@ -135,7 +136,7 @@ class OnboardingSentenceActivity : AppCompatActivity() {
                         OnboardingWriteActivity::class.java
                     )
                     //intent 넘김
-                   intent.putExtra("author", uploadSentenceAdapter.data[position].author)
+                    intent.putExtra("author", uploadSentenceAdapter.data[position].author)
                     intent.putExtra("book", uploadSentenceAdapter.data[position].book)
                     intent.putExtra("publisher", uploadSentenceAdapter.data[position].publisher)
                     intent.putExtra("sentence", uploadSentenceAdapter.data[position].sentence)

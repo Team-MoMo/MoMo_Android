@@ -51,7 +51,7 @@ class OnboardingDepthActivity : AppCompatActivity() {
         btn_edit_deep.setOnClickListener {
             val intent=Intent(this@OnboardingDepthActivity,MainLoginActivity::class.java)
             Log.d("btn","clicked")
-            intent.putExtra("deep",mainSeekbar.progress)
+            intent.putExtra("depth",mainSeekbar.progress)
             startActivity(intent)
             finishAffinity()
         }

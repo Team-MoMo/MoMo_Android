@@ -33,9 +33,7 @@ class OnboardingWriteActivity : AppCompatActivity() {
         //문장 가운데 정렬-> 왼쪽 정렬 자동이동
         entire_handler.postDelayed(Runnable {
             run {
-                binding.apply {
-                    imgFeather.callOnClick()
-                }
+                binding.imgFeather.callOnClick()
             }
         },1000)
 

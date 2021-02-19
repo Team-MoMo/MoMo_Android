@@ -1,9 +1,12 @@
 package com.momo.momo_android.util
 
 import android.content.Context
+import android.graphics.Color
 import android.view.View
+import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import com.momo.momo_android.R
 import java.util.*
@@ -94,7 +97,7 @@ fun getEmotionString(emotionIdx: Int, context: Context): String {
     }
 }
 
-fun getEmotionImage(emotionIdx: Int): Int {
+fun getEmotionBlack(emotionIdx: Int): Int {
     return when (emotionIdx) {
         1 -> R.drawable.ic_love_14_black
         2 -> R.drawable.ic_happy_14_black
@@ -104,6 +107,19 @@ fun getEmotionImage(emotionIdx: Int): Int {
         6 -> R.drawable.ic_bored_14_black
         7 -> R.drawable.ic_memory_14_black
         else -> R.drawable.ic_daily_14_black
+    }
+}
+
+fun getEmotionWhite(emotionIdx: Int) : Int {
+    return when (emotionIdx) {
+        1 -> R.drawable.ic_love_14_white
+        2 -> R.drawable.ic_happy_14_white
+        3 -> R.drawable.ic_console_14_white
+        4 -> R.drawable.ic_angry_14_white
+        5 -> R.drawable.ic_sad_14_white
+        6 -> R.drawable.ic_bored_14_white
+        7 -> R.drawable.ic_memory_14_white
+        else -> R.drawable.ic_daily_14_white
     }
 }
 
@@ -119,8 +135,7 @@ fun getCurrentDate(): Array<String>{
     return arrayOf(year,month,date,day)
 }
 
-//현재날짜 Day의 Int형을 ~요일 형태로 변환
-fun getCurrentDay(currentDay: Int): String {
+private fun getCurrentDay(currentDay: Int): String {
     return when (currentDay) {
         1 -> "일요일"
         2 -> "월요일"
@@ -130,5 +145,22 @@ fun getCurrentDay(currentDay: Int): String {
         6 -> "금요일"
         7 -> "토요일"
         else -> ""
+    }
+}
+
+/* 투명 status bar 설정 함수 */
+fun setStatusBarTransparent(window: Window) {
+    @Suppress("deprecation")
+    window.decorView.systemUiVisibility =
+        View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+    window.statusBarColor = Color.TRANSPARENT
+}
+
+/* edittext 지우는 x버튼 */
+fun EditText.clearText(button: ImageView) {
+    button.setVisible()
+    button.setOnClickListener {
+        this.setText("")
     }
 }
