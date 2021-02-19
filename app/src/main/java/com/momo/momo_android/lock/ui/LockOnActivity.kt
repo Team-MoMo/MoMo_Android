@@ -92,14 +92,14 @@ class LockOnActivity : AppCompatActivity() {
     private fun checkFirstPassCodeLength() {
         updatePassCodeOvalColor(firstPassCode.length)
         when (firstPassCode.length) {
-            4 -> Handler().postDelayed({ setFinalPassCodeView() }, 500)
+            4 -> Handler(mainLooper).postDelayed({ setFinalPassCodeView() }, 500)
         }
     }
 
     private fun checkFinalPassCodeLength() {
         updatePassCodeOvalColor(finalPassCode.length)
         when (finalPassCode.length) {
-            4 -> Handler().postDelayed({ checkPassCodeValidation() }, 500)
+            4 -> Handler(mainLooper).postDelayed({ checkPassCodeValidation() }, 500)
         }
     }
 
