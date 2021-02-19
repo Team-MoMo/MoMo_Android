@@ -21,7 +21,7 @@ import com.momo.momo_android.list.ui.ListActivity
 import com.momo.momo_android.network.RequestToServer
 import com.momo.momo_android.setting.ui.SettingActivity
 import com.momo.momo_android.upload.ui.UploadFeelingActivity
-import com.momo.momo_android.util.SharedPreferenceController
+import com.momo.momo_android.util.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,38 +30,41 @@ import java.util.*
 
 class HomeFragment : Fragment() {
 
-    private var _viewBinding: FragmentHomeBinding? = null
-    private val viewBinding get() = _viewBinding!!
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
     private lateinit var onBackPressedCallback: OnBackPressedCallback
 
     private var isDay = true
     private var diaryId = 0
     private var diaryDepth = 0
-    private val currentYear = Calendar.getInstance().get(Calendar.YEAR)
-    private val currentMonth = (Calendar.getInstance().get(Calendar.MONTH) + 1)
-    private val currentDate = Calendar.getInstance().get(Calendar.DATE)
+
+    private lateinit var currentYear: String
+    private lateinit var currentMonth: String
+    private lateinit var currentDate: String
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _viewBinding = FragmentHomeBinding.inflate(layoutInflater)
-        return viewBinding.root
+        _binding = FragmentHomeBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     // UI 작업 수행
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setListeners()
-        updateByServerData()
+        setCurrentDate()
+        setDayNightStatus()
+        getServerDiaryData()
         setOnBackPressedCallBack()
     }
 
     override fun onResume() {
         super.onResume()
         updateEditedData()
-        if(!onBackPressedCallback.isEnabled) {
+        if (!onBackPressedCallback.isEnabled) {
             onBackPressedCallback.isEnabled = true
         }
     }
@@ -72,68 +75,56 @@ class HomeFragment : Fragment() {
     }
 
     private fun setListeners() {
-        viewBinding.apply {
-            imageButtonMy.setOnClickListener(fragmentOnClickListener)
-            buttonUpload.setOnClickListener(fragmentOnClickListener)
-            buttonShowFull.setOnClickListener(fragmentOnClickListener)
-            imageButtonUpload.setOnClickListener(fragmentOnClickListener)
-            imageButtonList.setOnClickListener(fragmentOnClickListener)
+        binding.apply {
+            fragmentOnClickListener.let {
+                imageButtonMy.setOnClickListener(it)
+                buttonUpload.setOnClickListener(it)
+                buttonShowFull.setOnClickListener(it)
+                imageButtonUpload.setOnClickListener(it)
+                imageButtonList.setOnClickListener(it)
+            }
         }
     }
 
-    private fun updateByServerData() {
-        setCurrentDate()
-        setDayNightStatus()
-        getServerDiaryData()
+    private fun setCurrentDate() {
+        getCurrentDate().apply {
+            currentYear = this[0]
+            currentMonth = this[1]
+            currentDate = this[2]
+            binding.textViewDate.text =
+                "${currentYear}년\n${currentMonth}월 ${currentDate}일 ${this[3]}"
+        }
     }
 
     private fun setOnBackPressedCallBack() {
         onBackPressedCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() { (activity as HomeActivity).showFinishToast() }
+            override fun handleOnBackPressed() {
+                (activity as HomeActivity).showFinishToast()
+            }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 
     private fun updateEditedData() {
-        if(IS_EDITED) {
-            updateByServerData()
+        if (IS_EDITED) {
+            setCurrentDate()
+            setDayNightStatus()
+            getServerDiaryData()
             IS_EDITED = false
         }
     }
 
-    private fun setCurrentDate() {
-        val currentDay = getCurrentDay(Calendar.getInstance().get(Calendar.DAY_OF_WEEK))
-        viewBinding.textViewDate.text =
-            "${currentYear}년\n${currentMonth}월 ${currentDate}일 ${currentDay}요일"
-    }
-
-    private fun getCurrentDay(currentDay: Int): String {
-        return when (currentDay) {
-            1 -> "일"
-            2 -> "월"
-            3 -> "화"
-            4 -> "수"
-            5 -> "목"
-            6 -> "금"
-            7 -> "토"
-            else -> ""
-        }
-    }
-
     private fun setDayNightStatus() {
-        val currentHourDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) // 24시간 포맷
-        if (currentHourDay in 6..18) { // 06:00 ~ 18:59
-            setDayView()
-            isDay = true
-        } else {
-            setNightView()
-            isDay = false
+        when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
+            in 6..18 -> setDayView()
+            else -> setNightView()
         }
         setLoadingViewBackground()
     }
 
     private fun setDayView() {
-        viewBinding.apply {
+        isDay = true
+        binding.apply {
             constraintLayout.setBackgroundResource(R.drawable.gradient_home_day)
             imageViewSky.setImageResource(R.drawable.day_cloud)
             textViewDate.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue_3))
@@ -157,7 +148,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun setNightView() {
-        viewBinding.apply {
+        isDay = false
+        binding.apply {
             constraintLayout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_grey))
             imageViewSky.setImageResource(R.drawable.night_star)
             textViewDate.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue_7))
@@ -181,69 +173,79 @@ class HomeFragment : Fragment() {
     }
 
     private fun getServerDiaryData() {
-        var serverDiaryList = listOf<ResponseDiaryList.Data>()
-        RequestToServer.service.getHomeDiaryList(
+        val call: Call<ResponseDiaryList> = RequestToServer.service.getHomeDiaryList(
             SharedPreferenceController.getAccessToken(requireContext()),
             SharedPreferenceController.getUserId(requireContext()),
             "filter",
-            currentYear,
-            currentMonth,
-            currentDate
-        ).enqueue(object : Callback<ResponseDiaryList> {
-            override fun onResponse(
-                call: Call<ResponseDiaryList>,
-                responseList: Response<ResponseDiaryList>
-            ) {
-                when (responseList.code()) {
-                    200 -> serverDiaryList = responseList.body()!!.data
-                    400 -> Log.d("TAG", "onResponse: ${responseList.code()} + 필요한 값이 없습니다.")
-                    500 -> Log.d("TAG", "onResponse: ${responseList.code()} + 일기 전체 조회 실패(서버 내부 에러)")
-                    else -> Log.d("TAG", "onResponse: ${responseList.code()} + 예외 상황")
-                }
-                setServerDiaryData(serverDiaryList)
-            }
-
+            currentYear.toInt(),
+            currentMonth.toInt(),
+            currentDate.toInt()
+        )
+        call.enqueue(object : Callback<ResponseDiaryList> {
             override fun onFailure(call: Call<ResponseDiaryList>, t: Throwable) {
                 Log.d("TAG", "onFailure: ${t.localizedMessage}")
+            }
+
+            override fun onResponse(
+                call: Call<ResponseDiaryList>,
+                response: Response<ResponseDiaryList>
+            ) {
+                when (response.isSuccessful) {
+                    true -> setDiaryView(response.body()!!.data)
+                    false -> handleResponseStatusCode(response.code())
+                }
             }
         })
     }
 
-    private fun setServerDiaryData(diaryList: List<ResponseDiaryList.Data>) {
+    private fun setDiaryView(diaryList: List<ResponseDiaryList.Data>) {
         when (diaryList.size) {
             0 -> {
-                setEmptyView()
                 DIARY_STATUS = false
+                setEmptyVisibility()
             }
             else -> {
-                setDiaryView()
                 DIARY_STATUS = true
-                diaryId = diaryList[0].id
-                setEmotionData(diaryList[0].emotionId, isDay)
-                setDepthData(diaryList[0].depth)
-                setBookDiaryData(diaryList[0])
+                setDiaryVisibility()
+                setDiaryViewData(diaryList[0])
             }
         }
         fadeOutLoadingView()
     }
 
+    private fun setDiaryViewData(diaryData: ResponseDiaryList.Data) {
+        diaryId = diaryData.id
+        setBookDiaryData(diaryData)
+        setEmotionData(diaryData.emotionId, isDay)
+        binding.textViewDepth.text = getDepthString(diaryData.depth, requireContext())
+    }
+
+    private fun handleResponseStatusCode(responseCode: Int) {
+        when (responseCode) {
+            400 -> requireContext().showToast("일기 전체 조회 실패 - 필요한 값이 없습니다.")
+            500 -> requireContext().showToast("일기 전체 조회 실패 - 서버 내부 에러")
+            else -> requireContext().showToast("일기 전체 조회 실패 - 예외 상")
+        }
+        setEmptyVisibility()
+    }
+
     private fun fadeOutLoadingView() {
-        viewBinding.viewLoading.apply {
+        binding.viewLoading.apply {
             alpha = 1f
             animate()
                 .alpha(0f)
                 .setDuration(resources.getInteger(android.R.integer.config_longAnimTime).toLong())
                 .setListener(object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator) {
-                        viewBinding.viewLoading.visibility = View.GONE
+                        binding.viewLoading.visibility = View.GONE
                     }
                 })
         }
     }
 
     private fun setLoadingViewBackground() {
-        viewBinding.viewLoading.apply {
-            when(isDay) {
+        binding.viewLoading.apply {
+            when (isDay) {
                 true -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
                 false -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_grey))
             }
@@ -251,8 +253,8 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setEmptyView() {
-        viewBinding.apply {
+    private fun setEmptyVisibility() {
+        binding.apply {
             textViewDiaryEmpty.visibility = TextView.VISIBLE
             buttonUpload.visibility = Button.VISIBLE
 
@@ -271,8 +273,8 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setDiaryView() {
-        viewBinding.apply {
+    private fun setDiaryVisibility() {
+        binding.apply {
             textViewDiaryEmpty.visibility = TextView.GONE
             buttonUpload.visibility = Button.GONE
 
@@ -292,86 +294,17 @@ class HomeFragment : Fragment() {
     }
 
     private fun setEmotionData(emotionId: Int, isDay: Boolean) {
-        viewBinding.apply {
-            when (emotionId) {
-                1 -> {
-                    when (isDay) {
-                        true -> imageViewEmotion.setImageResource(R.drawable.and_ic_love_day)
-                        false -> imageViewEmotion.setImageResource(R.drawable.and_ic_love_night)
-                    }
-                    textViewEmotion.text = "사랑"
-                }
-                2 -> {
-                    when (isDay) {
-                        true -> imageViewEmotion.setImageResource(R.drawable.and_ic_happy_day)
-                        false -> imageViewEmotion.setImageResource(R.drawable.and_ic_happy_night)
-                    }
-                    textViewEmotion.text = "행복"
-                }
-                3 -> {
-                    when (isDay) {
-                        true -> imageViewEmotion.setImageResource(R.drawable.and_ic_console_day)
-                        false -> imageViewEmotion.setImageResource(R.drawable.and_ic_console_night)
-                    }
-                    textViewEmotion.text = "위로"
-                }
-                4 -> {
-                    when (isDay) {
-                        true -> imageViewEmotion.setImageResource(R.drawable.and_ic_angry_day)
-                        false -> imageViewEmotion.setImageResource(R.drawable.and_ic_angry_night)
-                    }
-                    textViewEmotion.text = "화남"
-                }
-                5 -> {
-                    when (isDay) {
-                        true -> imageViewEmotion.setImageResource(R.drawable.and_ic_sad_day)
-                        false -> imageViewEmotion.setImageResource(R.drawable.and_ic_sad_night)
-                    }
-                    textViewEmotion.text = "슬픔"
-                }
-                6 -> {
-                    when (isDay) {
-                        true -> imageViewEmotion.setImageResource(R.drawable.and_ic_bored_day)
-                        false -> imageViewEmotion.setImageResource(R.drawable.and_ic_bored_night)
-                    }
-                    textViewEmotion.text = "우울"
-                }
-                7 -> {
-                    when (isDay) {
-                        true -> imageViewEmotion.setImageResource(R.drawable.and_ic_memory_day)
-                        false -> imageViewEmotion.setImageResource(R.drawable.and_ic_memory_night)
-                    }
-                    textViewEmotion.text = "추억"
-                }
-                8 -> {
-                    when (isDay) {
-                        true -> imageViewEmotion.setImageResource(R.drawable.and_ic_daily_day)
-                        false -> imageViewEmotion.setImageResource(R.drawable.and_ic_daily_night)
-                    }
-                    textViewEmotion.text = "일상"
-                }
-                else -> Log.d("TAG", "setEmotionData: unknown emotion")
-            }
-        }
-    }
-
-    private fun setDepthData(depth: Int) {
-        viewBinding.apply {
-            when (depth) {
-                0 -> textViewDepth.text = "2m"
-                1 -> textViewDepth.text = "30m"
-                2 -> textViewDepth.text = "100m"
-                3 -> textViewDepth.text = "300m"
-                4 -> textViewDepth.text = "700m"
-                5 -> textViewDepth.text = "1,005m"
-                6 -> textViewDepth.text = "심해"
-                else -> Log.d("TAG", "setEmotionData: unknown depth")
+        binding.textViewEmotion.text = getEmotionString(emotionId, requireContext())
+        binding.imageViewEmotion.apply {
+            setImageResource(getEmotionWhite(emotionId))
+            when (isDay) {
+                true -> setColorFilter(ContextCompat.getColor(requireContext(), R.color.blue_2))
             }
         }
     }
 
     private fun setBookDiaryData(data: ResponseDiaryList.Data) {
-        viewBinding.apply {
+        binding.apply {
             textViewQuotation.text = data.sentence.contents
             textViewAuthor.text = data.sentence.writer
             textViewTitle.text = "<${data.sentence.bookName}>"
@@ -381,7 +314,7 @@ class HomeFragment : Fragment() {
     }
 
     private val fragmentOnClickListener = View.OnClickListener {
-        viewBinding.apply {
+        binding.apply {
             when (it.id) {
                 imageButtonMy.id -> setIntentToSettingActivity()
                 buttonShowFull.id -> setIntentToDiaryActivity()
@@ -419,7 +352,7 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _viewBinding = null
+        _binding = null
         onBackPressedCallback.remove()
     }
 
