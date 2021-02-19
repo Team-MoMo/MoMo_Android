@@ -1,7 +1,9 @@
 package com.momo.momo_android.util
 
 import android.content.Context
+import android.graphics.Color
 import android.view.View
+import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
@@ -131,4 +133,13 @@ private fun getCurrentDay(currentDay: Int): String {
         7 -> "토요일"
         else -> ""
     }
+}
+
+/* 투명 status bar 설정 함수 */
+fun setStatusBarTransparent(window: Window) {
+    @Suppress("deprecation")
+    window.decorView.systemUiVisibility =
+        View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+    window.statusBarColor = Color.TRANSPARENT
 }
