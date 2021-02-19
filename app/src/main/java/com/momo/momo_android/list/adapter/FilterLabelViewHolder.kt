@@ -9,7 +9,7 @@ class FilterLabelViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView)
 
     private val labelText : TextView = itemView.findViewById(R.id.tv_filter_label)
 
-    fun onBind(data : FilterLabelData) {
-        labelText.text = data.labelText
+    fun onBind(data : String) {
+        labelText.text = data
     }
 }
