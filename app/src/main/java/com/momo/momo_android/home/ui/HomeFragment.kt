@@ -21,9 +21,7 @@ import com.momo.momo_android.list.ui.ListActivity
 import com.momo.momo_android.network.RequestToServer
 import com.momo.momo_android.setting.ui.SettingActivity
 import com.momo.momo_android.upload.ui.UploadFeelingActivity
-import com.momo.momo_android.util.SharedPreferenceController
-import com.momo.momo_android.util.getCurrentDate
-import com.momo.momo_android.util.getDepthString
+import com.momo.momo_android.util.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -284,65 +282,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun setEmotionData(emotionId: Int, isDay: Boolean) {
-        binding.apply {
-            when (emotionId) {
-                1 -> {
-                    when (isDay) {
-                        true -> imageViewEmotion.setImageResource(R.drawable.and_ic_love_day)
-                        false -> imageViewEmotion.setImageResource(R.drawable.and_ic_love_night)
-                    }
-                    textViewEmotion.text = "사랑"
-                }
-                2 -> {
-                    when (isDay) {
-                        true -> imageViewEmotion.setImageResource(R.drawable.and_ic_happy_day)
-                        false -> imageViewEmotion.setImageResource(R.drawable.and_ic_happy_night)
-                    }
-                    textViewEmotion.text = "행복"
-                }
-                3 -> {
-                    when (isDay) {
-                        true -> imageViewEmotion.setImageResource(R.drawable.and_ic_console_day)
-                        false -> imageViewEmotion.setImageResource(R.drawable.and_ic_console_night)
-                    }
-                    textViewEmotion.text = "위로"
-                }
-                4 -> {
-                    when (isDay) {
-                        true -> imageViewEmotion.setImageResource(R.drawable.and_ic_angry_day)
-                        false -> imageViewEmotion.setImageResource(R.drawable.and_ic_angry_night)
-                    }
-                    textViewEmotion.text = "화남"
-                }
-                5 -> {
-                    when (isDay) {
-                        true -> imageViewEmotion.setImageResource(R.drawable.and_ic_sad_day)
-                        false -> imageViewEmotion.setImageResource(R.drawable.and_ic_sad_night)
-                    }
-                    textViewEmotion.text = "슬픔"
-                }
-                6 -> {
-                    when (isDay) {
-                        true -> imageViewEmotion.setImageResource(R.drawable.and_ic_bored_day)
-                        false -> imageViewEmotion.setImageResource(R.drawable.and_ic_bored_night)
-                    }
-                    textViewEmotion.text = "우울"
-                }
-                7 -> {
-                    when (isDay) {
-                        true -> imageViewEmotion.setImageResource(R.drawable.and_ic_memory_day)
-                        false -> imageViewEmotion.setImageResource(R.drawable.and_ic_memory_night)
-                    }
-                    textViewEmotion.text = "추억"
-                }
-                8 -> {
-                    when (isDay) {
-                        true -> imageViewEmotion.setImageResource(R.drawable.and_ic_daily_day)
-                        false -> imageViewEmotion.setImageResource(R.drawable.and_ic_daily_night)
-                    }
-                    textViewEmotion.text = "일상"
-                }
-                else -> Log.d("TAG", "setEmotionData: unknown emotion")
+        binding.textViewEmotion.text = getEmotionString(emotionId, requireContext())
+        binding.imageViewEmotion.apply {
+            setImageResource(getEmotionWhite(emotionId))
+            when (isDay) {
+                true -> setColorFilter(ContextCompat.getColor(requireContext(), R.color.blue_2))
             }
         }
     }
