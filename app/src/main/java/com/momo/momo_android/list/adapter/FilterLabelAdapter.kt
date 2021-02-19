@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.item_filter_label.view.*
 
 class FilterLabelAdapter(private val context : Context) : RecyclerView.Adapter<FilterLabelViewHolder>() {
 
-    var data = mutableListOf<FilterLabelData>()
+    var data = mutableListOf<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilterLabelViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_filter_label, parent, false)

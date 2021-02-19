@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import com.momo.momo_android.lock.ui.LockOnActivity
 import com.momo.momo_android.databinding.ActivitySettingBinding
@@ -38,6 +39,8 @@ class SettingActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         binding.switchLock.isChecked = SharedPreferenceController.getLockStatus(this)
+        setResettingButtonVisibility()
+        setResettingButtonClickListener()
     }
 
     private fun initBackButton() {
@@ -93,21 +96,31 @@ class SettingActivity : AppCompatActivity() {
         binding.tvSettingVersionInfo.text = "Ver. " + pi.versionName
     }
 
+    private fun setResettingButtonVisibility() {
+        when(SharedPreferenceController.getLockStatus(this)) {
+            true -> binding.imagebuttonResetting.visibility = ImageButton.VISIBLE
+            false -> binding.imagebuttonResetting.visibility = ImageButton.GONE
+        }
+    }
+
+    private fun setResettingButtonClickListener() {
+        binding.imagebuttonResetting.setOnClickListener {
+            val intent = Intent(this, LockOffActivity::class.java)
+            startActivityForResult(intent, LOCK_OFF_FOR_RESETTING)
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             val isLocked = data!!.getBooleanExtra("isLocked", false)
             when(requestCode) {
-                LOCK_ON -> {
-                    finish()
-                    startActivity(intent)
-                    SharedPreferenceController.setLockStatus(this, isLocked)
-
-                }
-                LOCK_OFF -> {
-                    binding.switchLock.isChecked = isLocked
-                    SharedPreferenceController.clearPassCode(this)
-                    SharedPreferenceController.setLockStatus(this, isLocked)
+                LOCK_ON -> {}
+                LOCK_OFF -> SharedPreferenceController.clearPassCode(this)
+                LOCK_ON_FOR_RESETTING -> {}
+                LOCK_OFF_FOR_RESETTING -> {
+                    val intent = Intent(this, LockOnActivity::class.java)
+                    startActivityForResult(intent, LOCK_ON_FOR_RESETTING)
                 }
             }
             SharedPreferenceController.setLockStatus(this, isLocked)
@@ -117,5 +130,7 @@ class SettingActivity : AppCompatActivity() {
     companion object {
         const val LOCK_ON = 1111
         const val LOCK_OFF = 2222
+        const val LOCK_ON_FOR_RESETTING = 3333
+        const val LOCK_OFF_FOR_RESETTING = 4444
     }
 }
