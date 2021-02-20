@@ -105,6 +105,7 @@ class LockOnActivity : AppCompatActivity() {
 
     private fun checkPassCodeValidation() {
         if (finalPassCode == firstPassCode) {
+            SharedPreferenceController.setLockStatus(this, true)
             SharedPreferenceController.setPassCode(this@LockOnActivity, finalPassCode)
             finishActivityWithLockStatus()
             showToast("암호 설정이 완료되었습니다.")

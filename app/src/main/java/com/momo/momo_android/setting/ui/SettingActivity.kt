@@ -55,7 +55,7 @@ class SettingActivity : AppCompatActivity() {
                 true -> {
                     binding.imagebuttonResetting.visibility = View.VISIBLE
                     val intent = Intent(this, LockOnActivity::class.java)
-                    startActivityForResult(intent, LOCK_ON)
+                    startActivity(intent)
                 }
                 false -> {
                     binding.imagebuttonResetting.visibility = View.INVISIBLE
@@ -115,22 +115,20 @@ class SettingActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK) {
             val isLocked = data!!.getBooleanExtra("isLocked", false)
             when(requestCode) {
-                LOCK_ON -> {}
-                LOCK_OFF -> SharedPreferenceController.clearPassCode(this)
-                LOCK_ON_FOR_RESETTING -> {}
+                LOCK_OFF -> {
+                    SharedPreferenceController.clearPassCode(this)
+                    SharedPreferenceController.setLockStatus(this, isLocked)
+                }
                 LOCK_OFF_FOR_RESETTING -> {
                     val intent = Intent(this, LockOnActivity::class.java)
-                    startActivityForResult(intent, LOCK_ON_FOR_RESETTING)
+                    startActivity(intent)
                 }
             }
-            SharedPreferenceController.setLockStatus(this, isLocked)
         }
     }
 
     companion object {
-        const val LOCK_ON = 1111
-        const val LOCK_OFF = 2222
-        const val LOCK_ON_FOR_RESETTING = 3333
-        const val LOCK_OFF_FOR_RESETTING = 4444
+        const val LOCK_OFF = 1111
+        const val LOCK_OFF_FOR_RESETTING = 2222
     }
 }

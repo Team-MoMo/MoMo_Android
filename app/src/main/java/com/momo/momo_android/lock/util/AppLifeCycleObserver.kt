@@ -6,6 +6,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.momo.momo_android.lock.ui.LockOffActivity
+import com.momo.momo_android.lock.ui.LockOffActivity.Companion.IS_ENTRY_LOCK
 import com.momo.momo_android.splash.SplashActivity.Companion.FROM_SPLASH
 import com.momo.momo_android.util.SharedPreferenceController
 
@@ -23,6 +24,7 @@ class AppLifecycleObserver(
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
             context.startActivity(intent)
+            IS_ENTRY_LOCK = true
         }
     }
 }
