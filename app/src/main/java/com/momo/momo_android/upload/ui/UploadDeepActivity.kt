@@ -75,10 +75,7 @@ class UploadDeepActivity : AppCompatActivity() {
                 exitModal.start()
                 exitModal.setOnClickListener {
                     if (it == "닫기") {
-                        UploadFeelingActivity.activity?.finish()
-                        UploadSentenceActivity.activity?.finish()
-                        UploadWriteActivity.activity?.finish()
-                        finish()
+                        finishUploadFlow()
                     }
                 }
             }
@@ -233,11 +230,7 @@ class UploadDeepActivity : AppCompatActivity() {
                         intent.putExtra("diaryId", it.data.id)
                         startActivity(intent)
 
-                        // 업로드 플로우 액티비티 모두 종료
-                        UploadWriteActivity.activity?.finish()
-                        UploadSentenceActivity.activity?.finish()
-                        UploadFeelingActivity.activity?.finish()
-                        finish()
+                        finishUploadFlow()
 
                     } ?: showError(response.errorBody())
             }
@@ -254,6 +247,14 @@ class UploadDeepActivity : AppCompatActivity() {
         val ob = JSONObject(e.string())
         this.showToast(ob.getString("message"))
         Log.d("UploadSentence-server", ob.getString("message"))
+    }
+
+    private fun finishUploadFlow() {
+        // 업로드 플로우 액티비티 모두 종료
+        UploadFeelingActivity.activity?.finish()
+        UploadSentenceActivity.activity?.finish()
+        UploadWriteActivity.activity?.finish()
+        finish()
     }
 
     override fun onBackPressed() {
