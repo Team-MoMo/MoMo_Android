@@ -42,5 +42,4 @@ class ModalUploadWriteBack(context : Context) {
             }
         }
     }
-
 }
