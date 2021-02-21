@@ -180,7 +180,7 @@ class HomeFragment : Fragment() {
             imageViewSky.setImageResource(R.drawable.night_star)
             textViewDate.setContextCompatTextColor(R.color.blue_7)
             imageButtonMy.setImageResource(R.drawable.btn_ic_my)
-            textViewEmotion.setContextCompatBackgroundColor(R.color.blue_4)
+            textViewEmotion.setContextCompatTextColor(R.color.blue_4)
             imageViewLogo.setImageResource(R.drawable.ic_depth_white)
             textViewDepth.setContextCompatTextColor(R.color.blue_7)
             textViewQuotation.setContextCompatTextColor(R.color.blue_7)
@@ -306,6 +306,7 @@ class HomeFragment : Fragment() {
             setImageResource(getEmotionWhite(emotionId))
             when (isDay) {
                 true -> setColorFilter(ContextCompat.getColor(requireContext(), R.color.blue_2))
+                false -> setColorFilter(ContextCompat.getColor(requireContext(), R.color.blue_4))
             }
         }
     }
