@@ -57,7 +57,7 @@ class FilterLabelAdapter(private val context : Context) : RecyclerView.Adapter<F
         notifyItemRemoved(position)
         notifyDataSetChanged()
 
-        val aContext : ListActivity = mContext as ListActivity
+        val aContext : ListActivity = mContext
 
         aContext.activeFilterButton()
 

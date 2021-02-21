@@ -174,8 +174,8 @@ class MainLoginActivity : AppCompatActivity() {
                     ?.body()
                     ?.let {
 
-                        SharedPreferenceController.setAccessToken(applicationContext, response.body()!!.data.token)
-                        SharedPreferenceController.setUserId(applicationContext, response.body()!!.data.user.id)
+                        SharedPreferenceController.setAccessToken(applicationContext, it.data.token)
+                        SharedPreferenceController.setUserId(applicationContext, it.data.user.id)
                         SharedPreferenceController.setSocialLogin(applicationContext, "true")
 
                         val intent = Intent(applicationContext, HomeActivity::class.java)

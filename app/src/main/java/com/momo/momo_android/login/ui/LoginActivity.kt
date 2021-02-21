@@ -1,5 +1,6 @@
 package com.momo.momo_android.login.ui
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -28,8 +29,14 @@ class LoginActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        binding.apply {
+        applyButtons()
 
+        setEditTextListeners()
+
+    }
+
+    private fun applyButtons() {
+        binding.apply {
             btnLogin.setOnClickListener {
                 postLogin()
             }
@@ -39,30 +46,30 @@ class LoginActivity : AppCompatActivity() {
             }
 
             btnGoSignup.setOnClickListener {
-                val intent = Intent(this@LoginActivity, SignUpActivity::class.java)
-                startActivity(intent)
+                changeIntent(SignUpActivity())
             }
 
             btnFindPw.setOnClickListener {
-                val intent = Intent(this@LoginActivity, FindPasswordActivity::class.java)
-                startActivity(intent)
+                changeIntent(FindPasswordActivity())
             }
+        }
+    }
 
+    private fun setEditTextListeners() {
+        binding.apply {
             etEmail.onFocusChangeListener = editTextFocusChangeListener
             etPasswd.onFocusChangeListener = editTextFocusChangeListener
 
             etEmail.setOnClickListener(editTextOnClickListener)
             etPasswd.setOnClickListener(editTextOnClickListener)
-
         }
-
     }
 
     private val editTextOnClickListener = View.OnClickListener {
         editTextListener()
     }
 
-    private val editTextFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+    private val editTextFocusChangeListener = View.OnFocusChangeListener { _, _ ->
         editTextListener()
     }
 
@@ -72,6 +79,11 @@ class LoginActivity : AppCompatActivity() {
             etEmail.isCursorVisible = true
             etPasswd.isCursorVisible = true
         }
+    }
+
+    private fun changeIntent(activity: AppCompatActivity) {
+        val intent = Intent(this@LoginActivity, activity::class.java)
+        startActivity(intent)
     }
 
     private fun postLogin() {
@@ -88,13 +100,11 @@ class LoginActivity : AppCompatActivity() {
                 response.takeIf { it.isSuccessful }
                     ?.body()
                     ?.let {
-                        SharedPreferenceController.setAccessToken(applicationContext, response.body()!!.data.token)
-                        SharedPreferenceController.setUserId(applicationContext, response.body()!!.data.user.id)
+                        SharedPreferenceController.setAccessToken(applicationContext, it.data.token)
+                        SharedPreferenceController.setUserId(applicationContext, it.data.user.id)
                         SharedPreferenceController.setPassword(applicationContext, binding.etPasswd.text.toString())
 
-                        // 홈으로 이동
-                        val intent = Intent(applicationContext, HomeActivity::class.java)
-                        startActivity(intent)
+                        changeIntent(HomeActivity())
                         finishAffinity()
                     } ?: showError(response.errorBody())
             }

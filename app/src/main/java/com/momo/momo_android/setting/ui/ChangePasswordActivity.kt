@@ -1,5 +1,6 @@
 package com.momo.momo_android.setting.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -16,6 +17,8 @@ import com.momo.momo_android.setting.ResponseWithdrawalData
 import com.momo.momo_android.setting.data.RequestChangePasswordData
 import com.momo.momo_android.util.*
 import kotlinx.android.synthetic.main.activity_change_password.*
+import okhttp3.ResponseBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,93 +34,85 @@ class ChangePasswordActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        binding.btnClose.setOnClickListener {
-            finish()
-        }
+        applyButtons()
 
-        binding.btnChangePassword.setOnClickListener {
-            nowPasswordController()
-        }
-
-        binding.etNowPasswd.editTextListener(binding.tvNowPasswd, binding.tvNowPasswdError, binding.btnNowPasswdErase)
-        binding.etNewPasswd.editTextListener(binding.tvNewPasswd, binding.tvNewPasswdError, binding.btnNewPasswdErase)
-        binding.etCheckPasswd.editTextListener(binding.tvCheckPasswd, binding.tvCheckPasswdError, binding.btnCheckPasswdErase)
+        setListeners()
 
     }
 
+    private fun applyButtons() {
+        binding.apply {
+            btnClose.setOnClickListener {
+                finish()
+            }
+
+            btnChangePassword.setOnClickListener {
+                nowPasswordController()
+            }
+        }
+    }
+
+    private fun setListeners() {
+        binding.apply {
+            etNowPasswd.editTextListener(tvNowPasswd, tvNowPasswdError, btnNowPasswdErase)
+            etNewPasswd.editTextListener(tvNewPasswd, tvNewPasswdError, btnNewPasswdErase)
+            etCheckPasswd.editTextListener(tvCheckPasswd, tvCheckPasswdError, btnCheckPasswdErase)
+        }
+    }
+
     private fun nowPasswordController() {
-        val tv_now_passwd = binding.tvNowPasswd
-        val et_now_passwd = binding.etNowPasswd
-        val tv_now_error = binding.tvNowPasswdError
+        binding.apply {
+            setRedError(tvNowPasswd, etNowPasswd, tvNowPasswdError)
 
-        tv_now_passwd.setTextColor(ContextCompat.getColor(applicationContext, R.color.red_2_error))
-        et_now_passwd.background = resources.getDrawable(R.drawable.et_area_error, null)
-        tv_now_error.setVisible()
-
-        if(et_now_passwd.text.isEmpty()) {
-            tv_now_error.text = "현재 비밀번호를 입력해 주세요"
-        } else if(!Pattern.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$", et_now_passwd.text.toString())) {
-            tv_now_error.text = "영문 + 숫자 6자리 이상 입력해 주세요"
-        } else if(SharedPreferenceController.getPassword(this) != et_now_passwd.text.toString()) {
-            tv_now_error.text = "현재 비밀번호랑 일치하지 않습니다"
-        } else {
-            tv_now_passwd.setTextColor(ContextCompat.getColor(applicationContext, R.color.blue_2))
-            et_now_passwd.background = resources.getDrawable(R.drawable.et_area_default, null)
-            tv_now_error.setInVisible()
-            newPasswordController()
+            if (etNowPasswd.text.isEmpty()) {
+                tvNowPasswdError.text = "현재 비밀번호를 입력해 주세요"
+            } else if(!Pattern.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$", etNowPasswd.text.toString())) {
+                tvNowPasswdError.text = "영문 + 숫자 6자리 이상 입력해 주세요"
+            } else if(SharedPreferenceController.getPassword(this@ChangePasswordActivity)
+                != etNowPasswd.text.toString()) {
+                tvNowPasswdError.text = "현재 비밀번호랑 일치하지 않습니다"
+            } else {
+                setDefault(tvNowPasswd, etNowPasswd, tvNowPasswdError)
+                newPasswordController()
+            }
         }
     }
 
     private fun newPasswordController() {
-        val tv_new_passwd = binding.tvNewPasswd
-        val et_new_passwd = binding.etNewPasswd
-        val tv_new_error = binding.tvNewPasswdError
+        binding.apply {
+            setRedError(tvNewPasswd, etNewPasswd, tvNewPasswdError)
 
-        tv_new_passwd.setTextColor(ContextCompat.getColor(applicationContext, R.color.red_2_error))
-        et_new_passwd.background = resources.getDrawable(R.drawable.et_area_error, null)
-        tv_new_error.setVisible()
-
-        if(et_new_passwd.text.isEmpty()) {
-            tv_new_error.text = "새로운 비밀번호를 입력해 주세요"
-        } else if(!Pattern.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$", et_new_passwd.text.toString())) {
-            tv_new_error.text = "영문 + 숫자 6자리 이상 입력해 주세요"
-        } else {
-            tv_new_passwd.setTextColor(ContextCompat.getColor(applicationContext, R.color.blue_2))
-            et_new_passwd.background = resources.getDrawable(R.drawable.et_area_default, null)
-            tv_new_error.setInVisible()
-            checkPasswordController()
+            if (etNewPasswd.text.isEmpty()) {
+                tvNewPasswdError.text = "새로운 비밀번호를 입력해 주세요"
+            } else if(!Pattern.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$", etNewPasswd.text.toString())) {
+                tvNewPasswdError.text = "영문 + 숫자 6자리 이상 입력해 주세요"
+            } else {
+                setDefault(tvNewPasswd, etNewPasswd, tvNewPasswdError)
+                checkPasswordController()
+            }
         }
     }
 
     private fun checkPasswordController() {
-        val tv_check_passwd = binding.tvCheckPasswd
-        val et_check_passwd = binding.etCheckPasswd
-        val tv_check_error = binding.tvCheckPasswdError
+        binding.apply {
+            setRedError(tvCheckPasswd, etCheckPasswd, tvCheckPasswdError)
 
-        tv_check_passwd.setTextColor(ContextCompat.getColor(applicationContext, R.color.red_2_error))
-        et_check_passwd.background = resources.getDrawable(R.drawable.et_area_error, null)
-        tv_check_error.setVisible()
-
-        if(et_check_passwd.text.isEmpty()) {
-            tv_check_error.text = "비밀번호를 다시 입력해 주세요"
-        } else if(binding.etNewPasswd.text.toString() != et_check_passwd.text.toString()) {
-            tv_check_error.text = "비밀번호가 일치하지 않습니다"
-        } else {
-            tv_check_passwd.setTextColor(ContextCompat.getColor(applicationContext, R.color.blue_2))
-            et_check_passwd.background = resources.getDrawable(R.drawable.et_area_default, null)
-            tv_check_error.setInVisible()
-            // 변경 통신
-            putChangePassword()
+            if (etCheckPasswd.text.isEmpty()) {
+                tvCheckPasswdError.text = "비밀번호를 다시 입력해 주세요"
+            } else if(binding.etNewPasswd.text.toString() != etCheckPasswd.text.toString()) {
+                tvCheckPasswdError.text = "비밀번호가 일치하지 않습니다"
+            } else {
+                setDefault(tvCheckPasswd, etCheckPasswd, tvCheckPasswdError)
+                putChangePassword()
+            }
         }
     }
 
-    private fun EditText.editTextListener(tv : TextView, tv_error : TextView, button : ImageView) {
+    private fun EditText.editTextListener(tv: TextView, tv_error: TextView, button: ImageView) {
 
         // FocusChangedListener
         this.setOnFocusChangeListener { _, hasFocus ->
-            tv.setTextColor(ContextCompat.getColor(applicationContext, R.color.blue_2))
-            this.background = resources.getDrawable(R.drawable.et_area_default, null)
-            tv_error.setInVisible()
+            setDefault(tv, this, tv_error)
 
             if(this.text.isNotEmpty()) {
                 this.clearText(button)
@@ -131,9 +126,7 @@ class ChangePasswordActivity : AppCompatActivity() {
 
         // TextWatcher => clearText 기능을 위함
         this.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if(this@editTextListener.text.isNotEmpty()) {
@@ -141,18 +134,26 @@ class ChangePasswordActivity : AppCompatActivity() {
                 }
             }
 
-            override fun afterTextChanged(p0: Editable?) {
-
-            }
+            override fun afterTextChanged(p0: Editable?) {}
 
         })
     }
 
-    // edittext 지우는 x버튼
-    private fun EditText.clearText(button : ImageView) {
-        button.setVisible()
-        button.setOnClickListener {
-            this.setText("")
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun setDefault(textView: TextView, editText: EditText, tvError: TextView) {
+        binding.apply {
+            textView.setTextColor(ContextCompat.getColor(applicationContext, R.color.blue_2))
+            editText.background = resources.getDrawable(R.drawable.et_area_default, null)
+            tvError.setInVisible()
+        }
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun setRedError(textView: TextView, editText: EditText, tvError: TextView) {
+        binding.apply {
+            textView.setTextColor(ContextCompat.getColor(applicationContext, R.color.red_2_error))
+            editText.background = resources.getDrawable(R.drawable.et_area_error, null)
+            tvError.setVisible()
         }
     }
 
@@ -167,8 +168,9 @@ class ChangePasswordActivity : AppCompatActivity() {
                 call: Call<ResponseWithdrawalData>,
                 response: Response<ResponseWithdrawalData>
             ) {
-                when {
-                    response.code() == 200 -> {
+                response.takeIf { it.isSuccessful }
+                    ?.body()
+                    ?.let {
                         // 새 패스워드 저장
                         SharedPreferenceController.setPassword(
                             applicationContext,
@@ -176,14 +178,7 @@ class ChangePasswordActivity : AppCompatActivity() {
                         )
                         finish()
                         applicationContext.showToast("비밀번호가 변경되었습니다.")
-                    }
-                    response.code() == 400 -> {
-                        Log.d("putChangePassword 400", response.body()!!.message)
-                    }
-                    else -> {
-                        Log.d("putChangePassword 500", response.message())
-                    }
-                }
+                    } ?: showError(response.errorBody())
             }
 
             override fun onFailure(call: Call<ResponseWithdrawalData>, t: Throwable) {
@@ -191,6 +186,12 @@ class ChangePasswordActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    private fun showError(error: ResponseBody?) {
+        val e = error ?: return
+        val ob = JSONObject(e.string())
+        this.showToast(ob.getString("message"))
     }
 
 

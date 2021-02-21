@@ -26,11 +26,12 @@ class OnboardingStartActivity : AppCompatActivity() {
     private fun setListeners() {
         binding.apply {
             btnStart.setOnClickListener {
-                val intent=Intent(this@OnboardingStartActivity, OnboardingFeelingActivity::class.java)
+                val intent =
+                    Intent(this@OnboardingStartActivity, OnboardingFeelingActivity::class.java)
                 startActivity(intent)
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
             }
-            tvAccountOk.setOnClickListener{
+            tvAccountOk.setOnClickListener {
                 val intent = Intent(this@OnboardingStartActivity, MainLoginActivity::class.java)
                 startActivity(intent)
                 finish()

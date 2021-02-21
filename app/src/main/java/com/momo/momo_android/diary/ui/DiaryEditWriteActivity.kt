@@ -64,25 +64,25 @@ class DiaryEditWriteActivity : AppCompatActivity() {
     }
 
     private fun setToggleButton() {
-        binding.etDiary.showKeyboard()
-        toggleOff()
+        binding.apply {
+            etDiary.showKeyboard()
+            toggleOff()
 
-        // 토글 버튼 클릭
-        binding.togglebtn.setOnClickListener {
-            if (binding.tvSentence.visibility == View.GONE) {
-                toggleOn()
-            } else {
+            // 토글 버튼 클릭
+            togglebtn.setOnClickListener {
+                if (tvSentence.visibility == View.GONE) {
+                    toggleOn()
+                } else {
+                    toggleOff()
+                }
+            }
+
+            // edittext 클릭
+            etDiary.setOnClickListener {
                 toggleOff()
             }
-        }
 
-        // edittext 클릭
-        binding.etDiary.setOnClickListener {
-            toggleOff()
-        }
-
-        // edittext외 부분 터치시 키보드 안뜨게. 그 외 부분에 다 터치 인식
-        binding.apply {
+            // edittext외 부분 터치시 키보드 안뜨게. 그 외 부분에 다 터치 인식
             root.toggle_visible()
             cardview.toggle_visible()
         }

@@ -27,14 +27,6 @@ import java.util.*
 
 class DiaryActivity : AppCompatActivity() {
 
-    companion object {
-        var diary_year = 0
-        var diary_month = 0
-        var diary_date = 0
-        lateinit var responseDiaryData: List<Diary>
-        const val REQUEST_EDIT_DEPTH = 1000
-    }
-
     private lateinit var binding: ActivityDiaryBinding
 
     override fun onResume() {
@@ -322,6 +314,14 @@ class DiaryActivity : AppCompatActivity() {
                 else -> resources.getDrawable(R.drawable.gradient_rectangle_depth6, null)
             }
         }
+    }
+
+    companion object {
+        var diary_year = 0
+        var diary_month = 0
+        var diary_date = 0
+        lateinit var responseDiaryData: List<Diary>
+        const val REQUEST_EDIT_DEPTH = 1000
     }
 
 }

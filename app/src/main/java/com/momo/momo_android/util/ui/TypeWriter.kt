@@ -9,6 +9,7 @@ import android.widget.TextView
 
 
 @SuppressLint("AppCompatCustomView")
+
 class TypeWriter : TextView {
     private var mText: CharSequence? = null
     private var mIndex = 0

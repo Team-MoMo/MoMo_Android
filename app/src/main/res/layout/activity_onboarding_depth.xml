@@ -7,7 +7,7 @@
     tools:context=".onboarding.ui.OnboardingDepthActivity">
 
     <ScrollView
-        android:id="@+id/sv_upload_deep"
+        android:id="@+id/sv_onboarding_depth"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
@@ -26,7 +26,7 @@
             tools:layout_editor_absoluteY="0dp">
 
             <ImageView
-                android:id="@+id/bg_deep1"
+                android:id="@+id/bg_depth1"
                 android:layout_width="0dp"
                 android:layout_height="800dp"
                 android:scaleType="fitXY"
@@ -34,68 +34,68 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/bg_deep1" />
+                app:srcCompat="@drawable/gradient_rectangle_depth1" />
 
             <ImageView
-                android:id="@+id/bg_deep2"
+                android:id="@+id/bg_depth2"
                 android:layout_width="0dp"
                 android:layout_height="800dp"
                 android:scaleType="fitXY"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bg_deep1"
-                app:srcCompat="@drawable/bg_deep2" />
+                app:layout_constraintTop_toBottomOf="@+id/bg_depth1"
+                app:srcCompat="@drawable/gradient_rectangle_depth2" />
 
             <ImageView
-                android:id="@+id/bg_deep3"
+                android:id="@+id/bg_depth3"
                 android:layout_width="0dp"
                 android:layout_height="800dp"
                 android:scaleType="fitXY"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bg_deep2"
-                app:srcCompat="@drawable/bg_deep3" />
+                app:layout_constraintTop_toBottomOf="@+id/bg_depth2"
+                app:srcCompat="@drawable/gradient_rectangle_depth3" />
 
             <ImageView
-                android:id="@+id/bg_deep4"
+                android:id="@+id/bg_depth4"
                 android:layout_width="0dp"
                 android:layout_height="800dp"
                 android:scaleType="fitXY"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bg_deep3"
-                app:srcCompat="@drawable/bg_deep4" />
+                app:layout_constraintTop_toBottomOf="@+id/bg_depth3"
+                app:srcCompat="@drawable/gradient_rectangle_depth4" />
 
             <ImageView
-                android:id="@+id/bg_deep5"
+                android:id="@+id/bg_depth5"
                 android:layout_width="0dp"
                 android:layout_height="800dp"
                 android:scaleType="fitXY"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bg_deep4"
-                app:srcCompat="@drawable/bg_deep5" />
+                app:layout_constraintTop_toBottomOf="@+id/bg_depth4"
+                app:srcCompat="@drawable/gradient_rectangle_depth5" />
 
             <ImageView
-                android:id="@+id/bg_deep6"
+                android:id="@+id/bg_depth6"
                 android:layout_width="0dp"
                 android:layout_height="800dp"
                 android:scaleType="fitXY"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bg_deep5"
-                app:srcCompat="@drawable/bg_deep6" />
+                app:layout_constraintTop_toBottomOf="@+id/bg_depth5"
+                app:srcCompat="@drawable/gradient_rectangle_depth6" />
 
             <ImageView
-                android:id="@+id/bg_deep7"
+                android:id="@+id/bg_depth7"
                 android:layout_width="0dp"
                 android:layout_height="800dp"
                 android:scaleType="fitXY"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bg_deep6"
-                app:srcCompat="@drawable/bg_deep7" />
+                app:layout_constraintTop_toBottomOf="@+id/bg_depth6"
+                app:srcCompat="@drawable/gradient_rectangle_depth7" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
@@ -105,7 +105,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintDimensionRatio="1:0.538"
-        app:layout_constraintEnd_toEndOf="@+id/sv_upload_deep"
+        app:layout_constraintEnd_toEndOf="@+id/sv_onboarding_depth"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -253,7 +253,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:id="@+id/btn_upload_deep"
+            android:id="@+id/btn_start"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="16dp"

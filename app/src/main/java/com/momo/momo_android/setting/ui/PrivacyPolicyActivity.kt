@@ -19,10 +19,8 @@ class PrivacyPolicyActivity : AppCompatActivity() {
 
     //뒤로가기 버튼
     private fun initBackButton() {
-        binding.apply {
-            imgBack.setOnClickListener {
-                finish()
-            }
+        binding.imgBack.setOnClickListener {
+            finish()
         }
     }
 }
