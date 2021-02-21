@@ -33,6 +33,13 @@ class ReportBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomSheet
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val bottomSheetDialog = BottomSheetDialog(requireContext(), theme)
+
+        setListenerOnBottomSheet(bottomSheetDialog)
+
+        return bottomSheetDialog
+    }
+
+    private fun setListenerOnBottomSheet(bottomSheetDialog: BottomSheetDialog) {
         bottomSheetDialog.setOnShowListener { dialog ->
             val bottomSheet =
                 (dialog as BottomSheetDialog).findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)
@@ -44,7 +51,6 @@ class ReportBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomSheet
         bottomSheetDialog.apply {
             setCanceledOnTouchOutside(true)
         }
-        return bottomSheetDialog
     }
 
     override fun onCreateView(

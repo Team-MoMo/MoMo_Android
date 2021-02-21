@@ -23,15 +23,9 @@ class ModalFindpwCount(context : Context) {
 
         img_count = dlg.findViewById(R.id.img_findpw_count)
         when (count) {
-            1 -> {
-                img_count.setImageResource(R.drawable.ic_count_1)
-            }
-            2 -> {
-                img_count.setImageResource(R.drawable.ic_count_2)
-            }
-            3 -> {
-                img_count.setImageResource(R.drawable.ic_count_3)
-            }
+            1 -> img_count.setImageResource(R.drawable.ic_count_1)
+            2 -> img_count.setImageResource(R.drawable.ic_count_2)
+            3 -> img_count.setImageResource(R.drawable.ic_count_3)
         }
 
 

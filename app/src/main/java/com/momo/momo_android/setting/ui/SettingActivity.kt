@@ -51,7 +51,7 @@ class SettingActivity : AppCompatActivity() {
 
     private fun initSwitchLockClickListener() {
         binding.switchLock.setOnClickListener {
-            when (binding.switchLock.isChecked) {
+            when(binding.switchLock.isChecked) {
                 true -> {
                     binding.imagebuttonResetting.visibility = View.VISIBLE
                     val intent = Intent(this, LockOnActivity::class.java)
@@ -73,21 +73,18 @@ class SettingActivity : AppCompatActivity() {
         }
     }
 
-    private fun initMyInfoClickListener() {
+    private fun initMyInfoClickListener(){
         binding.constraintlayoutTouchboxInfo.setOnClickListener {
-            val intent = Intent(this, MyInfoActivity::class.java)
+            val intent=Intent(this, MyInfoActivity::class.java)
             startActivity(intent)
         }
         binding.constraintlayoutTouchboxInsta.setOnClickListener {
-            val intent = Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("https://instagram.com/momo.__.diary?igshid=1slzufxe233m")
-            )
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://instagram.com/momo.__.diary?igshid=1slzufxe233m"))
             startActivity(intent)
         }
     }
 
-    private fun initOpensourceClickListener() {
+    private fun initOpensourceClickListener(){
         binding.constraintlayoutTouchboxLicense.setOnClickListener {
             val intent = Intent(this, OpenSourceActivity::class.java)
             startActivity(intent)
@@ -100,7 +97,7 @@ class SettingActivity : AppCompatActivity() {
     }
 
     private fun setResettingButtonVisibility() {
-        when (SharedPreferenceController.getLockStatus(this)) {
+        when(SharedPreferenceController.getLockStatus(this)) {
             true -> binding.imagebuttonResetting.visibility = ImageButton.VISIBLE
             false -> binding.imagebuttonResetting.visibility = ImageButton.GONE
         }
@@ -117,12 +114,10 @@ class SettingActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             val isLocked = data!!.getBooleanExtra("isLocked", false)
-            when (requestCode) {
-                LOCK_ON -> {
-                }
+            when(requestCode) {
+                LOCK_ON -> {}
                 LOCK_OFF -> SharedPreferenceController.clearPassCode(this)
-                LOCK_ON_FOR_RESETTING -> {
-                }
+                LOCK_ON_FOR_RESETTING -> {}
                 LOCK_OFF_FOR_RESETTING -> {
                     val intent = Intent(this, LockOnActivity::class.java)
                     startActivityForResult(intent, LOCK_ON_FOR_RESETTING)

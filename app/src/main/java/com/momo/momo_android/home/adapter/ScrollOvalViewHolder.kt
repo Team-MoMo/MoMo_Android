@@ -14,8 +14,8 @@ import kotlin.properties.Delegates
 
 
 class ScrollOvalViewHolder(
-    private val viewBinding: ItemScrollOvalBinding
-) : RecyclerView.ViewHolder(viewBinding.root) {
+    private val binding: ItemScrollOvalBinding
+) : RecyclerView.ViewHolder(binding.root) {
 
     private var itemDistance by Delegates.notNull<Float>()
     private val displayMetrics: DisplayMetrics = Resources.getSystem().displayMetrics
@@ -28,7 +28,7 @@ class ScrollOvalViewHolder(
     }
 
     fun onEmptyBind() {
-        viewBinding.apply {
+        binding.apply {
             imageButtonOval.visibility = ImageButton.INVISIBLE
             textViewDate.visibility = TextView.INVISIBLE
             textViewCategory.visibility = TextView.INVISIBLE
@@ -46,21 +46,21 @@ class ScrollOvalViewHolder(
 
     private fun setOvalXPosition(xPosition: Int) {
         val leftMargin = ((itemDistance * xPosition) + (HORIZONTAL_MARGIN * displayMetrics.density))
-        val layoutParams = viewBinding.imageButtonOval.layoutParams as ConstraintLayout.LayoutParams
+        val layoutParams = binding.imageButtonOval.layoutParams as ConstraintLayout.LayoutParams
         layoutParams.marginStart = leftMargin.toInt()
-        viewBinding.imageButtonOval.layoutParams = layoutParams
+        binding.imageButtonOval.layoutParams = layoutParams
     }
 
     private fun setDiaryData(diaryData: ResponseDiaryList.Data) {
         convertUpdatedAtToDate(diaryData.wroteAt)
-        viewBinding.textViewCategory.text = diaryData.emotion.name
+        binding.textViewCategory.text = diaryData.emotion.name
     }
 
     private fun convertUpdatedAtToDate(updatedAt: String) {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss.sss'Z'", Locale.KOREAN)
         val parsedDate = dateFormat.parse(updatedAt)
         val diaryDate = SimpleDateFormat("MM/dd", Locale.KOREA).format(parsedDate!!)
-        viewBinding.textViewDate.text = diaryDate
+        binding.textViewDate.text = diaryDate
     }
 
     companion object {

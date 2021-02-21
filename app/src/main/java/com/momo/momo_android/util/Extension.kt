@@ -123,6 +123,8 @@ fun getEmotionWhite(emotionIdx: Int) : Int {
     }
 }
 
+
+//현재날짜 Year,Month,Date,Day String 배열로 전달
 fun getCurrentDate(): Array<String>{
     val currentDate = Calendar.getInstance()
     val year = currentDate.get(Calendar.YEAR).toString()
@@ -134,7 +136,8 @@ fun getCurrentDate(): Array<String>{
     return arrayOf(year,month,date,day)
 }
 
-private fun getCurrentDay(currentDay: Int): String {
+//현재날짜 Day의 Int형을 ~요일 형태로 변환
+fun getCurrentDay(currentDay: Int): String {
     return when (currentDay) {
         1 -> "일요일"
         2 -> "월요일"
