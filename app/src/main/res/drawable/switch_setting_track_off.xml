@@ -4,7 +4,7 @@
     <corners android:radius="30dp"/>
     <size android:width="34dp"
         android:height="14dp"/>
-    <solid android:color="@color/switch_track_off"/>
+    <solid android:color="@color/black_6"/>
     <stroke android:width="5dp"
         android:color="@color/switch_track_padding"/>
 </shape>
