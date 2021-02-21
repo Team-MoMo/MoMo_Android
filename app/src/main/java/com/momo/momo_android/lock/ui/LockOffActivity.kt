@@ -71,9 +71,16 @@ class LockOffActivity : AppCompatActivity() {
                 button09.id -> setPassCode("9")
                 button00.id -> setPassCode("0")
 
-                imageButtonClose.id -> finish()
+                imageButtonClose.id -> finishActivity()
                 imageButtonDelete.id -> deletePassCode()
             }
+        }
+    }
+
+    private fun finishActivity() {
+        when (IS_ENTRY_LOCK) {
+            true -> finishAffinity()
+            false -> finish()
         }
     }
 
@@ -96,7 +103,10 @@ class LockOffActivity : AppCompatActivity() {
     private fun checkPassCodeValidation() {
         currentPassCode = SharedPreferenceController.getPassCode(this).toString()
         when (inputPassCode) {
-            currentPassCode -> finishActivityWithLockStatus()
+            currentPassCode -> {
+                finishActivityWithLockStatus()
+                IS_ENTRY_LOCK = false
+            }
             else -> setWrongPassCodeView()
         }
     }
@@ -187,11 +197,15 @@ class LockOffActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        finishAffinity()
+        finishActivity()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    companion object {
+        var IS_ENTRY_LOCK = true
     }
 }
