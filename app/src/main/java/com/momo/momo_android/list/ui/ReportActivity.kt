@@ -42,11 +42,6 @@ class ReportActivity : AppCompatActivity() {
 
     private lateinit var currentDate: Calendar
 
-    companion object {
-        var report_year = 0
-        var report_month = 0
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityReportBinding.inflate(layoutInflater)
@@ -423,5 +418,10 @@ class ReportActivity : AppCompatActivity() {
         val ob = JSONObject(e.string())
         this.showToast(ob.getString("message"))
         Log.d("StatActivity-server", ob.getString("message"))
+    }
+
+    companion object {
+        var report_year = 0
+        var report_month = 0
     }
 }

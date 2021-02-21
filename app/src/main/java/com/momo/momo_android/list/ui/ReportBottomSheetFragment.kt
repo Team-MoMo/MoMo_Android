@@ -8,17 +8,17 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.NumberPicker
 import com.momo.momo_android.R
-import com.momo.momo_android.databinding.BottomsheetReportBinding
 import com.momo.momo_android.list.ui.ReportActivity.Companion.report_month
 import com.momo.momo_android.list.ui.ReportActivity.Companion.report_year
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.momo.momo_android.databinding.BottomsheetYmDatePickerBinding
 import java.util.*
 
 class ReportBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomSheetDialogFragment() {
 
-    private var _binding: BottomsheetReportBinding? = null
+    private var _binding: BottomsheetYmDatePickerBinding? = null
     private val binding get() = _binding!!
 
     private var selectYear = 0
@@ -57,7 +57,7 @@ class ReportBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomSheet
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = BottomsheetReportBinding.inflate(layoutInflater)
+        _binding = BottomsheetYmDatePickerBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -72,9 +72,9 @@ class ReportBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomSheet
     }
 
     private fun initApplyButton() {
+        binding.buttonApply.isEnabled = true
         binding.buttonApply.setOnClickListener {
             val pickDate = intArrayOf(selectYear, selectMonth)
-
             itemClick(pickDate)
 
             this.dismiss()
