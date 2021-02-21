@@ -10,9 +10,8 @@ class OpenSourceViewHolder (itemView: View): RecyclerView.ViewHolder(itemView){/
 
     private val name: TextView =itemView.findViewById(R.id.tv_open_source)
 
-    fun onBind(data: OpenSourceData) {//sampledata.kt가 객체로 들어오게됨.
+    fun onBind(data: OpenSourceData) {
         name.text = data.name
-
     }
 
 }

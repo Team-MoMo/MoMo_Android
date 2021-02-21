@@ -20,6 +20,16 @@
     <string name="depth_1005m">1,005m</string>
     <string name="depth_under">심해</string>
 
+    <!--Onboarding Typing String-->
+    <string name="typing_love">새로운 인연이 기대되는 하루였다.</string>
+    <string name="typing_happy">삶의 소중함을 느낀 하루였다.</string>
+    <string name="typing_console">나를 위한 진한 위로가 필요한 하루였다.</string>
+    <string name="typing_angry">끓어오르는 속을 진정시켜야 하는 하루였다.</string>
+    <string name="typing_sad">마음이 찌릿하게 아픈 하루였다.</string>
+    <string name="typing_bored">눈물이 왈칵 쏟아질 것 같은 하루였다.</string>
+    <string name="typing_memory">오래된 기억이 되살아나는 하루였다.</string>
+    <string name="typing_daily">평안한 하루가 감사한 날이었다.</string>
+
     <!--
     <string name="terms_of_service">서비스약관</string>
     <string name="privacy_policy">개인정보</string>

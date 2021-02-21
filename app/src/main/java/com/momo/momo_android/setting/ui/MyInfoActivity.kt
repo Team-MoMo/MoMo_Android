@@ -44,60 +44,74 @@ class MyInfoActivity : AppCompatActivity() {
     }
 
     private fun hideChangePasswordMenu() {
-        if(SharedPreferenceController.getSocialLogin(this) == "true") {
-            binding.constraintlayoutBox1.setGone()
-            binding.view18.setGone()
+        binding.apply {
+            if(SharedPreferenceController.getSocialLogin(this@MyInfoActivity) == "true") {
+                constraintlayoutBox1.setGone()
+                view18.setGone()
+            }
         }
     }
 
     //뒤로가기 버튼
     private fun initBackButton() {
-        binding.imgBack.setOnClickListener {
-            finish()
+        binding.apply {
+            imgBack.setOnClickListener {
+                finish()
+            }
         }
     }
 
     //박스 1_ 비밀번호 변경
     private fun changePasswordClickListener(){
-        binding.constraintlayoutBox1.setOnClickListener {
-            val intent = Intent(this, ChangePasswordActivity::class.java)
-            startActivity(intent)
+        binding.apply {
+            constraintlayoutBox1.setOnClickListener {
+                val intent = Intent(this@MyInfoActivity, ChangePasswordActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
     //박스 2_ 개인정보처리방침
     private fun privacyPolicyClickListener(){
-        binding.constraintlayoutBox2.setOnClickListener {
-            val intent = Intent(this, PrivacyPolicyActivity::class.java)
-            startActivity(intent)
+        binding.apply {
+            constraintlayoutBox2.setOnClickListener {
+                val intent = Intent(this@MyInfoActivity, PrivacyPolicyActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
     //박스 3_서비스이용약관
     private fun termsOfServiceClickListener(){
-        binding.constraintlayoutBox3.setOnClickListener {
-            val intent = Intent(this, TermsOfServiceActivity::class.java)
-            startActivity(intent)
+        binding.apply {
+            constraintlayoutBox3.setOnClickListener {
+                val intent = Intent(this@MyInfoActivity, TermsOfServiceActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
     //박스 4_로그아웃
     private fun logoutClickListener(){
-        binding.constraintlayoutBox4.setOnClickListener {
-            val logoutDialog = LogoutDialogFragment.CustomDialogBuilder().create()
-            logoutDialog.show(supportFragmentManager, logoutDialog.tag)
+        binding.apply {
+            constraintlayoutBox4.setOnClickListener {
+                val logoutDialog = LogoutDialogFragment.CustomDialogBuilder().create()
+                logoutDialog.show(supportFragmentManager, logoutDialog.tag)
+            }
         }
     }
 
     //회원탈퇴
     private fun withdrawalClickListener(){
-        binding.tvWithdrawal.setOnClickListener {
-            //모달 보여주고 탈퇴처리
-            val withdrawalModal = ModalWithdrawal(this)
-            withdrawalModal.start()
-            withdrawalModal.setOnClickListener {
-                if(it == "확인") {
-                    //회원탈퇴 서버연결+ 창닫기
-                    deleteUser()
+        binding.apply {
+            tvWithdrawal.setOnClickListener {
+                //모달 보여주고 탈퇴처리
+                val withdrawalModal = ModalWithdrawal(this@MyInfoActivity)
+                withdrawalModal.start()
+                withdrawalModal.setOnClickListener {
+                    if(it == "확인") {
+                        //회원탈퇴 서버연결+ 창닫기
+                        deleteUser()
 
-                    overridePendingTransition(R.anim.horizontal_right_in, R.anim.horizontal_left_out)
+                        overridePendingTransition(R.anim.horizontal_right_in, R.anim.horizontal_left_out)
+                    }
                 }
             }
         }

@@ -91,6 +91,9 @@
     <!-- editText theme -->
     <style name="CustomEditTextTheme" parent="TextAppearance.AppCompat">
         <item name="colorAccent">@color/blue_splash</item>
+        <item name="android:textColorHighlight">@color/blue_splash</item>
+        <item name="android:textColorHint">@color/blue_3</item>
+        <item name="android:textColorLink">@color/blue_splash</item>
     </style>
 
     <!-- TabLayout -->
