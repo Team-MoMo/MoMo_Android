@@ -14,12 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoMo_Android"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.momo.momo_android.onboarding.ui.OnboardingWriteActivity"></activity>
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />
-
 
         <activity android:name="com.momo.momo_android.setting.ui.OpenSourceDetailActivity"/>
         <activity android:name="com.momo.momo_android.setting.ui.OpenSourceActivity" />
@@ -34,6 +32,7 @@
         <activity android:name="com.momo.momo_android.onboarding.ui.OnboardingDepthActivity" />
         <activity android:name="com.momo.momo_android.onboarding.ui.OnboardingSentenceActivity" />
         <activity android:name="com.momo.momo_android.onboarding.ui.OnboardingFeelingActivity" />
+        <activity android:name="com.momo.momo_android.onboarding.ui.OnboardingWriteActivity" />
         <activity android:name="com.momo.momo_android.onboarding.ui.OnboardingStartActivity" />
         <activity
             android:name="com.momo.momo_android.login.ui.FindPasswordActivity"

@@ -40,7 +40,7 @@ class FindPasswordActivity : AppCompatActivity() {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private fun isSatisfied() {
+    private fun setDefault() {
         binding.apply {
             tvFindpwEmail.setTextColor(ContextCompat.getColor(applicationContext, R.color.blue_2))
             etFindpwEmail.background = resources.getDrawable(R.drawable.et_area_default, null)
@@ -49,7 +49,7 @@ class FindPasswordActivity : AppCompatActivity() {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private fun isDissatisfied() {
+    private fun setRedError() {
         binding.apply {
             tvFindpwEmail.setTextColor(ContextCompat.getColor(applicationContext, R.color.red_2_error))
             etFindpwEmail.background = resources.getDrawable(R.drawable.et_area_error, null)
@@ -66,7 +66,7 @@ class FindPasswordActivity : AppCompatActivity() {
                 } else if(etFindpwEmail.text.isNotEmpty() &&
                     !android.util.Patterns.EMAIL_ADDRESS.matcher(etFindpwEmail.text.toString()).matches()) {
                     // 이메일 정규식이 만족하지 않을 때
-                    isDissatisfied()
+                    setRedError()
                     tvEmailError.text = "올바른 이메일 형식이 아닙니다"
                 } else {
                     progressBar.setVisible()
@@ -80,13 +80,11 @@ class FindPasswordActivity : AppCompatActivity() {
     private fun setEmailListeners() {
         binding.apply {
             etFindpwEmail.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-                }
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
-                    isSatisfied()
+                    setDefault()
 
                     if (etFindpwEmail.text.isNotEmpty()) {
                         etFindpwEmail.clearText(btnEmailErase)
@@ -99,14 +97,12 @@ class FindPasswordActivity : AppCompatActivity() {
 
                 }
 
-                override fun afterTextChanged(p0: Editable?) {
-
-                }
+                override fun afterTextChanged(p0: Editable?) {}
 
             })
 
             etFindpwEmail.setOnFocusChangeListener { _, _ ->
-                isSatisfied()
+                setDefault()
             }
         }
     }
@@ -145,10 +141,8 @@ class FindPasswordActivity : AppCompatActivity() {
 
         when(ob.getString("message")) {
             "존재하지 않는 회원" -> {
-                binding.apply {
-                    isDissatisfied()
-                    tvEmailError.text = "가입된 이메일이 없습니다"
-                }
+                setRedError()
+                binding.tvEmailError.text = "가입된 이메일이 없습니다"
             }
             else -> {
                 val countOverModal = ModalFindpwCountOver(this@FindPasswordActivity)
