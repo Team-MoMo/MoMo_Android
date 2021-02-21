@@ -40,18 +40,19 @@ class ScrollGradientViewHolder(
         binding.apply {
             constraintLayout.removeAllViews()
             textViewDepth.text = getDepthString(position, binding.root.context)
-            when (position) {
-                0 -> viewStubGradient.layoutResource = R.layout.view_stub_depth_1
-                1 -> viewStubGradient.layoutResource = R.layout.view_stub_depth_2
-                2 -> viewStubGradient.layoutResource = R.layout.view_stub_depth_3
-                3 -> viewStubGradient.layoutResource = R.layout.view_stub_depth_4
-                4 -> viewStubGradient.layoutResource = R.layout.view_stub_depth_5
-                5 -> viewStubGradient.layoutResource = R.layout.view_stub_depth_6
-                6 -> viewStubGradient.layoutResource = R.layout.view_stub_depth_7
+            viewStubGradient.layoutResource = when (position) {
+                0 -> R.layout.view_stub_depth_1
+                1 -> R.layout.view_stub_depth_2
+                2 -> R.layout.view_stub_depth_3
+                3 -> R.layout.view_stub_depth_4
+                4 -> R.layout.view_stub_depth_5
+                5 -> R.layout.view_stub_depth_6
+                6 -> R.layout.view_stub_depth_7
+                else -> Log.d("TAG", "setDepthViews: error")
             }
-            constraintLayout.addView(binding.viewStubGradient)
-            constraintLayout.addView(binding.textViewDepth)
-            constraintLayout.addView(binding.recyclerViewOval)
+            constraintLayout.addView(viewStubGradient)
+            constraintLayout.addView(textViewDepth)
+            constraintLayout.addView(recyclerViewOval)
             viewStubGradient.inflate()
         }
     }
@@ -100,24 +101,26 @@ class ScrollGradientViewHolder(
     }
 
     private fun handleResponseStatusCode(responseCode: Int) {
-        when (responseCode) {
-            400 -> binding.root.context.showToast("일기 전체 조회 실패 - 필요한 값이 없습니다.")
-            500 -> binding.root.context.showToast("일기 전체 조회 실패 - 서버 내부 에러")
-            else -> binding.root.context.showToast("일기 전체 조회 실패 - 예외 상황")
+        binding.root.context.apply {
+            when (responseCode) {
+                400 -> showToast("일기 전체 조회 실패 - 필요한 값이 없습니다.")
+                500 -> showToast("일기 전체 조회 실패 - 서버 내부 에러")
+                else -> showToast("일기 전체 조회 실패 - 예외 상황")
+            }
         }
     }
 
     private fun setFirstItemView() {
         binding.apply {
             constraintLayout.removeAllViews()
-            constraintLayout.addView(this.viewLine)
+            constraintLayout.addView(viewLine)
         }
     }
 
     private fun setLastItemView() {
         binding.apply {
             constraintLayout.removeAllViews()
-            constraintLayout.addView(this.imageViewBottom)
+            constraintLayout.addView(imageViewBottom)
         }
     }
 
