@@ -31,8 +31,6 @@
         <activity android:name="com.momo.momo_android.lock.ui.LockOffActivity" />
         <activity android:name="com.momo.momo_android.setting.ui.MyInfoActivity" />
         <activity android:name="com.momo.momo_android.setting.ui.TeamInfoActivity" />
-        <activity android:name=".onboarding.ui.OnboardingWriteSecondActivity" />
-        <activity android:name=".onboarding.ui.OnboardingWriteFirstActivity" />
         <activity android:name="com.momo.momo_android.onboarding.ui.OnboardingDepthActivity" />
         <activity android:name="com.momo.momo_android.onboarding.ui.OnboardingSentenceActivity" />
         <activity android:name="com.momo.momo_android.onboarding.ui.OnboardingFeelingActivity" />

@@ -14,17 +14,21 @@ class OpenSourceDetailActivity : AppCompatActivity() {
 
         initBackButton()
 
-        binding.tvName.text=intent.getStringExtra("name").toString()
-        binding.tvGithub.text=intent.getStringExtra("github").toString()
-        binding.tvCopyright.text=intent.getStringExtra("copyright").toString()
-        binding.tvLicense.text=intent.getStringExtra("license").toString()
-        binding.tvDetail.text=intent.getStringExtra("detail").toString()
+        binding.apply {
+            tvName.text=intent.getStringExtra("name").toString()
+            tvGithub.text=intent.getStringExtra("github").toString()
+            tvCopyright.text=intent.getStringExtra("copyright").toString()
+            tvLicense.text=intent.getStringExtra("license").toString()
+            tvDetail.text=intent.getStringExtra("detail").toString()
+        }
     }
 
     //뒤로가기 버튼
     private fun initBackButton() {
-        binding.imgBack.setOnClickListener {
-            finish()
+        binding.apply {
+            imgBack.setOnClickListener {
+                finish()
+            }
         }
     }
 }
