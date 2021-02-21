@@ -173,28 +173,13 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
         }
     }
 
-    private fun getLastCompletelyVisibleItemPosition(): Int {
-        val layoutManager = binding.recyclerViewGradient.layoutManager as LinearLayoutManager
-        return layoutManager.findLastCompletelyVisibleItemPosition()
-    }
-
     private fun fadeInSwipeImage() {
-        binding.imageViewSwipeUp.fadeIn()
-        binding.imageViewSwipeDown.apply {
-            when (getLastCompletelyVisibleItemPosition()) {
-                8 -> fadeOut()
-                else -> fadeIn()
-            }
-        }
+        fadeInSwipeUpImage()
+        fadeInSwipeDownImage()
     }
 
-    private fun fadeOutSwipeImage() {
-        binding.imageViewSwipeUp.fadeOut()
-        binding.imageViewSwipeDown.fadeOut()
-    }
-
-    private fun View.fadeIn() {
-        if (visibility == View.INVISIBLE) {
+    private fun fadeInSwipeUpImage() {
+        binding.imageViewSwipeUp.apply {
             visibility = View.VISIBLE
             alpha = 0f
             animate()
@@ -204,15 +189,47 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
         }
     }
 
-    private fun View.fadeOut() {
-        if (visibility == View.VISIBLE) {
+    private fun fadeInSwipeDownImage() {
+        binding.apply {
+            when ((recyclerViewGradient.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()) {
+                8 -> imageViewSwipeDown.visibility = ImageView.INVISIBLE
+                else -> {
+                    imageViewSwipeDown.visibility = View.VISIBLE
+                    imageViewSwipeDown.alpha = 0f
+                    imageViewSwipeDown.animate()
+                        .alpha(1f)
+                        .setDuration(
+                            resources.getInteger(android.R.integer.config_longAnimTime).toLong()
+                        )
+                        .setListener(null)
+                }
+            }
+        }
+    }
+
+    private fun fadeOutSwipeImage() {
+        binding.imageViewSwipeUp.apply {
+            visibility = View.VISIBLE
             alpha = 1f
             animate()
                 .alpha(0f)
                 .setDuration(resources.getInteger(android.R.integer.config_longAnimTime).toLong())
                 .setListener(object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator) {
-                        visibility = View.INVISIBLE
+                        binding.viewLoading.visibility = View.INVISIBLE
+                    }
+                })
+        }
+
+        binding.imageViewSwipeDown.apply {
+            visibility = View.VISIBLE
+            alpha = 1f
+            animate()
+                .alpha(0f)
+                .setDuration(resources.getInteger(android.R.integer.config_longAnimTime).toLong())
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        binding.viewLoading.visibility = View.INVISIBLE
                     }
                 })
         }
