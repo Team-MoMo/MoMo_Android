@@ -96,80 +96,12 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setOnBackPressedCallBack() {
-        onBackPressedCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                (activity as HomeActivity).showFinishToast()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
-    }
-
-    private fun updateEditedData() {
-        if (IS_EDITED) {
-            setCurrentDate()
-            setDayNightStatus()
-            getServerDiaryData()
-            IS_EDITED = false
-        }
-    }
-
     private fun setDayNightStatus() {
         when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
             in 6..18 -> setDayView()
             else -> setNightView()
         }
         setLoadingViewBackground()
-    }
-
-    private fun setDayView() {
-        isDay = true
-        binding.apply {
-            constraintLayout.setBackgroundResource(R.drawable.gradient_home_day)
-            imageViewSky.setImageResource(R.drawable.day_cloud)
-            textViewDate.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue_3))
-            imageButtonMy.setImageResource(R.drawable.btn_ic_my_blue)
-            textViewEmotion.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue_2))
-            imageViewLogo.setImageResource(R.drawable.ic_depth)
-            textViewDepth.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue_1))
-            textViewQuotation.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_4))
-            textViewAuthor.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue_3))
-            textViewTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue_3))
-            textViewPublisher.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_5_publish))
-            viewLine.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.line_light_gray))
-            textViewDiary.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_4))
-            textViewDiaryEmpty.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_4))
-            buttonUpload.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue_1))
-            buttonUpload.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.blue_7)
-            buttonShowFull.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue_1))
-            buttonShowFull.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.blue_7)
-            imageViewSea.setImageResource(R.drawable.day_sea)
-        }
-    }
-
-    private fun setNightView() {
-        isDay = false
-        binding.apply {
-            constraintLayout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_grey))
-            imageViewSky.setImageResource(R.drawable.night_star)
-            textViewDate.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue_7))
-            imageButtonMy.setImageResource(R.drawable.btn_ic_my)
-            textViewEmotion.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue_4))
-            imageViewLogo.setImageResource(R.drawable.ic_depth_white)
-            textViewDepth.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue_7))
-            textViewQuotation.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue_7))
-            textViewAuthor.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue_4))
-            textViewTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue_4))
-            textViewPublisher.setTextColor(ContextCompat.getColor(requireContext(), R.color.black_5_publish))
-            viewLine.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.blue_3))
-            textViewDiary.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue_7))
-            textViewDiaryEmpty.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue_7))
-            buttonUpload.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue_7))
-            buttonUpload.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.blue_1)
-            buttonShowFull.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue_7))
-            buttonShowFull.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.blue_1)
-            imageViewSea.setImageResource(R.drawable.night_sea)
-        }
     }
 
     private fun getServerDiaryData() {
@@ -198,6 +130,74 @@ class HomeFragment : Fragment() {
         })
     }
 
+    private fun setOnBackPressedCallBack() {
+        onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                (activity as HomeActivity).showFinishToast()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    }
+
+    private fun updateEditedData() {
+        if (IS_EDITED) {
+            setCurrentDate()
+            setDayNightStatus()
+            getServerDiaryData()
+            IS_EDITED = false
+        }
+    }
+
+    private fun setDayView() {
+        isDay = true
+        binding.apply {
+            constraintLayout.setBackgroundResource(R.drawable.gradient_home_day)
+            imageViewSky.setImageResource(R.drawable.day_cloud)
+            textViewDate.setContextCompatTextColor(R.color.blue_3)
+            imageButtonMy.setImageResource(R.drawable.btn_ic_my_blue)
+            textViewEmotion.setContextCompatTextColor(R.color.blue_2)
+            imageViewLogo.setImageResource(R.drawable.ic_depth)
+            textViewDepth.setContextCompatTextColor(R.color.blue_1)
+            textViewQuotation.setContextCompatTextColor(R.color.black_4)
+            textViewAuthor.setContextCompatTextColor(R.color.blue_3)
+            textViewTitle.setContextCompatTextColor(R.color.blue_3)
+            textViewPublisher.setContextCompatTextColor(R.color.black_5_publish)
+            viewLine.setContextCompatBackgroundColor(R.color.line_light_gray)
+            textViewDiary.setContextCompatTextColor(R.color.black_4)
+            textViewDiaryEmpty.setContextCompatTextColor(R.color.black_4)
+            buttonUpload.setContextCompatTextColor(R.color.blue_1)
+            buttonUpload.setContextCompatBackgroundTintList(R.color.blue_7)
+            buttonShowFull.setContextCompatTextColor(R.color.blue_1)
+            buttonShowFull.setContextCompatBackgroundTintList(R.color.blue_7)
+            imageViewSea.setImageResource(R.drawable.day_sea)
+        }
+    }
+
+    private fun setNightView() {
+        isDay = false
+        binding.apply {
+            constraintLayout.setContextCompatBackgroundColor(R.color.dark_blue_grey)
+            imageViewSky.setImageResource(R.drawable.night_star)
+            textViewDate.setContextCompatTextColor(R.color.blue_7)
+            imageButtonMy.setImageResource(R.drawable.btn_ic_my)
+            textViewEmotion.setContextCompatBackgroundColor(R.color.blue_4)
+            imageViewLogo.setImageResource(R.drawable.ic_depth_white)
+            textViewDepth.setContextCompatTextColor(R.color.blue_7)
+            textViewQuotation.setContextCompatTextColor(R.color.blue_7)
+            textViewAuthor.setContextCompatTextColor(R.color.blue_4)
+            textViewTitle.setContextCompatTextColor(R.color.blue_4)
+            textViewPublisher.setContextCompatTextColor(R.color.black_5_publish)
+            viewLine.setContextCompatBackgroundColor(R.color.blue_3)
+            textViewDiary.setContextCompatTextColor(R.color.blue_7)
+            textViewDiaryEmpty.setContextCompatTextColor(R.color.blue_7)
+            buttonUpload.setContextCompatTextColor(R.color.blue_7)
+            buttonUpload.setContextCompatBackgroundTintList(R.color.blue_1)
+            buttonShowFull.setContextCompatTextColor(R.color.blue_7)
+            buttonShowFull.setContextCompatBackgroundTintList(R.color.blue_1)
+            imageViewSea.setImageResource(R.drawable.night_sea)
+        }
+    }
+
     private fun setDiaryView(diaryList: List<ResponseDiaryList.Data>) {
         when (diaryList.size) {
             0 -> {
@@ -221,10 +221,12 @@ class HomeFragment : Fragment() {
     }
 
     private fun handleResponseStatusCode(responseCode: Int) {
-        when (responseCode) {
-            400 -> requireContext().showToast("일기 전체 조회 실패 - 필요한 값이 없습니다.")
-            500 -> requireContext().showToast("일기 전체 조회 실패 - 서버 내부 에러")
-            else -> requireContext().showToast("일기 전체 조회 실패 - 예외 상")
+        binding.root.context.apply {
+            when (responseCode) {
+                400 -> showToast("일기 전체 조회 실패 - 필요한 값이 없습니다.")
+                500 -> showToast("일기 전체 조회 실패 - 서버 내부 에러")
+                else -> showToast("일기 전체 조회 실패 - 예외 상황")
+            }
         }
         setEmptyVisibility()
     }
@@ -237,7 +239,7 @@ class HomeFragment : Fragment() {
                 .setDuration(resources.getInteger(android.R.integer.config_longAnimTime).toLong())
                 .setListener(object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator) {
-                        binding.viewLoading.visibility = View.GONE
+                        visibility = View.GONE
                     }
                 })
         }
@@ -247,7 +249,12 @@ class HomeFragment : Fragment() {
         binding.viewLoading.apply {
             when (isDay) {
                 true -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
-                false -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_grey))
+                false -> setBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.dark_blue_grey
+                    )
+                )
             }
             visibility = View.VISIBLE
         }
@@ -255,41 +262,41 @@ class HomeFragment : Fragment() {
 
     private fun setEmptyVisibility() {
         binding.apply {
-            textViewDiaryEmpty.visibility = TextView.VISIBLE
-            buttonUpload.visibility = Button.VISIBLE
+            textViewDiaryEmpty.setVisible()
+            buttonUpload.setVisible()
 
-            imageViewEmotion.visibility = ImageView.GONE
-            textViewEmotion.visibility = TextView.GONE
-            imageViewLogo.visibility = ImageView.GONE
-            textViewDepth.visibility = TextView.GONE
-            textViewQuotation.visibility = TextView.GONE
-            textViewAuthor.visibility = TextView.GONE
-            textViewTitle.visibility = TextView.GONE
-            textViewPublisher.visibility = TextView.GONE
-            viewLine.visibility = View.GONE
-            textViewDiary.visibility = TextView.GONE
-            buttonShowFull.visibility = Button.GONE
-            imageButtonUpload.visibility = ImageButton.GONE
+            imageViewEmotion.setGone()
+            textViewEmotion.setGone()
+            imageViewLogo.setGone()
+            textViewDepth.setGone()
+            textViewQuotation.setGone()
+            textViewAuthor.setGone()
+            textViewTitle.setGone()
+            textViewPublisher.setGone()
+            viewLine.setGone()
+            textViewDiary.setGone()
+            buttonShowFull.setGone()
+            imageButtonUpload.setGone()
         }
     }
 
     private fun setDiaryVisibility() {
         binding.apply {
-            textViewDiaryEmpty.visibility = TextView.GONE
-            buttonUpload.visibility = Button.GONE
+            textViewDiaryEmpty.setGone()
+            buttonUpload.setGone()
 
-            imageViewEmotion.visibility = ImageView.VISIBLE
-            textViewEmotion.visibility = TextView.VISIBLE
-            imageViewLogo.visibility = ImageView.VISIBLE
-            textViewDepth.visibility = TextView.VISIBLE
-            textViewQuotation.visibility = TextView.VISIBLE
-            textViewAuthor.visibility = TextView.VISIBLE
-            textViewTitle.visibility = TextView.VISIBLE
-            textViewPublisher.visibility = TextView.VISIBLE
-            viewLine.visibility = View.VISIBLE
-            textViewDiary.visibility = TextView.VISIBLE
-            buttonShowFull.visibility = Button.VISIBLE
-            imageButtonUpload.visibility = ImageButton.VISIBLE
+            imageViewEmotion.setVisible()
+            textViewEmotion.setVisible()
+            imageViewLogo.setVisible()
+            textViewDepth.setVisible()
+            textViewQuotation.setVisible()
+            textViewAuthor.setVisible()
+            textViewTitle.setVisible()
+            textViewPublisher.setVisible()
+            viewLine.setVisible()
+            textViewDiary.setVisible()
+            buttonShowFull.setVisible()
+            imageButtonUpload.setVisible()
         }
     }
 
@@ -345,8 +352,8 @@ class HomeFragment : Fragment() {
 
     private fun setIntentToListActivity() {
         val intent = Intent(requireContext(), ListActivity::class.java)
-        intent.putExtra("year", currentYear)
-        intent.putExtra("month", currentMonth)
+        intent.putExtra("year", currentYear.toInt())
+        intent.putExtra("month", currentMonth.toInt())
         startActivity(intent)
     }
 
