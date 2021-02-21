@@ -78,6 +78,7 @@ class OnboardingFeelingActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.horizontal_right_in, R.anim.horizontal_left_out)
     }
 
+
     //Feeling 값 전달을 intent로 하지 않고 companion 사용
     companion object {
         var ONBOARDING_FEELING = 0

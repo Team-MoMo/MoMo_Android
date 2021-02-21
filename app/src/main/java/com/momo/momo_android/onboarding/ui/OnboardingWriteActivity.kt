@@ -27,6 +27,7 @@ class OnboardingWriteActivity : AppCompatActivity() {
 
         //온보딩 Lottie 설정
         initOnboardingAnimation()
+
         //선택 문장 정보 설정
         setSentenceData()
 

@@ -21,6 +21,7 @@ class OnboardingStartActivity : AppCompatActivity() {
         //시작하기버튼, 계정이 있을경우 버튼에 대한 클릭리스너
         setListeners()
     }
+
     //시작하기버튼, 계정이 있을경우 버튼에 대한 클릭리스너
     private fun setListeners() {
         binding.apply {

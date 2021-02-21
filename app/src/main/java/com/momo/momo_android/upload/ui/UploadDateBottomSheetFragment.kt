@@ -120,7 +120,6 @@ class UploadDateBottomSheetFragment (val itemClick: (IntArray) -> Unit) : Bottom
             setMonthMax()
         }
 
-
         year.value = UploadFeelingActivity.upload_year
         month.value = UploadFeelingActivity.upload_month
         date.value = UploadFeelingActivity.upload_date

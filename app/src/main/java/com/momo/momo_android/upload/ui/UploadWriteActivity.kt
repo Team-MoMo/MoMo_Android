@@ -95,7 +95,6 @@ class UploadWriteActivity : AppCompatActivity() {
                 if (!hasFocus){//focus를 뺏어서 문장 드러나게함
                     toggleOn()
                 }
-
             }
         }
     }

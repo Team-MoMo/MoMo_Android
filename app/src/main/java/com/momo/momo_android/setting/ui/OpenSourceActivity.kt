@@ -22,10 +22,10 @@ class OpenSourceActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        activity = this
+
         //뒤로가기
         initBackButton()
-
-        activity = this
 
         //RecyclerView
         setRecyclerViewAdapter()

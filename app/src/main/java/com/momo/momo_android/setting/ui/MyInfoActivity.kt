@@ -156,5 +156,4 @@ class MyInfoActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-
 }

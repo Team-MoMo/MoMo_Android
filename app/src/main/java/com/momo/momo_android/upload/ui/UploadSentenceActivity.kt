@@ -61,7 +61,6 @@ class UploadSentenceActivity : AppCompatActivity() {
 
         //RecylerView 이용한 물방울 버튼 설정
         setRecyclerAdapter()
-
     }
 
     //감정,감정이미지 설정

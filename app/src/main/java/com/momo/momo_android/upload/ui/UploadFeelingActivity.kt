@@ -59,7 +59,6 @@ class UploadFeelingActivity : AppCompatActivity() {
 
         //감정버튼 클릭
         setButtonClick()
-
     }
 
     //감정 버튼 클릭시 setOnClickListener를 담은 click 함수
