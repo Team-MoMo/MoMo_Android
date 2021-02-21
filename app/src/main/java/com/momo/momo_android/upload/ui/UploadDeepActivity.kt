@@ -65,7 +65,7 @@ class UploadDeepActivity : AppCompatActivity() {
         binding.apply {
             // 뒤로가기
             btnBack.setOnClickListener {
-                UploadWriteActivity.depth = mainSeekBar.progress
+                UploadWriteActivity.companion_depth = mainSeekBar.progress
                 finish()
             }
 
@@ -259,7 +259,7 @@ class UploadDeepActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        UploadWriteActivity.depth = binding.mainSeekBar.progress
+        UploadWriteActivity.companion_depth = binding.mainSeekBar.progress
         finish()
         overridePendingTransition(R.anim.horizontal_right_in, R.anim.horizontal_left_out)
     }
