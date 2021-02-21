@@ -1,6 +1,5 @@
 package com.momo.momo_android.list.ui
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -31,19 +30,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class ListActivity : AppCompatActivity() {
-
-    companion object {
-
-        var filter_year = 0
-        var filter_month = 0
-        var filter_emotion : Int? = null
-        var filter_depth : Int? = null
-
-        var filter_current_year = 0
-        var filter_current_month = 0
-
-        lateinit var mContext : Context
-    }
 
     private lateinit var binding : ActivityListBinding
     private lateinit var listAdapter : ListAdapter
@@ -112,7 +98,7 @@ class ListActivity : AppCompatActivity() {
 
     private fun scrollTop() {
         binding.apply {
-            nestedscrollviewList.scrollTo(0, binding.rcvFilterLabel.top)
+            nestedscrollviewList.scrollTo(0, rcvFilterLabel.top)
             appbarlayoutList.setExpanded(true)
         }
     }
@@ -412,6 +398,20 @@ class ListActivity : AppCompatActivity() {
         val ob = JSONObject(e.string())
         this.showToast(ob.getString("message"))
         Log.d("ListActivity-server", ob.getString("message"))
+    }
+
+    companion object {
+
+        var filter_year = 0
+        var filter_month = 0
+        var filter_emotion : Int? = null
+        var filter_depth : Int? = null
+
+        var filter_current_year = 0
+        var filter_current_month = 0
+
+        lateinit var mContext : ListActivity
+            private set
     }
 
 }

@@ -605,7 +605,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bg_deep1">
+                    android:background="@drawable/gradient_rectangle_depth1">
 
                     <ImageView
                         android:id="@+id/img_depth_2"
@@ -667,7 +667,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bg_deep2">
+                    android:background="@drawable/gradient_rectangle_depth2">
 
                     <ImageView
                         android:id="@+id/img_depth_30"
@@ -729,7 +729,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bg_deep3">
+                    android:background="@drawable/gradient_rectangle_depth3">
 
                     <ImageView
                         android:id="@+id/img_depth_100"
@@ -791,7 +791,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bg_deep4">
+                    android:background="@drawable/gradient_rectangle_depth4">
 
                     <ImageView
                         android:id="@+id/img_depth_300"
@@ -853,7 +853,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bg_deep5">
+                    android:background="@drawable/gradient_rectangle_depth5">
 
                     <ImageView
                         android:id="@+id/img_depth_700"
@@ -915,7 +915,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bg_deep6">
+                    android:background="@drawable/gradient_rectangle_depth6">
 
                     <ImageView
                         android:id="@+id/img_depth_1005"
@@ -976,7 +976,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bg_deep7">
+                    android:background="@drawable/gradient_rectangle_depth7">
 
                     <ImageView
                         android:id="@+id/img_depth_under"
