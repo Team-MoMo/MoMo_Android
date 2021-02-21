@@ -11,8 +11,11 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.momo.momo_android.R
 import com.momo.momo_android.databinding.ActivityUploadFeelingBinding
 import com.momo.momo_android.network.RequestToServer
+import com.momo.momo_android.onboarding.ui.OnboardingFeelingActivity
+import com.momo.momo_android.onboarding.ui.OnboardingSentenceActivity
 import com.momo.momo_android.upload.data.ResponseRecentWriteData
 import com.momo.momo_android.util.SharedPreferenceController
+import com.momo.momo_android.util.getCurrentDate
 import com.momo.momo_android.util.getDate
 import com.momo.momo_android.util.getMonth
 import kotlinx.android.synthetic.main.activity_upload_feeling.*
@@ -23,14 +26,13 @@ import java.util.*
 
 class UploadFeelingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUploadFeelingBinding//뷰바인딩
-    private var feeling=0
 
     //넘어오는 화면 저장해뒀다가 UploadSentence에게도 intent
     companion object {
         var upload_year = 0
         var upload_month = 0
         var upload_date = 0
-        var upload_wroteAt = ""
+        var upload_wroteAt = "" // 작성 날짜 _-_-_ 형태
 
         var activity : Activity? = null
     }
@@ -38,9 +40,9 @@ class UploadFeelingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //뷰바인딩
-        binding = ActivityUploadFeelingBinding.inflate(layoutInflater) // 2
-        val view = binding.root // 3
-        setContentView(view) //3
+        binding = ActivityUploadFeelingBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         //Sentence Activity에서 Feeling 이전의 창으로 넘어가기 위함
         activity = this
@@ -48,101 +50,73 @@ class UploadFeelingActivity : AppCompatActivity() {
         //툴바
         initToolbar()
 
-        //HomeActivity에서 오늘일기가 있을때 없을 때 + ListView 오늘일기 없을때(else)
+        //HomeActivity에서 오늘일기가 있을때 없을 때 + ListView 오늘일기 없을때(else) : Modal Open Logic
         if(intent.hasExtra("diaryStatus")){
-            var value=intent.getBooleanExtra("diaryStatus",true)
+            val value=intent.getBooleanExtra("diaryStatus",true)
             when(value){
-                true->{//오늘일기가 있으면 모달이 바로 뜬다
-                    Log.d("intent","$value")
-                    //일기 안쓴 가장 최근 일자 가져오기. Picker용과 tvDate용 설정
-                    loadRecentData()
+                true->{//오늘일기가 있으면 모달이 바로 뜨며 일기 안쓴 가장 최근 일자 가져오기. Picker/tvDate 설정
                     //받아온 최근 날짜를 기준으로 모달이 뜬다.
+                    loadRecentData()
                 }
                 false->{ //오늘 일기가 없으면 오늘 날짜로 설정한다.
                     setToday()
-                    Log.d("intent","$value")
                 }
             }
-
         }
         else{ //그 외 모든 경우 오늘 일기가 없는 것이므로 오늘 날짜로 설정한다.
             setToday()
-            Log.d("intent","else")
         }
 
-        //모달 연결
-        binding.imgDate.setOnClickListener {
-            openDateModal()
+        //캘린더 img 클릭시 모달 연결
+        binding.apply {
+            imgDate.setOnClickListener { openDateModal() }
         }
-
-//        //X 버튼
-//        binding.imgClose.setOnClickListener {
-//            finish()
-//        }
 
         //감정버튼 클릭
-        binding.btnLove.click()
-        binding.btnHappy.click()
-        binding.btnConsole.click()
-        binding.btnAngry.click()
-        binding.btnSad.click()
-        binding.btnBored.click()
-        binding.btnMemory.click()
-        binding.btnDaily.click()
+        setButtonClick()
 
     }
 
-    private fun ConstraintLayout.click(){
+    //감정 버튼 클릭시 setOnClickListener를 담은 click 함수
+    private fun setButtonClick(){
+        binding.apply{
+            btnLove.click()
+            btnHappy.click()
+            btnConsole.click()
+            btnAngry.click()
+            btnSad.click()
+            btnBored.click()
+            btnMemory.click()
+            btnDaily.click()
+        }
+    }
+
+    fun ConstraintLayout.click() {
         this.setOnClickListener {
-            when(this){
-                binding.btnLove->{feeling=1}
-                binding.btnHappy->{feeling=2}
-                binding.btnConsole->{feeling=3}
-                binding.btnAngry->{feeling=4}
-                binding.btnSad->{feeling=5}
-                binding.btnBored->{feeling=6}
-                binding.btnMemory->{feeling=7}
-                binding.btnDaily->{feeling=8}
+            var upload_feeling=0
+            binding.apply {
+                when(it.id){
+                    btnLove.id->{ upload_feeling =1}
+                    btnHappy.id -> { upload_feeling = 2}
+                    btnConsole.id -> {upload_feeling = 3}
+                    btnAngry.id -> {upload_feeling= 4}
+                    btnSad.id -> {upload_feeling= 5 }
+                    btnBored.id -> {upload_feeling= 6 }
+                    btnMemory.id -> {upload_feeling= 7 }
+                    btnDaily.id -> {upload_feeling= 8 }
+                }
 
+                val intent= Intent(this@UploadFeelingActivity, UploadSentenceActivity::class.java)
+                intent.putExtra("emotionId",upload_feeling)
+                intent.putExtra("date",tvDate.text.toString())
+                intent.putExtra("wroteAt", upload_wroteAt)
+                startActivity(intent)
+                overridePendingTransition(R.anim.horizontal_left_in, R.anim.horizontal_right_out)
             }
-
-            val intent= Intent(this@UploadFeelingActivity, UploadSentenceActivity::class.java)
-            intent.putExtra("feeling",feeling)
-            intent.putExtra("date",binding.tvDate.text.toString())
-            intent.putExtra("wroteAt", upload_wroteAt)
-            startActivity(intent)
-            overridePendingTransition(R.anim.horizontal_left_in, R.anim.horizontal_right_out)
         }
     }
 
-    private fun setToday(){
-        // 현재 날짜 가져오기
-        val currentDate = Calendar.getInstance()
-        upload_year=currentDate.get(Calendar.YEAR)
-        upload_month=(currentDate.get(Calendar.MONTH)+1)
-        upload_date=currentDate.get(Calendar.DATE)
-        val int_week=currentDate.get(Calendar.DAY_OF_WEEK)
-
-        val month= getMonth(upload_month)
-        val date= getDate(upload_date)
-
-        val week: String
-        week = when (int_week) {
-            1 -> "일"
-            2 -> "월"
-            3 -> "화"
-            4 -> "수"
-            5 -> "목"
-            6 -> "금"
-            7 -> "토"
-            else -> ""
-        }
-
-        binding.tvDate.text="${upload_year}. ${month}. ${date}. ${week}요일"
-        upload_wroteAt = "${upload_year}-${month}-${date}"
-
-    }
-
+    //DatePicker Modal Open 함수
     private fun openDateModal(){
         //그리고 모달을 띄운다.
         val fragEditDate = UploadDateBottomSheetFragment {
@@ -152,7 +126,9 @@ class UploadFeelingActivity : AppCompatActivity() {
             val dayFormat = SimpleDateFormat("yyyyMMdd", Locale.KOREA).parse(pickerDate)!!
             val pickerDay = SimpleDateFormat("EEEE", Locale.KOREA).format(dayFormat)
 
-            binding.tvDate.text = "${it[0]}. ${getMonth(it[1])}. ${getDate(it[2])}. $pickerDay"
+            binding.apply {
+                tvDate.text = "${it[0]}. ${getMonth(it[1])}. ${getDate(it[2])}. $pickerDay"
+            }
 
             upload_year = it[0]
             upload_month = it[1]
@@ -165,7 +141,7 @@ class UploadFeelingActivity : AppCompatActivity() {
         fragEditDate.show(supportFragmentManager, fragEditDate.tag)
     }
 
-    //안쓴 날짜중 가장 최근날 가져오는것
+    //오늘 일기를 쓴 경우 :안쓴 날짜중 가장 최근날 가져오는것
     private fun loadRecentData(){
         RequestToServer.service.getRecentNoWrite(
             Authorization = SharedPreferenceController.getAccessToken(this),
@@ -178,10 +154,11 @@ class UploadFeelingActivity : AppCompatActivity() {
                 when {
                     response.code() == 200 -> {
                         Log.d("recentData 200","통신 가능")
-                        val no_data_day=response.body()!!.data
-                        // string to date
-                        setDate(no_data_day)
-                        openDateModal()
+                        val no_diary_date=response.body()!!.data
+                        // 없는 최근날짜로 xml의 tvDate 재설정(Modal뒤 불투명한 배경에서)
+                        setDate(no_diary_date)
+                        //tvDate재설정과 동시에 DatePickerModal 띄워줌줌
+                       openDateModal()
                     }
                     response.code() == 400 -> {
                         Log.d("recentData 401", response.message())
@@ -197,33 +174,44 @@ class UploadFeelingActivity : AppCompatActivity() {
             }
         })
     }
-//    private fun showError(error: ResponseBody?) {
-//        val e = error ?: return
-//        val ob = JSONObject(e.string())
-//        this.showToast(ob.getString("message"))
-//        Log.d("RecentData_showError", ob.getString("message"))
-//    }
 
-    //
+    //loadRecentData()함수 안에서 쓰이는 '서버에서 받아온 일기안쓴날짜 중 가장최근 값'으로 UI의 날짜text 설정
     private fun setDate(no_data_day: String) {
-        //"2021-01-13T00:00:00+00:00"
-        //val dateformat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss.sss'Z'", Locale.KOREAN).parse(wroteAt)
+        //"2021-01-13T00:00:00+00:00"   // 기존 날짜 받아오는 형태와 다른 값.
         val dateformat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX").parse(no_data_day)!!
 
         upload_year = SimpleDateFormat("yyyy", Locale.KOREA).format(dateformat).toInt()
         upload_month = SimpleDateFormat("MM", Locale.KOREA).format(dateformat).toInt()
         upload_date = SimpleDateFormat("dd", Locale.KOREA).format(dateformat).toInt()
-        val week=SimpleDateFormat("EEEE",Locale.KOREA).format(dateformat)
+        val day=SimpleDateFormat("EEEE",Locale.KOREA).format(dateformat)
 
         val month= getMonth(upload_month)
         val date= getDate(upload_date)
 
-        binding.tvDate.text="${upload_year}. ${month}. ${date}. ${week}"
+        binding.apply {
+            tvDate.text="${upload_year}. ${month}. ${date}. ${day}"
+        }
         upload_wroteAt = "${upload_year}"+"-"+"${month}"+"-"+"${date}"
-        Log.d("upload_identify", "$upload_month"+" "+ "$upload_date")
-        Log.d("upload_wroteAt","$upload_wroteAt")
     }
 
+    //오늘일기가 없는경우 : 현재 날짜 가져와서 설정
+    private fun setToday(){
+        binding.apply {
+            var dateArr= getCurrentDate() // 확장함수에서 배열 return 받음
+            upload_year=dateArr[0].toInt()
+            upload_month=dateArr[1].toInt()
+            upload_date=dateArr[2].toInt()
+
+            val year= upload_year.toString()
+            val month= getMonth(upload_month)
+            val date= getDate(upload_date)
+            val week=dateArr[3]
+
+            tvDate.text= "${year}. ${month}. ${date}. ${week}"
+            upload_wroteAt = "${year}-${month}-${date}"
+        }
+
+    }
 
     //툴바 설정
     private fun initToolbar() {

@@ -13,27 +13,14 @@ class UploadSentenceViewHolder (itemView:View):RecyclerView.ViewHolder(itemView)
     private val book:TextView=itemView.findViewById(R.id.tv_book)
     private val publisher:TextView=itemView.findViewById(R.id.tv_publisher)
     private val sentence:TextView=itemView.findViewById(R.id.tv_sentence)
-    private val cardview:ConstraintLayout=itemView.findViewById(R.id.cardview)
 
-    fun onBind(data: UploadSentenceData) {//sampledata.kt가 객체로 들어오게됨.
+    //데이터 묶는 함수 생성
+    fun onBind(data: UploadSentenceData) {
         author.text = data.author
         book.text = data.book
         publisher.text = data.publisher
         sentence.text = data.sentence
 
-
-        /*
-        cardview.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                val context: Context = v!!.context
-                val intent = Intent(v!!.context, UploadWriteActivity::class.java)
-                intent.putExtra("author", data.author)
-                intent.putExtra("book", data.book)
-                intent.putExtra("publisher", data.publisher)
-                intent.putExtra("sentence", data.sentence)
-                context.startActivity(intent)
-            }
-        })*/
     }
 
 }

@@ -14,13 +14,13 @@ import android.widget.FrameLayout
 import android.widget.NumberPicker
 import androidx.appcompat.app.AppCompatActivity
 import com.momo.momo_android.R
-import com.momo.momo_android.databinding.BottomsheetDiaryEditDateBinding
 import com.momo.momo_android.home.data.ResponseDiaryList
 import com.momo.momo_android.network.RequestToServer
 import com.momo.momo_android.util.SharedPreferenceController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.momo.momo_android.databinding.BottomsheetDiaryEditDateBinding
 import retrofit2.Call
 import retrofit2.Response
 import java.util.*
@@ -218,10 +218,10 @@ class UploadDateBottomSheetFragment (val itemClick: (IntArray) -> Unit) : Bottom
                     response.code() == 200 -> {
 
                         if(response.body()!!.data.isNullOrEmpty()) {
-                            Log.d("가능여부", "된다?")
+                            Log.d("가능여부", "가능")
                             Binding.btnDiaryDateEdit.isEnabled = true
                         } else {
-                            Log.d("가능여부", "놉")
+                            Log.d("가능여부", "Fail")
                             Binding.btnDiaryDateEdit.isEnabled = false
                         }
 

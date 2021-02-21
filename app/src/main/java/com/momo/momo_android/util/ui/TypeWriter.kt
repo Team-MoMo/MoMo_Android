@@ -3,6 +3,7 @@ package com.momo.momo_android.util.ui
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Handler
+import android.os.Looper
 import android.util.AttributeSet
 import android.widget.TextView
 
@@ -16,7 +17,7 @@ class TypeWriter : TextView {
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
 
-    private val mHandler: Handler = Handler()
+    private val mHandler: Handler = Handler(Looper.getMainLooper())
     private val characterAdder: Runnable = object : Runnable {
         override fun run() {
             text = mText!!.subSequence(0, mIndex++)
