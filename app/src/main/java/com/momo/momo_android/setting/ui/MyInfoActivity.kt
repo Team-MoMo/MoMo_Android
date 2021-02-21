@@ -60,24 +60,21 @@ class MyInfoActivity : AppCompatActivity() {
     //박스 1_ 비밀번호 변경
     private fun changePasswordClickListener() {
         binding.constraintlayoutBox1.setOnClickListener {
-            val intent = Intent(this, ChangePasswordActivity::class.java)
-            startActivity(intent)
+            changeIntent(ChangePasswordActivity())
         }
     }
 
     //박스 2_ 개인정보처리방침
     private fun privacyPolicyClickListener() {
         binding.constraintlayoutBox2.setOnClickListener {
-            val intent = Intent(this, PrivacyPolicyActivity::class.java)
-            startActivity(intent)
+            changeIntent(PrivacyPolicyActivity())
         }
     }
 
     //박스 3_서비스이용약관
     private fun termsOfServiceClickListener() {
         binding.constraintlayoutBox3.setOnClickListener {
-            val intent = Intent(this, TermsOfServiceActivity::class.java)
-            startActivity(intent)
+            changeIntent(TermsOfServiceActivity())
         }
     }
 
@@ -152,6 +149,11 @@ class MyInfoActivity : AppCompatActivity() {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
         finishAffinity() // 전체 Activity 종료
+    }
+
+    private fun changeIntent(activity: AppCompatActivity) {
+        val intent = Intent(this, activity::class.java)
+        startActivity(intent)
     }
 
 

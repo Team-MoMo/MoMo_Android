@@ -14,16 +14,6 @@ import com.momo.momo_android.util.ui.BackPressEditText
 class UploadWriteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUploadWriteBinding
 
-    companion object {
-        var companion_depth=0 //UploadDepth의 깊이 임시저장
-        var activity : Activity? = null//img_back에서 여러 activity 지울때
-        //변수설정:Intent
-        var sentenceId=0
-        var emotionId=0
-        var contents=""
-        var wroteAt=""
-
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,14 +80,14 @@ class UploadWriteActivity : AppCompatActivity() {
     private fun showFeeling(feeling: Int) {
         binding.apply {
             tvFeeling.text= getEmotionString(feeling,this@UploadWriteActivity)
-            imgFeeling.setImageResource(getEmotionImage(feeling))
+            imgFeeling.setImageResource(getEmotionBlack(feeling))
         }
     }
 
     //초기 EditText 터치시 문장 접히는 효과를 위해, Focus를 주는 함수
     private fun setFocusListener(){
         binding.apply {
-            etDiary.setOnFocusChangeListener { v, hasFocus ->
+            etDiary.setOnFocusChangeListener { _, hasFocus ->
                 toggleOff()
                 etDiary.requestFocus()
                 etDiary.hint=""
@@ -150,9 +140,7 @@ class UploadWriteActivity : AppCompatActivity() {
     private val onBackPressListener: BackPressEditText.OnBackPressListener = object :
         BackPressEditText.OnBackPressListener {
         override fun onBackPress() {
-            binding.apply {
-                toggleOn()
-            }
+            toggleOn()
         }
     }
 
@@ -188,10 +176,8 @@ class UploadWriteActivity : AppCompatActivity() {
     //문장데이터 안보이게 하는 토글 버튼. 회전하여 구현
     private fun View.toggle_visible(){
         this.setOnClickListener {
-            binding.apply {
-                etDiary.unshowKeyboard()
-                toggleOn()
-            }
+            binding.etDiary.unshowKeyboard()
+            toggleOn()
         }
     }
 
@@ -224,4 +210,14 @@ class UploadWriteActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.horizontal_right_in, R.anim.horizontal_left_out)
     }
 
+    companion object {
+        var companion_depth=0 //UploadDepth의 깊이 임시저장
+        var activity : Activity? = null//img_back에서 여러 activity 지울때
+        //변수설정:Intent
+        var sentenceId=0
+        var emotionId=0
+        var contents=""
+        var wroteAt=""
+
+    }
 }

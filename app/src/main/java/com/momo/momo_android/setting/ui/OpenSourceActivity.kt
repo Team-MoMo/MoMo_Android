@@ -144,7 +144,6 @@ class OpenSourceActivity : AppCompatActivity() {
             openSourceAdapter.notifyDataSetChanged()
         }
     }
-
     //뒤로가기 버튼
     private fun initBackButton() {
         binding.imgBack.setOnClickListener {

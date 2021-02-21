@@ -16,7 +16,7 @@ import com.momo.momo_android.onboarding.ui.OnboardingFeelingActivity.Companion.O
 
 class OnboardingWriteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOnboardingWriteBinding
-    private val entire_handler =Handler(Looper.myLooper()!!)
+    private val entire_handler = Handler(Looper.myLooper()!!)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //뷰바인딩
@@ -35,7 +35,7 @@ class OnboardingWriteActivity : AppCompatActivity() {
             run {
                 binding.imgFeather.callOnClick()
             }
-        },1000)
+        }, 1000)
 
         //Typing 감정문장 설정_ 초기: Gone 상태
         setOnboardingFeeling()
@@ -51,12 +51,11 @@ class OnboardingWriteActivity : AppCompatActivity() {
             playAnimation()
         }
     }
+
     override fun onPause() {
-        binding.apply {
-            super.onPause()
-            lottie.cancelAnimation()
-            entire_handler.removeCallbacksAndMessages(null)
-        }
+        super.onPause()
+        binding.lottie.cancelAnimation()
+        entire_handler.removeCallbacksAndMessages(null)
     }
 
     //OnboardingSentence 선택 문장 넘겨받은 것 설정
@@ -73,10 +72,10 @@ class OnboardingWriteActivity : AppCompatActivity() {
     private fun setOnboardingFeeling() {
         entire_handler.postDelayed({
             binding.apply {
-                tvCursor.text="ㅣ"
+                tvCursor.text = "ㅣ"
                 tvCursor.blink()
                 tvCursor.visibility = View.VISIBLE
-                tvWrite.visibility= View.VISIBLE
+                tvWrite.visibility = View.VISIBLE
                 tvWrite.setCharacterDelay(150)
 
                 tvWrite.animateText(getTypingString(ONBOARDING_FEELING))
@@ -95,7 +94,7 @@ class OnboardingWriteActivity : AppCompatActivity() {
             6 -> getString(R.string.typing_bored)
             7 -> getString(R.string.typing_memory)
             8 -> getString(R.string.typing_daily)
-            else -> "error"
+            else -> getString(R.string.typing_memory)
         }
     }
 
@@ -117,7 +116,7 @@ class OnboardingWriteActivity : AppCompatActivity() {
     }
 
     //화면자동전환+인텐트
-    private fun turnActivityIntent(){
+    private fun turnActivityIntent() {
         val intent = Intent(this, OnboardingDepthActivity::class.java)
         entire_handler.postDelayed({
             startActivity(intent)

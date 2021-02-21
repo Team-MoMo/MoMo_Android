@@ -22,7 +22,6 @@ class OpenSourceDetailActivity : AppCompatActivity() {
             tvDetail.text = intent.getStringExtra("detail").toString()
         }
     }
-
     //뒤로가기 버튼
     private fun initBackButton() {
         binding.imgBack.setOnClickListener {

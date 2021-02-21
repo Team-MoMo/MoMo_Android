@@ -216,14 +216,7 @@ class UploadDateBottomSheetFragment (val itemClick: (IntArray) -> Unit) : Bottom
             ) {
                 when {
                     response.code() == 200 -> {
-
-                        if(response.body()!!.data.isNullOrEmpty()) {
-                            Log.d("가능여부", "가능")
-                            Binding.btnDiaryDateEdit.isEnabled = true
-                        } else {
-                            Log.d("가능여부", "Fail")
-                            Binding.btnDiaryDateEdit.isEnabled = false
-                        }
+                        Binding.btnDiaryDateEdit.isEnabled = response.body()!!.data.isNullOrEmpty()
 
                     }
                     response.code() == 400 -> {

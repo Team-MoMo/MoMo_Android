@@ -16,7 +16,6 @@ class TermsOfServiceActivity : AppCompatActivity() {
         //뒤로가기
         initBackButton()
     }
-
     //뒤로가기 버튼
     private fun initBackButton() {
         binding.imgBack.setOnClickListener {

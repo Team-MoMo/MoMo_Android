@@ -29,13 +29,8 @@ class UploadSentenceActivity : AppCompatActivity() {
     private var sentence2 = 0
     private var sentence3 = 0
 
-    private var wroteAt=""
-    private var emotionId=0
-
-    companion object {
-        var activity : Activity? = null
-    }
-
+    private var wroteAt = ""
+    private var emotionId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,16 +41,16 @@ class UploadSentenceActivity : AppCompatActivity() {
         activity = this
 
         binding.apply {
-            tvDate.text=intent.getStringExtra("date").toString()
+            tvDate.text = intent.getStringExtra("date").toString()
             //< 뒤로가기버튼: 홈화면으로
-            imgBack.setOnClickListener {finish()}
+            imgBack.setOnClickListener { finish() }
             //X 버튼: Upload들어오기 전 화면으로
             imgClose.setOnClickListener {
                 UploadFeelingActivity.activity?.finish()
                 finish()
             }
         }
-        wroteAt=intent.getStringExtra("wroteAt").toString()
+        wroteAt = intent.getStringExtra("wroteAt").toString()
         emotionId = intent.getIntExtra("emotionId", 0)
 
         // 서버로부터 문장 3개 받아오기
@@ -72,12 +67,12 @@ class UploadSentenceActivity : AppCompatActivity() {
     //감정,감정이미지 설정
     private fun showFeeling(feeling: Int) {
         binding.apply {
-            tvFeeling.text= getEmotionString(feeling,this@UploadSentenceActivity)
-            imgFeeling.setImageResource(getEmotionImage(feeling))
+            tvFeeling.text = getEmotionString(feeling, this@UploadSentenceActivity)
+            imgFeeling.setImageResource(getEmotionBlack(feeling))
         }
     }
 
-    private fun setRecyclerAdapter(){
+    private fun setRecyclerAdapter() {
         binding.apply {
             uploadSentenceAdapter = UploadSentenceAdapter(this@UploadSentenceActivity)
             uploadSentenceAdapter.setItemClickListener(object : ItemClickListener {
@@ -91,7 +86,8 @@ class UploadSentenceActivity : AppCompatActivity() {
                         2 -> sentenceId = sentence3
                     }
 
-                    val intent = Intent(this@UploadSentenceActivity, UploadWriteActivity::class.java)
+                    val intent =
+                        Intent(this@UploadSentenceActivity, UploadWriteActivity::class.java)
                     intent.putExtra("date", tvDate.text.toString())
                     intent.putExtra("author", uploadSentenceAdapter.data[position].author)
                     intent.putExtra("book", uploadSentenceAdapter.data[position].book)
@@ -99,9 +95,12 @@ class UploadSentenceActivity : AppCompatActivity() {
                     intent.putExtra("sentence", uploadSentenceAdapter.data[position].sentence)
                     intent.putExtra("sentenceId", sentenceId)
                     intent.putExtra("emotionId", emotionId)
-                    intent.putExtra("wroteAt",wroteAt)
+                    intent.putExtra("wroteAt", wroteAt)
                     startActivity(intent)
-                    overridePendingTransition(R.anim.horizontal_left_in, R.anim.horizontal_right_out)
+                    overridePendingTransition(
+                        R.anim.horizontal_left_in,
+                        R.anim.horizontal_right_out
+                    )
                 }
             })
             rvSelectSentence.adapter = uploadSentenceAdapter
@@ -173,4 +172,7 @@ class UploadSentenceActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.horizontal_right_in, R.anim.horizontal_left_out)
     }
 
+    companion object {
+        var activity: Activity? = null
+    }
 }
