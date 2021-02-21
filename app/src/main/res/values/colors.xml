@@ -66,10 +66,6 @@
     <color name="kakao_font">#4b351c</color>
 
     <!-- switch button color -->
-    <color name="switch_track_off">#61000000</color>
-    <color name="switch_track_on">#61bb86fc</color>
-    <color name="switch_thumb_off">#99000000</color>
-    <color name="switch_thumb_on">#6200ee</color>
     <color name="switch_track_padding">#00ffffff</color>
 
     <!-- team info color -->

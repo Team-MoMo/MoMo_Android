@@ -3,5 +3,5 @@
     android:shape="oval">
     <size android:width="20dp"
         android:height="20dp"/>
-    <solid android:color="@color/switch_thumb_on"/>
+    <solid android:color="@color/blue_2"/>
 </shape>
