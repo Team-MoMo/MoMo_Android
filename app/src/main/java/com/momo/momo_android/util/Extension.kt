@@ -7,7 +7,9 @@ import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.momo.momo_android.R
 import java.util.*
 
@@ -164,4 +166,16 @@ fun EditText.clearText(button: ImageView) {
     button.setOnClickListener {
         this.setText("")
     }
+}
+
+fun View.setContextCompatBackgroundColor(color: Int) {
+    setBackgroundColor(ContextCompat.getColor(this.context, color))
+}
+
+fun TextView.setContextCompatTextColor(color: Int) {
+    setTextColor(ContextCompat.getColor(this.context, color))
+}
+
+fun View.setContextCompatBackgroundTintList(color: Int) {
+    backgroundTintList = ContextCompat.getColorStateList(this.context, color)
 }
