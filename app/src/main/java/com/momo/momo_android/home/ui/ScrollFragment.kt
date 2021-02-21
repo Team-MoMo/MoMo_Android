@@ -27,6 +27,7 @@ import com.momo.momo_android.setting.ui.SettingActivity
 import com.momo.momo_android.upload.ui.UploadFeelingActivity
 import com.momo.momo_android.util.ScrollDatePickerListener
 import com.momo.momo_android.util.getCurrentDate
+import com.momo.momo_android.util.setContextCompatBackgroundColor
 
 
 class ScrollFragment : Fragment(), ScrollDatePickerListener {
@@ -61,7 +62,7 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
     override fun onResume() {
         super.onResume()
         updateEditedData()
-        if(!onBackPressedCallback.isEnabled) {
+        if (!onBackPressedCallback.isEnabled) {
             onBackPressedCallback.isEnabled = true
         }
     }
@@ -114,14 +115,14 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
 
     private fun setLoadingViewBackground() {
         binding.viewLoading.apply {
-            when(EDITED_DEPTH + 1) {
-                1 -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_2m_start))
-                2 -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_30m_start))
-                3 -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_100m_start))
-                4 -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_300m_start))
-                5 -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_700m_start))
-                6 -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_1005m_start))
-                7 -> setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gradient_deep_sea_start))
+            when (EDITED_DEPTH + 1) {
+                1 -> setContextCompatBackgroundColor(R.color.gradient_2m_start)
+                2 -> setContextCompatBackgroundColor(R.color.gradient_30m_start)
+                3 -> setContextCompatBackgroundColor(R.color.gradient_100m_start)
+                4 -> setContextCompatBackgroundColor(R.color.gradient_300m_start)
+                5 -> setContextCompatBackgroundColor(R.color.gradient_700m_start)
+                6 -> setContextCompatBackgroundColor(R.color.gradient_1005m_start)
+                7 -> setContextCompatBackgroundColor(R.color.gradient_deep_sea_start)
             }
         }
     }
@@ -172,13 +173,28 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
         }
     }
 
-    private fun fadeInSwipeImage() {
-        fadeInSwipeUpImage()
-        fadeInSwipeDownImage()
+    private fun getLastCompletelyVisibleItemPosition(): Int {
+        val layoutManager = binding.recyclerViewGradient.layoutManager as LinearLayoutManager
+        return layoutManager.findLastCompletelyVisibleItemPosition()
     }
 
-    private fun fadeInSwipeUpImage() {
-        binding.imageViewSwipeUp.apply {
+    private fun fadeInSwipeImage() {
+        binding.imageViewSwipeUp.fadeIn()
+        binding.imageViewSwipeDown.apply {
+            when (getLastCompletelyVisibleItemPosition()) {
+                8 -> fadeOut()
+                else -> fadeIn()
+            }
+        }
+    }
+
+    private fun fadeOutSwipeImage() {
+        binding.imageViewSwipeUp.fadeOut()
+        binding.imageViewSwipeDown.fadeOut()
+    }
+
+    private fun View.fadeIn() {
+        if (visibility == View.INVISIBLE) {
             visibility = View.VISIBLE
             alpha = 0f
             animate()
@@ -188,47 +204,15 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
         }
     }
 
-    private fun fadeInSwipeDownImage() {
-        binding.apply {
-            when ((recyclerViewGradient.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()) {
-                8 -> imageViewSwipeDown.visibility = ImageView.INVISIBLE
-                else -> {
-                    imageViewSwipeDown.visibility = View.VISIBLE
-                    imageViewSwipeDown.alpha = 0f
-                    imageViewSwipeDown.animate()
-                        .alpha(1f)
-                        .setDuration(
-                            resources.getInteger(android.R.integer.config_longAnimTime).toLong()
-                        )
-                        .setListener(null)
-                }
-            }
-        }
-    }
-
-    private fun fadeOutSwipeImage() {
-        binding.imageViewSwipeUp.apply {
-            visibility = View.VISIBLE
+    private fun View.fadeOut() {
+        if (visibility == View.VISIBLE) {
             alpha = 1f
             animate()
                 .alpha(0f)
                 .setDuration(resources.getInteger(android.R.integer.config_longAnimTime).toLong())
                 .setListener(object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator) {
-                        binding.viewLoading.visibility = View.INVISIBLE
-                    }
-                })
-        }
-
-        binding.imageViewSwipeDown.apply {
-            visibility = View.VISIBLE
-            alpha = 1f
-            animate()
-                .alpha(0f)
-                .setDuration(resources.getInteger(android.R.integer.config_longAnimTime).toLong())
-                .setListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animator) {
-                        binding.viewLoading.visibility = View.INVISIBLE
+                        visibility = View.INVISIBLE
                     }
                 })
         }
@@ -242,7 +226,7 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
     }
 
     private fun updateEditedData() {
-        if(IS_EDITED) {
+        if (IS_EDITED) {
             setLoadingViewBackground()
             binding.recyclerViewGradient.adapter!!.notifyDataSetChanged()
             binding.recyclerViewGradient.scrollToPosition(EDITED_DEPTH + 1)
@@ -281,7 +265,9 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
     }
 
     private fun scrollToTop() {
-        if (getVisibleItemPosition() == 0) { (activity as HomeActivity).replaceToHomeFragment() }
+        if (getVisibleItemPosition() == 0) {
+            (activity as HomeActivity).replaceToHomeFragment()
+        }
         binding.recyclerViewGradient.smoothScrollToPosition(0)
         isHomeButtonClicked = true
     }
