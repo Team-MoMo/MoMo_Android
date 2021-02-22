@@ -26,16 +26,6 @@
 
     </com.momo.momo_android.util.ui.NestedScrollableHost>
 
-    <ImageView
-        android:id="@+id/imageView_swipeUp"
-        android:layout_width="36dp"
-        android:layout_height="26dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/home_ic_swipe_up"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageButton
         android:id="@+id/imageButton_my"
         android:layout_width="24dp"
@@ -99,10 +89,21 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
+        android:id="@+id/imageView_swipeUp"
+        android:layout_width="36dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/home_ic_swipe_up"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
         android:id="@+id/imageView_swipeDown"
         android:layout_width="36dp"
         android:layout_height="26dp"
-        android:background="@drawable/home_ic_swipe_down"
+        android:rotation="180"
+        android:background="@drawable/home_ic_swipe_up"
         app:layout_constraintBottom_toBottomOf="@+id/imageButton_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
