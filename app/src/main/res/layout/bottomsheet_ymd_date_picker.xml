@@ -40,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_change_date" />
 
     <TextView
-        android:id="@+id/btn_diary_date_edit"
+        android:id="@+id/btn_apply"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="30dp"
@@ -63,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@+id/includeYmdPicker" />
 
     <ImageView
-        android:id="@+id/btn_close_diary_edit_date"
+        android:id="@+id/btn_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingEnd="22dp"
