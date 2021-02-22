@@ -20,13 +20,13 @@ import com.momo.momo_android.util.SharedPreferenceController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.momo.momo_android.databinding.BottomsheetDiaryEditDateBinding
+import com.momo.momo_android.databinding.BottomsheetYmdDatePickerBinding
 import retrofit2.Call
 import retrofit2.Response
 import java.util.*
 
 class UploadDateBottomSheetFragment (val itemClick: (IntArray) -> Unit) : BottomSheetDialogFragment() {
-    private var _Binding: BottomsheetDiaryEditDateBinding? = null
+    private var _Binding: BottomsheetYmdDatePickerBinding? = null
     private val Binding get() = _Binding!!
 
     override fun getTheme(): Int = R.style.RoundBottomSheetDialog
@@ -54,7 +54,7 @@ class UploadDateBottomSheetFragment (val itemClick: (IntArray) -> Unit) : Bottom
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        _Binding = BottomsheetDiaryEditDateBinding.inflate(layoutInflater)
+        _Binding = BottomsheetYmdDatePickerBinding.inflate(layoutInflater)
 
         Binding.tvChangeDate.text="날짜 변경"
         return Binding.root
@@ -63,7 +63,7 @@ class UploadDateBottomSheetFragment (val itemClick: (IntArray) -> Unit) : Bottom
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Binding.btnDiaryDateEdit.isEnabled=true
+        Binding.btnApply.isEnabled=true
 
         val year = Binding.includeYmdPicker.year
         val month = Binding.includeYmdPicker.month
@@ -172,16 +172,16 @@ class UploadDateBottomSheetFragment (val itemClick: (IntArray) -> Unit) : Bottom
         date.setOnScrollListener(pickerScrollListener)
 
 
-        Binding.btnDiaryDateEdit.setOnClickListener {
+        Binding.btnApply.setOnClickListener {
             val pick = intArrayOf(year.value, month.value, date.value)
             itemClick(pick)
 
-            if(Binding.btnDiaryDateEdit.isEnabled){
+            if(Binding.btnApply.isEnabled){
                 dismiss()
             }
         }
 
-        Binding.btnCloseDiaryEditDate.setOnClickListener {
+        Binding.btnClose.setOnClickListener {
             dialog?.dismiss()
         }
 
@@ -215,7 +215,7 @@ class UploadDateBottomSheetFragment (val itemClick: (IntArray) -> Unit) : Bottom
             ) {
                 when {
                     response.code() == 200 -> {
-                        Binding.btnDiaryDateEdit.isEnabled = response.body()!!.data.isNullOrEmpty()
+                        Binding.btnApply.isEnabled = response.body()!!.data.isNullOrEmpty()
 
                     }
                     response.code() == 400 -> {

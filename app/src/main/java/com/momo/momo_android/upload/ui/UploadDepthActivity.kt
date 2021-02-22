@@ -2,19 +2,17 @@ package com.momo.momo_android.upload.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.momo.momo_android.R
-import com.momo.momo_android.databinding.ActivityUploadDeepBinding
+import com.momo.momo_android.databinding.ActivityUploadDepthBinding
 import com.momo.momo_android.diary.ui.DiaryActivity
 import com.momo.momo_android.home.ui.ScrollFragment.Companion.IS_EDITED
 import com.momo.momo_android.network.RequestToServer
@@ -23,16 +21,16 @@ import com.momo.momo_android.upload.data.ResponseUploadDiaryData
 import com.momo.momo_android.util.*
 import com.momo.momo_android.util.ui.getThumb
 import com.momo.momo_android.util.ui.smoothScrollToView
-import kotlinx.android.synthetic.main.activity_upload_deep.*
+import kotlinx.android.synthetic.main.activity_upload_depth.*
 import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UploadDeepActivity : AppCompatActivity() {
+class UploadDepthActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityUploadDeepBinding
+    private lateinit var binding: ActivityUploadDepthBinding
 
     private var emotionId: Int = 0
     private var sentenceId: Int = 0
@@ -42,7 +40,7 @@ class UploadDeepActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityUploadDeepBinding.inflate(layoutInflater)
+        binding = ActivityUploadDepthBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
@@ -69,7 +67,7 @@ class UploadDeepActivity : AppCompatActivity() {
 
             // 닫기
             btnClose.setOnClickListener {
-                val exitModal = ModalUploadDeepExit(this@UploadDeepActivity)
+                val exitModal = ModalUploadDepthExit(this@UploadDepthActivity)
                 exitModal.start()
                 exitModal.setOnClickListener {
                     if (it == "닫기") {
@@ -224,7 +222,7 @@ class UploadDeepActivity : AppCompatActivity() {
 
                         // 다이어리 뷰로 이동
                         IS_EDITED = true
-                        val intent = Intent(this@UploadDeepActivity, DiaryActivity::class.java)
+                        val intent = Intent(this@UploadDepthActivity, DiaryActivity::class.java)
                         intent.putExtra("diaryId", it.data.id)
                         startActivity(intent)
 

@@ -10,7 +10,6 @@ import android.widget.FrameLayout
 import android.widget.NumberPicker
 import android.widget.NumberPicker.OnScrollListener.SCROLL_STATE_IDLE
 import com.momo.momo_android.R
-import com.momo.momo_android.databinding.BottomsheetDiaryEditDateBinding
 import com.momo.momo_android.diary.data.RequestEditDiaryData
 import com.momo.momo_android.diary.data.ResponseDiaryData
 import com.momo.momo_android.diary.ui.DiaryActivity.Companion.diary_date
@@ -24,6 +23,7 @@ import com.momo.momo_android.util.showToast
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.momo.momo_android.databinding.BottomsheetYmdDatePickerBinding
 import com.momo.momo_android.util.getCurrentDate
 import okhttp3.ResponseBody
 import org.json.JSONObject
@@ -32,7 +32,7 @@ import retrofit2.Response
 
 class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomSheetDialogFragment() {
 
-    private var _binding: BottomsheetDiaryEditDateBinding? = null
+    private var _binding: BottomsheetYmdDatePickerBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var year: NumberPicker
@@ -68,7 +68,7 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = BottomsheetDiaryEditDateBinding.inflate(layoutInflater)
+        _binding = BottomsheetYmdDatePickerBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -88,7 +88,7 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
     private fun applyButtons() {
         binding.apply {
             // 날짜 수정
-            btnDiaryDateEdit.setOnClickListener {
+            btnApply.setOnClickListener {
                 val pickDate = intArrayOf(year.value, month.value, date.value)
                 itemClick(pickDate)
 
@@ -96,7 +96,7 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
             }
 
             // 닫기
-            btnCloseDiaryEditDate.setOnClickListener {
+            btnClose.setOnClickListener {
                 dialog?.dismiss()
             }
         }
@@ -224,7 +224,7 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
                     ?.body()
                     ?.let {
 
-                        binding.btnDiaryDateEdit.isEnabled = it.data.isNullOrEmpty()
+                        binding.btnApply.isEnabled = it.data.isNullOrEmpty()
 
                     } ?: showError(response.errorBody())
 
