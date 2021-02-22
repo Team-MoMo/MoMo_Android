@@ -56,13 +56,13 @@
             android:windowSoftInputMode="adjustResize" />
         <activity android:name="com.momo.momo_android.home.ui.HomeActivity" />
         <activity android:name="com.momo.momo_android.diary.ui.DiaryActivity" />
-        <activity android:name="com.momo.momo_android.diary.ui.DiaryEditDeepActivity" />
+        <activity android:name="com.momo.momo_android.diary.ui.DiaryEditDepthActivity" />
         <activity
             android:name="com.momo.momo_android.upload.ui.UploadWriteActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name="com.momo.momo_android.upload.ui.UploadSentenceActivity" />
         <activity android:name="com.momo.momo_android.upload.ui.UploadFeelingActivity" />
-        <activity android:name="com.momo.momo_android.upload.ui.UploadDeepActivity" />
+        <activity android:name="com.momo.momo_android.upload.ui.UploadDepthActivity" />
         <activity
             android:name="com.momo.momo_android.list.ui.ListActivity"
             android:theme="@style/Theme.listTheme" />

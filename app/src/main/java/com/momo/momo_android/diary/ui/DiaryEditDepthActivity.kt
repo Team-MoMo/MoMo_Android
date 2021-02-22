@@ -29,7 +29,7 @@ import retrofit2.Call
 import retrofit2.Response
 
 
-class DiaryEditDeepActivity : AppCompatActivity() {
+class DiaryEditDepthActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDiaryEditDeepBinding
 

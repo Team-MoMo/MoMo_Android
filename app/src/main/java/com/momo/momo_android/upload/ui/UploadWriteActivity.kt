@@ -183,7 +183,7 @@ class UploadWriteActivity : AppCompatActivity() {
     //UploadDepth으로 Intent보내기
     private fun setIntentToDepth(){
         binding.apply {
-            val intent= Intent(this@UploadWriteActivity, UploadDeepActivity::class.java)
+            val intent= Intent(this@UploadWriteActivity, UploadDepthActivity::class.java)
             contents = etDiary.text.toString()
             intent.putExtra("contents", contents)
             intent.putExtra("sentenceId", sentenceId)
