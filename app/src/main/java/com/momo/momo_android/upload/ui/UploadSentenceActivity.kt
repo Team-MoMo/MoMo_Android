@@ -43,7 +43,10 @@ class UploadSentenceActivity : AppCompatActivity() {
         binding.apply {
             tvDate.text = intent.getStringExtra("date").toString()
             //< 뒤로가기버튼: 홈화면으로
-            imgBack.setOnClickListener { finish() }
+            imgBack.setOnClickListener {
+                finish()
+                overridePendingTransition(R.anim.horizontal_right_in, R.anim.horizontal_left_out)
+            }
             //X 버튼: Upload들어오기 전 화면으로
             imgClose.setOnClickListener {
                 UploadFeelingActivity.activity?.finish()
@@ -146,8 +149,8 @@ class UploadSentenceActivity : AppCompatActivity() {
     private fun showError(error: ResponseBody?) {
         val e = error ?: return
         val ob = JSONObject(e.string())
-        this.showToast(ob.getString("message"))
         Log.d("UploadSentence-server", ob.getString("message"))
+        loadSentenceData(emotionId)
     }
 
     private fun setSentence(data: List<Data>) {

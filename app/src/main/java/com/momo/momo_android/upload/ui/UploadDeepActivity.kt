@@ -64,6 +64,7 @@ class UploadDeepActivity : AppCompatActivity() {
             btnBack.setOnClickListener {
                 UploadWriteActivity.companion_depth = mainSeekBar.progress
                 finish()
+                overridePendingTransition(R.anim.horizontal_right_in, R.anim.horizontal_left_out)
             }
 
             // 닫기
