@@ -93,8 +93,8 @@ class UploadDepthActivity : AppCompatActivity() {
         val date = intent.getStringExtra("date")
 
         //감정, 이미지, 날짜 화면에 입히기.
-        getEmotionString(emotionId, applicationContext)
-        getEmotionWhite(emotionId)
+        binding.imgDepthEmotion.setImageResource(getEmotionWhite(emotionId))
+        binding.tvDepthEmotion.text = getEmotionString(emotionId, applicationContext)
         binding.tvDepthDate.text = date
     }
 
