@@ -145,7 +145,7 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
             month.maxValue = currentMonth
             date.maxValue = currentDate
         } else {
-            setMonthDateMax()
+            getMonthDateMax(diary_year, diary_month)
         }
     }
 
@@ -155,12 +155,14 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
 
             if (year.value == currentYear) {
                 month.maxValue = currentMonth
-                date.maxValue = currentDate
+                if (month.value == currentMonth) {
+                    date.maxValue = currentDate
+                } else {
+                    getMonthDateMax(currentYear, month.value)
+                }
             } else {
-                month.value = currentMonth
-                date.value = currentDate
                 month.maxValue = 12
-                setMonthDateMax()
+                getMonthDateMax(year.value, month.value)
             }
 
         }
@@ -174,7 +176,7 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
                 date.maxValue = currentDate
             } else {
                 month.maxValue = 12
-                setMonthDateMax()
+                getMonthDateMax(year.value, month.value)
             }
 
         }
@@ -194,15 +196,20 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
     }
 
     // 달 별로 일수 다른거 미리 세팅해둔 함수
-    private fun setMonthDateMax() {
-        binding.includeYmdPicker.apply {
-            date.maxValue = when (month.value) {
-                2 -> 29
-                4, 6, 9, 11 -> 30
-                1, 3, 5, 7, 8, 10, 12 -> 31
-                else -> 31
-            }
+    private fun getMonthDateMax(year: Int, month: Int) {
+        Log.d("year.value ", year.toString())
+        date.maxValue = when (month) {
+            2 -> checkFebruaryDate(year)
+            4, 6, 9, 11 -> 30
+            1, 3, 5, 7, 8, 10, 12 -> 31
+            else -> 31
         }
+    }
+
+    // 윤년 계산
+    private fun checkFebruaryDate(year: Int): Int {
+        return if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) 29
+        else 28
     }
 
     // 해당 날짜에 쓰인 일기가 있는지 확인
