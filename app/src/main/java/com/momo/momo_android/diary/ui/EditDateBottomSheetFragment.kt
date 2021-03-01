@@ -197,7 +197,6 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
 
     // 달 별로 일수 다른거 미리 세팅해둔 함수
     private fun getMonthDateMax(year: Int, month: Int) {
-        Log.d("year.value ", year.toString())
         date.maxValue = when (month) {
             2 -> checkFebruaryDate(year)
             4, 6, 9, 11 -> 30
