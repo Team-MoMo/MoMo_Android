@@ -46,21 +46,21 @@
         android:layout_marginTop="30dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/filter_button_radius"
-        android:enabled="false"
+        android:enabled="true"
         android:fontFamily="@font/notosanskrmedium"
+        android:gravity="center"
         android:includeFontPadding="false"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        app:layout_constraintWidth_percent="0.5"
-        app:layout_constraintDimensionRatio="1:0.23"
-        android:gravity="center"
         android:text="적용"
         android:textColor="@color/white"
         android:textSize="17dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:0.23"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/includeYmdPicker" />
+        app:layout_constraintTop_toBottomOf="@+id/includeYmdPicker"
+        app:layout_constraintWidth_percent="0.5" />
 
     <ImageView
         android:id="@+id/btn_close"

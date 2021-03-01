@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.NumberPicker
+import android.widget.NumberPicker.OnScrollListener.SCROLL_STATE_IDLE
 import androidx.appcompat.app.AppCompatActivity
 import com.momo.momo_android.R
 import com.momo.momo_android.home.data.ResponseDiaryList
@@ -21,6 +22,14 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.momo.momo_android.databinding.BottomsheetYmdDatePickerBinding
+import com.momo.momo_android.diary.ui.DiaryActivity
+import com.momo.momo_android.upload.ui.UploadFeelingActivity.Companion.upload_date
+import com.momo.momo_android.upload.ui.UploadFeelingActivity.Companion.upload_month
+import com.momo.momo_android.upload.ui.UploadFeelingActivity.Companion.upload_year
+import com.momo.momo_android.util.getCurrentDate
+import com.momo.momo_android.util.showToast
+import okhttp3.ResponseBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
 import java.util.*
@@ -28,6 +37,14 @@ import java.util.*
 class UploadDateBottomSheetFragment (val itemClick: (IntArray) -> Unit) : BottomSheetDialogFragment() {
     private var _Binding: BottomsheetYmdDatePickerBinding? = null
     private val Binding get() = _Binding!!
+
+    private lateinit var year: NumberPicker
+    private lateinit var month: NumberPicker
+    private lateinit var date: NumberPicker
+
+    private val currentYear = getCurrentDate()[0].toInt()
+    private val currentMonth = getCurrentDate()[1].toInt()
+    private val currentDate = getCurrentDate()[2].toInt()
 
     override fun getTheme(): Int = R.style.RoundBottomSheetDialog
 
@@ -53,79 +70,55 @@ class UploadDateBottomSheetFragment (val itemClick: (IntArray) -> Unit) : Bottom
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _Binding = BottomsheetYmdDatePickerBinding.inflate(layoutInflater)
 
-        Binding.tvChangeDate.text="날짜 변경"
+        Binding.tvChangeDate.text = "날짜 변경"
         return Binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Binding.btnApply.isEnabled=true
+        initDatePicker()
 
-        val year = Binding.includeYmdPicker.year
-        val month = Binding.includeYmdPicker.month
-        val date = Binding.includeYmdPicker.date
+        setPickerValueListener()
 
-        // divider 색깔 투명으로 변경하는 함수
-        fun NumberPicker.removeDivider() {
-            val pickerFields = NumberPicker::class.java.declaredFields
-            for (pf in pickerFields) {
-                if (pf.name == "mSelectionDivider") {
-                    pf.isAccessible = true
-                    try {
-                        val colorDrawable = ColorDrawable(Color.TRANSPARENT)
-                        pf[this] = colorDrawable
-                    } catch (e: java.lang.IllegalArgumentException) {
-                        // log exception here
-                    } catch (e: Resources.NotFoundException) {
-                        // log exception here
-                    } catch (e: IllegalAccessException) {
-                        // log exception here
-                    }
-                    break
+        setPickerScrollListener()
+
+        applyButtons()
+
+    }
+
+    private fun applyButtons() {
+        Binding.apply {
+            btnApply.setOnClickListener {
+                val pick = intArrayOf(year.value, month.value, date.value)
+                itemClick(pick)
+
+                if (btnApply.isEnabled) {
+                    dismiss()
                 }
             }
+
+            btnClose.setOnClickListener {
+                dialog?.dismiss()
+            }
         }
+    }
 
-        year.removeDivider()
-        month.removeDivider()
-        date.removeDivider()
+    private fun initDatePicker() {
+        year = Binding.includeYmdPicker.year
+        month = Binding.includeYmdPicker.month
+        date = Binding.includeYmdPicker.date
 
-        // 현재 날짜 가져오기
-        val currentDate = Calendar.getInstance()
+        setDateRange()
 
-        // minValue = 최소 날짜 표시
-        year.minValue = 2020
-        month.minValue = 1
-        date.minValue = 1
-
-        // maxValue = 최대 날짜 표시
-        year.maxValue = currentDate.get(Calendar.YEAR)
-
-        // year에 따라 month maxValue 변경
-        if(UploadFeelingActivity.upload_year == currentDate.get(Calendar.YEAR)) {
-            month.maxValue = currentDate.get(Calendar.MONTH) + 1
-        } else {
-            month.maxValue = 12
-        }
-
-        // month에 따라 month, date maxValue 변경
-        if(UploadFeelingActivity.upload_month == currentDate.get(Calendar.MONTH) + 1) {
-            month.maxValue = currentDate.get(Calendar.MONTH) + 1
-            date.maxValue = currentDate.get(Calendar.DAY_OF_MONTH)
-        } else {
-            setMonthMax()
-        }
-
-        year.value = UploadFeelingActivity.upload_year
-        month.value = UploadFeelingActivity.upload_month
-        date.value = UploadFeelingActivity.upload_date
+        year.value = upload_year
+        month.value = upload_month
+        date.value = upload_date
 
         // 순환 안되게 막기
-
         year.wrapSelectorWheel = false
         month.wrapSelectorWheel = false
         date.wrapSelectorWheel = false
@@ -135,66 +128,75 @@ class UploadDateBottomSheetFragment (val itemClick: (IntArray) -> Unit) : Bottom
         month.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
         date.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
 
+    }
+
+    private fun setDateRange() {
+
+        // 최소 날짜 표시
+        year.minValue = currentYear - 1
+        month.minValue = 1
+        date.minValue = 1
+
+        // 최대 날짜 표시
+        year.maxValue = currentYear
+
+        // year에 따라 month maxValue 변경
+        month.maxValue = when (upload_year) {
+            currentYear -> currentMonth
+            else -> 12
+        }
+
+        // month에 따라 month, date maxValue 변경
+        if(upload_month == currentMonth) {
+            month.maxValue = currentMonth
+            date.maxValue = currentDate
+        } else {
+            getMonthDateMax(upload_year, upload_month)
+        }
+
+    }
+
+    private fun setPickerValueListener() {
         // year picker change listener
         year.setOnValueChangedListener { _, _, _ ->
-
-            if(year.value == currentDate.get(Calendar.YEAR)) {
-                month.maxValue = currentDate.get(Calendar.MONTH) + 1
-                date.maxValue = currentDate.get(Calendar.DAY_OF_MONTH)
+            if (year.value == currentYear) {
+                month.maxValue = currentMonth
+                if (month.value == currentMonth) {
+                    date.maxValue = currentDate
+                } else {
+                    getMonthDateMax(currentYear, month.value)
+                }
             } else {
-                month.value = currentDate.get(Calendar.MONTH) + 1
-                date.value = currentDate.get(Calendar.DAY_OF_MONTH)
                 month.maxValue = 12
-                setMonthMax()
+                getMonthDateMax(year.value, month.value)
             }
-
         }
 
         // month picker change listener
         month.setOnValueChangedListener { _, _, _ ->
 
-            if(year.value == currentDate.get(Calendar.YEAR) && month.value == currentDate.get(
-                    Calendar.MONTH) + 1) {
+            if (year.value == currentYear && month.value == currentMonth) {
                 // 현재 년도에 현재 날짜일 때
-                month.maxValue = currentDate.get(Calendar.MONTH) + 1
-                date.maxValue = currentDate.get(Calendar.DAY_OF_MONTH)
+                month.maxValue = currentMonth
+                date.maxValue = currentDate
             } else {
                 month.maxValue = 12
-                setMonthMax()
+                getMonthDateMax(year.value, month.value)
             }
 
         }
+    }
 
-
+    private fun setPickerScrollListener() {
         // 스크롤 했을 때 해당 날짜에 일기가 있는지 체크
         year.setOnScrollListener(pickerScrollListener)
         month.setOnScrollListener(pickerScrollListener)
         date.setOnScrollListener(pickerScrollListener)
-
-
-        Binding.btnApply.setOnClickListener {
-            val pick = intArrayOf(year.value, month.value, date.value)
-            itemClick(pick)
-
-            if(Binding.btnApply.isEnabled){
-                dismiss()
-            }
-        }
-
-        Binding.btnClose.setOnClickListener {
-            dialog?.dismiss()
-        }
-
-
-
     }
 
     private val pickerScrollListener = NumberPicker.OnScrollListener { _, state ->
-        if(state == NumberPicker.OnScrollListener.SCROLL_STATE_IDLE) {
-            requestCheckDiary(
-                Binding.includeYmdPicker.year.value,
-                Binding.includeYmdPicker.month.value,
-                Binding.includeYmdPicker.date.value)
+        if (state == SCROLL_STATE_IDLE) {
+            requestCheckDiary(year.value, month.value, date.value)
         }
     }
 
@@ -213,18 +215,13 @@ class UploadDateBottomSheetFragment (val itemClick: (IntArray) -> Unit) : Bottom
                 call: Call<ResponseDiaryList>,
                 response: Response<ResponseDiaryList>
             ) {
-                when {
-                    response.code() == 200 -> {
-                        Binding.btnApply.isEnabled = response.body()!!.data.isNullOrEmpty()
+                response.takeIf { it.isSuccessful }
+                    ?.body()
+                    ?.let {
 
-                    }
-                    response.code() == 400 -> {
-                        Log.d("checkDiary 400", response.message())
-                    }
-                    else -> {
-                        Log.d("checkDiary 500", response.message())
-                    }
-                }
+                        Binding.btnApply.isEnabled = it.data.isNullOrEmpty()
+
+                    } ?: showError(response.errorBody())
             }
 
             override fun onFailure(call: Call<ResponseDiaryList>, t: Throwable) {
@@ -234,24 +231,26 @@ class UploadDateBottomSheetFragment (val itemClick: (IntArray) -> Unit) : Bottom
         })
     }
 
-
+    private fun showError(error: ResponseBody?) {
+        val e = error ?: return
+        val ob = JSONObject(e.string())
+        context?.showToast(ob.getString("message"))
+    }
 
     // 달 별로 일수 다른거 미리 세팅해둔 함수
-    private fun setMonthMax() {
-        val month = Binding.includeYmdPicker.month
-        val date = Binding.includeYmdPicker.date
-
-        when (month.value) {
-            2 -> {
-                date.maxValue = 29
-            }
-            4, 6, 9, 11 -> {
-                date.maxValue = 30
-            }
-            1, 3, 5, 7, 8, 10, 12 -> {
-                date.maxValue = 31
-            }
+    private fun getMonthDateMax(year: Int, month: Int) {
+        Binding.includeYmdPicker.date.maxValue = when (month) {
+            2 -> checkFebruaryDate(year)
+            4, 6, 9, 11 -> 30
+            1, 3, 5, 7, 8, 10, 12 -> 31
+            else -> 31
         }
+    }
+
+    // 윤년 계산
+    private fun checkFebruaryDate(year: Int): Int {
+        return if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) 29
+        else 28
     }
 
     override fun onDestroy() {
