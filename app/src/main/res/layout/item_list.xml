@@ -153,6 +153,7 @@
             android:background="@drawable/ic_arrow_right"
             android:translationX="-2dp"
             android:translationY="2dp"
+            android:clickable="false"
             app:layout_constraintBottom_toBottomOf="@+id/tv_list_diary"
             app:layout_constraintEnd_toEndOf="@+id/tv_list_diary" />
 
