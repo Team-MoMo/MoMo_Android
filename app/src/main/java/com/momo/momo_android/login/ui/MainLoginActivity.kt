@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.auth.api.Auth
+import com.google.android.gms.auth.api.signin.*
 import com.momo.momo_android.R
 import com.momo.momo_android.databinding.ActivityMainLoginBinding
 import com.momo.momo_android.home.ui.HomeActivity
@@ -12,10 +14,6 @@ import com.momo.momo_android.login.data.RequestSocialLoginData
 import com.momo.momo_android.network.RequestToServer
 import com.momo.momo_android.signup.data.ResponseUserData
 import com.momo.momo_android.util.SharedPreferenceController
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.kakao.auth.AuthType
@@ -201,8 +199,13 @@ class MainLoginActivity : AppCompatActivity() {
         }
 
         if (requestCode == GOOGLE_LOGIN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            handleSignInResult(task)
+            val result : GoogleSignInResult = Auth.GoogleSignInApi.getSignInResultFromIntent(data)!!
+            if (result.isSuccess) {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+                handleSignInResult(task)
+            } else {
+                applicationContext.showToast("로그인 도중 오류가 발생했습니다.")
+            }
         }
 
     }
