@@ -4,7 +4,6 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -130,7 +129,7 @@ class DiaryActivity : AppCompatActivity() {
         binding.apply {
             btnEditDepth.setOnClickListener {
                 menuEdit.setGone()
-                val intent = Intent(this@DiaryActivity, DiaryEditDeepActivity::class.java)
+                val intent = Intent(this@DiaryActivity, DiaryEditDepthActivity::class.java)
                 intent.putExtra("diary_date", tvDiaryDate.text.toString())
                 startActivityForResult(intent, REQUEST_EDIT_DEPTH)
             }

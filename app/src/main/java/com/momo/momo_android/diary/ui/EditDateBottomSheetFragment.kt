@@ -10,7 +10,6 @@ import android.widget.FrameLayout
 import android.widget.NumberPicker
 import android.widget.NumberPicker.OnScrollListener.SCROLL_STATE_IDLE
 import com.momo.momo_android.R
-import com.momo.momo_android.databinding.BottomsheetDiaryEditDateBinding
 import com.momo.momo_android.diary.data.RequestEditDiaryData
 import com.momo.momo_android.diary.data.ResponseDiaryData
 import com.momo.momo_android.diary.ui.DiaryActivity.Companion.diary_date
@@ -24,6 +23,7 @@ import com.momo.momo_android.util.showToast
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.momo.momo_android.databinding.BottomsheetYmdDatePickerBinding
 import com.momo.momo_android.util.getCurrentDate
 import okhttp3.ResponseBody
 import org.json.JSONObject
@@ -32,7 +32,7 @@ import retrofit2.Response
 
 class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomSheetDialogFragment() {
 
-    private var _binding: BottomsheetDiaryEditDateBinding? = null
+    private var _binding: BottomsheetYmdDatePickerBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var year: NumberPicker
@@ -68,7 +68,7 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = BottomsheetDiaryEditDateBinding.inflate(layoutInflater)
+        _binding = BottomsheetYmdDatePickerBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -88,7 +88,7 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
     private fun applyButtons() {
         binding.apply {
             // 날짜 수정
-            btnDiaryDateEdit.setOnClickListener {
+            btnApply.setOnClickListener {
                 val pickDate = intArrayOf(year.value, month.value, date.value)
                 itemClick(pickDate)
 
@@ -96,7 +96,7 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
             }
 
             // 닫기
-            btnCloseDiaryEditDate.setOnClickListener {
+            btnClose.setOnClickListener {
                 dialog?.dismiss()
             }
         }
@@ -145,7 +145,7 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
             month.maxValue = currentMonth
             date.maxValue = currentDate
         } else {
-            setMonthDateMax()
+            getMonthDateMax(diary_year, diary_month)
         }
     }
 
@@ -155,12 +155,14 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
 
             if (year.value == currentYear) {
                 month.maxValue = currentMonth
-                date.maxValue = currentDate
+                if (month.value == currentMonth) {
+                    date.maxValue = currentDate
+                } else {
+                    getMonthDateMax(currentYear, month.value)
+                }
             } else {
-                month.value = currentMonth
-                date.value = currentDate
                 month.maxValue = 12
-                setMonthDateMax()
+                getMonthDateMax(year.value, month.value)
             }
 
         }
@@ -174,7 +176,7 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
                 date.maxValue = currentDate
             } else {
                 month.maxValue = 12
-                setMonthDateMax()
+                getMonthDateMax(year.value, month.value)
             }
 
         }
@@ -194,15 +196,19 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
     }
 
     // 달 별로 일수 다른거 미리 세팅해둔 함수
-    private fun setMonthDateMax() {
-        binding.includeYmdPicker.apply {
-            date.maxValue = when (month.value) {
-                2 -> 29
-                4, 6, 9, 11 -> 30
-                1, 3, 5, 7, 8, 10, 12 -> 31
-                else -> 31
-            }
+    private fun getMonthDateMax(year: Int, month: Int) {
+        date.maxValue = when (month) {
+            2 -> checkFebruaryDate(year)
+            4, 6, 9, 11 -> 30
+            1, 3, 5, 7, 8, 10, 12 -> 31
+            else -> 31
         }
+    }
+
+    // 윤년 계산
+    private fun checkFebruaryDate(year: Int): Int {
+        return if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) 29
+        else 28
     }
 
     // 해당 날짜에 쓰인 일기가 있는지 확인
@@ -224,7 +230,7 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
                     ?.body()
                     ?.let {
 
-                        binding.btnDiaryDateEdit.isEnabled = it.data.isNullOrEmpty()
+                        binding.btnApply.isEnabled = it.data.isNullOrEmpty()
 
                     } ?: showError(response.errorBody())
 

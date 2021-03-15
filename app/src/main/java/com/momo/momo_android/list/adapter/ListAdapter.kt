@@ -32,8 +32,8 @@ class ListAdapter (private val context : Context) : RecyclerView.Adapter<ListVie
             aContext.enableScroll()
         }
 
-        // > 버튼 클릭 시 다이어리 뷰로 전환
-        holder.itemView.imagebutton_list_next.setOnClickListener {
+        // 일기 영역 클릭 시 다이어리 뷰로 전환
+        holder.itemView.constraintlayout_list_recycler_container.setOnClickListener {
             itemClickListener.onClickItem(it, position)
         }
     }

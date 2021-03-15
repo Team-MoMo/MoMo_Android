@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_deep6"
+    android:background="@drawable/gradient_rectangle_depth6"
     tools:context=".diary.ui.DiaryActivity">
 
     <ImageView
