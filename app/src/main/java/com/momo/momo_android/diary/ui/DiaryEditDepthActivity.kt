@@ -15,8 +15,9 @@ import com.momo.momo_android.R
 import com.momo.momo_android.databinding.ActivityDiaryEditDepthBinding
 import com.momo.momo_android.diary.data.RequestEditDiaryData
 import com.momo.momo_android.diary.data.ResponseDiaryData
+import com.momo.momo_android.home.ui.HomeFragment.Companion.UPDATE_HOME_FRAGMENT
 import com.momo.momo_android.home.ui.ScrollFragment.Companion.EDITED_DEPTH
-import com.momo.momo_android.home.ui.ScrollFragment.Companion.IS_EDITED
+import com.momo.momo_android.home.ui.ScrollFragment.Companion.UPDATE_SCROLL_FRAGMENT
 import com.momo.momo_android.network.RequestToServer
 import com.momo.momo_android.util.*
 import com.momo.momo_android.util.ui.getThumb
@@ -168,7 +169,8 @@ class DiaryEditDepthActivity : AppCompatActivity() {
                 response.takeIf { it.isSuccessful }
                     ?.body()
                     ?.let {
-                        IS_EDITED = true
+                        UPDATE_HOME_FRAGMENT = true
+                        UPDATE_SCROLL_FRAGMENT = true
                         EDITED_DEPTH = it.data.depth
 
                         val intent = Intent(applicationContext, DiaryActivity::class.java)

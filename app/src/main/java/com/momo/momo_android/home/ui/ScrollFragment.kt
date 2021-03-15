@@ -13,7 +13,6 @@ import android.widget.AbsListView.OnScrollListener.SCROLL_STATE_IDLE
 import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -243,12 +242,12 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
     }
 
     private fun updateEditedData() {
-        if (IS_EDITED) {
+        if (UPDATE_SCROLL_FRAGMENT) {
             setLoadingViewBackground()
             binding.recyclerViewGradient.adapter!!.notifyDataSetChanged()
             binding.recyclerViewGradient.scrollToPosition(EDITED_DEPTH + 1)
             fadeOutLoadingView()
-            IS_EDITED = false
+            UPDATE_SCROLL_FRAGMENT = false
         }
     }
 
@@ -311,7 +310,7 @@ class ScrollFragment : Fragment(), ScrollDatePickerListener {
     companion object {
         var QUERY_YEAR = getCurrentDate()[0].toInt()
         var QUERY_MONTH = getCurrentDate()[1].toInt()
-        var IS_EDITED = false
+        var UPDATE_SCROLL_FRAGMENT = false
         var EDITED_DEPTH = 0
     }
 }

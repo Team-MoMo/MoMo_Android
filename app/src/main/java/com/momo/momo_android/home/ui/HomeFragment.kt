@@ -9,14 +9,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import com.momo.momo_android.R
 import com.momo.momo_android.databinding.FragmentHomeBinding
 import com.momo.momo_android.diary.ui.DiaryActivity
 import com.momo.momo_android.home.data.ResponseDiaryList
-import com.momo.momo_android.home.ui.ScrollFragment.Companion.IS_EDITED
 import com.momo.momo_android.list.ui.ListActivity
 import com.momo.momo_android.network.RequestToServer
 import com.momo.momo_android.setting.ui.SettingActivity
@@ -140,11 +138,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun updateEditedData() {
-        if (IS_EDITED) {
+        if (UPDATE_HOME_FRAGMENT) {
             setCurrentDate()
             setDayNightStatus()
             getServerDiaryData()
-            IS_EDITED = false
+            UPDATE_HOME_FRAGMENT = false
         }
     }
 
@@ -366,5 +364,6 @@ class HomeFragment : Fragment() {
 
     companion object {
         var DIARY_STATUS = true
+        var UPDATE_HOME_FRAGMENT = true
     }
 }
