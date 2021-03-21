@@ -12,8 +12,9 @@ import com.momo.momo_android.R
 import com.momo.momo_android.databinding.ActivityDiaryBinding
 import com.momo.momo_android.diary.data.Diary
 import com.momo.momo_android.diary.data.ResponseDiaryData
+import com.momo.momo_android.home.ui.HomeFragment.Companion.UPDATE_HOME_FRAGMENT
 import com.momo.momo_android.home.ui.ScrollFragment.Companion.EDITED_DEPTH
-import com.momo.momo_android.home.ui.ScrollFragment.Companion.IS_EDITED
+import com.momo.momo_android.home.ui.ScrollFragment.Companion.UPDATE_SCROLL_FRAGMENT
 import com.momo.momo_android.network.RequestToServer
 import com.momo.momo_android.util.*
 import okhttp3.ResponseBody
@@ -206,7 +207,8 @@ class DiaryActivity : AppCompatActivity() {
                 response.takeIf { it.isSuccessful }
                     ?.body()
                     ?.let {
-                        IS_EDITED = true
+                        UPDATE_HOME_FRAGMENT = true
+                        UPDATE_SCROLL_FRAGMENT = true
                         EDITED_DEPTH = 0
                         finish()
                     } ?: showError(response.errorBody())
