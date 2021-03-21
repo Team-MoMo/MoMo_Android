@@ -39,7 +39,11 @@ class DiaryEditWriteActivity : AppCompatActivity() {
         }
 
         binding.btnEdit.setOnClickListener {
-            requestEditDiary()
+            if (binding.etDiary.text.toString() == beforeDiary) {
+                finish()
+            } else {
+                requestEditDiary()
+            }
         }
 
         binding.etDiary.setOnBackPressListener(onBackPressListener)
