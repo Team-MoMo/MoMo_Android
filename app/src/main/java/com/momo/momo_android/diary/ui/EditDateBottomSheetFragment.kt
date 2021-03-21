@@ -105,6 +105,9 @@ class EditDateBottomSheetFragment(val itemClick: (IntArray) -> Unit) : BottomShe
     }
 
     private fun initDatePicker() {
+
+        binding.btnApply.isEnabled = false
+
         year = binding.includeYmdPicker.year
         month = binding.includeYmdPicker.month
         date = binding.includeYmdPicker.date
