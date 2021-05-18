@@ -272,11 +272,12 @@
 
     <ImageView
         android:id="@+id/imageView_swipeDown"
-        android:layout_width="36dp"
-        android:layout_height="26dp"
+        android:layout_width="38dp"
+        android:layout_height="28dp"
+        android:layout_marginBottom="13dp"
         android:background="@drawable/home_ic_swipe_up"
         android:rotation="180"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton_list"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_sea"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
