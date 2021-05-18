@@ -217,7 +217,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView42" />
 
             <ImageView
-                android:id="@+id/imageView55"
+                android:id="@+id/imageView_coach_btn_1"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginEnd="7dp"
@@ -234,7 +234,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="29dp"
                 android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/imageView55"
+                app:layout_constraintBottom_toTopOf="@+id/imageView_coach_btn_1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/coach_arrow_1" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -260,7 +260,7 @@
                 app:srcCompat="@drawable/coach_btn_close" />
 
             <ImageView
-                android:id="@+id/imageView57"
+                android:id="@+id/imageView_coach_btn_2"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginBottom="8dp"
@@ -278,9 +278,9 @@
                 android:layout_marginStart="29dp"
                 android:layout_marginEnd="33dp"
                 android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/imageView57"
-                app:layout_constraintEnd_toEndOf="@+id/imageView57"
-                app:layout_constraintStart_toStartOf="@+id/imageView57"
+                app:layout_constraintBottom_toTopOf="@+id/imageView_coach_btn_2"
+                app:layout_constraintEnd_toEndOf="@+id/imageView_coach_btn_2"
+                app:layout_constraintStart_toStartOf="@+id/imageView_coach_btn_2"
                 app:srcCompat="@drawable/coach_arrow_2" />
 
             <TextView
