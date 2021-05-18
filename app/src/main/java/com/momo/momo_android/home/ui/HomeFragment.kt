@@ -44,7 +44,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -274,7 +274,6 @@ class HomeFragment : Fragment() {
             viewLine.setGone()
             textViewDiary.setGone()
             buttonShowFull.setGone()
-            imageButtonUpload.setGone()
         }
     }
 
@@ -294,7 +293,6 @@ class HomeFragment : Fragment() {
             viewLine.setVisible()
             textViewDiary.setVisible()
             buttonShowFull.setVisible()
-            imageButtonUpload.setVisible()
         }
     }
 
