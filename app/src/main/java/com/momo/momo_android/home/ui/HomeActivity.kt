@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.momo.momo_android.R
 import com.momo.momo_android.databinding.ActivityHomeBinding
 import com.momo.momo_android.home.adapter.HomeViewPager2Adapter
 import com.momo.momo_android.lock.ui.LockOffActivity
@@ -12,6 +13,7 @@ import com.momo.momo_android.util.SharedPreferenceController
 import com.momo.momo_android.util.setGone
 import com.momo.momo_android.util.setVisible
 import com.momo.momo_android.util.showToast
+import java.util.*
 
 
 class HomeActivity : AppCompatActivity() {
@@ -46,6 +48,7 @@ class HomeActivity : AppCompatActivity() {
         if (SharedPreferenceController.getLoginStatus(this)) {
             binding.coachmark.setGone()
         } else {
+            setDayNightCoachMark()
             binding.apply {
                 coachmark.isClickable = true
                 coachPage1.setOnClickListener {
@@ -58,8 +61,22 @@ class HomeActivity : AppCompatActivity() {
                     coachmark.isClickable = false
                 }
             }
-
             SharedPreferenceController.setLoginStatus(this, true)
+        }
+    }
+
+    private fun setDayNightCoachMark() {
+        binding.apply {
+            when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
+                in 6..18 -> {
+                    imageViewCoachBtn1.setImageResource(R.drawable.coach_btn_1)
+                    imageViewCoachBtn2.setImageResource(R.drawable.coach_btn_2)
+                }
+                else -> {
+                    imageViewCoachBtn1.setImageResource(R.drawable.coach_btn_1_dark)
+                    imageViewCoachBtn2.setImageResource(R.drawable.coach_btn_2_dark)
+                }
+            }
         }
     }
 
