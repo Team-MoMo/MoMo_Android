@@ -9,6 +9,8 @@ import com.momo.momo_android.home.adapter.HomeViewPager2Adapter
 import com.momo.momo_android.lock.ui.LockOffActivity
 import com.momo.momo_android.splash.SplashActivity.Companion.FROM_SPLASH
 import com.momo.momo_android.util.SharedPreferenceController
+import com.momo.momo_android.util.setGone
+import com.momo.momo_android.util.setVisible
 import com.momo.momo_android.util.showToast
 
 
@@ -25,6 +27,7 @@ class HomeActivity : AppCompatActivity() {
         setViewBinding()
         setViewPager2()
         showLockOffActivity()
+        setCoachMark()
     }
 
     private fun setViewBinding() {
@@ -36,6 +39,27 @@ class HomeActivity : AppCompatActivity() {
         binding.viewPager2.apply {
             adapter = HomeViewPager2Adapter(this@HomeActivity)
             (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+        }
+    }
+
+    private fun setCoachMark() {
+        if (SharedPreferenceController.getLoginStatus(this)) {
+            binding.coachmark.setGone()
+        } else {
+            binding.apply {
+                coachmark.isClickable = true
+                coachPage1.setOnClickListener {
+                    coachPage1.setGone()
+                    coachPage2.setVisible()
+                }
+
+                coachPage2.setOnClickListener {
+                    coachmark.setGone()
+                    coachmark.isClickable = false
+                }
+            }
+
+            SharedPreferenceController.setLoginStatus(this, true)
         }
     }
 

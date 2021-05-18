@@ -11,6 +11,7 @@ object SharedPreferenceController {
     private val SOCIAL = "SOCIAL"
     private val PASSCODE = "PASSCODE"
     private val IS_LOCKED = "IS_LOCKED"
+    private val IS_LOGIN = "IS_LOGIN"
 
 
     // 토큰
@@ -114,6 +115,19 @@ object SharedPreferenceController {
         return prefs.getString("ON_BOARDING", "")
     }
 
+    // 코치마크 로그인 할 때마다
+    fun setLoginStatus(context: Context, isLogin: Boolean) {
+        val pref = context.getSharedPreferences(IS_LOGIN, Context.MODE_PRIVATE)
+        val editor = pref.edit()
+        editor.putBoolean(IS_LOGIN, isLogin)
+        editor.apply()
+    }
+
+    fun getLoginStatus(context: Context): Boolean {
+        val pref = context.getSharedPreferences(IS_LOGIN, Context.MODE_PRIVATE)
+        return pref.getBoolean(IS_LOGIN, false)
+    }
+
 
     // 소셜로그인으로 들어온 계정 체크
     fun setSocialLogin(context: Context, input: String) {
@@ -141,5 +155,6 @@ object SharedPreferenceController {
         clearSocialLogin(context)
         clearPassCode(context)
         setLockStatus(context, false)
+        setLoginStatus(context, false)
     }
 }
