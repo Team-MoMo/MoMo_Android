@@ -329,7 +329,12 @@ class HomeFragment : Fragment() {
                 buttonShowFull.id -> setIntentToDiaryActivity()
                 buttonUpload.id -> setIntentToUploadActivity()
                 imageButtonUpload.id -> setIntentToUploadActivity()
-                imageButtonList.id -> setIntentToListActivity()
+                imageButtonList.id -> {
+//                    setIntentToListActivity()
+                    requireContext().showToast("로그인 정보가 만료되어 재로그인이 필요합니다.")
+                    SharedPreferenceController.clearAll(requireContext())
+                    setIntentToSplashActivity()
+                }
             }
         }
     }
