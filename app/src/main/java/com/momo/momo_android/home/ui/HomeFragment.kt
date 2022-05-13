@@ -18,6 +18,7 @@ import com.momo.momo_android.home.data.ResponseDiaryList
 import com.momo.momo_android.list.ui.ListActivity
 import com.momo.momo_android.network.RequestToServer
 import com.momo.momo_android.setting.ui.SettingActivity
+import com.momo.momo_android.splash.SplashActivity
 import com.momo.momo_android.upload.ui.UploadFeelingActivity
 import com.momo.momo_android.util.*
 import retrofit2.Call
@@ -223,7 +224,11 @@ class HomeFragment : Fragment() {
             when (responseCode) {
                 400 -> showToast("일기 전체 조회 실패 - 필요한 값이 없습니다.")
                 500 -> showToast("일기 전체 조회 실패 - 서버 내부 에러")
-                else -> showToast("일기 전체 조회 실패 - 예외 상황")
+                else -> {
+                    showToast("로그인 정보가 만료되어 재로그인이 필요합니다.")
+                    SharedPreferenceController.clearAll(requireContext())
+                    setIntentToSplashActivity()
+                }
             }
         }
         setEmptyVisibility()
@@ -352,6 +357,14 @@ class HomeFragment : Fragment() {
         intent.putExtra("year", currentYear.toInt())
         intent.putExtra("month", currentMonth.toInt())
         startActivity(intent)
+    }
+
+    private fun setIntentToSplashActivity() {
+        Intent(requireContext(), SplashActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(this)
+            requireActivity().finish()
+        }
     }
 
     override fun onDestroyView() {
