@@ -27,7 +27,7 @@ object SharedPreferenceController {
         return pref.getString("access_token", "")
     }
 
-    fun clearAccessToken(context: Context) {
+    private fun clearAccessToken(context: Context) {
         val pref = context.getSharedPreferences(TOKEN, Context.MODE_PRIVATE)
         pref.edit().clear().apply()
     }
@@ -46,7 +46,7 @@ object SharedPreferenceController {
         return pref.getInt("USER_ID", 0)
     }
 
-    fun clearUserId(context: Context) {
+    private fun clearUserId(context: Context) {
         val pref = context.getSharedPreferences(USER_ID, Context.MODE_PRIVATE)
         pref.edit().clear().apply()
     }
@@ -65,7 +65,7 @@ object SharedPreferenceController {
         return pref.getString("PASSWORD", "")
     }
 
-    fun clearPassword(context: Context) {
+    private fun clearPassword(context: Context) {
         val pref = context.getSharedPreferences(PASSWORD, Context.MODE_PRIVATE)
         pref.edit().clear().apply()
     }
@@ -142,7 +142,7 @@ object SharedPreferenceController {
         return prefs.getString("SOCIAL", "")
     }
 
-    fun clearSocialLogin(context: Context) {
+    private fun clearSocialLogin(context: Context) {
         val pref = context.getSharedPreferences(SOCIAL, Context.MODE_PRIVATE)
         pref.edit().clear().apply()
     }
