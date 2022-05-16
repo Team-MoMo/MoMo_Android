@@ -16,6 +16,7 @@ import com.momo.momo_android.databinding.FragmentHomeBinding
 import com.momo.momo_android.diary.ui.DiaryActivity
 import com.momo.momo_android.home.data.ResponseDiaryList
 import com.momo.momo_android.list.ui.ListActivity
+import com.momo.momo_android.login.ui.LoginActivity
 import com.momo.momo_android.network.RequestToServer
 import com.momo.momo_android.setting.ui.SettingActivity
 import com.momo.momo_android.splash.SplashActivity
@@ -227,7 +228,7 @@ class HomeFragment : Fragment() {
                 else -> {
                     showToast("로그인 정보가 만료되어 재로그인이 필요합니다.")
                     SharedPreferenceController.clearAll(requireContext())
-                    setIntentToSplashActivity()
+                    setIntentToSignInActivity()
                 }
             }
         }
@@ -329,12 +330,7 @@ class HomeFragment : Fragment() {
                 buttonShowFull.id -> setIntentToDiaryActivity()
                 buttonUpload.id -> setIntentToUploadActivity()
                 imageButtonUpload.id -> setIntentToUploadActivity()
-                imageButtonList.id -> {
-//                    setIntentToListActivity()
-                    requireContext().showToast("로그인 정보가 만료되어 재로그인이 필요합니다.")
-                    SharedPreferenceController.clearAll(requireContext())
-                    setIntentToSplashActivity()
-                }
+                imageButtonList.id -> setIntentToListActivity()
             }
         }
     }
@@ -364,8 +360,8 @@ class HomeFragment : Fragment() {
         startActivity(intent)
     }
 
-    private fun setIntentToSplashActivity() {
-        Intent(requireContext(), SplashActivity::class.java).apply {
+    private fun setIntentToSignInActivity() {
+        Intent(requireContext(), LoginActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(this)
             requireActivity().finish()
